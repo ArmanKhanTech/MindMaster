@@ -78,7 +78,7 @@ Follow the below instructions to get started.
 
 <ol>
   <li>
-    <p>Android Studio</a>
+    <p>Android Studio</p>
   </li>
 </ol>
 
