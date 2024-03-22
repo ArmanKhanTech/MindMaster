@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+        </intent>
+    </queries>
+
+    <uses-feature
+        android:name="android.software.device_admin"
+        android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/app_icon"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/app_icon"
+        android:supportsRtl="true">
+
+        <receiver
+            android:name=".Services.RestartService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".Services.AdminReceiver"
+            android:exported="false"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin" />
+
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".Services.ForegroundService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="To run service in the background." />
+        </service>
+        <service
+            android:name=".Services.NotificationBlock"
+            android:exported="false"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".Services.LogURLService"
+            android:exported="true"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibility-service"
+                android:resource="@xml/accessibility_service" />
+        </service>
+
+        <activity
+            android:name=".Activity.NoOfLaunchesActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.FixedBlockActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.QuickBlockActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.SpecificTimeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.UsageTimeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.EditProfileActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.NewScheduleActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.DrawOnTopScreenActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.SelectAppActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.SelectStrictMode"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.SelectLockMode"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.TakeBreakActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.NewProfileActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.KeywordBlockActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.AppBlockActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.SettingActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.InternetBlockActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.EnterPasswordActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.NewPasswordActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.AboutActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.DrawOnTopWebActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.WebBlockActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Permissions.GetNotificationAccess"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.RestrictActivity" />
+        <activity
+            android:name=".Activity.DrawOnTopAppActivity"
+            android:exported="false"
+            android:noHistory="true"
+            android:theme="@style/Theme.FocusOnMe.CustomView.LimitActivity" />
+        <activity
+            android:name=".Permissions.GetDrawOverAppsPermission"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.PermissionActivity" />
+        <activity
+            android:name=".Permissions.GetUsageStatsPermissionActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.PermissionActivity" />
+        <activity
+            android:name=".Activity.UsageOverviewActivity"
+            android:exported="false"
+            android:noHistory="true"
+            android:theme="@style/Theme.FocusOnMe.CustomView.AppActivity" />
+        <activity
+            android:name=".Activity.MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+        <activity
+            android:name=".Activity.SplashScreenActivity"
+            android:exported="true"
+            android:theme="@style/Theme.FocusOnMe">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.AppStatsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.AppActivity" />
+    </application>
+
+</manifest>

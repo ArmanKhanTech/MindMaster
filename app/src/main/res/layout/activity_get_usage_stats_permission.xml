@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/usage_per" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Usage Access"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/usage_per"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Permission not Granted"
+            android:textColor="#03A9F4"
+            android:textSize="20dp" />
+
+        <com.android.achievix.View.ExpandableTextView
+            android:id="@+id/expandableTextViewUsage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            android:lineSpacingExtra="3dp"
+            android:onClick="toggle"
+            android:text="@string/usage_per"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:padding="5dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/per_button_theme"
+                android:elevation="0dp"
+                android:onClick="done"
+                android:paddingBottom="2dp"
+                android:shadowColor="@color/white"
+                android:text="Done"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="25dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/grant_usage_access"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/per_button_theme"
+                android:elevation="0dp"
+                android:onClick="getUsagePermission"
+                android:paddingBottom="2dp"
+                android:shadowColor="@color/white"
+                android:text="Grant"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="25dp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>
