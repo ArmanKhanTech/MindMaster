@@ -22,8 +22,8 @@ public class DrawOnTopAppActivity extends AppCompatActivity {
         setContentView(R.layout.activity_draw_on_top_app);
         packName = getIntent().getStringExtra("PACK_NAME");
         msg = getIntent().getStringExtra("MSG");
-        TextView tv = findViewById(R.id.textView22);
-        TextView tv1 = findViewById(R.id.textView33);
+        TextView tv = findViewById(R.id.app_block_app_name);
+        TextView tv1 = findViewById(R.id.app_text);
         tv1.setText(msg);
         PackageManager packageManager = getApplicationContext().getPackageManager();
         String appName = "";
@@ -33,7 +33,7 @@ public class DrawOnTopAppActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         tv.setText(appName);
-        ImageView appIcon = findViewById(R.id.imageView);
+        ImageView appIcon = findViewById(R.id.imageView3);
         try {
             Drawable icon = getPackageManager().getApplicationIcon(packName);
             appIcon.setImageDrawable(icon);

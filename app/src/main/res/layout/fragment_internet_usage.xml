@@ -69,6 +69,7 @@
                     android:layout_gravity="start"
                     android:text="Total Internet Usage"
                     android:textColor="@color/black"
+                    android:fontFamily="sans-serif-condensed-light"
                     android:textSize="20dp" />
 
                 <TextView

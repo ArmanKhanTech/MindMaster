@@ -71,6 +71,7 @@
                     android:layout_marginRight="15dp"
                     android:text="Total time spent looking at your phone"
                     android:textColor="@color/black"
+                    android:fontFamily="sans-serif-condensed-light"
                     android:textSize="20dp" />
 
                 <TextView

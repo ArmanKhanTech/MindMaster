@@ -21,7 +21,7 @@ public class DrawOnTopWebActivity extends AppCompatActivity {
         setContentView(R.layout.activity_draw_on_top_web);
         url = getIntent().getStringExtra("URL");
         packages = getIntent().getStringExtra("PACKAGE");
-        TextView tv = findViewById(R.id.textView22);
+        TextView tv = findViewById(R.id.web_block_web_name);
         tv.setText(url);
     }
 

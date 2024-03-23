@@ -15,6 +15,7 @@
             android:layout_height="500dp"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
+            android:layout_marginHorizontal="10dp"
             app:lottie_rawRes="@raw/usage_per" />
 
         <TextView

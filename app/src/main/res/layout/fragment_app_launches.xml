@@ -68,6 +68,7 @@
                     android:layout_gravity="start"
                     android:text="App Launches Count"
                     android:textColor="@color/black"
+                    android:fontFamily="sans-serif-condensed-light"
                     android:textSize="20dp" />
 
                 <TextView
