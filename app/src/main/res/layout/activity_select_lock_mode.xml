@@ -14,8 +14,8 @@
 
         <ImageButton
             android:id="@+id/back_lock_mode"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
             android:layout_marginTop="1dp"
@@ -32,7 +32,7 @@
             android:fontFamily="sans-serif-condensed-medium"
             android:text="Activate Lock Mode"
             android:textColor="@color/black"
-            android:textSize="25dp" />
+            android:textSize="30dp" />
 
     </LinearLayout>
 

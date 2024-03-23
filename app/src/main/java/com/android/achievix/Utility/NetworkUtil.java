@@ -1,5 +1,9 @@
 package com.android.achievix.Utility;
 
+import static android.net.ConnectivityManager.TYPE_MOBILE;
+import static android.net.ConnectivityManager.TYPE_WIFI;
+
+import android.annotation.SuppressLint;
 import android.app.usage.NetworkStats;
 import android.app.usage.NetworkStatsManager;
 import android.content.Context;
@@ -8,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
+import android.os.RemoteException;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -18,6 +23,8 @@ public class NetworkUtil {
     public static Map<String, Long> getNetworkUsageStats(Context context) {
         NetworkStatsManager networkStatsManager = (NetworkStatsManager) context.getSystemService(Context.NETWORK_STATS_SERVICE);
         PackageManager packageManager = context.getPackageManager();
+
+        @SuppressLint("QueryPermissionsNeeded")
         List<ApplicationInfo> installedApplications = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
 
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -38,16 +45,16 @@ public class NetworkUtil {
                     NetworkStats networkStats;
                     if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
                         networkStats = networkStatsManager.queryDetailsForUid(
-                                ConnectivityManager.TYPE_MOBILE,
-                                packageName,
+                                TYPE_MOBILE,
+                                null,
                                 getTimesTamp(),
                                 System.currentTimeMillis(),
                                 uid);
                         mobileDataUsage += getNetworkUsage(networkStats);
                     } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
                         networkStats = networkStatsManager.queryDetailsForUid(
-                                ConnectivityManager.TYPE_WIFI,
-                                packageName,
+                                TYPE_WIFI,
+                                null,
                                 getTimesTamp(),
                                 System.currentTimeMillis(),
                                 uid);
@@ -56,7 +63,7 @@ public class NetworkUtil {
                 }
             }
 
-            long totalDataUsageMB = (mobileDataUsage + wifiDataUsage) / (1024 * 1024); // Convert bytes to MB
+            long totalDataUsageMB = (mobileDataUsage + wifiDataUsage) / (1024 * 1024);
             usageStats.put(packageName, totalDataUsageMB);
         }
 

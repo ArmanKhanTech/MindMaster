@@ -15,7 +15,7 @@ class WebBlockAdapter(private var appList: List<AppSelectModel>, private var isW
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val webName: TextView = view.findViewById(R.id.web_name)
         val blocked: ImageView = view.findViewById(R.id.web_action_block)
-        val icon: ImageView = view.findViewById(R.id.web_icon)
+//        val icon: ImageView = view.findViewById(R.id.web_icon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,11 +28,11 @@ class WebBlockAdapter(private var appList: List<AppSelectModel>, private var isW
         val appInfo = appList[position]
 
         holder.webName.text = appInfo.name
-        if (isWeb) {
-            holder.icon.setImageResource(R.drawable.web_icon)
-        } else {
-            holder.icon.setImageResource(R.drawable.keyword_icon)
-        }
+//        if (isWeb) {
+//            holder.icon.setImageResource(R.drawable.web_icon)
+//        } else {
+//            holder.icon.setImageResource(R.drawable.keyword_icon)
+//        }
     }
 
     override fun getItemCount() = appList.size

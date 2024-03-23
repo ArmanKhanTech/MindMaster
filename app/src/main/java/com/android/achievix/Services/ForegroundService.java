@@ -208,7 +208,7 @@ public class ForegroundService extends Service {
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Achievix")
                 .setContentText(input)
-                .setSmallIcon(R.mipmap.app_icon)
+//                .setSmallIcon(R.mipmap.app_icon)
                 .setContentIntent(pendingIntent)
                 .build();
         startForeground(1, notification);

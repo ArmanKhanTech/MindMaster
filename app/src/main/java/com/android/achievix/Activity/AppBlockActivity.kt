@@ -21,7 +21,8 @@ import com.android.achievix.Model.AppBlockModel
 import com.android.achievix.R
 import com.android.achievix.Utility.UsageUtil.Companion.getInstalledApps
 
-// TODO: Lazy loading, spinner theme, sort by usage, blocked, launches, on click listener
+// TODO: Spinner theme, blocked, launches, on click listener
+@Suppress("DEPRECATION")
 class AppBlockActivity : AppCompatActivity() {
     private lateinit var appList: List<AppBlockModel>
     private lateinit var recyclerView: RecyclerView
@@ -87,7 +88,7 @@ class AppBlockActivity : AppCompatActivity() {
     }
 
     private fun filter(text: String) {
-        val filteredList = appList.filter { it.appName.contains(text, ignoreCase = true) ?: false }
+        val filteredList = appList.filter { it.appName.contains(text, ignoreCase = true) }
         (recyclerView.adapter as AppBlockAdapter).updateListBlock(filteredList)
     }
 
@@ -99,16 +100,19 @@ class AppBlockActivity : AppCompatActivity() {
         private val sort: String
     ) : AsyncTask<Void?, Void?, List<AppBlockModel>>() {
 
+        @Deprecated("Deprecated in Java")
         override fun onPreExecute() {
             super.onPreExecute()
             activity.llAppBlock.visibility = View.GONE
             activity.loadingLayout.visibility = View.VISIBLE
         }
 
+        @Deprecated("Deprecated in Java")
         override fun doInBackground(vararg params: Void?): List<AppBlockModel> {
             return getInstalledApps(context, sort, "AppBlockActivity")
         }
 
+        @Deprecated("Deprecated in Java")
         override fun onPostExecute(result: List<AppBlockModel>?) {
             if (result != null) {
                 activity.appList = result

@@ -15,9 +15,8 @@ class AppBlockAdapter(private var appList: List<AppBlockModel>) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val appName: TextView = view.findViewById(R.id.app_name_block)
         val appIcon: ImageView = view.findViewById(R.id.app_icon_block)
-        val extra1: TextView = view.findViewById(R.id.app_info_block)
+        val extra: TextView = view.findViewById(R.id.app_info_block)
         val blocked: ImageView = view.findViewById(R.id.app_action_block)
-        val extra2: TextView = view.findViewById(R.id.app_text_block_extra)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,8 +30,7 @@ class AppBlockAdapter(private var appList: List<AppBlockModel>) :
 
         holder.appName.text = appInfo.appName
         holder.appIcon.setImageDrawable(appInfo.icon)
-        holder.extra1.text = appInfo.extra1.let { convertToHrsMins(it.toLong()) }
-        holder.extra2.text = appInfo.extra2
+        holder.extra.text = convertToHrsMins(appInfo.extra.toLong())
         //holder.blocked.setImageDrawable(appInfo.blocked)
     }
 

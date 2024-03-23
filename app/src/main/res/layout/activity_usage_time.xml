@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,47 +8,48 @@
     android:orientation="vertical"
     tools:context=".Activity.UsageTimeActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/back_usage_time"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="15dp"
-            android:background="@color/white"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/back_icon"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:text="Usage Time"
-            android:textColor="@color/black"
-            android:textSize="25dp" />
-
-    </LinearLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/back_usage_time"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@color/white"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/back_icon"
+                    tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:text="Usage Time"
+                    android:textColor="@color/black"
+                    android:textSize="30dp" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="15dp"
                 android:text="I Want to Block"
                 android:textColor="@color/skyBlue"
                 android:textSize="20dp" />
@@ -89,7 +90,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -138,8 +138,8 @@
                     android:id="@+id/sun"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/day_radio_select"
                     android:button="@null"
@@ -249,34 +249,96 @@
                 android:textColor="@color/skyBlue"
                 android:textSize="20dp" />
 
-            <TimePicker
-                android:id="@+id/time_picker_usage_time"
-                style="@style/TimePickerTheme"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:padding="10dp"
-                android:scaleX="1.2"
-                android:scaleY="1.2"
-                android:timePickerMode="spinner" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/usage_limit_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginHorizontal="15dp"
-                android:layout_marginVertical="20dp"
-                android:background="@drawable/take_break_button_theme"
-                android:padding="10dp"
-                android:text="Save"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/usage_time_hrs"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/app_block_edt_theme"
+                    android:hint="Hrs"
+                    android:inputType="number"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="25dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text=" : "
+                    android:textColor="@color/black"
+                    android:textSize="25dp" />
+
+                <EditText
+                    android:id="@+id/usage_time_mins"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/app_block_edt_theme"
+                    android:hint="Mins"
+                    android:inputType="number"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="25dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Daily"
+                    android:textColor="@color/black"
+                    android:textSize="25dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="and Show the Below Text"
+                android:textColor="@color/skyBlue"
                 android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/usage_time_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/app_block_edt_theme"
+                android:hint="something"
+                android:inputType="number"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
 
         </LinearLayout>
 
     </ScrollView>
 
-</LinearLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/usage_limit_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginVertical="20dp"
+        android:background="@drawable/take_break_button_theme"
+        android:padding="10dp"
+        android:text="Save"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20dp" />
+
+</FrameLayout>

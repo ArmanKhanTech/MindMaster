@@ -25,7 +25,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -82,14 +83,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barChart_view_app_launches"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_app_launches"

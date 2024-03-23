@@ -10,6 +10,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
+import android.util.Log
 import com.android.achievix.Model.AppBlockModel
 import com.android.achievix.Model.AppUsageModel
 import java.io.ByteArrayOutputStream
@@ -29,59 +30,30 @@ class UsageUtil {
 
             val calendar = Calendar.getInstance()
             when (sort) {
-                "Daily" -> calendar.set(
-                    calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH),
-                    0,
-                    0,
-                    0
-                )
+                "Daily" -> {
+                    calendar.add(Calendar.DAY_OF_YEAR, -1)
+                }
 
                 "Weekly" -> {
                     calendar.add(Calendar.DAY_OF_YEAR, -7)
-                    calendar.set(
-                        calendar.get(Calendar.YEAR),
-                        calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH),
-                        0,
-                        0,
-                        0
-                    )
                 }
 
-                "Monthly" -> calendar.set(
-                    calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH),
-                    1,
-                    0,
-                    0,
-                    0
-                )
+                "Monthly" -> {
+                    calendar.add(Calendar.MONTH, -1)
+                }
 
-                "Yearly" -> calendar.set(
-                    calendar.get(Calendar.YEAR) - 1,
-                    calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH),
-                    0,
-                    0,
-                    0
-                )
-
-                else -> calendar.set(
-                    calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH),
-                    0,
-                    0,
-                    0
-                )
+                "Yearly" -> {
+                    calendar.add(Calendar.YEAR, -1)
+                }
             }
 
             val beginTime = calendar.timeInMillis
             val endTime = System.currentTimeMillis()
 
-            val events = usageStatsManager.queryEvents(beginTime, endTime)
+            val events = usageStatsManager.queryAndAggregateUsageStats(
+                beginTime,
+                endTime
+            )
             val event = UsageEvents.Event()
 
             val usageTimes: MutableMap<String, Long> = HashMap()
@@ -89,16 +61,11 @@ class UsageUtil {
             var lastEventTime = 0L
             var lastPackageName = ""
 
-            while (events.hasNextEvent()) {
-                events.getNextEvent(event)
-                if (event.eventType == UsageEvents.Event.ACTIVITY_RESUMED) {
-                    lastEventTime = event.timeStamp
-                    lastPackageName = event.packageName
-                } else if (event.eventType == UsageEvents.Event.ACTIVITY_PAUSED || event.eventType == UsageEvents.Event.ACTIVITY_STOPPED) {
-                    if (event.packageName == lastPackageName) {
-                        val usageTime = usageTimes.getOrDefault(lastPackageName, 0L)
-                        usageTimes[lastPackageName] = usageTime + event.timeStamp - lastEventTime
-                    }
+            for (packageName in events.keys) {
+                val stats = events[packageName]
+                val usageTime = stats?.totalTimeInForeground
+                if (usageTime != null) {
+                    usageTimes[packageName] = usageTime
                 }
             }
 
@@ -140,17 +107,17 @@ class UsageUtil {
                         }
                         val stream = ByteArrayOutputStream()
                         bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream)
-                        val bitmapdata = stream.toByteArray()
+                        val bitmapData = stream.toByteArray()
                         icon = BitmapDrawable(
                             context.resources,
-                            BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.size)
+                            BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.size)
                         )
                         appUsageModels.add(
                             AppUsageModel(
                                 appName,
                                 app.packageName,
                                 icon,
-                                java.lang.Long.toString(usageTime),
+                                usageTime.toString(),
                                 usagePercentage
                             )
                         )
@@ -199,8 +166,9 @@ class UsageUtil {
             }
 
             var networkUsageMap: Map<String, Long>? = null
-            if (caller == "InternetBlockActivity" && sort == "Usage") {
+            if (caller == "InternetBlockActivity") {
                 networkUsageMap = NetworkUtil.getNetworkUsageStats(context)
+                Log.d("NetworkUsage", networkUsageMap.toString())
             }
 
             return apps.mapNotNull { app ->
@@ -208,7 +176,7 @@ class UsageUtil {
                     val usageTime = usageTimes.getOrDefault(app.packageName, 0L)
                     val appName = app.loadLabel(pm).toString()
                     var icon = app.loadIcon(pm)
-                    var bitmap: Bitmap
+                    val bitmap: Bitmap
                     if (icon is BitmapDrawable) {
                         bitmap = icon.bitmap
                     } else {
@@ -231,22 +199,20 @@ class UsageUtil {
                     }
                     val stream = ByteArrayOutputStream()
                     bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream)
-                    val bitmapdata = stream.toByteArray()
+                    val bitmapData = stream.toByteArray()
                     icon = BitmapDrawable(
                         context.resources,
-                        BitmapFactory.decodeByteArray(bitmapdata, 0, bitmapdata.size)
+                        BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.size)
                     )
                     when (caller) {
-//                        "InternetBlockActivity" ->
-//                            AppBlockList(
-//                                appName,
-//                                app.packageName,
-//                                icon,
-//                                networkUsageMap[app.packageName].toString(),
-//                                false,
-//                                "Extra",
-//                                getDrawable(context, R.drawable.lock_icon_red)
-//                            )
+                        "InternetBlockActivity" ->
+                            AppBlockModel(
+                                appName,
+                                app.packageName,
+                                icon,
+                                networkUsageMap?.get(app.packageName).toString(),
+                                false,
+                            )
 
                         "AppBlockActivity" ->
                             AppBlockModel(
@@ -254,8 +220,7 @@ class UsageUtil {
                                 app.packageName,
                                 icon,
                                 usageTime.toString(),
-                                false,
-                                "Extra",
+                                false
                             )
 
                         else -> {
@@ -271,7 +236,7 @@ class UsageUtil {
         private fun List<AppBlockModel>.sort(sort: String): List<AppBlockModel> {
             return when (sort) {
                 "Name" -> this.sortedBy { it.appName }
-                "Usage" -> this.sortedByDescending { it.extra1.toLong() }
+                "Usage" -> this.sortedByDescending { it.extra.toLong() }
                 else -> this.sortedBy { it.appName }
             }
         }

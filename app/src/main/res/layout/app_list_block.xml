@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/app_list_block"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -9,6 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
         android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
@@ -43,8 +43,7 @@
                 android:gravity="start"
                 android:text="App Name"
                 android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textSize="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -52,21 +51,11 @@
                 android:fontFamily="sans-serif-condensed-medium">
 
                 <TextView
-                    android:id="@+id/app_text_block_extra"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start|center"
-                    android:text="30 mins daily"
-                    android:textColor="@color/black"
-                    android:textFontWeight="@integer/material_motion_duration_long_2"
-                    android:textSize="20dp" />
-
-                <TextView
                     android:id="@+id/app_info_block"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:text="  |  Spent: 00 sec"
+                    android:text="Spent: 00 sec"
                     android:textColor="@color/black"
                     android:textFontWeight="@integer/material_motion_duration_long_2"
                     android:textSize="20dp" />
@@ -90,8 +79,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
         android:background="@color/grey" />
 
 </LinearLayout>

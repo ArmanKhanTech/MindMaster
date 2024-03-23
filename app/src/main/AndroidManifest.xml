@@ -30,6 +30,9 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true">
+        <activity
+            android:name=".Activity.EditAppProfileActivity"
+            android:exported="false" />
 
         <receiver
             android:name=".Services.RestartService"
@@ -85,100 +88,100 @@
         <activity
             android:name=".Activity.NoOfLaunchesActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.FixedBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.QuickBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.SpecificTimeActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.UsageTimeActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.EditProfileActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.NewScheduleActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.DrawOnTopScreenActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.SelectAppActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.SelectStrictMode"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.SelectLockMode"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.TakeBreakActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.NewProfileActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.KeywordBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.AppBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.SettingActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.InternetBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.EnterPasswordActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.NewPasswordActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.AboutActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.DrawOnTopWebActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.WebBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
-        <activity
-            android:name=".Permissions.GetNotificationAccess"
-            android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.RestrictActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.DrawOnTopAppActivity"
             android:exported="false"
             android:noHistory="true"
             android:theme="@style/Theme.FocusOnMe.CustomView.LimitActivity" />
+        <activity
+            android:name=".Permissions.GetNotificationAccess"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe.CustomView.PermissionActivity" />
         <activity
             android:name=".Permissions.GetDrawOverAppsPermission"
             android:exported="false"
@@ -191,11 +194,11 @@
             android:name=".Activity.UsageOverviewActivity"
             android:exported="false"
             android:noHistory="true"
-            android:theme="@style/Theme.FocusOnMe.CustomView.AppActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.MainActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.MainActivity" />
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.SplashScreenActivity"
             android:exported="true"

@@ -30,10 +30,10 @@ import com.android.achievix.Utility.UsageUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Lazy loading, optimize, edt cursor, spinner theme
+/** @noinspection ALL*/ // TODO: Lazy loading, optimize, edt cursor, spinner theme
 public class InternetBlockActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 0;
-    private final String[] sort = new String[]{"Name", "Usage", "Blocked", "Launches"};
+    private final String[] sort = new String[]{"Name", "Usage", "Blocked"};
     private String sortValue = "Name";
     private List<AppBlockModel> appList;
     private RecyclerView recyclerView;

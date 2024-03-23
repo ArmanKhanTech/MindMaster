@@ -6,7 +6,6 @@ data class AppBlockModel(
     val appName: String,
     val packageName: String,
     val icon: Drawable,
-    val extra1: String,
-    val blocked: Boolean?,
-    val extra2: String
+    val extra: String,
+    val blocked: Boolean?
 )
