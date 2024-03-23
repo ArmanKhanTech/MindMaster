@@ -57,7 +57,7 @@
                     android:layout_marginRight="20dp"
                     android:text="Normal Mode"
                     android:textColor="@color/pink"
-                    android:textSize="22dp" />
+                    android:textSize="20dp" />
 
                 <ImageView
                     android:layout_width="25dp"
@@ -78,7 +78,8 @@
                 android:layout_marginRight="10dp"
                 android:text="@string/normal_mode"
                 android:textColor="@color/black"
-                android:textSize="18dp" />
+                android:fontFamily="sans-serif-condensed-light"
+                android:textSize="20dp" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -94,8 +95,8 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="10dp"
                     android:text="Strictness Level"
-                    android:textColor="@color/skyBlue"
-                    android:textSize="18dp" />
+                    android:textColor="#2196F3"
+                    android:textSize="20dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -157,7 +158,7 @@
                     android:layout_marginRight="20dp"
                     android:text="Lock Mode"
                     android:textColor="@color/pink"
-                    android:textSize="22dp" />
+                    android:textSize="20dp" />
 
                 <ImageView
                     android:layout_width="25dp"
@@ -178,7 +179,8 @@
                 android:layout_marginRight="10dp"
                 android:text="@string/lock_mode"
                 android:textColor="@color/black"
-                android:textSize="18dp" />
+                android:fontFamily="sans-serif-condensed-light"
+                android:textSize="20dp" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -194,8 +196,8 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="10dp"
                     android:text="Strictness Level"
-                    android:textColor="@color/skyBlue"
-                    android:textSize="18dp" />
+                    android:textColor="#2196F3"
+                    android:textSize="20dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -258,7 +260,7 @@
                     android:layout_marginRight="20dp"
                     android:text="Strict Mode"
                     android:textColor="@color/pink"
-                    android:textSize="22dp" />
+                    android:textSize="20dp" />
 
                 <ImageView
                     android:layout_width="25dp"
@@ -279,7 +281,8 @@
                 android:layout_marginRight="10dp"
                 android:text="@string/strict_mode"
                 android:textColor="@color/black"
-                android:textSize="18dp" />
+                android:fontFamily="sans-serif-condensed-light"
+                android:textSize="20dp" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -295,8 +298,8 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="10dp"
                     android:text="Strictness Level"
-                    android:textColor="@color/skyBlue"
-                    android:textSize="18dp" />
+                    android:textColor="#2196F3"
+                    android:textSize="20dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
