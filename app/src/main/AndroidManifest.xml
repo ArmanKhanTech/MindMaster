@@ -31,7 +31,7 @@
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true">
         <activity
-            android:name=".Activity.EditAppProfileActivity"
+            android:name=".Activity.EditScheduleActivity"
             android:exported="false" />
 
         <receiver
