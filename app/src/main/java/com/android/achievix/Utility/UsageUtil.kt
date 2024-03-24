@@ -1,7 +1,6 @@
 package com.android.achievix.Utility
 
 import android.annotation.SuppressLint
-import android.app.usage.UsageEvents
 import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.pm.ApplicationInfo
@@ -22,7 +21,7 @@ class UsageUtil {
         var totalUsage: Long = 0
 
         @SuppressLint("ServiceCast", "QueryPermissionsNeeded", "UseCompatLoadingForDrawables")
-        fun getInstalledAppsUsage(context: Context, sort: String?): List<AppUsageModel> {
+        fun getInstalledAppsUsage(context: Context, sort: String?, packageNameStats: String? = null): List<AppUsageModel> {
             val pm = context.packageManager
             val apps = pm.getInstalledApplications(PackageManager.GET_META_DATA)
             val usageStatsManager =
@@ -54,12 +53,8 @@ class UsageUtil {
                 beginTime,
                 endTime
             )
-            val event = UsageEvents.Event()
 
             val usageTimes: MutableMap<String, Long> = HashMap()
-
-            var lastEventTime = 0L
-            var lastPackageName = ""
 
             for (packageName in events.keys) {
                 val stats = events[packageName]
@@ -136,32 +131,23 @@ class UsageUtil {
                 context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
 
             val calendar = Calendar.getInstance()
-            calendar.set(Calendar.HOUR_OF_DAY, 0)
-            calendar.set(Calendar.MINUTE, 0)
-            calendar.set(Calendar.SECOND, 0)
-            calendar.set(Calendar.MILLISECOND, 0)
+            calendar.add(Calendar.DAY_OF_YEAR, -1)
 
             val beginTime = calendar.timeInMillis
             val endTime = System.currentTimeMillis()
 
-            val events = usageStatsManager.queryEvents(beginTime, endTime)
-            val event = UsageEvents.Event()
+            val events = usageStatsManager.queryAndAggregateUsageStats(
+                beginTime,
+                endTime
+            )
 
-            val usageTimes = mutableMapOf<String, Long>()
-            var lastEventTime = 0L
-            var lastPackageName = ""
+            val usageTimes: MutableMap<String, Long> = HashMap()
 
-            while (events.hasNextEvent()) {
-                events.getNextEvent(event)
-
-                if (event.eventType == UsageEvents.Event.ACTIVITY_RESUMED) {
-                    lastEventTime = event.timeStamp
-                    lastPackageName = event.packageName
-                } else if (event.eventType == UsageEvents.Event.ACTIVITY_PAUSED || event.eventType == UsageEvents.Event.ACTIVITY_STOPPED) {
-                    if (event.packageName == lastPackageName) {
-                        val usageTime = usageTimes.getOrDefault(lastPackageName, 0L)
-                        usageTimes[lastPackageName] = usageTime + event.timeStamp - lastEventTime
-                    }
+            for (packageName in events.keys) {
+                val stats = events[packageName]
+                val usageTime = stats?.totalTimeInForeground
+                if (usageTime != null) {
+                    usageTimes[packageName] = usageTime
                 }
             }
 

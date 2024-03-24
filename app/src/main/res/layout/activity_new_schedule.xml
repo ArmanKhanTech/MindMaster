@@ -55,8 +55,8 @@
                 android:layout_marginVertical="10dp"
                 android:background="@drawable/main_stats_theme"
                 android:elevation="2dp"
-                android:orientation="vertical"
-                android:padding="5dp">
+                android:paddingHorizontal="5dp"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -68,7 +68,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginRight="22dp"
                         android:text="Usage Limit"
                         android:textColor="@color/pink"
                         android:textSize="22dp" />
@@ -107,8 +106,8 @@
                 android:layout_marginVertical="10dp"
                 android:background="@drawable/main_stats_theme"
                 android:elevation="2dp"
-                android:orientation="vertical"
-                android:padding="5dp">
+                android:paddingHorizontal="5dp"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -120,7 +119,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginRight="22dp"
                         android:text="Specific Time Interval"
                         android:textColor="@color/pink"
                         android:textSize="22dp" />
@@ -159,8 +157,8 @@
                 android:layout_marginVertical="10dp"
                 android:background="@drawable/main_stats_theme"
                 android:elevation="2dp"
-                android:orientation="vertical"
-                android:padding="5dp">
+                android:paddingHorizontal="5dp"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -172,7 +170,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginRight="22dp"
                         android:text="Quick Block"
                         android:textColor="@color/pink"
                         android:textSize="22dp" />
@@ -211,8 +208,8 @@
                 android:layout_marginVertical="10dp"
                 android:background="@drawable/main_stats_theme"
                 android:elevation="2dp"
-                android:orientation="vertical"
-                android:padding="5dp">
+                android:paddingHorizontal="5dp"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -224,7 +221,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginRight="22dp"
                         android:text="Number of Launches"
                         android:textColor="@color/pink"
                         android:textSize="22dp" />
@@ -263,8 +259,8 @@
                 android:layout_marginVertical="10dp"
                 android:background="@drawable/main_stats_theme"
                 android:elevation="2dp"
-                android:orientation="vertical"
-                android:padding="5dp">
+                android:paddingHorizontal="5dp"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -276,7 +272,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginRight="22dp"
                         android:text="Fixed Block"
                         android:textColor="@color/pink"
                         android:textSize="22dp" />

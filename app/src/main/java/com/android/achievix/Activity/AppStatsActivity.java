@@ -100,10 +100,6 @@ public class AppStatsActivity extends AppCompatActivity {
         packs = db2.readAllApps();
 
         new loadData().execute();
-
-        Button b12345 = findViewById(R.id.b12346);
-
-        b12345.setOnClickListener(view -> finish());
     }
 
     public void loadGraph() {
@@ -150,43 +146,43 @@ public class AppStatsActivity extends AppCompatActivity {
         barChart.invalidate();
     }
 
-    public void limitApp(View view) {
-        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        @SuppressLint("InflateParams") View popupView = layoutInflater.inflate(R.layout.popup_limit, null);
-        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
-        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-        dimBehind(popupWindow);
-        Button b2 = popupView.findViewById(R.id.ll);
-        EditText hrs = popupView.findViewById(R.id.hrs);
-        EditText mins = popupView.findViewById(R.id.mins);
-        b2.setOnClickListener(view1 -> {
-            if (TextUtils.isEmpty(hrs.getText().toString())) {
-                Toast.makeText(context, "Field Cannot Be Empty", Toast.LENGTH_SHORT).show();
-            } else if (TextUtils.isEmpty(mins.getText().toString())) {
-                Toast.makeText(context, "Field Cannot Be Empty", Toast.LENGTH_SHORT).show();
-            } else {
-                String value = hrs.getText().toString();
-                int h = Integer.parseInt(value);
-                value = mins.getText().toString();
-                int m = Integer.parseInt(value);
-                long m1 = (long) h * 60 * 60 * 1000;
-                long m2 = (long) m * 60 * 1000;
-                long m3 = m1 + m2;
-                String duration = String.valueOf(m3);
-                db.addNewPackageInLimit(packageName, duration);
-                startService();
-                popupWindow.dismiss();
-                if (!packs.contains(packageName)) {
-                    db2.addApp(packageName);
-                } else {
-                    db2.inAppLimit(packageName);
-                }
-                finish();
-            }
-        });
-    }
+//    public void limitApp(View view) {
+//        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+//        @SuppressLint("InflateParams") View popupView = layoutInflater.inflate(R.layout.popup_limit, null);
+//        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+//        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+//        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
+//        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+//        dimBehind(popupWindow);
+//        Button b2 = popupView.findViewById(R.id.ll);
+//        EditText hrs = popupView.findViewById(R.id.hrs);
+//        EditText mins = popupView.findViewById(R.id.mins);
+//        b2.setOnClickListener(view1 -> {
+//            if (TextUtils.isEmpty(hrs.getText().toString())) {
+//                Toast.makeText(context, "Field Cannot Be Empty", Toast.LENGTH_SHORT).show();
+//            } else if (TextUtils.isEmpty(mins.getText().toString())) {
+//                Toast.makeText(context, "Field Cannot Be Empty", Toast.LENGTH_SHORT).show();
+//            } else {
+//                String value = hrs.getText().toString();
+//                int h = Integer.parseInt(value);
+//                value = mins.getText().toString();
+//                int m = Integer.parseInt(value);
+//                long m1 = (long) h * 60 * 60 * 1000;
+//                long m2 = (long) m * 60 * 1000;
+//                long m3 = m1 + m2;
+//                String duration = String.valueOf(m3);
+//                db.addNewPackageInLimit(packageName, duration);
+//                startService();
+//                popupWindow.dismiss();
+//                if (!packs.contains(packageName)) {
+//                    db2.addApp(packageName);
+//                } else {
+//                    db2.inAppLimit(packageName);
+//                }
+//                finish();
+//            }
+//        });
+//    }
 
     private void startService() {
         Intent serviceIntent = new Intent(this, ForegroundService.class);

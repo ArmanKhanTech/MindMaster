@@ -77,30 +77,30 @@ public class NewPasswordActivity extends AppCompatActivity {
         return is;
     }
 
-    public void showPopup(View v) {
-        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        @SuppressLint("InflateParams") View popupView = layoutInflater.inflate(R.layout.new_pass_popup, null);
-        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
-        popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
-        edt1 = popupView.findViewById(R.id.newpass);
-        b1 = popupView.findViewById(R.id.b1);
-        b1.setOnClickListener(view -> {
-            String temp = edt1.getText().toString();
-            if (temp.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Field cannot be empty.", Toast.LENGTH_SHORT).show();
-            } else if (temp.length() <= 4) {
-                Toast.makeText(getApplicationContext(), "Password too short.", Toast.LENGTH_SHORT).show();
-            } else {
-                int pass = Integer.parseInt(temp);
-                SharedPreferences.Editor editor = getSharedPreferences("achievix", MODE_PRIVATE).edit();
-                editor.putInt("password", pass);
-                editor.apply();
-                Toast.makeText(getApplicationContext(), "Password set.", Toast.LENGTH_SHORT).show();
-                popupWindow.dismiss();
-            }
-        });
-        dimBehind(popupWindow);
-    }
+//    public void showPopup(View v) {
+//        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+//        @SuppressLint("InflateParams") View popupView = layoutInflater.inflate(R.layout.new_pass_popup, null);
+//        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+//        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+//        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
+//        popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
+//        edt1 = popupView.findViewById(R.id.newpass);
+//        b1 = popupView.findViewById(R.id.b1);
+//        b1.setOnClickListener(view -> {
+//            String temp = edt1.getText().toString();
+//            if (temp.isEmpty()) {
+//                Toast.makeText(getApplicationContext(), "Field cannot be empty.", Toast.LENGTH_SHORT).show();
+//            } else if (temp.length() <= 4) {
+//                Toast.makeText(getApplicationContext(), "Password too short.", Toast.LENGTH_SHORT).show();
+//            } else {
+//                int pass = Integer.parseInt(temp);
+//                SharedPreferences.Editor editor = getSharedPreferences("achievix", MODE_PRIVATE).edit();
+//                editor.putInt("password", pass);
+//                editor.apply();
+//                Toast.makeText(getApplicationContext(), "Password set.", Toast.LENGTH_SHORT).show();
+//                popupWindow.dismiss();
+//            }
+//        });
+//        dimBehind(popupWindow);
+//    }
 }

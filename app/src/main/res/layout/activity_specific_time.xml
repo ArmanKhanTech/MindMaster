@@ -13,7 +13,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
@@ -293,7 +293,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
-                android:layout_weight="1"
                 android:background="@drawable/app_block_edt_theme"
                 android:hint="something"
                 android:inputType="number"
@@ -301,7 +300,7 @@
                 android:padding="10dp"
                 android:textColor="@color/black"
                 android:layout_marginBottom="100dp"
-                android:textSize="25dp" />
+                android:textSize="22dp" />
 
         </LinearLayout>
 
@@ -313,7 +312,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginHorizontal="15dp"
-        android:layout_marginVertical="22dp"
+        android:layout_marginVertical="10dp"
         android:background="@drawable/take_break_button_theme"
         android:padding="10dp"
         android:text="Save"

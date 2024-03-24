@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:text="Block"
-            android:textColor="#FF9800"
+            android:textColor="#FF5722"
             android:textSize="50dp"
             android:textStyle="bold" />
 
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginHorizontal="15dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginVertical="10dp"
                 android:background="@drawable/web_block_theme"
                 android:padding="10dp"
                 android:text="Block"

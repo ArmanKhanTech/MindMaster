@@ -111,7 +111,7 @@ public class UsageOverviewFragment extends Fragment {
 
         @Override
         protected List<AppUsageModel> doInBackground(Void... voids) {
-            return UsageUtil.Companion.getInstalledAppsUsage(context, sort);
+            return UsageUtil.Companion.getInstalledAppsUsage(context, sort, null);
         }
 
         @Override

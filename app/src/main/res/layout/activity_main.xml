@@ -450,7 +450,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="22dp"
                             android:text="0"
-                            android:textColor="#FF9800"
+                            android:textColor="#FF5722"
                             android:textSize="50dp"
                             android:textStyle="bold" />
 
