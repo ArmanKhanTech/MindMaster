@@ -373,14 +373,15 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_weight="1"
-                                android:text="Block Apps"
+                                android:text="Block App"
                                 android:textColor="@color/white"
                                 android:textSize="22dp" />
 
                             <ImageView
                                 android:layout_width="0dp"
                                 android:layout_height="25dp"
-                                android:layout_marginRight="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:src="@drawable/goto_icon_white" />
 
@@ -430,15 +431,15 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:text="Block Sites"
+                                android:text="Block Website"
                                 android:textColor="@color/white"
                                 android:textSize="22dp" />
 
                             <ImageView
                                 android:layout_width="0dp"
                                 android:layout_height="25dp"
-                                android:layout_marginRight="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:src="@drawable/goto_icon_white" />
 
@@ -495,14 +496,15 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:text="Block Keywords"
+                                android:text="Block Keyword"
                                 android:textColor="@color/white"
                                 android:textSize="22dp" />
 
                             <ImageView
                                 android:layout_width="0dp"
                                 android:layout_height="25dp"
-                                android:layout_marginRight="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:src="@drawable/goto_icon_white" />
 
@@ -559,7 +561,8 @@
                             <ImageView
                                 android:layout_width="0dp"
                                 android:layout_height="25dp"
-                                android:layout_marginLeft="5dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:src="@drawable/goto_icon_white" />
 

@@ -18,10 +18,11 @@ import com.android.achievix.Model.AppSelectModel
 import com.android.achievix.R
 import java.util.Calendar
 
-// TODO: Selection disppaers, checkbox shape and color, lazy loading, on click listener
+// TODO: Selection disappaers, checkbox shape and color, loading, on click listener
 class SelectAppActivity : AppCompatActivity() {
     private lateinit var appList: List<AppSelectModel>
-    lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerView: RecyclerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_app)
