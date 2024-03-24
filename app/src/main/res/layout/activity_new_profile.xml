@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,63 +9,76 @@
     tools:context=".Activity.NewProfileActivity">
 
     <LinearLayout
-        android:id="@+id/new_profile_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/back_new_profile"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="15dp"
-            android:background="@color/white"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/back_icon"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
-
-        <TextView
+        <LinearLayout
+            android:id="@+id/new_profile_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/back_new_profile"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="15dp"
+                android:background="@color/white"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/back_icon"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="New Profile"
+                android:textColor="@color/black"
+                android:textSize="30dp" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:text="New Profile"
-            android:textColor="@color/black"
-            android:textSize="30dp" />
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:id="@+id/add_profile"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/new_profile_edt_theme"
+                android:hint="Add a new Profile"
+                android:maxLines="1"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="22dp" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center|start"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/add_icon" />
+
+        </FrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/profiles_list_new_profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="80dp"/>
 
     </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="15dp"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="10dp">
-
-        <EditText
-            android:id="@+id/add_profile"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/new_profile_edt_theme"
-            android:hint="Add a new Profile"
-            android:maxLines="1"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center|start"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/add_icon" />
-
-    </FrameLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/start_break_button"
@@ -78,8 +91,7 @@
         android:padding="10dp"
         android:text="Next"
         android:textAllCaps="false"
-        android:layout_alignParentBottom="true"
         android:textColor="@color/white"
-        android:textSize="20dp" />
+        android:textSize="22dp" />
 
-</RelativeLayout>
+</FrameLayout>

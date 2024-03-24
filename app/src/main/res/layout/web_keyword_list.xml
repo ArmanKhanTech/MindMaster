@@ -17,7 +17,7 @@
             android:elevation="0dp"
             android:outlineAmbientShadowColor="@color/white"
             android:outlineSpotShadowColor="@color/white"
-            app:cardCornerRadius="20dp">
+            app:cardCornerRadius="22dp">
 
             <ImageView
                 android:id="@+id/web_icon"
@@ -49,7 +49,7 @@
                     android:gravity="start"
                     android:text="WebName"
                     android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:textSize="22dp" />
 
             </LinearLayout>
 

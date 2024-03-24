@@ -51,7 +51,7 @@
                 android:layout_marginTop="15dp"
                 android:text="I Want to Block"
                 android:textColor="@color/skyBlue"
-                android:textSize="20dp" />
+                android:textSize="22dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                     android:paddingBottom="2dp"
                     android:text="App Launch"
                     android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:textSize="22dp" />
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/block_app_launch_specific_time"
@@ -106,7 +106,7 @@
                     android:paddingBottom="2dp"
                     android:text="Notification"
                     android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:textSize="22dp" />
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/block_noti_specific_time"
@@ -126,7 +126,7 @@
                 android:layout_margin="15dp"
                 android:text="On Days"
                 android:textColor="@color/skyBlue"
-                android:textSize="20dp" />
+                android:textSize="22dp" />
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -146,7 +146,7 @@
                     android:padding="10dp"
                     android:text="S"
                     android:textColor="@color/white"
-                    android:textSize="20dp" />
+                    android:textSize="22dp" />
 
                 <RadioButton
                     android:id="@+id/mon"
@@ -161,7 +161,7 @@
                     android:padding="10dp"
                     android:text="M"
                     android:textColor="@color/white"
-                    android:textSize="20dp" />
+                    android:textSize="22dp" />
 
                 <RadioButton
                     android:id="@+id/tue"
@@ -176,7 +176,7 @@
                     android:padding="10dp"
                     android:text="T"
                     android:textColor="@color/white"
-                    android:textSize="20dp" />
+                    android:textSize="22dp" />
 
                 <RadioButton
                     android:id="@+id/wed"
@@ -191,7 +191,7 @@
                     android:padding="10dp"
                     android:text="W"
                     android:textColor="@color/white"
-                    android:textSize="20dp" />
+                    android:textSize="22dp" />
 
                 <RadioButton
                     android:id="@+id/thu"
@@ -206,7 +206,7 @@
                     android:padding="10dp"
                     android:text="T"
                     android:textColor="@color/white"
-                    android:textSize="20dp" />
+                    android:textSize="22dp" />
 
                 <RadioButton
                     android:id="@+id/fri"
@@ -221,7 +221,7 @@
                     android:padding="10dp"
                     android:text="F"
                     android:textColor="@color/white"
-                    android:textSize="20dp" />
+                    android:textSize="22dp" />
 
                 <RadioButton
                     android:id="@+id/sat"
@@ -236,7 +236,7 @@
                     android:padding="10dp"
                     android:text="S"
                     android:textColor="@color/white"
-                    android:textSize="20dp" />
+                    android:textSize="22dp" />
 
             </RadioGroup>
 
@@ -246,7 +246,7 @@
                 android:layout_margin="15dp"
                 android:text="From"
                 android:textColor="@color/skyBlue"
-                android:textSize="20dp" />
+                android:textSize="22dp" />
 
             <TimePicker
                 android:id="@+id/time_picker_time_interval_from"
@@ -266,7 +266,7 @@
                 android:layout_marginHorizontal="15dp"
                 android:text="To"
                 android:textColor="@color/skyBlue"
-                android:textSize="20dp" />
+                android:textSize="22dp" />
 
             <TimePicker
                 android:id="@+id/time_picker_time_interval_to"
@@ -286,7 +286,7 @@
                 android:layout_margin="15dp"
                 android:text="and Show the Below Text"
                 android:textColor="@color/skyBlue"
-                android:textSize="20dp" />
+                android:textSize="22dp" />
 
             <EditText
                 android:id="@+id/time_interval_text"
@@ -313,12 +313,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginHorizontal="15dp"
-        android:layout_marginVertical="20dp"
+        android:layout_marginVertical="22dp"
         android:background="@drawable/take_break_button_theme"
         android:padding="10dp"
         android:text="Save"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="20dp" />
+        android:textSize="22dp" />
 
 </FrameLayout>

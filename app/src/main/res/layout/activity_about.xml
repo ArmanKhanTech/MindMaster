@@ -38,8 +38,8 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_margin="20dp"
+        android:layout_height="220dp"
+        android:layout_margin="22dp"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/splash" />
@@ -49,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="22dp"
         android:fontFamily="sans-serif-condensed-medium"
         android:text="@string/app_name"
         android:textColor="@color/black"
@@ -60,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="22dp"
         android:fontFamily="sans-serif-condensed-medium"
         android:text="By : Arman Khan"
         android:textColor="@color/black"
@@ -75,6 +75,6 @@
         android:fontFamily="sans-serif-condensed-medium"
         android:text="v 1.05"
         android:textColor="@color/black"
-        android:textSize="20dp" />
+        android:textSize="22dp" />
 
 </LinearLayout>

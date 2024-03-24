@@ -58,7 +58,7 @@
 
 ## About The Project
 
-Achievix is an Android productivty app thats lets you do whats necessary by getting rid of all kinds of distractions.
+Achievix is an Android productivity app thats lets you do whats necessary by getting rid of all kinds of distractions.
 
 **Supports Android 10 & above only.**
 
@@ -102,7 +102,7 @@ Follow the below instructions to get started.
 ### Features
 
 1. Limit App's Usage per Day.
-2. Notifiction Block.
+2. Notification Block.
 3. Block Websites.
 4. Limit Internet Usage per App.
 5. View Each App's Stats.
@@ -123,10 +123,10 @@ Follow the below instructions to get started.
 - [x] Add Internet Limit Activity
 - [x] Add Usage Stats
 - [x] Add Notification Blocker
-- [x] Add Parentel Control
+- [x] Add Parented Control
 - [x] Reduce RAM Consumption
 - [x] Add Uninstall Protect
-- [ ] Major Upgrade (UI & Bugs fix + some performace improvements)
+- [ ] Major Upgrade (UI & Bugs fix + some performance improvements)
 - [ ] Upload on Play Store
 
 See the [open issues](https://github.com/ArmanKhanTech/Achievix/issues) for a full list of proposed features (and known issues)

@@ -102,7 +102,7 @@
                         android:maxLines="1"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="20dp" />
+                        android:textSize="22dp" />
 
                     <ImageView
                         android:layout_width="wrap_content"

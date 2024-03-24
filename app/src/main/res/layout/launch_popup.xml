@@ -53,7 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="22dp"
                     android:text="Daily Launch"
                     android:textColor="@color/pink"
                     android:textSize="22dp" />
@@ -65,7 +65,7 @@
                     android:layout_centerVertical="true"
                     android:layout_gravity="center|end"
                     android:layout_marginLeft="50dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="22dp"
                     android:src="@drawable/goto_icon_blue" />
 
             </RelativeLayout>
@@ -90,7 +90,7 @@
             android:layout_gravity="center|start"
             android:layout_marginHorizontal="15dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="22dp"
             android:background="@drawable/main_stats_theme"
             android:elevation="2dp"
             android:orientation="vertical">
@@ -105,7 +105,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="22dp"
                     android:text="Hourly Launch"
                     android:textColor="@color/pink"
                     android:textSize="22dp" />
@@ -117,7 +117,7 @@
                     android:layout_centerVertical="true"
                     android:layout_gravity="center|end"
                     android:layout_marginLeft="50dp"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="22dp"
                     android:src="@drawable/goto_icon_blue" />
 
             </RelativeLayout>
