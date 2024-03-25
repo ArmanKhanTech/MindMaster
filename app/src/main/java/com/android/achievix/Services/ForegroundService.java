@@ -186,14 +186,18 @@ public class ForegroundService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         String input = intent.getStringExtra("inputExtra");
         createNotificationChannel();
-        SharedPreferences sh = getSharedPreferences("PASS_CODE", Context.MODE_PRIVATE);
-        int i = sh.getInt("pass", 0);
-        Intent notificationIntent;
-        if (i > 0) {
-            notificationIntent = new Intent(this, EnterPasswordActivity.class);
-        } else {
-            notificationIntent = new Intent(this, MainActivity.class);
-        }
+
+//        SharedPreferences sh = getSharedPreferences("PASS_CODE", Context.MODE_PRIVATE);
+//        int i = sh.getInt("pass", 0);
+//        Intent notificationIntent;
+//        if (i > 0) {
+//            notificationIntent = new Intent(this, EnterPasswordActivity.class);
+//        } else {
+//            notificationIntent = new Intent(this, MainActivity.class);
+//        }
+
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+
         PendingIntent pendingIntent;
         pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, FLAG_IMMUTABLE);
@@ -228,48 +232,47 @@ public class ForegroundService extends Service {
         manager.createNotificationChannel(serviceChannel);
     }
 
-    public float getPkgInfo(long startMillis, long endMillis, String pkgName) {
+    public float getPkgInfo(long startMillis, long endMillis, String packageName) {
         PackageManager packageManager = this.getPackageManager();
         ApplicationInfo info = null;
-        int uid;
+
         try {
-            info = packageManager.getApplicationInfo(pkgName, 0);
+            info = packageManager.getApplicationInfo(packageName, 0);
         } catch (PackageManager.NameNotFoundException e) {
             // do nothing
         }
-        uid = Objects.requireNonNull(info).uid;
+        int uid = Objects.requireNonNull(info).uid;
         return fetchNetworkStatsInfo(startMillis, endMillis, uid);
     }
 
     public float fetchNetworkStatsInfo(long startMillis, long endMillis, int uid) {
         NetworkStatsManager networkStatsManager;
-        float total = 0.0f;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            float receivedWifi = 0;
-            float sentWifi = 0;
-            float receivedMobData = 0;
-            float sentMobData = 0;
+        float total;
+        float receivedWifi = 0;
+        float sentWifi = 0;
+        float receivedMobData = 0;
+        float sentMobData = 0;
 
-            networkStatsManager = (NetworkStatsManager) this.getSystemService(Context.NETWORK_STATS_SERVICE);
-            NetworkStats nwStatsWifi = networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_WIFI, null,
-                    startMillis, endMillis, uid);
-            NetworkStats.Bucket bucketWifi = new NetworkStats.Bucket();
-            while (nwStatsWifi.hasNextBucket()) {
-                nwStatsWifi.getNextBucket(bucketWifi);
-                receivedWifi = receivedWifi + bucketWifi.getRxBytes();
-                sentWifi = sentWifi + bucketWifi.getTxBytes();
-            }
-
-            NetworkStats nwStatsMobData = networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_MOBILE, null,
-                    startMillis, endMillis, uid);
-            NetworkStats.Bucket bucketMobData = new NetworkStats.Bucket();
-            while (nwStatsMobData.hasNextBucket()) {
-                nwStatsMobData.getNextBucket(bucketMobData);
-                receivedMobData = receivedMobData + bucketMobData.getRxBytes();
-                sentMobData = sentMobData + bucketMobData.getTxBytes();
-            }
-            total = (receivedWifi + sentWifi + receivedMobData + sentMobData) / (1024 * 1024);
+        networkStatsManager = (NetworkStatsManager) this.getSystemService(Context.NETWORK_STATS_SERVICE);
+        NetworkStats nwStatsWifi = networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_WIFI, null,
+                startMillis, endMillis, uid);
+        NetworkStats.Bucket bucketWifi = new NetworkStats.Bucket();
+        while (nwStatsWifi.hasNextBucket()) {
+            nwStatsWifi.getNextBucket(bucketWifi);
+            receivedWifi = receivedWifi + bucketWifi.getRxBytes();
+            sentWifi = sentWifi + bucketWifi.getTxBytes();
         }
+
+        NetworkStats nwStatsMobData = networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_MOBILE, null,
+                startMillis, endMillis, uid);
+        NetworkStats.Bucket bucketMobData = new NetworkStats.Bucket();
+        while (nwStatsMobData.hasNextBucket()) {
+            nwStatsMobData.getNextBucket(bucketMobData);
+            receivedMobData = receivedMobData + bucketMobData.getRxBytes();
+            sentMobData = sentMobData + bucketMobData.getTxBytes();
+        }
+        total = (receivedWifi + sentWifi + receivedMobData + sentMobData) / (1024 * 1024);
+
         DecimalFormat df = new DecimalFormat("00000");
         df.setRoundingMode(RoundingMode.DOWN);
         total = Float.parseFloat(df.format(total));

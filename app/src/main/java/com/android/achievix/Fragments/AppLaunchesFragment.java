@@ -4,6 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,6 +30,7 @@ import com.android.achievix.Database.AppLaunchDatabase;
 import com.android.achievix.Model.AppUsageModel;
 import com.android.achievix.R;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -143,10 +148,6 @@ public class AppLaunchesFragment extends Fragment {
                     break;
             }
 
-            appLaunchCount = appLaunchCount.entrySet().stream()
-                    .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
-                    .collect(HashMap::new, (m, e) -> m.put(e.getKey(), e.getValue()), HashMap::putAll);
-
             List<String> packageNames = new ArrayList<>(appLaunchCount.keySet());
             PackageManager pm = context.getPackageManager();
 
@@ -164,6 +165,14 @@ public class AppLaunchesFragment extends Fragment {
                         ApplicationInfo appInfo = pm.getPackageInfo(packageName, 0).applicationInfo;
                         String appName = appInfo.loadLabel(pm).toString();
                         Drawable appIcon = appInfo.loadIcon(pm);
+                        Bitmap bitmap = Bitmap.createBitmap(appIcon.getIntrinsicWidth(), appIcon.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+                        Canvas canvas = new Canvas(bitmap);
+                        appIcon.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+                        appIcon.draw(canvas);
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                        byte[] byteArray = stream.toByteArray();
+                        appIcon = new BitmapDrawable(getResources(), BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
                         int launchCount = appLaunchCount.get(packageName);
                         double progress = (double) launchCount / totalCount * 100;
                         appLaunchModel.add(new AppUsageModel(appName, packageName, appIcon, String.valueOf(launchCount), progress));

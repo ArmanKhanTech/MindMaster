@@ -27,7 +27,7 @@ import java.util.List;
 
 public class UsageOverviewFragment extends Fragment {
     RecyclerView recyclerView;
-    List<AppUsageModel> appUsageModels = new ArrayList<>();
+    List<AppUsageModel> appUsageModel = new ArrayList<>();
     TextView stats;
     String[] sort = {"Daily", "Weekly", "Monthly", "Yearly"};
     String sortValue = "Daily";
@@ -35,7 +35,7 @@ public class UsageOverviewFragment extends Fragment {
     private LinearLayout loadingLayout;
 
     public UsageOverviewFragment() {
-        //
+        // do nothing
     }
 
     private static String convertMillisToHoursAndMinutes(long millis) {
@@ -73,7 +73,7 @@ public class UsageOverviewFragment extends Fragment {
 
                     @Override
                     public void onNothingSelected(AdapterView<?> parent) {
-                        //
+                        // do nothing
                     }
                 }
         );
@@ -115,13 +115,11 @@ public class UsageOverviewFragment extends Fragment {
 
         @Override
         protected void onPostExecute(List<AppUsageModel> result) {
-            appUsageModels = result;
-            recyclerView.setAdapter(new AppUsageAdapter(appUsageModels));
-
+            appUsageModel = result;
+            stats.setText(convertMillisToHoursAndMinutes(UsageUtil.totalUsage));
+            recyclerView.setAdapter(new AppUsageAdapter(appUsageModel));
             loadingLayout.setVisibility(View.GONE);
             llUsageOverview.setVisibility(View.VISIBLE);
-
-            stats.setText(convertMillisToHoursAndMinutes(UsageUtil.totalUsage));
         }
     }
 }
