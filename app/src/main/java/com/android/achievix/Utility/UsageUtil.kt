@@ -9,7 +9,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
-import android.util.Log
 import com.android.achievix.Model.AppBlockModel
 import com.android.achievix.Model.AppUsageModel
 import java.io.ByteArrayOutputStream
@@ -142,7 +141,6 @@ class UsageUtil {
             )
 
             val usageTimes: MutableMap<String, Long> = HashMap()
-
             for (packageName in events.keys) {
                 val stats = events[packageName]
                 val usageTime = stats?.totalTimeInForeground
@@ -151,10 +149,13 @@ class UsageUtil {
                 }
             }
 
-            var networkUsageMap: Map<String, Long>? = null
+            val networkUsageMap: HashMap<String, Float> = HashMap()
             if (caller == "InternetBlockActivity") {
-                networkUsageMap = NetworkUtil.getNetworkUsageStats(context)
-                Log.d("NetworkUsage", networkUsageMap.toString())
+                for (app in apps) {
+                    if (app.flags and ApplicationInfo.FLAG_SYSTEM == 0 || app.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0) {
+                        networkUsageMap[app.packageName] = NetworkUtil.getUID(System.currentTimeMillis() - 86400000, System.currentTimeMillis(), app.packageName, context)
+                    }
+                }
             }
 
             return apps.mapNotNull { app ->
@@ -196,7 +197,7 @@ class UsageUtil {
                                 appName,
                                 app.packageName,
                                 icon,
-                                networkUsageMap?.get(app.packageName).toString(),
+                                networkUsageMap[app.packageName].toString(),
                                 false,
                             )
 
@@ -222,7 +223,9 @@ class UsageUtil {
         private fun List<AppBlockModel>.sort(sort: String): List<AppBlockModel> {
             return when (sort) {
                 "Name" -> this.sortedBy { it.appName }
-                "Usage" -> this.sortedByDescending { it.extra.toLong() }
+                "Usage" -> this.sortedByDescending {
+                    it.extra.toDouble()
+                }
                 else -> this.sortedBy { it.appName }
             }
         }

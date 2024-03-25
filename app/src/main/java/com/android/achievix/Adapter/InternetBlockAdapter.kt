@@ -31,7 +31,7 @@ class InternetBlockAdapter(private var appList: List<AppBlockModel>) :
 
         holder.appName.text = appInfo.appName
         holder.appIcon.setImageDrawable(appInfo.icon)
-        holder.extra.text = appInfo.extra.toLong().toString()
+        holder.extra.text = appInfo.extra + " MB"
         //holder.blocked.setImageDrawable(appInfo.blocked)
     }
 

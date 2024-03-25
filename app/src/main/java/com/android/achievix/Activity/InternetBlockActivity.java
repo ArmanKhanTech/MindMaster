@@ -52,13 +52,6 @@ public class InternetBlockActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_PHONE_STATE},
-                    MY_PERMISSIONS_REQUEST_READ_PHONE_STATE);
-        }
-
         new GetInstalledAppsInternetTask(this, sortValue).execute();
 
         EditText searchView = findViewById(R.id.search_internet_block);
@@ -142,7 +135,6 @@ public class InternetBlockActivity extends AppCompatActivity {
         protected void onPostExecute(List<AppBlockModel> result) {
             appList = result;
             recyclerView.setAdapter(new InternetBlockAdapter(appList));
-
             loadingLayout.setVisibility(View.GONE);
             llInternetUsage.setVisibility(View.VISIBLE);
         }

@@ -1,8 +1,6 @@
 package com.android.achievix.Fragments;
 
 import android.annotation.SuppressLint;
-import android.app.usage.NetworkStats;
-import android.app.usage.NetworkStatsManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -12,7 +10,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -28,15 +25,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.achievix.Adapter.AppUsageAdapter;
 import com.android.achievix.Adapter.InternetUsageAdapter;
 import com.android.achievix.Model.AppUsageModel;
 import com.android.achievix.R;
-import com.android.achievix.Utility.UsageUtil;
+import com.android.achievix.Utility.NetworkUtil;
 
 import java.io.ByteArrayOutputStream;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -131,7 +125,7 @@ public class InternetUsageFragment extends Fragment {
             HashMap<String, Float> appUsage = new HashMap<>();
 
             for (PackageInfo packageInfo : packages) {
-                if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+                if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0 || (packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0) {
                     packageNames.add(packageInfo.packageName);
                 }
             }
@@ -141,28 +135,28 @@ public class InternetUsageFragment extends Fragment {
                     startMillis = System.currentTimeMillis() - 86400000;
                     endMillis = System.currentTimeMillis();
                     for (String packageName : packageNames) {
-                        appUsage.put(packageName, getUID(startMillis, endMillis, packageName));
+                        appUsage.put(packageName, NetworkUtil.getUID(startMillis, endMillis, packageName, context));
                     }
                     break;
                 case "Weekly":
                     startMillis = System.currentTimeMillis() - 604800000;
                     endMillis = System.currentTimeMillis();
                     for (String packageName : packageNames) {
-                        appUsage.put(packageName, getUID(startMillis, endMillis, packageName));
+                        appUsage.put(packageName, NetworkUtil.getUID(startMillis, endMillis, packageName, context));
                     }
                     break;
                 case "Monthly":
                     startMillis = System.currentTimeMillis() - 2592000000L;
                     endMillis = System.currentTimeMillis();
                     for (String packageName : packageNames) {
-                        appUsage.put(packageName, getUID(startMillis, endMillis, packageName));
+                        appUsage.put(packageName, NetworkUtil.getUID(startMillis, endMillis, packageName, context));
                     }
                     break;
                 case "Yearly":
                     startMillis = System.currentTimeMillis() - 31536000000L;
                     endMillis = System.currentTimeMillis();
                     for (String packageName : packageNames) {
-                        appUsage.put(packageName, getUID(startMillis, endMillis, packageName));
+                        appUsage.put(packageName, NetworkUtil.getUID(startMillis, endMillis, packageName, context));
                     }
                     break;
             }
@@ -210,54 +204,5 @@ public class InternetUsageFragment extends Fragment {
             loadingLayout.setVisibility(View.GONE);
             llUsageOverview.setVisibility(View.VISIBLE);
         }
-    }
-
-    public float getUID(long startMillis, long endMillis, String packageName) {
-        PackageManager packageManager = requireActivity().getPackageManager();
-        ApplicationInfo info = null;
-
-        try {
-            info = packageManager.getApplicationInfo(packageName, 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            // do nothing
-        }
-
-        int uid = Objects.requireNonNull(info).uid;
-        return fetchNetworkStatsInfo(startMillis, endMillis, uid);
-    }
-
-    public float fetchNetworkStatsInfo(long startMillis, long endMillis, int uid) {
-        NetworkStatsManager networkStatsManager;
-        float total;
-        float receivedWifi = 0;
-        float sentWifi = 0;
-        float receivedMobData = 0;
-        float sentMobData = 0;
-
-        networkStatsManager = (NetworkStatsManager) requireActivity().getSystemService(Context.NETWORK_STATS_SERVICE);
-        NetworkStats nwStatsWifi = networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_WIFI, null,
-                startMillis, endMillis, uid);
-        NetworkStats.Bucket bucketWifi = new NetworkStats.Bucket();
-        while (nwStatsWifi.hasNextBucket()) {
-            nwStatsWifi.getNextBucket(bucketWifi);
-            receivedWifi = receivedWifi + bucketWifi.getRxBytes();
-            sentWifi = sentWifi + bucketWifi.getTxBytes();
-        }
-
-        NetworkStats nwStatsMobData = networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_MOBILE, null,
-                startMillis, endMillis, uid);
-        NetworkStats.Bucket bucketMobData = new NetworkStats.Bucket();
-        while (nwStatsMobData.hasNextBucket()) {
-            nwStatsMobData.getNextBucket(bucketMobData);
-            receivedMobData = receivedMobData + bucketMobData.getRxBytes();
-            sentMobData = sentMobData + bucketMobData.getTxBytes();
-        }
-        total = (receivedWifi + sentWifi + receivedMobData + sentMobData) / (1024 * 1024);
-
-        DecimalFormat df = new DecimalFormat("00000");
-        df.setRoundingMode(RoundingMode.DOWN);
-        total = Float.parseFloat(df.format(total));
-
-        return total;
     }
 }
