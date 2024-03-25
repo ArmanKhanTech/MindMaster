@@ -1,18 +1,25 @@
 package com.android.achievix.Activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.android.achievix.R;
+import com.android.achievix.Services.ForegroundService;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Calendar;
@@ -26,11 +33,21 @@ public class MainActivity extends AppCompatActivity {
     int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
     String greeting = "";
 
-    @SuppressLint("NonConstantResourceId")
+    @SuppressLint({"NonConstantResourceId", "InlinedApi"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
+        }
+
+        if (!isMyServiceRunning(ForegroundService.class)) {
+            Intent serviceIntent = new Intent(this, ForegroundService.class);
+            serviceIntent.putExtra("inputExtra", "Foreground Service is Running");
+            ContextCompat.startForegroundService(this, serviceIntent);
+        }
 
         drawerLayout = findViewById(R.id.drawerLayout);
         NavigationView navigationMenu = findViewById(R.id.nav_menu);
@@ -98,17 +115,10 @@ public class MainActivity extends AppCompatActivity {
                     .setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
             LinearLayout normal = dialog.findViewById(R.id.mode_button_normal);
-            LinearLayout lock = dialog.findViewById(R.id.mode_button_lock);
             LinearLayout strict = dialog.findViewById(R.id.mode_button_strict);
 
             normal.setOnClickListener(view1 -> {
                 //
-            });
-
-            lock.setOnClickListener(view1 -> {
-                Intent intent = new Intent(MainActivity.this, SelectLockMode.class);
-                dialog.dismiss();
-                startActivity(intent);
             });
 
             strict.setOnClickListener(view1 -> {
@@ -129,6 +139,16 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, TakeBreakActivity.class);
             startActivity(intent);
         });
+    }
+
+    public boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public String getGreetings() {

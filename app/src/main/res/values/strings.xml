@@ -21,16 +21,6 @@
 
     <string name="take_a_break_whitelist" translatable="false">Select the applications you want to access when \'Take a Break\' is blocking you</string>
 
-    <string name="level_one_lock" translatable="false">- Block access to Achievix</string>
-
-    <string name="level_two_lock" translatable="false">- Block profile editing</string>
-
-    <string name="level_three_lock" translatable="false">- Block access to Achievix \n- Block device settings</string>
-
-    <string name="level_one_strict" translatable="false">- Block profile editing</string>
-
-    <string name="level_two_strict" translatable="false">- Block profile editing \n- Block device settings</string>
-
     <string name="usage_limit_ex">e.g. 30 minutes per day</string>
 
     <string name="launches_ex">e.g. 20 launches per day</string>

@@ -6,6 +6,6 @@ data class AppUsageModel(
     val name: String,
     var packageName: String?,
     val icon: Drawable,
-    var extra1: String?,
+    var extra: String?,
     var progress: Double?
 )

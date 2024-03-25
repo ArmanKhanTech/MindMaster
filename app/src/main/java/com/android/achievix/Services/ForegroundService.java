@@ -23,13 +23,12 @@ import android.os.IBinder;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import com.android.achievix.Activity.DrawOnTopAppActivity;
 import com.android.achievix.Activity.EnterPasswordActivity;
 import com.android.achievix.Activity.MainActivity;
-import com.android.achievix.Database.AnalysisDatabase;
+import com.android.achievix.Database.AppLaunchDatabase;
 import com.android.achievix.Database.InternetBlockDatabase;
 import com.android.achievix.Database.LimitPackages;
 import com.android.achievix.Database.RestrictPackages;
@@ -37,9 +36,12 @@ import com.android.achievix.R;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.SortedMap;
@@ -47,11 +49,14 @@ import java.util.TreeMap;
 
 public class ForegroundService extends Service {
     public static final String CHANNEL_ID = "ForegroundServiceChannel";
-    Context mContext;
-    RestrictPackages db = new RestrictPackages(this);
-    LimitPackages db1 = new LimitPackages(this);
-    AnalysisDatabase db2 = new AnalysisDatabase(this);
-    InternetBlockDatabase db3 = new InternetBlockDatabase(this);
+    public static String currentApp = "";
+    public static String previousApp = "";
+    public Context mContext;
+    public RestrictPackages db = new RestrictPackages(this);
+    public LimitPackages db1 = new LimitPackages(this);
+    public AppLaunchDatabase appLaunchDatabase = new AppLaunchDatabase(this);
+    public InternetBlockDatabase db3 = new InternetBlockDatabase(this);
+
     protected CountDownTimer check = new CountDownTimer(1000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
@@ -60,28 +65,28 @@ public class ForegroundService extends Service {
 
         @Override
         public void onFinish() {
-            String currentApp = "";
-            long time = System.currentTimeMillis();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String date = sdf.format(new Date());
 
-            // Get the current app package name
             UsageStatsManager usm = (UsageStatsManager) mContext.getSystemService(Context.USAGE_STATS_SERVICE);
-            usm = (UsageStatsManager) getSystemService(USAGE_STATS_SERVICE);
 
-            // Get the UsageStats object for the currently running app.
             long currentTime = System.currentTimeMillis();
             List<UsageStats> usageStats = usm.queryUsageStats(UsageStatsManager.INTERVAL_BEST, currentTime - 10000, currentTime);
 
-            // Get the package name of the currently running app from the UsageStats object.
-            if (usageStats != null && usageStats.size() > 0) {
+            if (usageStats != null && !usageStats.isEmpty()) {
                 SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
                 for (UsageStats usageStat : usageStats) {
                     mySortedMap.put(usageStat.getLastTimeUsed(), usageStat);
                 }
                 if (!mySortedMap.isEmpty()) {
+                    previousApp = currentApp;
                     currentApp = Objects.requireNonNull(mySortedMap.get(mySortedMap.lastKey())).getPackageName();
+
+                    if (!previousApp.equals(currentApp)) {
+                        appLaunchDatabase.incrementLaunchCount(currentApp, date);
+                    }
                 }
             }
-            Log.d("Current App", "Current App in foreground is: " + currentApp);
 
             ArrayList<String> packs = db.readRestrictPacks();
             ArrayList<String> packs1 = db1.readLimitPacks();
@@ -96,7 +101,6 @@ public class ForegroundService extends Service {
                 lockIntent.putExtra("PACK_NAME", currentApp);
                 String msg = "This App Is Blocked By FocusOnMe";
                 lockIntent.putExtra("MSG", msg);
-                db2.inAppBlocked(currentApp);
                 startActivity(lockIntent);
             } else if (packs1.contains(currentApp)) {
                 Calendar calendar = Calendar.getInstance();
@@ -136,7 +140,6 @@ public class ForegroundService extends Service {
                     lockIntent.putExtra("PACK_NAME", currentApp);
                     String msg = "This App Is Blocked By FocusOnMe";
                     lockIntent.putExtra("MSG", msg);
-                    db2.inAppBlocked(currentApp);
                     startActivity(lockIntent);
                 }
             } else if (packs2.contains(currentApp)) {
@@ -176,20 +179,9 @@ public class ForegroundService extends Service {
     public void onCreate() {
         super.onCreate();
         mContext = this;
-        if (db.isDbEmpty()) {
-            check.start();
-        }
-
-        if (db1.isDbEmpty()) {
-            check.start();
-        }
-
-        if (db3.isDbEmpty()) {
-            check.start();
-        }
+        check.start();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         String input = intent.getStringExtra("inputExtra");
@@ -208,7 +200,7 @@ public class ForegroundService extends Service {
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Achievix")
                 .setContentText(input)
-//                .setSmallIcon(R.mipmap.app_icon)
+                .setSmallIcon(R.drawable.noti_icon)
                 .setContentIntent(pendingIntent)
                 .build();
         startForeground(1, notification);
@@ -227,15 +219,13 @@ public class ForegroundService extends Service {
     }
 
     private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel serviceChannel = new NotificationChannel(
-                    CHANNEL_ID,
-                    "Foreground Service Channel",
-                    NotificationManager.IMPORTANCE_DEFAULT
-            );
-            NotificationManager manager = getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(serviceChannel);
-        }
+        NotificationChannel serviceChannel = new NotificationChannel(
+                CHANNEL_ID,
+                "Foreground Service Channel",
+                NotificationManager.IMPORTANCE_DEFAULT
+        );
+        NotificationManager manager = getSystemService(NotificationManager.class);
+        manager.createNotificationChannel(serviceChannel);
     }
 
     public float getPkgInfo(long startMillis, long endMillis, String pkgName) {
@@ -245,7 +235,7 @@ public class ForegroundService extends Service {
         try {
             info = packageManager.getApplicationInfo(pkgName, 0);
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            // do nothing
         }
         uid = Objects.requireNonNull(info).uid;
         return fetchNetworkStatsInfo(startMillis, endMillis, uid);

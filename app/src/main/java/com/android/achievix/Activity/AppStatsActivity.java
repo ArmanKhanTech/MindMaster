@@ -8,23 +8,17 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.android.achievix.Database.AnalysisDatabase;
+import com.android.achievix.Database.AppLaunchDatabase;
 import com.android.achievix.Database.LimitPackages;
 import com.android.achievix.R;
 import com.android.achievix.Services.ForegroundService;
@@ -47,7 +41,7 @@ public class AppStatsActivity extends AppCompatActivity {
 
     static long DAY_IN_MILLIS = 86400 * 1000;
     LimitPackages db = new LimitPackages(this);
-    AnalysisDatabase db2;
+    AppLaunchDatabase appLaunchDatabase;
     ArrayList<String> packs = new ArrayList<>();
     String packageName = "";
     int id, pos;
@@ -96,8 +90,8 @@ public class AppStatsActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        db2 = new AnalysisDatabase(context);
-        packs = db2.readAllApps();
+        appLaunchDatabase = new AppLaunchDatabase(context);
+//        packs = appLaunchDatabase.readAllApps();
 
         new loadData().execute();
     }

@@ -9,7 +9,6 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import androidx.annotation.NonNull;
 
 import com.android.achievix.Activity.DrawOnTopWebActivity;
-import com.android.achievix.Database.AnalysisDatabase;
 import com.android.achievix.Database.BlockWebsite;
 
 import java.util.ArrayList;
@@ -72,14 +71,12 @@ public class LogURLService extends AccessibilityService {
                     return;
                 }
 
-                AnalysisDatabase db2 = new AnalysisDatabase(this);
-
                 if (!packageName.equals(browserApp)) {
                     if (android.util.Patterns.WEB_URL.matcher(capturedUrl).matches()) {
                         browserUrl = capturedUrl;
                         browserApp = packageName;
                         String url = "";
-                        if (browserUrl.length() > 0) {
+                        if (!browserUrl.isEmpty()) {
                             if (browserUrl.contains("/")) {
                                 url = browserUrl.substring(0, browserUrl.indexOf("/"));
                             } else {
@@ -96,7 +93,6 @@ public class LogURLService extends AccessibilityService {
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 lockIntent.putExtra("URL", url);
                                 lockIntent.putExtra("PACKAGE", browserApp);
-                                db2.inWebAccessDenied(url);
                                 startActivity(lockIntent);
                             }
                         }
@@ -123,7 +119,6 @@ public class LogURLService extends AccessibilityService {
                                     lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     lockIntent.putExtra("URL", url);
                                     lockIntent.putExtra("PACKAGE", browserApp);
-                                    db2.inWebAccessDenied(url);
                                     startActivity(lockIntent);
                                 }
                             }

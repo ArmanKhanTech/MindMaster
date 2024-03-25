@@ -38,8 +38,8 @@ class SelectStrictMode : AppCompatActivity() {
         )
         dataList.add(
             TimeLineModel(
-                "Deactivation Method",
-                "Choose a Deactivation Method",
+                "Set Password",
+                "Required for accessing Achievix",
                 ItemStatus.COMPLETED
             )
         )
@@ -74,6 +74,8 @@ class SelectStrictMode : AppCompatActivity() {
 
                         val one = dialog.findViewById<LinearLayout>(R.id.strict_level_one)
                         val two = dialog.findViewById<LinearLayout>(R.id.strict_level_two)
+                        val three = dialog.findViewById<LinearLayout>(R.id.strict_level_three)
+                        val four = dialog.findViewById<LinearLayout>(R.id.strict_level_four)
 
                         one.setOnClickListener { view1: View? ->
                             dialog.dismiss()
@@ -83,13 +85,21 @@ class SelectStrictMode : AppCompatActivity() {
                             dialog.dismiss()
                         }
 
+                        three.setOnClickListener { view1: View? ->
+                            dialog.dismiss()
+                        }
+
+                        four.setOnClickListener { view1: View? ->
+                            dialog.dismiss()
+                        }
+
                         dialog.show()
                     }
 
                     1 -> {
                         Toast.makeText(
                             this@SelectStrictMode,
-                            "Deactivation Method",
+                            "Set Password",
                             Toast.LENGTH_SHORT
                         )
                             .show()
@@ -99,6 +109,14 @@ class SelectStrictMode : AppCompatActivity() {
                         Toast.makeText(
                             this@SelectStrictMode,
                             "Activate Device Admin",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    else -> {
+                        Toast.makeText(
+                            this@SelectStrictMode,
+                            "Unknown",
                             Toast.LENGTH_SHORT
                         ).show()
                     }

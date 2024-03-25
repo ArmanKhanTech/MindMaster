@@ -80,14 +80,13 @@ public class UsageOverviewFragment extends Fragment {
 
         loadingLayout = view.findViewById(R.id.loading_usage_overview);
         llUsageOverview = view.findViewById(R.id.ll_usage_overview);
-        stats = view.findViewById(R.id.tv_total_internet_usage);
+        stats = view.findViewById(R.id.tv_total_usage_overview);
 
         recyclerView = view.findViewById(R.id.recycler_view_usage_overview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
 
         new GetInstalledAppsUsageTask(requireActivity(), "Daily").execute();
-        recyclerView.setAdapter(new AppUsageAdapter(appUsageModels));
 
         return view;
     }

@@ -75,7 +75,7 @@
                     android:textSize="18dp" />
 
                 <TextView
-                    android:id="@+id/tv_total_internet_usage"
+                    android:id="@+id/tv_total_usage_overview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"

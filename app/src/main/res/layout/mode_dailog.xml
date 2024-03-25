@@ -120,114 +120,6 @@
                         android:layout_marginLeft="50dp"
                         android:src="@drawable/lock_icon_grey" />
 
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_marginHorizontal="3dp"
-                        android:layout_marginLeft="50dp"
-                        android:src="@drawable/lock_icon_grey" />
-
-                </LinearLayout>
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/mode_button_lock"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|start"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="10dp"
-            android:background="@drawable/main_stats_theme"
-            android:elevation="2dp"
-            android:orientation="vertical"
-            android:paddingHorizontal="5dp">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="22dp"
-                    android:text="Lock Mode"
-                    android:textColor="@color/pink"
-                    android:textSize="22dp" />
-
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center|end"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginRight="22dp"
-                    android:src="@drawable/goto_icon_blue" />
-
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="@string/lock_mode"
-                android:textColor="@color/black"
-                android:fontFamily="sans-serif-condensed-light"
-                android:textSize="22dp" />
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginBottom="5dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="22dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="Strictness Level"
-                    android:textColor="#2196F3"
-                    android:textSize="22dp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center|end"
-                    android:layout_marginRight="22dp">
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_marginHorizontal="3dp"
-                        android:layout_marginLeft="50dp"
-                        android:src="@drawable/lock_icon_red" />
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_marginHorizontal="3dp"
-                        android:layout_marginLeft="50dp"
-                        android:src="@drawable/lock_icon_red" />
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_marginHorizontal="3dp"
-                        android:layout_marginLeft="50dp"
-                        android:src="@drawable/lock_icon_grey" />
-
                 </LinearLayout>
 
             </RelativeLayout>
@@ -308,13 +200,6 @@
                     android:layout_centerVertical="true"
                     android:layout_gravity="center|end"
                     android:layout_marginRight="22dp">
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:layout_marginHorizontal="3dp"
-                        android:layout_marginLeft="50dp"
-                        android:src="@drawable/lock_icon_red" />
 
                     <ImageView
                         android:layout_width="18dp"

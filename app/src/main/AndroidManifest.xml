@@ -126,10 +126,6 @@
             android:exported="false"
             android:theme="@style/Theme.FocusOnMe" />
         <activity
-            android:name=".Activity.SelectLockMode"
-            android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
-        <activity
             android:name=".Activity.TakeBreakActivity"
             android:exported="false"
             android:theme="@style/Theme.FocusOnMe" />

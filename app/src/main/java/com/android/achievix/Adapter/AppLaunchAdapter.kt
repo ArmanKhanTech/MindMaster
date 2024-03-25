@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.achievix.Model.AppUsageModel
 import com.android.achievix.R
 
-class AppUsageAdapter(private var appList: List<AppUsageModel>) :
-    RecyclerView.Adapter<AppUsageAdapter.ViewHolder>() {
+class AppLaunchAdapter(private var appList: List<AppUsageModel>) :
+    RecyclerView.Adapter<AppLaunchAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val appName: TextView = view.findViewById(R.id.app_name)
@@ -31,16 +31,10 @@ class AppUsageAdapter(private var appList: List<AppUsageModel>) :
 
         holder.appName.text = appInfo.name
         holder.appIcon.setImageDrawable(appInfo.icon)
-        holder.stats.text = appInfo.extra?.let { convertToHrsMins(it.toLong()) }
+        holder.stats.text = appInfo.extra
         holder.progressBar.max = 100
         holder.progressBar.isIndeterminate = false
         holder.progressBar.progress = appInfo.progress?.toInt()!!
-    }
-
-    private fun convertToHrsMins(millis: Long): String {
-        val hours = millis / 1000 / 60 / 60
-        val minutes = millis / 1000 / 60 % 60
-        return "$hours hrs $minutes mins"
     }
 
     override fun getItemCount() = appList.size

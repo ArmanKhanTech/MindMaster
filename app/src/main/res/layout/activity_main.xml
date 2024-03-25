@@ -307,13 +307,6 @@
                                     android:layout_marginLeft="50dp"
                                     android:src="@drawable/lock_icon_grey" />
 
-                                <ImageView
-                                    android:layout_width="18dp"
-                                    android:layout_height="18dp"
-                                    android:layout_marginHorizontal="3dp"
-                                    android:layout_marginLeft="50dp"
-                                    android:src="@drawable/lock_icon_grey" />
-
                             </LinearLayout>
 
                         </RelativeLayout>
