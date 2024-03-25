@@ -26,6 +26,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.android.achievix.Activity.DrawOnTopAppActivity;
+import com.android.achievix.Activity.DrawOnTopScreenActivity;
 import com.android.achievix.Activity.EnterPasswordActivity;
 import com.android.achievix.Activity.MainActivity;
 import com.android.achievix.Database.AppLaunchDatabase;
@@ -86,6 +87,31 @@ public class ForegroundService extends Service {
                         appLaunchDatabase.incrementLaunchCount(currentApp, date);
                     }
                 }
+            }
+
+            SharedPreferences sh = getSharedPreferences("takeBreak", Context.MODE_PRIVATE);
+            if(sh.getInt("hour", 0) == Calendar.getInstance().get(Calendar.HOUR_OF_DAY) &&
+                    sh.getInt("minute", 0) == Calendar.getInstance().get(Calendar.MINUTE)) {
+                this.cancel();
+                Intent lockIntent = new Intent(mContext, DrawOnTopScreenActivity.class);
+                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                lockIntent.putExtra("hours", sh.getInt("hour", 0));
+                lockIntent.putExtra("mins", sh.getInt("minute", 0));
+                lockIntent.putExtra("pause", sh.getBoolean("pause", false));
+                lockIntent.putExtra("call", sh.getBoolean("call", false));
+                lockIntent.putExtra("notification", sh.getBoolean("notification", false));
+                startActivity(lockIntent);
+            } else if(sh.getInt("hour", 0) < Calendar.getInstance().get(Calendar.HOUR_OF_DAY) &&
+                    sh.getInt("minute", 0) < Calendar.getInstance().get(Calendar.MINUTE)) {
+                SharedPreferences.Editor editor = sh.edit();
+                editor.putInt("hour", 0);
+                editor.putInt("minute", 0);
+                editor.putBoolean("pause", false);
+                editor.putBoolean("call", false);
+                editor.putBoolean("notification", false);
+                editor.apply();
             }
 
             ArrayList<String> packs = db.readRestrictPacks();
@@ -207,6 +233,7 @@ public class ForegroundService extends Service {
                 .setSmallIcon(R.drawable.noti_icon)
                 .setContentIntent(pendingIntent)
                 .build();
+
         startForeground(1, notification);
         return START_STICKY;
     }
@@ -225,7 +252,7 @@ public class ForegroundService extends Service {
     private void createNotificationChannel() {
         NotificationChannel serviceChannel = new NotificationChannel(
                 CHANNEL_ID,
-                "Foreground Service Channel",
+                "AchievixForegroundServiceChannel",
                 NotificationManager.IMPORTANCE_DEFAULT
         );
         NotificationManager manager = getSystemService(NotificationManager.class);

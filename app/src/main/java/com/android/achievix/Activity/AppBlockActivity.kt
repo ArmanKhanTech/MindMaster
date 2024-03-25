@@ -21,12 +21,12 @@ import com.android.achievix.Model.AppBlockModel
 import com.android.achievix.R
 import com.android.achievix.Utility.UsageUtil.Companion.getInstalledApps
 
-// TODO: Spinner theme, blocked, launches, on click listener
+// TODO: Spinner theme, blocked, on click listener
 @Suppress("DEPRECATION")
 class AppBlockActivity : AppCompatActivity() {
-    private lateinit var appList: List<AppBlockModel>
-    private lateinit var recyclerView: RecyclerView
-    private var sort: Array<String?> = arrayOf("Name", "Usage", "Blocked", "Launches")
+    lateinit var appList: List<AppBlockModel>
+    lateinit var recyclerView: RecyclerView
+    private var sort: Array<String?> = arrayOf("Name", "Usage", "Blocked")
     private lateinit var llAppBlock: LinearLayout
     private lateinit var loadingLayout: LinearLayout
     private var sortValue = "Name"

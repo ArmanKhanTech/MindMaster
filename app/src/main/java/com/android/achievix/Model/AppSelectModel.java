@@ -7,7 +7,7 @@ public class AppSelectModel {
     private final Drawable icon;
     public boolean selected;
     private String packageName;
-    private String extra1;
+    private String extra;
 
     public AppSelectModel(String name, Drawable icon) {
         this.name = name;
@@ -18,7 +18,7 @@ public class AppSelectModel {
         this.name = name;
         this.icon = icon;
         this.packageName = packageName;
-        this.extra1 = extra1;
+        this.extra = extra1;
     }
 
     public String getPackageName() {
@@ -33,8 +33,8 @@ public class AppSelectModel {
         return icon;
     }
 
-    public String getExtra1() {
-        return extra1;
+    public String getExtra() {
+        return extra;
     }
 
     public void getSelected(boolean selected) {

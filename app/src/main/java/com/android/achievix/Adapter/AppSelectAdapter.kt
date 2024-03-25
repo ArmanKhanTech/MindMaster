@@ -32,9 +32,13 @@ class AppSelectAdapter(private var appList: List<AppSelectModel>) :
 
         holder.appName.text = appInfo.name
         holder.appIcon.setImageDrawable(appInfo.icon)
-        holder.extra.text = convertToHrsMins(appInfo.extra1.toLong())
-
+        holder.extra.text = convertToHrsMins(appInfo.extra.toLong())
         holder.checkBox.isChecked = appInfo.selected
+
+        holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
+            appInfo.selected = isChecked
+            holder.checkBox.isChecked = isChecked
+        }
 
         holder.checkBox.setOnCheckedChangeListener(null)
         holder.checkBox.isChecked = appInfo.selected

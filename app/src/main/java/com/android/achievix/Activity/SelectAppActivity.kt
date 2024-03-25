@@ -1,36 +1,56 @@
 package com.android.achievix.Activity
 
 import android.annotation.SuppressLint
-import android.app.usage.UsageEvents
-import android.app.usage.UsageStatsManager
 import android.content.Context
-import android.content.pm.ApplicationInfo
-import android.content.pm.PackageManager
+import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
+import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.achievix.Adapter.AppSelectAdapter
 import com.android.achievix.Model.AppSelectModel
 import com.android.achievix.R
-import java.util.Calendar
+import com.android.achievix.Utility.UsageUtil
 
-// TODO: Selection disappaers, checkbox shape and color, loading, on click listener
+// TODO: Selection disappears on scrolling
 class SelectAppActivity : AppCompatActivity() {
     private lateinit var appList: List<AppSelectModel>
     private lateinit var recyclerView: RecyclerView
+    private lateinit var button: Button
+    private val selectedApps = mutableListOf<String>()
+    private lateinit var llAppBlock: LinearLayout
+    private lateinit var loadingLayout: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_app)
 
+        llAppBlock = findViewById(R.id.ll_select_apps)
+        loadingLayout = findViewById(R.id.loading_select_apps)
+
         recyclerView = findViewById(R.id.app_select_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        appList = getInstalledApps(this)
-        recyclerView.adapter = AppSelectAdapter(appList)
+
+        button = findViewById(R.id.save_selected_app_button)
+        button.setOnClickListener {
+            val intent = Intent()
+            selectedApps.clear()
+            appList.forEach {
+                if (it.selected) {
+                    selectedApps.add(it.packageName)
+                }
+            }
+            intent.putStringArrayListExtra("selectedApps", ArrayList(selectedApps))
+            setResult(RESULT_OK, intent)
+            finish()
+        }
 
         val searchView = findViewById<EditText>(R.id.search_app_select)
         searchView.addTextChangedListener(object : TextWatcher {
@@ -46,64 +66,42 @@ class SelectAppActivity : AppCompatActivity() {
                 // do nothing
             }
         })
-    }
 
-    @SuppressLint("ServiceCast", "QueryPermissionsNeeded")
-    fun getInstalledApps(context: Context): List<AppSelectModel> {
-        val pm = context.packageManager
-        val apps = pm.getInstalledApplications(PackageManager.GET_META_DATA)
-        val usageStatsManager =
-            context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
-
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
-
-        val beginTime = calendar.timeInMillis
-        val endTime = System.currentTimeMillis()
-
-        val events = usageStatsManager.queryEvents(beginTime, endTime)
-        val event = UsageEvents.Event()
-
-        val usageTimes = mutableMapOf<String, Long>()
-        var lastEventTime = 0L
-        var lastPackageName = ""
-
-        while (events.hasNextEvent()) {
-            events.getNextEvent(event)
-
-            if (event.eventType == UsageEvents.Event.ACTIVITY_RESUMED) {
-                lastEventTime = event.timeStamp
-                lastPackageName = event.packageName
-            } else if (event.eventType == UsageEvents.Event.ACTIVITY_PAUSED || event.eventType == UsageEvents.Event.ACTIVITY_STOPPED) {
-                if (event.packageName == lastPackageName) {
-                    val usageTime = usageTimes.getOrDefault(lastPackageName, 0L)
-                    usageTimes[lastPackageName] = usageTime + event.timeStamp - lastEventTime
-                }
-            }
-        }
-
-        return apps.mapNotNull { app ->
-            if ((app.flags and ApplicationInfo.FLAG_SYSTEM) == 0 || (app.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0) {
-                val usageTime = usageTimes.getOrDefault(app.packageName, 0L)
-                val appName = app.loadLabel(pm).toString()
-                val icon = app.loadIcon(pm)
-                AppSelectModel(
-                    appName,
-                    app.packageName,
-                    icon,
-                    usageTime.toString()
-                )
-            } else {
-                null
-            }
-        }.sortedBy { it.name }
+        GetInstalledAppsTask(this, this).execute()
     }
 
     private fun filter(text: String) {
         val filteredList = appList.filter { it.name.contains(text, ignoreCase = true) }
         (recyclerView.adapter as AppSelectAdapter).updateListSelect(filteredList)
+    }
+
+    @Suppress("DEPRECATION")
+    @SuppressLint("StaticFieldLeak")
+    class GetInstalledAppsTask(
+        private val activity: SelectAppActivity,
+        private val context: Context
+    ) : AsyncTask<Void?, Void?, List<AppSelectModel>>() {
+
+        @Deprecated("Deprecated in Java")
+        override fun onPreExecute() {
+            super.onPreExecute()
+            activity.llAppBlock.visibility = View.GONE
+            activity.loadingLayout.visibility = View.VISIBLE
+        }
+
+        @Deprecated("Deprecated in Java")
+        override fun doInBackground(vararg params: Void?): List<AppSelectModel> {
+            return UsageUtil.getInstalledAppsForSelection(context)
+        }
+
+        @Deprecated("Deprecated in Java")
+        override fun onPostExecute(result: List<AppSelectModel>?) {
+            if (result != null) {
+                activity.appList = result
+            }
+            activity.recyclerView.adapter = AppSelectAdapter(activity.appList)
+            activity.llAppBlock.visibility = View.VISIBLE
+            activity.loadingLayout.visibility = View.GONE
+        }
     }
 }
