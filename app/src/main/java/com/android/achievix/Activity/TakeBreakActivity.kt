@@ -1,20 +1,13 @@
 package com.android.achievix.Activity
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
 import com.android.achievix.R
 
-// TODO: Show call
-open class TakeBreakActivity : AppCompatActivity() {
-    private val mRequestCode = 100
-    private var selectedApps: ArrayList<String>? = ArrayList()
-
+class TakeBreakActivity : AppCompatActivity() {
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

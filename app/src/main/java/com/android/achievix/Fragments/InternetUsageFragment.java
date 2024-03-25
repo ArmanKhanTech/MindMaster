@@ -199,7 +199,7 @@ public class InternetUsageFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            stats.setText(String.valueOf(totalCount) + " MB");
+            stats.setText(totalCount + " MB");
             recyclerView.setAdapter(new InternetUsageAdapter(internetUsageModel));
             loadingLayout.setVisibility(View.GONE);
             llUsageOverview.setVisibility(View.VISIBLE);

@@ -1,8 +1,6 @@
 package com.android.achievix.Activity;
 
 import android.annotation.SuppressLint;
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,11 +8,9 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.content.ContextCompat;
 
 import com.android.achievix.Permissions.GetUsageStatsPermissionActivity;
 import com.android.achievix.R;
-import com.android.achievix.Services.ForegroundService;
 
 import java.util.Objects;
 

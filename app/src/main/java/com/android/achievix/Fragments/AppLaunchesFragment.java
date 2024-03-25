@@ -25,7 +25,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.achievix.Adapter.AppLaunchAdapter;
-import com.android.achievix.Adapter.AppUsageAdapter;
 import com.android.achievix.Database.AppLaunchDatabase;
 import com.android.achievix.Model.AppUsageModel;
 import com.android.achievix.R;

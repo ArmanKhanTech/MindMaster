@@ -77,19 +77,19 @@ class SelectStrictMode : AppCompatActivity() {
                         val three = dialog.findViewById<LinearLayout>(R.id.strict_level_three)
                         val four = dialog.findViewById<LinearLayout>(R.id.strict_level_four)
 
-                        one.setOnClickListener { view1: View? ->
+                        one.setOnClickListener {
                             dialog.dismiss()
                         }
 
-                        two.setOnClickListener { view1: View? ->
+                        two.setOnClickListener {
                             dialog.dismiss()
                         }
 
-                        three.setOnClickListener { view1: View? ->
+                        three.setOnClickListener {
                             dialog.dismiss()
                         }
 
-                        four.setOnClickListener { view1: View? ->
+                        four.setOnClickListener {
                             dialog.dismiss()
                         }
 

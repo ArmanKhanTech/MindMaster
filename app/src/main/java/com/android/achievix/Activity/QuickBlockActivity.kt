@@ -1,7 +1,7 @@
 package com.android.achievix.Activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.android.achievix.R
 
 class QuickBlockActivity : AppCompatActivity() {
