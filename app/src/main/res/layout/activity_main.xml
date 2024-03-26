@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:fitsSystemWindows="true"
-    tools:context=".Activity.MainActivity">
+    tools:context=".Activity.MainActivity"
+    tools:ignore="HardcodedText,SpUsage,ContentDescription">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,7 +47,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingEnd="10dp">
+                    android:paddingEnd="10dp"
+                    tools:ignore="RtlSymmetry">
 
                     <ImageView
                         android:layout_width="25dp"
@@ -61,8 +63,8 @@
                         android:id="@+id/stats_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/main_stats_theme"
                         android:elevation="2dp"
@@ -73,7 +75,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp">
+                            android:layout_marginEnd="10dp">
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -83,7 +85,7 @@
                                 <ImageView
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
-                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginStart="5dp"
                                     android:padding="3dp"
                                     android:src="@drawable/clock_icon" />
 
@@ -107,8 +109,8 @@
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center|end"
-                                android:layout_marginLeft="50dp"
-                                android:layout_marginRight="22dp"
+                                android:layout_marginStart="50dp"
+                                android:layout_marginEnd="22dp"
                                 android:src="@drawable/goto_icon_blue" />
 
                         </RelativeLayout>
@@ -118,7 +120,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginHorizontal="10dp"
-                            android:layout_marginRight="22dp"
                             android:text="Overview"
                             android:textColor="#2196F3"
                             android:textSize="22dp" />
@@ -146,11 +147,12 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="35dp"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         android:layout_marginTop="22dp"
-                        android:paddingRight="4dp"
+                        android:paddingEnd="4dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/cup_icon" />
+                        android:src="@drawable/cup_icon"
+                        tools:ignore="RtlSymmetry" />
 
                     <LinearLayout
                         android:id="@+id/take_a_break_button"
@@ -174,7 +176,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginRight="22dp"
+                                android:layout_marginEnd="22dp"
                                 android:text="Take a Break"
                                 android:textColor="@color/violet"
                                 android:textSize="22dp" />
@@ -185,8 +187,8 @@
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center|end"
-                                android:layout_marginLeft="50dp"
-                                android:layout_marginRight="22dp"
+                                android:layout_marginStart="50dp"
+                                android:layout_marginEnd="22dp"
                                 android:src="@drawable/goto_icon_blue" />
 
                         </RelativeLayout>
@@ -213,7 +215,7 @@
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         android:layout_marginTop="22dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/play_icon" />
@@ -241,7 +243,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginRight="22dp"
+                                android:layout_marginEnd="22dp"
                                 android:text="Normal Mode"
                                 android:textColor="@color/pink"
                                 android:textSize="22dp" />
@@ -252,17 +254,18 @@
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center|end"
-                                android:layout_marginLeft="50dp"
-                                android:layout_marginRight="22dp"
+                                android:layout_marginStart="50dp"
+                                android:layout_marginEnd="22dp"
                                 android:src="@drawable/goto_icon_blue" />
 
                         </RelativeLayout>
 
                         <TextView
+                            android:id="@+id/main_mode_desc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:text="@string/normal_mode"
                             android:textColor="@color/black"
                             android:fontFamily="sans-serif-condensed-light"
@@ -279,7 +282,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center"
-                                android:layout_marginRight="22dp"
+                                android:layout_marginEnd="22dp"
                                 android:layout_marginBottom="10dp"
                                 android:text="Strictness Level"
                                 android:textColor="#2196F3"
@@ -291,20 +294,20 @@
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center"
-                                android:layout_marginRight="22dp">
+                                android:layout_marginEnd="22dp">
 
                                 <ImageView
+                                    android:id="@+id/strictness_level_img_one"
                                     android:layout_width="18dp"
                                     android:layout_height="18dp"
                                     android:layout_marginHorizontal="3dp"
-                                    android:layout_marginLeft="50dp"
                                     android:src="@drawable/lock_icon_red" />
 
                                 <ImageView
+                                    android:id="@+id/strictness_level_img_two"
                                     android:layout_width="18dp"
                                     android:layout_height="18dp"
                                     android:layout_marginHorizontal="3dp"
-                                    android:layout_marginLeft="50dp"
                                     android:src="@drawable/lock_icon_grey" />
 
                             </LinearLayout>
@@ -326,7 +329,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
                         android:text="Quick Actions"
                         android:textColor="@color/black"
                         android:textSize="22dp" />
@@ -342,14 +345,15 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
 
                     <LinearLayout
                         android:id="@+id/goto_block_apps"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="5dp"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         android:layout_weight="1"
                         android:background="@drawable/app_btn_theme"
                         android:elevation="2dp"
@@ -358,7 +362,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp">
 
                             <TextView
@@ -384,7 +388,7 @@
                             android:id="@+id/main_app_blocks"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="22dp"
+                            android:layout_marginStart="22dp"
                             android:text="0"
                             android:textColor="@color/purple_500"
                             android:textSize="50dp"
@@ -394,7 +398,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="8dp"
                             android:layout_marginBottom="10dp"
                             android:text="apps blocked"
                             android:textColor="@color/white"
@@ -407,8 +411,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="15dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="15dp"
                         android:layout_weight="1"
                         android:background="@drawable/web_btn_theme"
                         android:elevation="2dp"
@@ -417,8 +421,9 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="10dp">
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -442,7 +447,7 @@
                             android:id="@+id/main_site_blocks"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="22dp"
+                            android:layout_marginStart="22dp"
                             android:text="0"
                             android:textColor="#FF5722"
                             android:textSize="50dp"
@@ -452,7 +457,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="8dp"
                             android:layout_marginBottom="10dp"
                             android:text="sites blocked"
                             android:textColor="@color/white"
@@ -466,14 +471,15 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
 
                     <LinearLayout
                         android:id="@+id/goto_block_keywords"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="5dp"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
                         android:layout_weight="1"
                         android:background="@drawable/keyword_btn_theme"
                         android:elevation="2dp"
@@ -482,7 +488,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp">
 
                             <TextView
@@ -507,7 +513,7 @@
                             android:id="@+id/main_keywords_blocks"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="22dp"
+                            android:layout_marginStart="22dp"
                             android:text="0"
                             android:textColor="#4CAF50"
                             android:textSize="50dp"
@@ -517,7 +523,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="8dp"
                             android:layout_marginBottom="10dp"
                             android:text="keywords blocked"
                             android:textColor="@color/white"
@@ -530,8 +536,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="15dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="15dp"
                         android:layout_weight="1"
                         android:background="@drawable/internet_btn_theme"
                         android:elevation="2dp"
@@ -540,7 +546,7 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:layout_marginTop="10dp">
 
                             <TextView
@@ -565,7 +571,7 @@
                             android:id="@+id/main_internet_blocks"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="22dp"
+                            android:layout_marginStart="22dp"
                             android:text="0"
                             android:textColor="#E91E63"
                             android:textSize="50dp"
@@ -575,7 +581,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="8dp"
                             android:layout_marginBottom="10dp"
                             android:text="internet blocked"
                             android:textColor="@color/white"
@@ -596,7 +602,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
                         android:text="Profiles"
                         android:textColor="@color/black"
                         android:textSize="22dp" />
@@ -612,7 +618,7 @@
                 <LinearLayout
                     android:id="@+id/add_profile"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="0dp"
                     android:layout_marginHorizontal="15dp"
                     android:layout_weight="1"
                     android:background="@drawable/profile_btn_theme"
@@ -630,7 +636,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:text="Add Profile"
                         android:textColor="#f43f5e"
                         android:textSize="22dp" />

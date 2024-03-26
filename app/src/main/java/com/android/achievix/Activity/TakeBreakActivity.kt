@@ -20,8 +20,8 @@ class TakeBreakActivity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.start_break_button)
 
         button.setOnClickListener {
-            val sharedPreferences = getSharedPreferences("takeBreak", MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
+            val sh = getSharedPreferences("takeBreak", MODE_PRIVATE)
+            val editor = sh.edit()
             editor.putInt("hour", timePicker.hour)
             editor.putInt("minute", timePicker.minute)
             editor.putBoolean("stop", stopSwitch.isChecked)

@@ -33,6 +33,7 @@ public class UsageOverviewFragment extends Fragment {
     String sortValue = "Daily";
     private LinearLayout llUsageOverview;
     private LinearLayout loadingLayout;
+    private GetInstalledAppsUsageTask getInstalledAppsUsageTask;
 
     public UsageOverviewFragment() {
         // do nothing
@@ -86,7 +87,8 @@ public class UsageOverviewFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
 
-        new GetInstalledAppsUsageTask(requireActivity(), "Daily").execute();
+        getInstalledAppsUsageTask = new GetInstalledAppsUsageTask(requireActivity(), sortValue);
+        getInstalledAppsUsageTask.execute();
 
         return view;
     }
@@ -115,11 +117,22 @@ public class UsageOverviewFragment extends Fragment {
 
         @Override
         protected void onPostExecute(List<AppUsageModel> result) {
+            if (isCancelled()) {
+                return;
+            }
             appUsageModel = result;
             stats.setText(convertMillisToHoursAndMinutes(UsageUtil.totalUsage));
             recyclerView.setAdapter(new AppUsageAdapter(appUsageModel));
             loadingLayout.setVisibility(View.GONE);
             llUsageOverview.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (getInstalledAppsUsageTask != null) {
+            getInstalledAppsUsageTask.cancel(true);
         }
     }
 }

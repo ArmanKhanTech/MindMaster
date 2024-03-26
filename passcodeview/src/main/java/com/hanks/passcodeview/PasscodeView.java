@@ -83,7 +83,6 @@ public class PasscodeView extends FrameLayout implements View.OnClickListener {
         init();
     }
 
-
     private void init() {
         layout_psd = findViewById(R.id.layout_psd);
         tv_input_tip = findViewById(R.id.tv_input_tip);
@@ -148,7 +147,6 @@ public class PasscodeView extends FrameLayout implements View.OnClickListener {
         number7.setTextColor(numberTextColor);
         number8.setTextColor(numberTextColor);
         number9.setTextColor(numberTextColor);
-
     }
 
     @Override
@@ -177,9 +175,8 @@ public class PasscodeView extends FrameLayout implements View.OnClickListener {
         return listener;
     }
 
-    public PasscodeView setListener(PasscodeViewListener listener) {
+    public void setListener(PasscodeViewListener listener) {
         this.listener = listener;
-        return this;
     }
 
     public String getFirstInputTip() {
@@ -319,7 +316,7 @@ public class PasscodeView extends FrameLayout implements View.OnClickListener {
         }
 
         CircleView psdView = new CircleView(getContext());
-        int size = dpToPx(8);
+        int size = dpToPx();
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, size);
         params.setMargins(size, 0, size, 0);
         psdView.setLayoutParams(params);
@@ -328,9 +325,9 @@ public class PasscodeView extends FrameLayout implements View.OnClickListener {
         layout_psd.addView(psdView);
     }
 
-    private int dpToPx(float valueInDp) {
+    private int dpToPx() {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, valueInDp, metrics);
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) 8, metrics);
     }
 
     private void tintImageView(ImageView imageView, int color) {
@@ -454,6 +451,8 @@ public class PasscodeView extends FrameLayout implements View.OnClickListener {
 
     public interface PasscodeViewListener {
         void onFail(String wrongNumber);
+
+        void onFail();
 
         void onSuccess(String number);
     }

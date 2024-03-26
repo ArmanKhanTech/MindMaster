@@ -15,8 +15,6 @@
 
     <string name="normal_mode" translatable="false">Normal mode will allow you to make changes and white list apps/websites at any time.</string>
 
-    <string name="lock_mode" translatable="false">Requires password for changing Phone, Achievix settings and uninstalling the app.</string>
-
     <string name="strict_mode" translatable="false">Prevents you from changing settings and uninstalling the app.</string>
 
     <string name="take_a_break_whitelist" translatable="false">Select the applications you want to access when \'Take a Break\' is blocking you</string>
@@ -31,9 +29,14 @@
 
     <string name="break_inst" translatable="false">
         1. You won\'t be able to use your phone while the break is enabled. \n
-        2. Enable stop button to stop the break. \n
+        2. Enable stop button to be able to stop the break. \n
         3. Enable call button to be able to make calls. \n
-        4. Block notifications to prevent distractions. \n
+        4. Block notifications to prevent further distractions. \n
         5. You won\'t be able to receive any calls while the break is underway. \n
+    </string>
+
+    <string name="motivational_text">
+        The secret of getting ahead is getting started. \n\t\t\t
+        - Mark Twain
     </string>
 </resources>

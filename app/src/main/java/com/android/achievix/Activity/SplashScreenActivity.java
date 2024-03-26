@@ -14,25 +14,27 @@ import com.android.achievix.R;
 
 import java.util.Objects;
 
-@SuppressLint("CustomSplashScreen")
+@SuppressLint({"CustomSplashScreen", "InlinedApi"})
 public class SplashScreenActivity extends AppCompatActivity {
-    @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        SharedPreferences sharedPref = getSharedPreferences("achievix", MODE_PRIVATE);
+        SharedPreferences sh1 = getSharedPreferences("achievix", MODE_PRIVATE);
+        SharedPreferences sh2 = getSharedPreferences("mode", MODE_PRIVATE);
 
         Handler handler = new Handler();
-        if (Objects.equals(sharedPref.getString("firstTime", "yes"), "no")) {
+        if (Objects.equals(sh1.getString("firstTime", "yes"), "no")) {
             handler.postDelayed(() -> {
-                int i = sharedPref.getInt("password", 0);
+                int i = sh2.getInt("password", 0);
                 Intent intent;
 
                 if (i != 0) {
                     intent = new Intent(this, EnterPasswordActivity.class);
+                    intent.putExtra("password", i);
+                    intent.putExtra("invokedFrom", "splashScreen");
                 } else {
                     intent = new Intent(this, MainActivity.class);
                 }

@@ -54,6 +54,7 @@ public class AppLaunchesFragment extends Fragment {
     String startDate = "";
     Calendar calendar = Calendar.getInstance();
     int totalCount = 0;
+    private GetAppLaunchCountTask getAppLaunchCountTask;
 
     public AppLaunchesFragment() {
         // do nothing
@@ -82,7 +83,7 @@ public class AppLaunchesFragment extends Fragment {
                             isFirstTime = false;
                         } else {
                             sortValue = parent.getItemAtPosition(position).toString();
-                            new GetAppLaunchCount(requireActivity(), sortValue).execute();
+                            new GetAppLaunchCountTask(requireActivity(), sortValue).execute();
                         }
                     }
 
@@ -101,17 +102,18 @@ public class AppLaunchesFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
 
-        new GetAppLaunchCount(requireActivity(), "Daily").execute();
+        getAppLaunchCountTask = new GetAppLaunchCountTask(requireActivity(), sortValue);
+        getAppLaunchCountTask.execute();
 
         return view;
     }
 
     @SuppressLint("StaticFieldLeak")
-    public class GetAppLaunchCount extends AsyncTask<Void, Void, Void> {
+    public class GetAppLaunchCountTask extends AsyncTask<Void, Void, Void> {
         private final Context context;
         private final String sort;
 
-        public GetAppLaunchCount(Context context, String sort) {
+        public GetAppLaunchCountTask(Context context, String sort) {
             this.context = context;
             this.sort = sort;
         }
@@ -188,10 +190,21 @@ public class AppLaunchesFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            if (isCancelled()) {
+                return;
+            }
             stats.setText(String.valueOf(totalCount));
             recyclerView.setAdapter(new AppLaunchAdapter(appLaunchModel));
             loadingLayout.setVisibility(View.GONE);
             llUsageOverview.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (getAppLaunchCountTask != null) {
+            getAppLaunchCountTask.cancel(true);
         }
     }
 }

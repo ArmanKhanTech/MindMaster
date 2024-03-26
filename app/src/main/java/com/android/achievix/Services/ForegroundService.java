@@ -19,12 +19,14 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.android.achievix.Activity.DrawOnTopAppActivity;
 import com.android.achievix.Activity.DrawOnTopScreenActivity;
+import com.android.achievix.Activity.EnterPasswordActivity;
 import com.android.achievix.Activity.MainActivity;
 import com.android.achievix.Database.AppLaunchDatabase;
 import com.android.achievix.Database.InternetBlockDatabase;
@@ -87,6 +89,7 @@ public class ForegroundService extends Service {
             }
 
             takeBreak(this);
+            strictMode(this);
 
             ArrayList<String> packs = db.readRestrictPacks();
             ArrayList<String> packs1 = db1.readLimitPacks();
@@ -187,16 +190,16 @@ public class ForegroundService extends Service {
         String input = intent.getStringExtra("inputExtra");
         createNotificationChannel();
 
-//        SharedPreferences sh = getSharedPreferences("PASS_CODE", Context.MODE_PRIVATE);
-//        int i = sh.getInt("pass", 0);
-//        Intent notificationIntent;
-//        if (i > 0) {
-//            notificationIntent = new Intent(this, EnterPasswordActivity.class);
-//        } else {
-//            notificationIntent = new Intent(this, MainActivity.class);
-//        }
-
-        Intent notificationIntent = new Intent(this, MainActivity.class);
+        SharedPreferences sh = getSharedPreferences("mode", Context.MODE_PRIVATE);
+        int i = sh.getInt("password", 0);
+        Intent notificationIntent;
+        if (i != 0) {
+            notificationIntent = new Intent(this, EnterPasswordActivity.class);
+            notificationIntent.putExtra("password", i);
+            notificationIntent.putExtra("invokedFrom", "ForegroundService");
+        } else {
+            notificationIntent = new Intent(this, MainActivity.class);
+        }
 
         PendingIntent pendingIntent;
         pendingIntent = PendingIntent.getActivity(this,
@@ -207,6 +210,7 @@ public class ForegroundService extends Service {
                 .setSmallIcon(R.drawable.noti_icon)
                 .setContentIntent(pendingIntent)
                 .build();
+
 
         startForeground(1, notification);
         return START_STICKY;
@@ -233,11 +237,34 @@ public class ForegroundService extends Service {
         manager.createNotificationChannel(serviceChannel);
     }
 
+    public void strictMode(CountDownTimer timer) {
+        SharedPreferences sh = getSharedPreferences("mode", MODE_PRIVATE);
+        boolean _strict = sh.getBoolean("strict", false);
+
+        if(_strict) {
+            int level = sh.getInt("level", 0);
+            switch (level) {
+                case 1, 2, 3:
+                    break;
+                case 4:
+                    if (currentApp.equals("com.android.settings")) {
+                        timer.cancel();
+                        Intent lockIntent = new Intent(mContext, DrawOnTopAppActivity.class);
+                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        lockIntent.putExtra("packageName", currentApp);
+                        startActivity(lockIntent);
+                    }
+            }
+        }
+    }
+
     public void takeBreak(CountDownTimer timer) {
         SharedPreferences sh = getSharedPreferences("takeBreak", Context.MODE_PRIVATE);
         if(!sh.getBoolean("call", false)){
-            if(sh.getInt("hour", 0) > Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ||
-                    sh.getInt("minute", 0) > Calendar.getInstance().get(Calendar.MINUTE)) {
+            if(sh.getInt("hour", 0) >= Calendar.getInstance().get(Calendar.HOUR_OF_DAY) &&
+                    sh.getInt("minute", 0) >= Calendar.getInstance().get(Calendar.MINUTE)) {
                 timer.cancel();
                 Intent lockIntent = new Intent(mContext, DrawOnTopScreenActivity.class);
                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -249,7 +276,7 @@ public class ForegroundService extends Service {
                 lockIntent.putExtra("call", sh.getBoolean("call", false));
                 lockIntent.putExtra("notification", sh.getBoolean("notification", false));
                 startActivity(lockIntent);
-            } else if(sh.getInt("hour", 0) <= Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ||
+            } else if(sh.getInt("hour", 0) <= Calendar.getInstance().get(Calendar.HOUR_OF_DAY) &&
                     sh.getInt("minute", 0) <= Calendar.getInstance().get(Calendar.MINUTE)) {
                 SharedPreferences.Editor editor = sh.edit();
                 editor.putInt("hour", 0);
@@ -261,8 +288,8 @@ public class ForegroundService extends Service {
             }
         } else {
             if(!currentApp.contains("dialer")){
-                if(sh.getInt("hour", 0) > Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ||
-                        sh.getInt("minute", 0) > Calendar.getInstance().get(Calendar.MINUTE)) {
+                if(sh.getInt("hour", 0) >= Calendar.getInstance().get(Calendar.HOUR_OF_DAY) &&
+                        sh.getInt("minute", 0) >= Calendar.getInstance().get(Calendar.MINUTE)) {
                     timer.cancel();
                     Intent lockIntent = new Intent(mContext, DrawOnTopScreenActivity.class);
                     lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -274,7 +301,7 @@ public class ForegroundService extends Service {
                     lockIntent.putExtra("call", sh.getBoolean("call", false));
                     lockIntent.putExtra("notification", sh.getBoolean("notification", false));
                     startActivity(lockIntent);
-                } else if(sh.getInt("hour", 0) <= Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ||
+                } else if(sh.getInt("hour", 0) <= Calendar.getInstance().get(Calendar.HOUR_OF_DAY) &&
                         sh.getInt("minute", 0) <= Calendar.getInstance().get(Calendar.MINUTE)) {
                     SharedPreferences.Editor editor = sh.edit();
                     editor.putInt("hour", 0);

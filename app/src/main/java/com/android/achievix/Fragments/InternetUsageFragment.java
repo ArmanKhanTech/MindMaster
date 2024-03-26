@@ -47,6 +47,7 @@ public class InternetUsageFragment extends Fragment {
     long startMillis;
     long endMillis;
     float totalCount;
+    private GetAppInternetUsage getAppInternetUsageTask;
 
     public InternetUsageFragment() {
         // do nothing
@@ -94,7 +95,8 @@ public class InternetUsageFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
 
-        new GetAppInternetUsage(requireActivity(), "Daily").execute();
+        getAppInternetUsageTask = new GetAppInternetUsage(requireActivity(), sortValue);
+        getAppInternetUsageTask.execute();
 
         return view;
     }
@@ -199,10 +201,21 @@ public class InternetUsageFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            if (isCancelled()) {
+                return;
+            }
             stats.setText(totalCount + " MB");
             recyclerView.setAdapter(new InternetUsageAdapter(internetUsageModel));
             loadingLayout.setVisibility(View.GONE);
             llUsageOverview.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (getAppInternetUsageTask != null) {
+            getAppInternetUsageTask.cancel(true);
         }
     }
 }

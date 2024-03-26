@@ -6,12 +6,16 @@ import android.app.ActivityManager;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -32,8 +36,10 @@ public class MainActivity extends AppCompatActivity {
     Calendar c = Calendar.getInstance();
     int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
     String greeting = "";
+    TextView mode, mode_desc;
+    ImageView strict_level_one, strict_level_two;
 
-    @SuppressLint({"NonConstantResourceId", "InlinedApi"})
+    @SuppressLint({"NonConstantResourceId", "InlinedApi", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +53,26 @@ public class MainActivity extends AppCompatActivity {
             Intent serviceIntent = new Intent(this, ForegroundService.class);
             serviceIntent.putExtra("inputExtra", "Foreground Service is Running");
             ContextCompat.startForegroundService(this, serviceIntent);
+        }
+
+        mode = findViewById(R.id.main_mode);
+        mode_desc = findViewById(R.id.main_mode_desc);
+        strict_level_one = findViewById(R.id.strictness_level_img_one);
+        strict_level_two = findViewById(R.id.strictness_level_img_two);
+
+        SharedPreferences sh = getSharedPreferences("mode", MODE_PRIVATE);
+        boolean _strict = sh.getBoolean("strict", false);
+
+        if (_strict) {
+            mode.setText("Strict Mode");
+            mode_desc.setText(R.string.strict_mode);
+            strict_level_one.setImageResource(R.drawable.lock_icon_red);
+            strict_level_two.setImageResource(R.drawable.lock_icon_red);
+        } else {
+            mode.setText("Normal Mode");
+            mode_desc.setText(R.string.normal_mode);
+            strict_level_one.setImageResource(R.drawable.lock_icon_red);
+            strict_level_two.setImageResource(R.drawable.lock_icon_grey);
         }
 
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -117,14 +143,34 @@ public class MainActivity extends AppCompatActivity {
             LinearLayout normal = dialog.findViewById(R.id.mode_button_normal);
             LinearLayout strict = dialog.findViewById(R.id.mode_button_strict);
 
+            SharedPreferences shDialog = getSharedPreferences("mode", MODE_PRIVATE);
+            boolean strictDialog = sh.getBoolean("strict", false);
+            SharedPreferences.Editor editorDialog = shDialog.edit();
+
             normal.setOnClickListener(view1 -> {
-                //
+                if(!strictDialog) {
+                    Toast.makeText(MainActivity.this, "Normal Mode is already enabled", Toast.LENGTH_SHORT).show();
+                } else {
+                    editorDialog.putBoolean("strict", false);
+                    editorDialog.putInt("level", 0);
+                    editorDialog.putInt("password", 0);
+                    editorDialog.apply();
+                    mode.setText("Normal Mode");
+                    mode_desc.setText(R.string.normal_mode);
+                    strict_level_one.setImageResource(R.drawable.lock_icon_red);
+                    strict_level_two.setImageResource(R.drawable.lock_icon_grey);
+                    dialog.dismiss();
+                }
             });
 
             strict.setOnClickListener(view1 -> {
-                Intent intent = new Intent(MainActivity.this, SelectStrictMode.class);
-                dialog.dismiss();
-                startActivity(intent);
+                if(strictDialog) {
+                    Toast.makeText(MainActivity.this, "Strict Mode is already enabled", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(MainActivity.this, SelectStrictMode.class);
+                    dialog.dismiss();
+                    startActivityForResult(intent, 100);
+                }
             });
 
             dialog.show();
@@ -163,5 +209,32 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return greeting;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100) {
+            if (resultCode == RESULT_OK) {
+                updateMode();
+            }
+        }
+    }
+
+    private void updateMode() {
+        SharedPreferences sh = getSharedPreferences("mode", MODE_PRIVATE);
+        boolean _strict = sh.getBoolean("strict", false);
+
+        if (_strict) {
+            mode.setText("Strict Mode");
+            mode_desc.setText(R.string.strict_mode);
+            strict_level_one.setImageResource(R.drawable.lock_icon_red);
+            strict_level_two.setImageResource(R.drawable.lock_icon_red);
+        } else {
+            mode.setText("Normal Mode");
+            mode_desc.setText(R.string.normal_mode);
+            strict_level_one.setImageResource(R.drawable.lock_icon_red);
+            strict_level_two.setImageResource(R.drawable.lock_icon_grey);
+        }
     }
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.HashMap;
 
@@ -23,7 +24,7 @@ public class AppLaunchDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME + " ( "
-                + PACKAGE_NAME + " TEXT PRIMARY KEY, "
+                + PACKAGE_NAME + " TEXT, "
                 + LAUNCH_COUNT + " INTEGER, "
                 + DATE + " TEXT)";
         db.execSQL(query);
