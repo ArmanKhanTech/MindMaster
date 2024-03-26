@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
         android:layout_marginVertical="20dp"
-        android:background="@drawable/exit_button_theme"
+        android:background="@drawable/exit_btn_theme"
         android:onClick="exit2"
         android:padding="10dp"
         android:text="Exit"

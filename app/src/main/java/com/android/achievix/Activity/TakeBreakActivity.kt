@@ -14,7 +14,7 @@ class TakeBreakActivity : AppCompatActivity() {
         setContentView(R.layout.activity_take_break)
 
         val timePicker = findViewById<TimePicker>(R.id.time_picker_take_break)
-        val pauseSwitch = findViewById<androidx.appcompat.widget.SwitchCompat>(R.id.pause_switch)
+        val stopSwitch = findViewById<androidx.appcompat.widget.SwitchCompat>(R.id.stop_switch)
         val callSwitch = findViewById<androidx.appcompat.widget.SwitchCompat>(R.id.call_switch)
         val notificationSwitch = findViewById<androidx.appcompat.widget.SwitchCompat>(R.id.notification_switch)
         val button = findViewById<Button>(R.id.start_break_button)
@@ -24,7 +24,7 @@ class TakeBreakActivity : AppCompatActivity() {
             val editor = sharedPreferences.edit()
             editor.putInt("hour", timePicker.hour)
             editor.putInt("minute", timePicker.minute)
-            editor.putBoolean("pause", pauseSwitch.isChecked)
+            editor.putBoolean("stop", stopSwitch.isChecked)
             editor.putBoolean("call", callSwitch.isChecked)
             editor.putBoolean("notification", notificationSwitch.isChecked)
             editor.apply()

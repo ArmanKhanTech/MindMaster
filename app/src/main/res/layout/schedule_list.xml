@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_weight="1"
-    android:background="@drawable/profile_button_theme"
+    android:background="@drawable/profile_btn_theme"
     android:elevation="2dp"
     android:layout_marginBottom="10dp"
     android:orientation="vertical"

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".Activity.TakeBreakActivity">
+    tools:context=".Activity.TakeBreakActivity"
+    tools:ignore="HardcodedText,SpUsage,ContentDescription">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -32,8 +33,7 @@
                     android:layout_marginEnd="15dp"
                     android:background="@color/white"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/back_icon"
-                    tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+                    app:srcCompat="@drawable/back_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:text="Pause Button"
+                android:text="Stop Button"
                 android:textColor="@color/skyBlue"
                 android:textSize="22dp" />
 
@@ -88,23 +88,23 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="15dp"
-                    android:src="@drawable/pause_icon" />
+                    android:src="@drawable/stop_icon_blue" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:paddingBottom="2dp"
-                    android:text="Show Pause Button"
+                    android:text="Show Stop Button"
                     android:textColor="@color/black"
                     android:textSize="22dp" />
 
                 <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/pause_switch"
+                    android:id="@+id/stop_switch"
                     style="@style/SwitchTheme"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -215,6 +215,32 @@
 
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@color/skyBlue" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="Instructions"
+                android:textColor="@color/skyBlue"
+                android:textSize="22dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:layout_marginHorizontal="15dp"
+                android:text="@string/break_inst"
+                android:lineHeight="30dp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="70dp"
+                android:textSize="22dp" />
 
         </LinearLayout>
 
@@ -227,7 +253,7 @@
         android:layout_gravity="bottom"
         android:layout_marginHorizontal="15dp"
         android:layout_marginVertical="10dp"
-        android:background="@drawable/take_break_button_theme"
+        android:background="@drawable/take_break_btn_theme"
         android:padding="10dp"
         android:text="Start Break"
         android:textAllCaps="false"

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.ImageButton
@@ -14,6 +15,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+@Suppress("DEPRECATION")
 class DrawOnTopScreenActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,18 +30,18 @@ class DrawOnTopScreenActivity : AppCompatActivity() {
         val intent = intent
         val hour = intent.getIntExtra("hour", 0)
         val minute = intent.getIntExtra("minute", 0)
-        val pause = intent.getBooleanExtra("pause", false)
+        val stop = intent.getBooleanExtra("stop", false)
         val call = intent.getBooleanExtra("call", false)
 
         if(hour <= Calendar.getInstance()[Calendar.HOUR_OF_DAY] &&
             minute <= Calendar.getInstance()[Calendar.MINUTE]
         ) {
-            timing.text = "Your break is over now!"
+            finish()
         } else {
             timing.text = "Until : " + convertTo12HourFormat(hour, minute)
         }
 
-        if(pause) {
+        if(stop) {
             pauseButton.visibility = VISIBLE
         } else {
             pauseButton.visibility = GONE
@@ -52,16 +54,20 @@ class DrawOnTopScreenActivity : AppCompatActivity() {
         }
 
         pauseButton.setOnClickListener {
-            timing.text = "You stopped the break!"
+            timing.text = "You have stopped the break!"
 
             val sh: SharedPreferences = getSharedPreferences("takeBreak", MODE_PRIVATE)
             val editor: SharedPreferences.Editor = sh.edit()
             editor.putInt("hour", 0)
             editor.putInt("minute", 0)
-            editor.putBoolean("pause", false)
+            editor.putBoolean("stop", false)
             editor.putBoolean("call", false)
             editor.putBoolean("notification", false)
             editor.apply()
+
+            Handler().postDelayed({
+                finish()
+            }, 2000)
         }
 
         callButton.setOnClickListener {

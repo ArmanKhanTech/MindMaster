@@ -245,7 +245,7 @@ public class ForegroundService extends Service {
                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 lockIntent.putExtra("hour", sh.getInt("hour", 0));
                 lockIntent.putExtra("minute", sh.getInt("minute", 0));
-                lockIntent.putExtra("pause", sh.getBoolean("pause", false));
+                lockIntent.putExtra("stop", sh.getBoolean("stop", false));
                 lockIntent.putExtra("call", sh.getBoolean("call", false));
                 lockIntent.putExtra("notification", sh.getBoolean("notification", false));
                 startActivity(lockIntent);
@@ -254,7 +254,7 @@ public class ForegroundService extends Service {
                 SharedPreferences.Editor editor = sh.edit();
                 editor.putInt("hour", 0);
                 editor.putInt("minute", 0);
-                editor.putBoolean("pause", false);
+                editor.putBoolean("stop", false);
                 editor.putBoolean("call", false);
                 editor.putBoolean("notification", false);
                 editor.apply();
@@ -270,7 +270,7 @@ public class ForegroundService extends Service {
                     lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     lockIntent.putExtra("hour", sh.getInt("hour", 0));
                     lockIntent.putExtra("minute", sh.getInt("minute", 0));
-                    lockIntent.putExtra("pause", sh.getBoolean("pause", false));
+                    lockIntent.putExtra("stop", sh.getBoolean("stop", false));
                     lockIntent.putExtra("call", sh.getBoolean("call", false));
                     lockIntent.putExtra("notification", sh.getBoolean("notification", false));
                     startActivity(lockIntent);
@@ -279,7 +279,7 @@ public class ForegroundService extends Service {
                     SharedPreferences.Editor editor = sh.edit();
                     editor.putInt("hour", 0);
                     editor.putInt("minute", 0);
-                    editor.putBoolean("pause", false);
+                    editor.putBoolean("stop", false);
                     editor.putBoolean("call", false);
                     editor.putBoolean("notification", false);
                     editor.apply();

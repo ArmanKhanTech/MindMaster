@@ -28,4 +28,12 @@
     <string name="wait_timer_ex">e.g. block access entirely</string>
 
     <string name="statistics">View your screen time, launch count &amp; more</string>
+
+    <string name="break_inst" translatable="false">
+        1. You won\'t be able to use your phone while the break is enabled. \n
+        2. Enable stop button to stop the break. \n
+        3. Enable call button to be able to make calls. \n
+        4. Block notifications to prevent distractions. \n
+        5. You won\'t be able to receive any calls while the break is underway. \n
+    </string>
 </resources>
