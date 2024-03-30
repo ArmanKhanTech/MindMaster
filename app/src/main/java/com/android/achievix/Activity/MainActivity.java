@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showModeDialog() {
         Dialog dialog = new Dialog(MainActivity.this);
-        dialog.setContentView(R.layout.mode_dailog);
+        dialog.setContentView(R.layout.dialog_mode);
         dialog.setCancelable(true);
         Objects.requireNonNull(dialog.getWindow())
                 .setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);

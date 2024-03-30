@@ -22,7 +22,7 @@ class AppLaunchAdapter(private var appList: List<AppUsageModel>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.app_list_usage, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.list_app_usage, parent, false)
         return ViewHolder(view)
     }
 

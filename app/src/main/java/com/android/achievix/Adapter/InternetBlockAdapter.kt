@@ -22,7 +22,7 @@ class InternetBlockAdapter(private var appList: List<AppBlockModel>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.internet_list_block, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.list_internet_block, parent, false)
         return ViewHolder(view)
     }
 

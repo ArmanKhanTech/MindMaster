@@ -20,7 +20,7 @@ class WebBlockAdapter(private var appList: List<AppSelectModel>, private var isW
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.web_keyword_list, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.list_web_keyword, parent, false)
         return ViewHolder(view)
     }
 

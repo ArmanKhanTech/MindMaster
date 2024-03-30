@@ -92,7 +92,7 @@ class StrictModeActivity : AppCompatActivity() {
                 when (position) {
                     0 -> {
                         val dialog = Dialog(this@StrictModeActivity)
-                        dialog.setContentView(R.layout.strict_level_dialog)
+                        dialog.setContentView(R.layout.dialog_strict_level)
                         dialog.setCancelable(true)
                         Objects.requireNonNull(
                             dialog

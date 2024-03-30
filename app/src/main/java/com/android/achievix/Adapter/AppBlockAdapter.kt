@@ -26,7 +26,7 @@ class AppBlockAdapter(private var appList: List<AppBlockModel>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.app_list_block, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_app_block, parent, false)
         return ViewHolder(view)
     }
 
