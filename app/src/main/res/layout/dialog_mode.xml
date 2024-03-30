@@ -97,7 +97,7 @@
                     android:layout_marginEnd="22dp"
                     android:layout_marginBottom="10dp"
                     android:text="Strictness Level"
-                    android:textColor="#2196F3"
+                    android:textColor="@color/skyBlue"
                     android:textSize="22dp" />
 
                 <LinearLayout
@@ -190,7 +190,7 @@
                     android:layout_marginEnd="22dp"
                     android:layout_marginBottom="10dp"
                     android:text="Strictness Level"
-                    android:textColor="#2196F3"
+                    android:textColor="@color/skyBlue"
                     android:textSize="22dp" />
 
                 <LinearLayout

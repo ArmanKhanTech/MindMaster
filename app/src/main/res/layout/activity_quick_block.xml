@@ -65,7 +65,7 @@
                     android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="15dp"
-                    android:src="@drawable/app_block_icon" />
+                    android:src="@drawable/block_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -142,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/app_block_edt_theme"
+                    android:background="@drawable/app_block_theme"
                     android:hint="Hrs"
                     android:inputType="number"
                     android:gravity="center"
@@ -165,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/app_block_edt_theme"
+                    android:background="@drawable/app_block_theme"
                     android:hint="Mins"
                     android:inputType="number"
                     android:gravity="center"
@@ -190,7 +190,7 @@
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="15dp"
                 android:layout_weight="1"
-                android:background="@drawable/app_block_edt_theme"
+                android:background="@drawable/app_block_theme"
                 android:hint="something"
                 android:inputType="text"
                 android:gravity="center"

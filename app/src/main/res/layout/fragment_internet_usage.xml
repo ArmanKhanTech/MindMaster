@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:layout_marginVertical="5dp"
-            android:background="@drawable/app_block_edt_theme">
+            android:background="@drawable/app_block_theme">
 
             <Spinner
                 android:id="@+id/internet_usage_spinner"

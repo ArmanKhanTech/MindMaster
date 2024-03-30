@@ -64,7 +64,7 @@
                     android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="15dp"
-                    android:src="@drawable/app_block_icon" />
+                    android:src="@drawable/block_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -294,7 +294,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
-                android:background="@drawable/app_block_edt_theme"
+                android:background="@drawable/app_block_theme"
                 android:hint="something"
                 android:inputType="text"
                 android:gravity="center"

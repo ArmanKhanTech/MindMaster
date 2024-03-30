@@ -33,7 +33,7 @@
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp"
         app:contentPadding="15dp"
-        app:strokeColor="#2196F3"
+        app:strokeColor="@color/skyBlue"
         app:strokeWidth="0.5dp"
         app:rippleColor="@color/white">
 

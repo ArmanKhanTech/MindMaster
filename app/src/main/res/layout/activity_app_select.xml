@@ -75,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_gravity="center_horizontal"
-                    android:background="@drawable/app_block_edt_theme"
+                    android:background="@drawable/app_block_theme"
                     android:hint="Search"
                     android:inputType="text"
                     android:textAlignment="center"
