@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    tools:ignore="HardcodedText,SpUsage,ContentDescription">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +19,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="2dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/play_icon" />
@@ -54,7 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginRight="22dp"
+                    android:layout_marginEnd="22dp"
                     android:text="Normal Mode"
                     android:textColor="@color/pink"
                     android:textSize="22dp" />
@@ -65,8 +67,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center|end"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginRight="22dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="22dp"
                     android:src="@drawable/goto_icon_blue" />
 
             </RelativeLayout>
@@ -76,9 +78,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-condensed-light"
                 android:text="@string/normal_mode"
                 android:textColor="@color/black"
-                android:fontFamily="sans-serif-condensed-light"
                 android:textSize="22dp" />
 
             <RelativeLayout
@@ -92,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
-                    android:layout_marginRight="22dp"
+                    android:layout_marginEnd="22dp"
                     android:layout_marginBottom="10dp"
                     android:text="Strictness Level"
                     android:textColor="#2196F3"
@@ -103,21 +105,19 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_gravity="center|end"
-                    android:layout_marginRight="22dp">
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="22dp">
 
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:layout_marginHorizontal="3dp"
-                        android:layout_marginLeft="50dp"
                         android:src="@drawable/lock_icon_red" />
 
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:layout_marginHorizontal="3dp"
-                        android:layout_marginLeft="50dp"
                         android:src="@drawable/lock_icon_grey" />
 
                 </LinearLayout>
@@ -149,7 +149,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginRight="22dp"
+                    android:layout_marginEnd="22dp"
                     android:text="Strict Mode"
                     android:textColor="@color/pink"
                     android:textSize="22dp" />
@@ -160,8 +160,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center|end"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginRight="22dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="22dp"
                     android:src="@drawable/goto_icon_blue" />
 
             </RelativeLayout>
@@ -171,9 +171,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:fontFamily="sans-serif-condensed-light"
                 android:text="@string/strict_mode"
                 android:textColor="@color/black"
-                android:fontFamily="sans-serif-condensed-light"
                 android:textSize="22dp" />
 
             <RelativeLayout
@@ -187,7 +187,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
-                    android:layout_marginRight="22dp"
+                    android:layout_marginEnd="22dp"
                     android:layout_marginBottom="10dp"
                     android:text="Strictness Level"
                     android:textColor="#2196F3"
@@ -198,22 +198,20 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_gravity="center|end"
-                    android:layout_marginRight="22dp">
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="22dp">
 
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:layout_marginHorizontal="3dp"
-                        android:layout_marginLeft="50dp"
                         android:src="@drawable/lock_icon_red" />
 
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:layout_marginHorizontal="3dp"
-                        android:layout_marginLeft="50dp"
-                        android:src="@drawable/lock_icon_red" />
+                        android:src="@drawable/lock_icon_grey" />
 
                 </LinearLayout>
 

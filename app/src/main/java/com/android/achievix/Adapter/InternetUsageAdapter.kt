@@ -1,5 +1,6 @@
 package com.android.achievix.Adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ class InternetUsageAdapter(private var appList: List<AppUsageModel>) :
         return ViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val appInfo = appList[position]
 

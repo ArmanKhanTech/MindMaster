@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".Activity.UsageTimeActivity">
+    tools:context=".Activity.UsageTimeActivity"
+    tools:ignore="HardcodedText,SpUsage,ContentDescription">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -234,8 +235,8 @@
                     android:id="@+id/saturday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_weight="1"
                     android:background="@drawable/day_radio_selector"
                     android:checked="false"
@@ -266,7 +267,7 @@
                     android:id="@+id/usage_time_hrs"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_weight="1"
                     android:background="@drawable/app_block_edt_theme"
                     android:hint="Hrs (HH)"
@@ -296,7 +297,8 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:textColor="@color/black"
-                    android:textSize="22dp" />
+                    android:textSize="22dp"
+                    tools:ignore="Autofill" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -319,7 +321,7 @@
             <EditText
                 android:id="@+id/usage_time_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginHorizontal="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/app_block_edt_theme"
@@ -328,7 +330,8 @@
                 android:gravity="center"
                 android:padding="10dp"
                 android:textColor="@color/black"
-                android:textSize="22dp" />
+                android:textSize="22dp"
+                tools:ignore="Autofill" />
 
         </LinearLayout>
 

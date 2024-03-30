@@ -1,4 +1,4 @@
-package com.android.achievix.Fragments;
+package com.android.achievix.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

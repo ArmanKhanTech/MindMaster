@@ -18,7 +18,7 @@ import com.android.achievix.Adapter.WebBlockAdapter;
 import com.android.achievix.Database.BlockDatabase;
 import com.android.achievix.Model.AppSelectModel;
 import com.android.achievix.R;
-import com.android.achievix.Services.LogURLService;
+import com.android.achievix.Service.LogURLService;
 
 import java.util.ArrayList;
 

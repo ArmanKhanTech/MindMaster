@@ -7,9 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.android.achievix.Adapter.ViewPagerAdapter;
-import com.android.achievix.Fragments.AppLaunchesFragment;
-import com.android.achievix.Fragments.InternetUsageFragment;
-import com.android.achievix.Fragments.UsageOverviewFragment;
+import com.android.achievix.Fragment.AppLaunchesFragment;
+import com.android.achievix.Fragment.InternetUsageFragment;
+import com.android.achievix.Fragment.UsageOverviewFragment;
 import com.android.achievix.R;
 import com.google.android.material.tabs.TabLayout;
 

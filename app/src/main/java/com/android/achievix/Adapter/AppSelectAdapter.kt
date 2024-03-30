@@ -51,11 +51,5 @@ class AppSelectAdapter(private var appList: List<AppSelectModel>) :
         notifyDataSetChanged()
     }
 
-    private fun convertToHrsMins(millis: Long): String {
-        val hours = millis / 1000 / 60 / 60
-        val minutes = millis / 1000 / 60 % 60
-        return "$hours hrs $minutes mins"
-    }
-
     override fun getItemCount() = appList.size
 }

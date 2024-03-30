@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.AppLaunchesFragment">
+    tools:context=".Fragment.AppLaunchesFragment"
+    tools:ignore="HardcodedText,SpUsage,ContentDescription">
 
     <LinearLayout
         android:id="@+id/loading_app_launches"
@@ -60,7 +61,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:orientation="vertical">
 
                 <TextView

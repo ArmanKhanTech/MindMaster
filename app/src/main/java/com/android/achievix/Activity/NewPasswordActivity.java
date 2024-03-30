@@ -14,6 +14,7 @@ import com.hanks.passcodeview.PasscodeView;
 @SuppressLint("UseSwitchCompatOrMaterialCode")
 public class NewPasswordActivity extends AppCompatActivity {
     PasscodeView passcodeView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,14 +26,9 @@ public class NewPasswordActivity extends AppCompatActivity {
         passcodeView = findViewById(R.id.passcodeViewSet);
         passcodeView.setListener(new PasscodeView.PasscodeViewListener() {
             @Override
-            public void onFail(String wrongNumber) {
-                // do nothing
-            }
-
+            public void onFail(String wrongNumber) {}
             @Override
-            public void onFail() {
-                // do nothing
-            }
+            public void onFail() {}
 
             @Override
             public void onSuccess(String number) {

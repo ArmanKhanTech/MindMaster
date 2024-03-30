@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".Activity.UsageTimeActivity">
+    tools:context=".Activity.UsageTimeActivity"
+    tools:ignore="HardcodedText,SpUsage,ContentDescription">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -228,8 +229,8 @@
                     android:id="@+id/sat"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_weight="1"
                     android:background="@drawable/day_radio_select"
                     android:button="@null"
@@ -252,16 +253,17 @@
             <EditText
                 android:id="@+id/fixed_block_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginHorizontal="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/app_block_edt_theme"
                 android:hint="something"
-                android:inputType="number"
+                android:inputType="text"
                 android:gravity="center"
                 android:padding="10dp"
                 android:textColor="@color/black"
-                android:textSize="22dp" />
+                android:textSize="22dp"
+                tools:ignore="Autofill" />
 
         </LinearLayout>
 

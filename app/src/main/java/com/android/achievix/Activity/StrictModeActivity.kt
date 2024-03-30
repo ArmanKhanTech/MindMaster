@@ -18,7 +18,7 @@ import com.android.achievix.Adapter.OnTimeClickListener
 import com.android.achievix.Adapter.TimeLineAdapter
 import com.android.achievix.Model.TimeLineModel
 import com.android.achievix.R
-import com.android.achievix.Services.AdminReceiver
+import com.android.achievix.Service.AdminReceiver
 import com.android.achievix.Utility.ItemStatus
 import java.util.Objects
 
@@ -28,14 +28,12 @@ class StrictModeActivity : AppCompatActivity() {
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var editor: SharedPreferences.Editor
     private lateinit var sh: SharedPreferences
-    private lateinit var cn: ComponentName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_strict_mode)
 
         sh = getSharedPreferences("mode", MODE_PRIVATE)
-        editor = sh.edit()
 
         val activate = findViewById<Button>(R.id.activate_strict_mode)
         if(!sh.getBoolean("strict", false)) {
@@ -44,6 +42,7 @@ class StrictModeActivity : AppCompatActivity() {
                     Toast.makeText(this, "Please activate device admin first", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 } else {
+                    editor = sh.edit()
                     editor.putBoolean("strict", true)
                     editor.apply()
                     val intent = Intent()
@@ -54,8 +53,6 @@ class StrictModeActivity : AppCompatActivity() {
         } else {
             activate.visibility = GONE
         }
-
-        cn = ComponentName(this, AdminReceiver::class.java)
 
         setDataListItems()
         initRecyclerView()
@@ -173,6 +170,7 @@ class StrictModeActivity : AppCompatActivity() {
                         } else {
                             if(dataList[1].status == ItemStatus.ACTIVE) {
                                 val intent = Intent(this@StrictModeActivity, NewPasswordActivity::class.java)
+                                @Suppress("DEPRECATION")
                                 startActivityForResult(intent, 100)
                             } else {
                                 Toast.makeText(this@StrictModeActivity, "Password already set", Toast.LENGTH_SHORT).show()
@@ -186,9 +184,11 @@ class StrictModeActivity : AppCompatActivity() {
                             return
                         } else {
                             if(dataList[2].status == ItemStatus.ACTIVE) {
+                                val cn: ComponentName = ComponentName(this@StrictModeActivity, AdminReceiver::class.java)
                                 val intent = Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
                                 intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, cn)
                                 intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "Achievix requires device admin rights to restrict deletion of the app.")
+                                @Suppress("DEPRECATION")
                                 startActivityForResult(intent, 101)
                             } else {
                                 if(dataList[0].text.contains("Two") || dataList[0].text.contains("Three")) {
@@ -231,6 +231,7 @@ class StrictModeActivity : AppCompatActivity() {
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
+        @Suppress("DEPRECATION")
         super.onBackPressed()
         val intent = Intent()
         setResult(RESULT_CANCELED, intent)

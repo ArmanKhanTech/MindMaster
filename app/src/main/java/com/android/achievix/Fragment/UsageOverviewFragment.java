@@ -1,4 +1,4 @@
-package com.android.achievix.Fragments;
+package com.android.achievix.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -29,7 +29,7 @@ public class UsageOverviewFragment extends Fragment {
     private TextView usageStats;
     private LinearLayout usageLayout;
     private LinearLayout loadingLayout;
-    private Spinner sortSpinner;;
+    private Spinner sortSpinner;
     private final String[] sort = {"Daily", "Weekly", "Monthly", "Yearly"};
     private String sortValue = "Daily";
     private GetInstalledAppsUsageTask getInstalledAppsUsageTask;

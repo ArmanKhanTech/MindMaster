@@ -20,7 +20,7 @@ import androidx.core.content.ContextCompat;
 
 import com.android.achievix.Database.AppLaunchDatabase;
 import com.android.achievix.R;
-import com.android.achievix.Services.ForegroundService;
+import com.android.achievix.Service.ForegroundService;
 import com.android.achievix.Utility.NetworkUtil;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;

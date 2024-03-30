@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.InternetUsageFragment">
+    tools:context=".Fragment.InternetUsageFragment"
+    tools:ignore="HardcodedText,SpUsage,ContentDescription">
 
     <LinearLayout
         android:id="@+id/loading_usage_overview"
@@ -61,14 +62,14 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginEnd="15dp"
                     android:text="Total time spent looking at your phone"
                     android:textColor="@color/black"
                     android:fontFamily="sans-serif-condensed-light"

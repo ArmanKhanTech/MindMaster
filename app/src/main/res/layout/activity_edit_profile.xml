@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".Activity.TakeBreakActivity">
+    tools:context=".Activity.TakeBreakActivity"
+    tools:ignore="HardcodedText,SpUsage,ContentDescription">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -67,7 +68,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:text="Schedules"
@@ -101,7 +102,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:text="Apps"
@@ -135,7 +136,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:text="Websites"
@@ -169,7 +170,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
                     android:text="Keywords"

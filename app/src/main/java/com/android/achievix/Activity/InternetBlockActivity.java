@@ -25,58 +25,57 @@ import com.android.achievix.Utility.UsageUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-/** @noinspection ALL*/ // TODO: Lazy loading, optimize, edt cursor, spinner theme
 public class InternetBlockActivity extends AppCompatActivity {
-    private static final int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 0;
     private final String[] sort = new String[]{"Name", "Usage", "Blocked"};
     private String sortValue = "Name";
-    private List<AppBlockModel> appList;
+    private List<AppBlockModel> appBlockModelList;
     private RecyclerView recyclerView;
     private LinearLayout loadingLayout;
-    private LinearLayout llInternetUsage;
+    private LinearLayout internetUsageLayout;
+    private Spinner sortSpinner;
+    private EditText searchEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_internet_block);
+        initializeViews();
+        attachListeners();
+        new GetInstalledAppsInternetTask(this, sortValue).execute();
+    }
 
-        loadingLayout = findViewById(R.id.loading_block_internet);
-        llInternetUsage = findViewById(R.id.ll_block_internet);
-
+    private void initializeViews() {
         recyclerView = findViewById(R.id.internet_block_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        loadingLayout = findViewById(R.id.loading_block_internet);
+        internetUsageLayout = findViewById(R.id.layout_block_internet);
+        searchEditText = findViewById(R.id.search_internet_block);
+        sortSpinner = findViewById(R.id.internet_block_spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sort);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        sortSpinner.setAdapter(adapter);
+    }
 
-        new GetInstalledAppsInternetTask(this, sortValue).execute();
-
-        EditText searchView = findViewById(R.id.search_internet_block);
-        searchView.addTextChangedListener(new TextWatcher() {
+    private void attachListeners() {
+        searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 filter(s.toString());
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // do nothing
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // do nothing
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
 
-        Spinner spinner = findViewById(R.id.internet_block_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sort);
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(
+        sortSpinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
                     boolean isFirstTime = true;
 
-                    @SuppressLint("StaticFieldLeak")
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         if (isFirstTime) {
@@ -88,21 +87,19 @@ public class InternetBlockActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-                        //
-                    }
+                    public void onNothingSelected(AdapterView<?> parent) {}
                 }
         );
     }
 
     private void filter(String text) {
         List<AppBlockModel> filteredList = new ArrayList<>();
-        for (AppBlockModel item : appList) {
+        for (AppBlockModel item : appBlockModelList) {
             if (item.getAppName().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(item);
             }
         }
-        ((InternetBlockAdapter) recyclerView.getAdapter()).updateListInternet(filteredList);
+        ((InternetBlockAdapter) Objects.requireNonNull(recyclerView.getAdapter())).updateListInternet(filteredList);
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -119,7 +116,7 @@ public class InternetBlockActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             loadingLayout.setVisibility(View.VISIBLE);
-            llInternetUsage.setVisibility(View.GONE);
+            internetUsageLayout.setVisibility(View.GONE);
         }
 
         @Override
@@ -129,10 +126,10 @@ public class InternetBlockActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(List<AppBlockModel> result) {
-            appList = result;
-            recyclerView.setAdapter(new InternetBlockAdapter(appList));
+            appBlockModelList = result;
+            recyclerView.setAdapter(new InternetBlockAdapter(appBlockModelList));
             loadingLayout.setVisibility(View.GONE);
-            llInternetUsage.setVisibility(View.VISIBLE);
+            internetUsageLayout.setVisibility(View.VISIBLE);
         }
     }
 }

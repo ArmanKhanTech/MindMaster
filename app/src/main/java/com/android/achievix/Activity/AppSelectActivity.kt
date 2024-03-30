@@ -1,9 +1,6 @@
 package com.android.achievix.Activity
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,31 +15,43 @@ import com.android.achievix.Adapter.AppSelectAdapter
 import com.android.achievix.Model.AppSelectModel
 import com.android.achievix.R
 import com.android.achievix.Utility.UsageUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 // TODO: Selection disappears on scrolling
 class AppSelectActivity : AppCompatActivity() {
-    private lateinit var appList: List<AppSelectModel>
+    private lateinit var appSelectModelList: List<AppSelectModel>
     private lateinit var recyclerView: RecyclerView
-    private lateinit var button: Button
+    private lateinit var saveButton: Button
+    private lateinit var searchEditText: EditText
     private val selectedApps = mutableListOf<String>()
-    private lateinit var llAppBlock: LinearLayout
+    private lateinit var appSelectLayout: LinearLayout
     private lateinit var loadingLayout: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_app_select)
+        initializeViews()
+        attachListeners()
+        getInstalledApps()
+    }
 
-        llAppBlock = findViewById(R.id.ll_select_apps)
+    private fun initializeViews() {
+        appSelectLayout = findViewById(R.id.layout_select_apps)
         loadingLayout = findViewById(R.id.loading_select_apps)
-
         recyclerView = findViewById(R.id.app_select_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        saveButton = findViewById(R.id.save_selected_app_button)
+        searchEditText = findViewById(R.id.search_app_select)
+    }
 
-        button = findViewById(R.id.save_selected_app_button)
-        button.setOnClickListener {
+    private fun attachListeners() {
+        saveButton.setOnClickListener {
             val intent = Intent()
             selectedApps.clear()
-            appList.forEach {
+            appSelectModelList.forEach {
                 if (it.selected) {
                     selectedApps.add(it.packageName)
                 }
@@ -52,56 +61,32 @@ class AppSelectActivity : AppCompatActivity() {
             finish()
         }
 
-        val searchView = findViewById<EditText>(R.id.search_app_select)
-        searchView.addTextChangedListener(object : TextWatcher {
+        searchEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 filter(s.toString())
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // do nothing
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // do nothing
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
-
-        GetInstalledAppsTask(this, this).execute()
     }
 
     private fun filter(text: String) {
-        val filteredList = appList.filter { it.name.contains(text, ignoreCase = true) }
+        val filteredList = appSelectModelList.filter { it.name.contains(text, ignoreCase = true) }
         (recyclerView.adapter as AppSelectAdapter).updateListSelect(filteredList)
     }
 
-    @Suppress("DEPRECATION")
-    @SuppressLint("StaticFieldLeak")
-    class GetInstalledAppsTask(
-        private val activity: AppSelectActivity,
-        private val context: Context
-    ) : AsyncTask<Void?, Void?, List<AppSelectModel>>() {
-
-        @Deprecated("Deprecated in Java")
-        override fun onPreExecute() {
-            super.onPreExecute()
-            activity.llAppBlock.visibility = View.GONE
-            activity.loadingLayout.visibility = View.VISIBLE
-        }
-
-        @Deprecated("Deprecated in Java")
-        override fun doInBackground(vararg params: Void?): List<AppSelectModel> {
-            return UsageUtil.getInstalledAppsSelect(context)
-        }
-
-        @Deprecated("Deprecated in Java")
-        override fun onPostExecute(result: List<AppSelectModel>?) {
-            if (result != null) {
-                activity.appList = result
+    private fun getInstalledApps() {
+        appSelectLayout.visibility = View.GONE
+        loadingLayout.visibility = View.VISIBLE
+        CoroutineScope(Dispatchers.IO).launch {
+            val apps = UsageUtil.getInstalledAppsSelect(this@AppSelectActivity)
+            withContext(Dispatchers.Main) {
+                appSelectModelList = apps
+                recyclerView.adapter = AppSelectAdapter(appSelectModelList)
+                appSelectLayout.visibility = View.VISIBLE
+                loadingLayout.visibility = View.GONE
             }
-            activity.recyclerView.adapter = AppSelectAdapter(activity.appList)
-            activity.llAppBlock.visibility = View.VISIBLE
-            activity.loadingLayout.visibility = View.GONE
         }
     }
 }

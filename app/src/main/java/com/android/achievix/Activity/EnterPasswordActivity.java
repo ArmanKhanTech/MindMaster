@@ -18,26 +18,25 @@ public class EnterPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_enter_password);
 
         passcodeView = findViewById(R.id.passcodeViewCheck);
+
         Intent intent = getIntent();
         int password = intent.getIntExtra("password", 0);
         String invokedFrom = intent.getStringExtra("invokedFrom");
 
         ImageButton back = findViewById(R.id.back_enter_password);
+        assert invokedFrom != null;
+        if(invokedFrom.equals("MainActivity")) {
 //
-
+        } else {
+//
+        }
 
         passcodeView.setLocalPasscode(String.valueOf(password));
-
         passcodeView.setListener(new PasscodeView.PasscodeViewListener() {
             @Override
-            public void onFail(String wrongNumber) {
-                // do nothing
-            }
-
+            public void onFail(String wrongNumber) {}
             @Override
-            public void onFail() {
-                // do nothing
-            }
+            public void onFail() {}
 
             @Override
             public void onSuccess(String number) {

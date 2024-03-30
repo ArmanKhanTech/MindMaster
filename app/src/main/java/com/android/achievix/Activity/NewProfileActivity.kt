@@ -13,12 +13,12 @@ class NewProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_profile)
 
-        var new_profile: EditText = findViewById(R.id.add_profile)
-        new_profile.setOnKeyListener(object : View.OnKeyListener {
+        val newProfile: EditText = findViewById(R.id.add_profile)
+        newProfile.setOnKeyListener(object : View.OnKeyListener {
             override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
                 if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                    var intent = Intent(this@NewProfileActivity, NewScheduleActivity::class.java)
-                    intent.putExtra("profile_name", new_profile.text.toString())
+                    val intent = Intent(this@NewProfileActivity, NewScheduleActivity::class.java)
+                    intent.putExtra("profile_name", newProfile.text.toString())
                     startActivity(intent)
                     return true
                 }

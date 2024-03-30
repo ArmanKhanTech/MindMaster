@@ -1,14 +1,12 @@
-package com.android.achievix.Services;
+package com.android.achievix.Service;
 
 import android.accessibilityservice.AccessibilityService;
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import androidx.annotation.NonNull;
 
-import com.android.achievix.Activity.DrawOnTopWebActivity;
 import com.android.achievix.Database.BlockDatabase;
 
 import java.util.ArrayList;

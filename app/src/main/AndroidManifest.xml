@@ -35,7 +35,7 @@
             android:exported="false" />
 
         <receiver
-            android:name=".Services.RestartService"
+            android:name=".Service.RestartService"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -43,7 +43,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".Services.AdminReceiver"
+            android:name=".Service.AdminReceiver"
             android:exported="false"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
             <meta-data
@@ -56,7 +56,7 @@
         </receiver>
 
         <service
-            android:name=".Services.ForegroundService"
+            android:name=".Service.ForegroundService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="specialUse">
@@ -65,7 +65,7 @@
                 android:value="To run service in the background." />
         </service>
         <service
-            android:name=".Services.NotificationBlock"
+            android:name=".Service.NotificationBlock"
             android:exported="false"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
@@ -73,7 +73,7 @@
             </intent-filter>
         </service>
         <service
-            android:name=".Services.LogURLService"
+            android:name=".Service.LogURLService"
             android:exported="true"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
@@ -162,10 +162,6 @@
             android:exported="false"
             android:theme="@style/Theme.FocusOnMe" />
         <activity
-            android:name=".Activity.DrawOnTopWebActivity"
-            android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
-        <activity
             android:name=".Activity.WebBlockActivity"
             android:exported="false"
             android:theme="@style/Theme.FocusOnMe" />
@@ -175,15 +171,15 @@
             android:noHistory="true"
             android:theme="@style/Theme.FocusOnMe.CustomView.LimitActivity" />
         <activity
-            android:name=".Permissions.GetNotificationAccess"
+            android:name=".Permission.GetNotificationAccess"
             android:exported="false"
             android:theme="@style/Theme.FocusOnMe.CustomView.PermissionActivity" />
         <activity
-            android:name=".Permissions.GetDrawOverAppsPermission"
+            android:name=".Permission.GetDrawOverAppsPermission"
             android:exported="false"
             android:theme="@style/Theme.FocusOnMe.CustomView.PermissionActivity" />
         <activity
-            android:name=".Permissions.GetUsageStatsPermissionActivity"
+            android:name=".Permission.GetUsageStatsPermissionActivity"
             android:exported="false"
             android:theme="@style/Theme.FocusOnMe.CustomView.PermissionActivity" />
         <activity

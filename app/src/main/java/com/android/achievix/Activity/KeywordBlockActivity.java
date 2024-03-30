@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.achievix.R;
 
 public class KeywordBlockActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

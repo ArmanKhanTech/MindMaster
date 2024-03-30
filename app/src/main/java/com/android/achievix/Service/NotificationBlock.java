@@ -1,4 +1,4 @@
-package com.android.achievix.Services;
+package com.android.achievix.Service;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -23,7 +23,6 @@ public class NotificationBlock extends NotificationListenerService {
         SharedPreferences sh = getSharedPreferences("takeBreak", Context.MODE_PRIVATE);
         boolean notificationBlocked = sh.getBoolean("notification", false);
         if (notificationBlocked) {
-            Log.d("Block", "Notification Blocked");
             cancelNotification(sbn.getKey());
         }
     }

@@ -23,21 +23,21 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.android.achievix.R;
-import com.android.achievix.Services.ForegroundService;
+import com.android.achievix.Service.ForegroundService;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Calendar;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-    DrawerLayout drawerLayout;
-    LinearLayout ib1, ib2, ib3, ib4, ib5, ib6, ib7, ib8;
-    Button b;
-    Calendar c = Calendar.getInstance();
-    int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
-    String greeting = "";
-    TextView mode, mode_desc;
-    ImageView strict_level_one, strict_level_two;
+    private DrawerLayout drawerLayout;
+    private LinearLayout ll1, ll2, ll3, ll4, ll5, ll6, ll7, ll8;
+    private Button navButton;
+    private final Calendar c = Calendar.getInstance();
+    private final int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+    private String greeting = "";
+    private TextView mode, mode_desc;
+    private ImageView strict_level_one, strict_level_two;
 
     @SuppressLint({"NonConstantResourceId", "InlinedApi", "SetTextI18n"})
     @Override
@@ -55,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
             ContextCompat.startForegroundService(this, serviceIntent);
         }
 
+        initializeViews();
+        setupListeners();
+    }
+
+    private void initializeViews() {
         mode = findViewById(R.id.main_mode);
         mode_desc = findViewById(R.id.main_mode_desc);
         strict_level_one = findViewById(R.id.strictness_level_img_one);
@@ -76,115 +81,95 @@ public class MainActivity extends AppCompatActivity {
         }
 
         drawerLayout = findViewById(R.id.drawerLayout);
-        NavigationView navigationMenu = findViewById(R.id.nav_menu);
-
-        b = findViewById(R.id.nav_button);
-        b.setOnClickListener(view -> drawerLayout.openDrawer(GravityCompat.START));
-
-        ib1 = findViewById(R.id.goto_block_apps);
-        ib2 = findViewById(R.id.goto_block_sites);
-        ib3 = findViewById(R.id.goto_block_keywords);
-        ib4 = findViewById(R.id.goto_block_internet);
-
-        ib5 = findViewById(R.id.add_profile);
-
-        ib6 = findViewById(R.id.mode_button);
-
-        ib7 = findViewById(R.id.stats_button);
-
-        ib8 = findViewById(R.id.take_a_break_button);
+        navButton = findViewById(R.id.nav_button);
+        ll1 = findViewById(R.id.goto_block_apps);
+        ll2 = findViewById(R.id.goto_block_sites);
+        ll3 = findViewById(R.id.goto_block_keywords);
+        ll4 = findViewById(R.id.goto_block_internet);
+        ll5 = findViewById(R.id.add_profile);
+        ll6 = findViewById(R.id.mode_button);
+        ll7 = findViewById(R.id.stats_button);
+        ll8 = findViewById(R.id.take_a_break_button);
 
         TextView greet = findViewById(R.id.greet);
         greet.setText(getGreetings());
+    }
 
+    private void setupListeners() {
+        NavigationView navigationMenu = findViewById(R.id.nav_menu);
         navigationMenu.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.menu1 -> startActivity(new Intent(this, SettingActivity.class));
-                case R.id.menu5 ->
-                        startActivity(new Intent(MainActivity.this, AboutActivity.class));
+                case R.id.menu5 -> startActivity(new Intent(MainActivity.this, AboutActivity.class));
             }
 
             return false;
         });
 
-        ib1.setOnClickListener(view12 -> {
-            Intent intent = new Intent(this, AppBlockActivity.class);
-            startActivity(intent);
+        navButton.setOnClickListener(view -> drawerLayout.openDrawer(GravityCompat.START));
+
+        ll1.setOnClickListener(view12 -> startActivity(new Intent(this, AppBlockActivity.class)));
+        ll2.setOnClickListener(view12 -> startActivity(new Intent(this, WebBlockActivity.class)));
+        ll3.setOnClickListener(view12 -> startActivity(new Intent(this, KeywordBlockActivity.class)));
+        ll4.setOnClickListener(view12 -> startActivity(new Intent(this, InternetBlockActivity.class)));
+        ll5.setOnClickListener(view12 -> startActivity(new Intent(this, NewProfileActivity.class)));
+        ll6.setOnClickListener(view12 -> showModeDialog());
+        ll7.setOnClickListener(view12 -> startActivity(new Intent(this, UsageOverviewActivity.class)));
+        ll8.setOnClickListener(view12 -> startActivity(new Intent(this, TakeBreakActivity.class)));
+    }
+
+    private void showModeDialog() {
+        Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.mode_dailog);
+        dialog.setCancelable(true);
+        Objects.requireNonNull(dialog.getWindow())
+                .setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        LinearLayout normal = dialog.findViewById(R.id.mode_button_normal);
+        LinearLayout strict = dialog.findViewById(R.id.mode_button_strict);
+
+        SharedPreferences shDialog = getSharedPreferences("mode", MODE_PRIVATE);
+        boolean strictDialog = shDialog.getBoolean("strict", false);
+        SharedPreferences.Editor editorDialog = shDialog.edit();
+
+        normal.setOnClickListener(view1 -> {
+            if(!strictDialog) {
+                Toast.makeText(MainActivity.this, "Normal Mode is already enabled", Toast.LENGTH_SHORT).show();
+            } else {
+                editorDialog.putBoolean("strict", false);
+                editorDialog.putInt("level", 0);
+                editorDialog.putInt("password", 0);
+                editorDialog.apply();
+                updateMode(false);
+                dialog.dismiss();
+            }
         });
 
-        ib2.setOnClickListener(view12 -> {
-            Intent intent = new Intent(this, WebBlockActivity.class);
-            startActivity(intent);
+        strict.setOnClickListener(view1 -> {
+            if(strictDialog) {
+                Toast.makeText(MainActivity.this, "Strict Mode is already enabled", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent(MainActivity.this, StrictModeActivity.class);
+                dialog.dismiss();
+                startActivityForResult(intent, 100);
+            }
         });
 
-        ib3.setOnClickListener(view12 -> {
-            Intent intent = new Intent(this, KeywordBlockActivity.class);
-            startActivity(intent);
-        });
+        dialog.show();
+    }
 
-        ib4.setOnClickListener(view12 -> {
-            Intent intent = new Intent(this, InternetBlockActivity.class);
-            startActivity(intent);
-        });
-
-        ib5.setOnClickListener(view12 -> {
-            Intent intent = new Intent(this, NewProfileActivity.class);
-            startActivity(intent);
-        });
-
-        ib6.setOnClickListener(view12 -> {
-            Dialog dialog = new Dialog(MainActivity.this);
-            dialog.setContentView(R.layout.mode_dailog);
-            dialog.setCancelable(true);
-            Objects.requireNonNull(dialog
-                            .getWindow())
-                    .setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-            LinearLayout normal = dialog.findViewById(R.id.mode_button_normal);
-            LinearLayout strict = dialog.findViewById(R.id.mode_button_strict);
-
-            SharedPreferences shDialog = getSharedPreferences("mode", MODE_PRIVATE);
-            boolean strictDialog = sh.getBoolean("strict", false);
-            SharedPreferences.Editor editorDialog = shDialog.edit();
-
-            normal.setOnClickListener(view1 -> {
-                if(!strictDialog) {
-                    Toast.makeText(MainActivity.this, "Normal Mode is already enabled", Toast.LENGTH_SHORT).show();
-                } else {
-                    editorDialog.putBoolean("strict", false);
-                    editorDialog.putInt("level", 0);
-                    editorDialog.putInt("password", 0);
-                    editorDialog.apply();
-                    mode.setText("Normal Mode");
-                    mode_desc.setText(R.string.normal_mode);
-                    strict_level_one.setImageResource(R.drawable.lock_icon_red);
-                    strict_level_two.setImageResource(R.drawable.lock_icon_grey);
-                    dialog.dismiss();
-                }
-            });
-
-            strict.setOnClickListener(view1 -> {
-                if(strictDialog) {
-                    Toast.makeText(MainActivity.this, "Strict Mode is already enabled", Toast.LENGTH_SHORT).show();
-                } else {
-                    Intent intent = new Intent(MainActivity.this, StrictModeActivity.class);
-                    dialog.dismiss();
-                    startActivityForResult(intent, 100);
-                }
-            });
-
-            dialog.show();
-        });
-
-        ib7.setOnClickListener(view12 -> {
-            Intent intent = new Intent(this, UsageOverviewActivity.class);
-            startActivity(intent);
-        });
-
-        ib8.setOnClickListener(view12 -> {
-            Intent intent = new Intent(this, TakeBreakActivity.class);
-            startActivity(intent);
-        });
+    private void updateMode(boolean _strict) {
+        if (_strict) {
+            mode.setText("Strict Mode");
+            mode_desc.setText(R.string.strict_mode);
+            strict_level_one.setImageResource(R.drawable.lock_icon_red);
+            strict_level_two.setImageResource(R.drawable.lock_icon_red);
+        } else {
+            mode.setText("Normal Mode");
+            mode_desc.setText(R.string.normal_mode);
+            strict_level_one.setImageResource(R.drawable.lock_icon_red);
+            strict_level_two.setImageResource(R.drawable.lock_icon_grey);
+        }
     }
 
     public boolean isMyServiceRunning(Class<?> serviceClass) {
@@ -216,25 +201,10 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100) {
             if (resultCode == RESULT_OK) {
-                updateMode();
+                SharedPreferences sh = getSharedPreferences("mode", MODE_PRIVATE);
+                boolean _strict = sh.getBoolean("strict", false);
+                updateMode(_strict);
             }
-        }
-    }
-
-    private void updateMode() {
-        SharedPreferences sh = getSharedPreferences("mode", MODE_PRIVATE);
-        boolean _strict = sh.getBoolean("strict", false);
-
-        if (_strict) {
-            mode.setText("Strict Mode");
-            mode_desc.setText(R.string.strict_mode);
-            strict_level_one.setImageResource(R.drawable.lock_icon_red);
-            strict_level_two.setImageResource(R.drawable.lock_icon_red);
-        } else {
-            mode.setText("Normal Mode");
-            mode_desc.setText(R.string.normal_mode);
-            strict_level_one.setImageResource(R.drawable.lock_icon_red);
-            strict_level_two.setImageResource(R.drawable.lock_icon_grey);
         }
     }
 }

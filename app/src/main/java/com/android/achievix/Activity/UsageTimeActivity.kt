@@ -37,6 +37,11 @@ class UsageTimeActivity : AppCompatActivity() {
         val packageName = intent.getStringExtra("packageName")
         val type = intent.getStringExtra("type")
 
+        initializeViews()
+        setupListeners(name, packageName, type)
+    }
+
+    private fun initializeViews() {
         appLaunchSwitch = findViewById(R.id.block_app_launch_usage_time)
         notiSwitch = findViewById(R.id.block_noti_usage_time)
         monRadioButton = findViewById(R.id.monday)
@@ -55,7 +60,9 @@ class UsageTimeActivity : AppCompatActivity() {
 
         appLaunchSwitch.isChecked = true
         notiSwitch.isChecked = true
+    }
 
+    private fun setupListeners(name: String?, packageName: String?, type: String?) {
         saveButton.setOnClickListener {
             val hours = hoursEditText.text.toString().isEmpty().let {
                 if (it) {
@@ -108,33 +115,13 @@ class UsageTimeActivity : AppCompatActivity() {
 
                     Log.d("UsageTimeActivity", blockDatabase.readAllRecords().count.toString())
                 }
-//                "web" -> {
-//                    blockDatabase.addRecord(
-//                        packageName!!,
-//                        name!!,
-//                        days,
-//                        hours,
-//                        mins,
-//                        text,
-//                        appLaunch,
-//                        noti
-//                    )
-//                }
-//                "keyword" -> {
-//                    blockDatabase.addRecord(
-//                        name!!,
-//                        days,
-//                        hours,
-//                        mins,
-//                        text,
-//                        appLaunch,
-//                        noti
-//                    )
-//                }
             }
-//            finish()
         }
 
+        setupDayCheckListeners()
+    }
+
+    private fun setupDayCheckListeners() {
         var isSundayChecked = false
         sunRadioButton.setOnClickListener {
             isSundayChecked = !isSundayChecked

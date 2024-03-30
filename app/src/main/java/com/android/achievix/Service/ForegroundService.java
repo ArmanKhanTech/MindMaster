@@ -1,4 +1,4 @@
-package com.android.achievix.Services;
+package com.android.achievix.Service;
 
 import static android.app.PendingIntent.FLAG_IMMUTABLE;
 
@@ -16,11 +16,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.os.CountDownTimer;
 import android.os.IBinder;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;

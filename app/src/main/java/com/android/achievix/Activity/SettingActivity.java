@@ -12,24 +12,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.android.achievix.R;
-import com.android.achievix.Services.AdminReceiver;
-import com.android.achievix.Services.ForegroundService;
+import com.android.achievix.Service.AdminReceiver;
+import com.android.achievix.Service.ForegroundService;
 
 public class SettingActivity extends AppCompatActivity {
-    private ComponentName cn = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        cn = new ComponentName(this, AdminReceiver.class);
-
-        ImageButton b2 = findViewById(R.id.back_settings);
-        b2.setOnClickListener(view -> finish());
+        ImageButton backButton = findViewById(R.id.back_settings);
+        backButton.setOnClickListener(view -> finish());
     }
 
     public void uninstallProtection(View v) {
+        ComponentName cn = new ComponentName(this, AdminReceiver.class);
         Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
         intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, cn);
         startActivity(intent);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:layout_weight="1"
@@ -9,7 +9,8 @@
     android:layout_marginBottom="10dp"
     android:orientation="horizontal"
     android:paddingHorizontal="15dp"
-    android:paddingVertical="10dp">
+    android:paddingVertical="10dp"
+    tools:ignore="HardcodedText,SpUsage,ContentDescription">
 
     <ImageView
         android:layout_width="30dp"
@@ -20,7 +21,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:text="Profile Name"
         android:layout_weight="1"
         android:textColor="@color/pink"
@@ -31,7 +32,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:src="@drawable/pause_icon_pink" />
 
 </LinearLayout>

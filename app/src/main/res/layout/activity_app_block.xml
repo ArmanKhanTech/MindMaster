@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:text="Block"
-            android:textColor="@color/skyBlue"
+            android:textColor="@color/purple_500"
             android:textSize="50dp"
             android:textStyle="bold" />
 
@@ -74,7 +74,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ll_block_apps"
+            android:id="@+id/layout_block_apps"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -104,7 +104,9 @@
                         android:maxLines="1"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="22dp" />
+                        android:textSize="22dp"
+                        tools:ignore="Autofill"
+                        android:inputType="text" />
 
                     <ImageView
                         android:layout_width="wrap_content"

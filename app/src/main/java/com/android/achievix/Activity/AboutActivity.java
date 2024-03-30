@@ -13,13 +13,7 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        ImageButton b = findViewById(R.id.back_about);
-        b.setOnClickListener(view -> finish());
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        finish();
+        ImageButton backButton = findViewById(R.id.back_about);
+        backButton.setOnClickListener(view -> finish());
     }
 }

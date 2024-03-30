@@ -7,10 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.achievix.R
 
 class NewScheduleActivity : AppCompatActivity() {
-    private var name: String? = null
-    private var packageName: String? = null
-    private var type: String? = null
-    private var profileName: String? = null
+    private lateinit var name: String
+    private lateinit var packageName: String
+    private lateinit var type: String
+    private lateinit var profileName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,81 +20,57 @@ class NewScheduleActivity : AppCompatActivity() {
         val caller = intent.getStringExtra("caller")
 
         if(caller != "profile") {
-            name = intent.getStringExtra("name")
-            packageName = intent.getStringExtra("packageName")
-            type = intent.getStringExtra("type")
+            name = intent.getStringExtra("name").toString()
+            packageName = intent.getStringExtra("packageName").toString()
+            type = intent.getStringExtra("type").toString()
         } else {
-            profileName = intent.getStringExtra("profileName")
+            profileName = intent.getStringExtra("profileName")!!
         }
 
-        val usageLimitButton: LinearLayout = findViewById(R.id.usage_limit_button)
-        usageLimitButton.setOnClickListener {
-            Intent(this, UsageTimeActivity::class.java).also {
-                if (caller != "profile") {
-                    it.putExtra("name", name)
-                    it.putExtra("packageName", packageName)
-                    it.putExtra("type", type)
-                } else {
-                    it.putExtra("profileName", profileName)
-                }
-                startActivity(it)
-            }
+        initializeViews()
+        setupListeners(caller)
+    }
+
+    private fun initializeViews() {
+        findViewById<LinearLayout>(R.id.usage_limit_button)
+        findViewById<LinearLayout>(R.id.specific_time_button)
+        findViewById<LinearLayout>(R.id.quick_block_button)
+        findViewById<LinearLayout>(R.id.launch_block_button)
+        findViewById<LinearLayout>(R.id.wait_timer_button)
+    }
+
+    private fun setupListeners(caller: String?) {
+        findViewById<LinearLayout>(R.id.usage_limit_button).setOnClickListener {
+            startNewActivity(caller, UsageTimeActivity::class.java)
         }
 
-        val specificTimeButton: LinearLayout = findViewById(R.id.specific_time_button)
-        specificTimeButton.setOnClickListener {
-            Intent(this, SpecificTimeActivity::class.java).also {
-                if (caller != "profile") {
-                    it.putExtra("name", name)
-                    it.putExtra("packageName", packageName)
-                    it.putExtra("type", type)
-                } else {
-                    it.putExtra("profileName", profileName)
-                }
-                startActivity(it)
-            }
+        findViewById<LinearLayout>(R.id.specific_time_button).setOnClickListener {
+            startNewActivity(caller, SpecificTimeActivity::class.java)
         }
 
-        val quickBlockButton: LinearLayout = findViewById(R.id.quick_block_button)
-        quickBlockButton.setOnClickListener {
-            Intent(this, QuickBlockActivity::class.java).also {
-                if (caller != "profile") {
-                    it.putExtra("name", name)
-                    it.putExtra("packageName", packageName)
-                    it.putExtra("type", type)
-                } else {
-                    it.putExtra("profileName", profileName)
-                }
-                startActivity(it)
-            }
+        findViewById<LinearLayout>(R.id.quick_block_button).setOnClickListener {
+            startNewActivity(caller, QuickBlockActivity::class.java)
         }
 
-        val launchBlockButton: LinearLayout = findViewById(R.id.launch_block_button)
-        launchBlockButton.setOnClickListener {
-            Intent(this, NoOfLaunchesActivity::class.java).also {
-                if (caller != "profile") {
-                    it.putExtra("name", name)
-                    it.putExtra("packageName", packageName)
-                    it.putExtra("type", type)
-                } else {
-                    it.putExtra("profileName", profileName)
-                }
-                startActivity(it)
-            }
+        findViewById<LinearLayout>(R.id.launch_block_button).setOnClickListener {
+            startNewActivity(caller, NoOfLaunchesActivity::class.java)
         }
 
-        val fixedBlockButton: LinearLayout = findViewById(R.id.wait_timer_button)
-        fixedBlockButton.setOnClickListener {
-            Intent(this, FixedBlockActivity::class.java).also {
-                if (caller != "profile") {
-                    it.putExtra("name", name)
-                    it.putExtra("packageName", packageName)
-                    it.putExtra("type", type)
-                } else {
-                    it.putExtra("profileName", profileName)
-                }
-                startActivity(it)
+        findViewById<LinearLayout>(R.id.wait_timer_button).setOnClickListener {
+            startNewActivity(caller, FixedBlockActivity::class.java)
+        }
+    }
+
+    private fun startNewActivity(caller: String?, activityClass: Class<*>) {
+        Intent(this, activityClass).also {
+            if (caller != "profile") {
+                it.putExtra("name", name)
+                it.putExtra("packageName", packageName)
+                it.putExtra("type", type)
+            } else {
+                it.putExtra("profileName", profileName)
             }
+            startActivity(it)
         }
     }
 }

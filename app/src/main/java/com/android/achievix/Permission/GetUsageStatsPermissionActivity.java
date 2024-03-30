@@ -1,4 +1,4 @@
-package com.android.achievix.Permissions;
+package com.android.achievix.Permission;
 
 import android.annotation.SuppressLint;
 import android.app.AppOpsManager;

@@ -9,7 +9,7 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.android.achievix.Permissions.GetUsageStatsPermissionActivity;
+import com.android.achievix.Permission.GetUsageStatsPermissionActivity;
 import com.android.achievix.R;
 
 import java.util.Objects;
@@ -21,11 +21,11 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         SharedPreferences sh1 = getSharedPreferences("achievix", MODE_PRIVATE);
         SharedPreferences sh2 = getSharedPreferences("mode", MODE_PRIVATE);
 
         Handler handler = new Handler();
+
         if (Objects.equals(sh1.getString("firstTime", "yes"), "no")) {
             handler.postDelayed(() -> {
                 int i = sh2.getInt("password", 0);

@@ -1,4 +1,4 @@
-package com.android.achievix.Services;
+package com.android.achievix.Service;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

@@ -24,13 +24,13 @@ import com.android.achievix.Utility.UsageUtil.Companion.getInstalledAppsBlock
 
 @Suppress("DEPRECATION")
 class AppBlockActivity : AppCompatActivity() {
-    private lateinit var appList: List<AppBlockModel>
+    private lateinit var appBlockModelList: List<AppBlockModel>
     private lateinit var recyclerView: RecyclerView
-    private lateinit var spinner: Spinner
-    private lateinit var searchView: EditText
-    private lateinit var adapter: ArrayAdapter<String>
+    private lateinit var sortSpinner: Spinner
+    private lateinit var searchEditText: EditText
+    private lateinit var arrayAdapter: ArrayAdapter<String>
     private var appBlockAdapter: AppBlockAdapter? = null
-    private lateinit var llAppBlock: LinearLayout
+    private lateinit var appBlockLayout: LinearLayout
     private lateinit var loadingLayout: LinearLayout
     private var sortValue = "Name"
 
@@ -45,11 +45,11 @@ class AppBlockActivity : AppCompatActivity() {
     }
 
     private fun initializeViews() {
-        llAppBlock = findViewById(R.id.ll_block_apps)
+        appBlockLayout = findViewById(R.id.layout_block_apps)
         loadingLayout = findViewById(R.id.loading_block_apps)
         recyclerView = findViewById(R.id.app_block_recycler_view)
-        spinner = findViewById(R.id.app_block_spinner)
-        searchView = findViewById(R.id.search_app_block)
+        sortSpinner = findViewById(R.id.app_block_spinner)
+        searchEditText = findViewById(R.id.search_app_block)
     }
 
     private fun setupRecyclerView() {
@@ -58,7 +58,7 @@ class AppBlockActivity : AppCompatActivity() {
     }
 
     private fun setupSearchView() {
-        searchView.addTextChangedListener(object : TextWatcher {
+        searchEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 filter(s.toString())
             }
@@ -69,10 +69,10 @@ class AppBlockActivity : AppCompatActivity() {
     }
 
     private fun setupSpinner() {
-        adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, arrayOf("Name", "Usage", "Blocked"))
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
-        spinner.adapter = adapter
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, arrayOf("Name", "Usage", "Blocked"))
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        sortSpinner.adapter = arrayAdapter
+        sortSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             var isFirstTime = true
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -87,7 +87,7 @@ class AppBlockActivity : AppCompatActivity() {
     }
 
     private fun filter(text: String) {
-        val filteredList = appList.filter { it.appName.contains(text, ignoreCase = true) }
+        val filteredList = appBlockModelList.filter { it.appName.contains(text, ignoreCase = true) }
         appBlockAdapter?.updateListBlock(filteredList)
     }
 
@@ -96,7 +96,7 @@ class AppBlockActivity : AppCompatActivity() {
         @Deprecated("Deprecated in Java")
         override fun onPreExecute() {
             super.onPreExecute()
-            llAppBlock.visibility = View.GONE
+            appBlockLayout.visibility = View.GONE
             loadingLayout.visibility = View.VISIBLE
         }
 
@@ -108,16 +108,16 @@ class AppBlockActivity : AppCompatActivity() {
         @Deprecated("Deprecated in Java")
         override fun onPostExecute(result: List<AppBlockModel>?) {
             result?.let {
-                appList = it
-                appBlockAdapter = AppBlockAdapter(appList)
+                appBlockModelList = it
+                appBlockAdapter = AppBlockAdapter(appBlockModelList)
                 recyclerView.adapter = appBlockAdapter
-                llAppBlock.visibility = View.VISIBLE
+                appBlockLayout.visibility = View.VISIBLE
                 loadingLayout.visibility = View.GONE
 
                 appBlockAdapter?.setOnItemClickListener(object : AppBlockAdapter.OnItemClickListener {
                     override fun onItemClick(view: View) {
                         val position = recyclerView.getChildAdapterPosition(view)
-                        val app = appList[position]
+                        val app = appBlockModelList[position]
                         launchActivity(app.appName, app.packageName)
                     }
                 })
