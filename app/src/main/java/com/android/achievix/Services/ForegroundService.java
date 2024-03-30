@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.os.CountDownTimer;
 import android.os.IBinder;
@@ -29,9 +30,8 @@ import com.android.achievix.Activity.DrawOnTopScreenActivity;
 import com.android.achievix.Activity.EnterPasswordActivity;
 import com.android.achievix.Activity.MainActivity;
 import com.android.achievix.Database.AppLaunchDatabase;
+import com.android.achievix.Database.BlockDatabase;
 import com.android.achievix.Database.InternetBlockDatabase;
-import com.android.achievix.Database.LimitPackages;
-import com.android.achievix.Database.RestrictPackages;
 import com.android.achievix.R;
 
 import java.math.RoundingMode;
@@ -40,6 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -52,9 +53,8 @@ public class ForegroundService extends Service {
     public static String currentApp = "";
     public static String previousApp = "";
     public Context mContext;
-    public RestrictPackages db = new RestrictPackages(this);
-    public LimitPackages db1 = new LimitPackages(this);
     public AppLaunchDatabase appLaunchDatabase = new AppLaunchDatabase(this);
+    public BlockDatabase blockDatabase = new BlockDatabase(this);
     public InternetBlockDatabase db3 = new InternetBlockDatabase(this);
 
     protected CountDownTimer check = new CountDownTimer(1000, 1000) {
@@ -90,62 +90,10 @@ public class ForegroundService extends Service {
 
             takeBreak(this);
             strictMode(this);
+            block(this);
 
-            ArrayList<String> packs = db.readRestrictPacks();
-            ArrayList<String> packs1 = db1.readLimitPacks();
             ArrayList<String> packs2 = db3.readInternetPacks();
-
-            if (packs.contains(currentApp)) {
-                this.cancel();
-                Intent lockIntent = new Intent(mContext, DrawOnTopAppActivity.class);
-                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                lockIntent.putExtra("PACK_NAME", currentApp);
-                String msg = "This App Is Blocked By FocusOnMe";
-                lockIntent.putExtra("MSG", msg);
-                startActivity(lockIntent);
-            } else if (packs1.contains(currentApp)) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.HOUR_OF_DAY, 0);
-                calendar.set(Calendar.MINUTE, 0);
-                calendar.set(Calendar.SECOND, 0);
-                calendar.set(Calendar.MILLISECOND, 0);
-                long startMillis;
-                long endMillis;
-
-                calendar.set(Calendar.HOUR_OF_DAY, 1);
-                startMillis = calendar.getTimeInMillis();
-                endMillis = System.currentTimeMillis();
-
-                Map<String, UsageStats> lUsageStatsMap = usm.
-                        queryAndAggregateUsageStats(startMillis, endMillis);
-
-                String total = "";
-
-                if (lUsageStatsMap.containsKey(currentApp)) {
-                    long m = (Objects.requireNonNull(lUsageStatsMap.get(currentApp)).
-                            getTotalTimeInForeground());
-                    total = String.valueOf(m);
-                }
-
-                String compare = db1.readDuration(currentApp);
-
-                long m1 = Long.parseLong(total);
-                long m2 = Long.parseLong(compare);
-
-                if (m1 > m2) {
-                    this.cancel();
-                    Intent lockIntent = new Intent(mContext, DrawOnTopAppActivity.class);
-                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    lockIntent.putExtra("PACK_NAME", currentApp);
-                    String msg = "This App Is Blocked By FocusOnMe";
-                    lockIntent.putExtra("MSG", msg);
-                    startActivity(lockIntent);
-                }
-            } else if (packs2.contains(currentApp)) {
+            if (packs2.contains(currentApp)) {
                 String temp = db3.readData(currentApp);
                 float data = Float.parseFloat(temp);
 
@@ -187,7 +135,6 @@ public class ForegroundService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        String input = intent.getStringExtra("inputExtra");
         createNotificationChannel();
 
         SharedPreferences sh = getSharedPreferences("mode", Context.MODE_PRIVATE);
@@ -206,7 +153,7 @@ public class ForegroundService extends Service {
                 0, notificationIntent, FLAG_IMMUTABLE);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Achievix")
-                .setContentText(input)
+                .setContentText("Foreground Service Running")
                 .setSmallIcon(R.drawable.noti_icon)
                 .setContentIntent(pendingIntent)
                 .build();
@@ -235,6 +182,56 @@ public class ForegroundService extends Service {
         );
         NotificationManager manager = getSystemService(NotificationManager.class);
         manager.createNotificationChannel(serviceChannel);
+    }
+
+    public void block(CountDownTimer timer) {
+        List<HashMap<String, String>> list = blockDatabase.readRecords(currentApp);
+        if(!list.isEmpty()) {
+            for (HashMap<String, String> map : list) {
+                if(Objects.equals(map.get("packageName"), currentApp)) {
+                    if (Objects.equals(map.get("scheduleType"), "Usage Time")) {
+                        String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
+                        int hour = Integer.parseInt(params[0]);
+                        int minute = Integer.parseInt(params[1]);
+
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(Calendar.HOUR_OF_DAY, 0);
+                        calendar.set(Calendar.MINUTE, 0);
+                        calendar.set(Calendar.SECOND, 0);
+                        calendar.set(Calendar.MILLISECOND, 0);
+                        long startMillis;
+                        long endMillis;
+
+                        startMillis = calendar.getTimeInMillis();
+                        endMillis = System.currentTimeMillis();
+
+                        UsageStatsManager usageStatsManager = (UsageStatsManager) mContext.getSystemService(Context.USAGE_STATS_SERVICE);
+                        Map<String, UsageStats> aggregatedStatsMap= usageStatsManager.queryAndAggregateUsageStats(startMillis, endMillis);
+                        UsageStats usageStats= aggregatedStatsMap.get(currentApp);
+
+                        if (usageStats != null) {
+                            long time = usageStats.getTotalTimeInForeground();
+                            long timeInMinutes = time / 60000;
+                            if (timeInMinutes >= (hour * 60L + minute)) {
+                                timer.cancel();
+                                System.gc();
+                                Runtime.getRuntime().runFinalization();
+                                Intent lockIntent = new Intent(mContext, DrawOnTopAppActivity.class);
+                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                lockIntent.putExtra("packageName", currentApp);
+                                startActivity(lockIntent);
+                            }
+                        } else {
+                            return;
+                        }
+                    }
+                } else {
+                    return;
+                }
+            }
+        }
     }
 
     public void strictMode(CountDownTimer timer) {

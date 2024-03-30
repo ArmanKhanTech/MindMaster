@@ -1,5 +1,6 @@
 package com.android.achievix.Permissions;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,7 +16,7 @@ import com.android.achievix.R;
 import com.android.achievix.View.ExpandableTextView;
 
 public class GetNotificationAccess extends AppCompatActivity {
-    Button finish;
+    Button finishButton;
     TextView status;
     ExpandableTextView expandableTextView;
 
@@ -25,7 +26,7 @@ public class GetNotificationAccess extends AppCompatActivity {
         setContentView(R.layout.activity_get_notification_access);
         expandableTextView = findViewById(R.id.expandableTextViewNoti);
         status = findViewById(R.id.noti_per);
-        finish = findViewById(R.id.grant_noti_access);
+        finishButton = findViewById(R.id.grant_noti_access);
         granted();
     }
 
@@ -35,10 +36,11 @@ public class GetNotificationAccess extends AppCompatActivity {
         granted();
     }
 
+    @SuppressLint("SetTextI18n")
     public void granted() {
         if (Settings.Secure.getString(this.getContentResolver(), "enabled_notification_listeners").contains(getApplicationContext().getPackageName())) {
             status.setText("Permission Granted");
-            finish.setVisibility(View.GONE);
+            finishButton.setVisibility(View.GONE);
         }
     }
 
@@ -56,6 +58,7 @@ public class GetNotificationAccess extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("firstTime", "no");
         editor.apply();
+
         Intent intent = new Intent(GetNotificationAccess.this, MainActivity.class);
         startActivity(intent);
         finish();

@@ -81,7 +81,7 @@ public class InternetBlockDatabase extends SQLiteOpenHelper {
     public boolean isDbEmpty() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor mCursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-        Boolean rowExists;
+        boolean rowExists;
 
         rowExists = mCursor.moveToFirst();
         mCursor.close();

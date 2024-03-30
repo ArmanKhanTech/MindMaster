@@ -118,11 +118,11 @@
             android:exported="false"
             android:theme="@style/Theme.FocusOnMe" />
         <activity
-            android:name=".Activity.SelectAppActivity"
+            android:name=".Activity.AppSelectActivity"
             android:exported="false"
             android:theme="@style/Theme.FocusOnMe" />
         <activity
-            android:name=".Activity.SelectStrictMode"
+            android:name=".Activity.StrictModeActivity"
             android:exported="false"
             android:theme="@style/Theme.FocusOnMe" />
         <activity

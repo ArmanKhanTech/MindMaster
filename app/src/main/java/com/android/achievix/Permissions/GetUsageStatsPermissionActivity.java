@@ -1,5 +1,6 @@
 package com.android.achievix.Permissions;
 
+import android.annotation.SuppressLint;
 import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +17,7 @@ import com.android.achievix.View.ExpandableTextView;
 
 public class GetUsageStatsPermissionActivity extends AppCompatActivity {
     int mode;
-    Button grant;
+    Button finishButton;
     TextView status;
     ExpandableTextView expandableTextView;
 
@@ -26,7 +27,7 @@ public class GetUsageStatsPermissionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_get_usage_stats_permission);
         expandableTextView = findViewById(R.id.expandableTextViewUsage);
         status = findViewById(R.id.usage_per);
-        grant = findViewById(R.id.grant_usage_access);
+        finishButton = findViewById(R.id.grant_usage_access);
         granted();
     }
 
@@ -36,13 +37,14 @@ public class GetUsageStatsPermissionActivity extends AppCompatActivity {
         granted();
     }
 
+    @SuppressLint("SetTextI18n")
     public void granted() {
         if (checkForPermission(this)) {
             status.setText("Permission Granted");
-            grant.setVisibility(View.GONE);
+            finishButton.setVisibility(View.GONE);
         } else {
             status.setText("Permission not Granted");
-            grant.setVisibility(View.VISIBLE);
+            finishButton.setVisibility(View.VISIBLE);
         }
     }
 

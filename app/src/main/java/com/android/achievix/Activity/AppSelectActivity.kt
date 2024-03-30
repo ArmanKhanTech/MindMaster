@@ -20,7 +20,7 @@ import com.android.achievix.R
 import com.android.achievix.Utility.UsageUtil
 
 // TODO: Selection disappears on scrolling
-class SelectAppActivity : AppCompatActivity() {
+class AppSelectActivity : AppCompatActivity() {
     private lateinit var appList: List<AppSelectModel>
     private lateinit var recyclerView: RecyclerView
     private lateinit var button: Button
@@ -30,7 +30,7 @@ class SelectAppActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_select_app)
+        setContentView(R.layout.activity_app_select)
 
         llAppBlock = findViewById(R.id.ll_select_apps)
         loadingLayout = findViewById(R.id.loading_select_apps)
@@ -78,7 +78,7 @@ class SelectAppActivity : AppCompatActivity() {
     @Suppress("DEPRECATION")
     @SuppressLint("StaticFieldLeak")
     class GetInstalledAppsTask(
-        private val activity: SelectAppActivity,
+        private val activity: AppSelectActivity,
         private val context: Context
     ) : AsyncTask<Void?, Void?, List<AppSelectModel>>() {
 
@@ -91,7 +91,7 @@ class SelectAppActivity : AppCompatActivity() {
 
         @Deprecated("Deprecated in Java")
         override fun doInBackground(vararg params: Void?): List<AppSelectModel> {
-            return UsageUtil.getInstalledAppsForSelection(context)
+            return UsageUtil.getInstalledAppsSelect(context)
         }
 
         @Deprecated("Deprecated in Java")

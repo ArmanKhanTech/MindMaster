@@ -17,7 +17,6 @@ class AppSelectAdapter(private var appList: List<AppSelectModel>) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val appName: TextView = view.findViewById(R.id.app_name_select)
         val appIcon: ImageView = view.findViewById(R.id.app_icon_select)
-        val extra: TextView = view.findViewById(R.id.app_info_select)
         val checkBox: CheckBox = view.findViewById(R.id.app_select_cb)
     }
 
@@ -32,7 +31,6 @@ class AppSelectAdapter(private var appList: List<AppSelectModel>) :
 
         holder.appName.text = appInfo.name
         holder.appIcon.setImageDrawable(appInfo.icon)
-        holder.extra.text = convertToHrsMins(appInfo.extra.toLong())
         holder.checkBox.isChecked = appInfo.selected
 
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->

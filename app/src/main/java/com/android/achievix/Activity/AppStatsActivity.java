@@ -19,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.android.achievix.Database.AppLaunchDatabase;
-import com.android.achievix.Database.LimitPackages;
 import com.android.achievix.R;
 import com.android.achievix.Services.ForegroundService;
 import com.android.achievix.Utility.NetworkUtil;
@@ -40,7 +39,6 @@ import java.util.Objects;
 public class AppStatsActivity extends AppCompatActivity {
 
     static long DAY_IN_MILLIS = 86400 * 1000;
-    LimitPackages db = new LimitPackages(this);
     AppLaunchDatabase appLaunchDatabase;
     ArrayList<String> packs = new ArrayList<>();
     String packageName = "";

@@ -124,7 +124,7 @@ public class InternetBlockActivity extends AppCompatActivity {
 
         @Override
         protected List<AppBlockModel> doInBackground(Void... voids) {
-            return UsageUtil.Companion.getInstalledApps(context, sort, "InternetBlockActivity");
+            return UsageUtil.Companion.getInstalledAppsBlock(context, sort, "InternetBlockActivity");
         }
 
         @Override

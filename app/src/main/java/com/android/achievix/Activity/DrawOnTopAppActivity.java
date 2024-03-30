@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,30 +15,36 @@ import com.android.achievix.R;
 import java.util.Objects;
 
 public class DrawOnTopAppActivity extends AppCompatActivity {
+    TextView appName;
+    ImageView appIcon;
+    Button exitButton;
+
+    String name;
+    Drawable icon;
+
+    PackageManager packageManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw_on_top_app);
 
-        TextView tv = findViewById(R.id.app_block_app_name);
-        ImageView appIcon = findViewById(R.id.app_block_app_icon);
+        appName = findViewById(R.id.app_block_app_name);
+        appIcon = findViewById(R.id.app_block_app_icon);
+        exitButton = findViewById(R.id.exit_app_block);
 
-        Button exit = findViewById(R.id.exit_app_block);
+        packageManager = getApplicationContext().getPackageManager();
 
-        PackageManager packageManager = getApplicationContext().getPackageManager();
-
-        String appName;
-        Drawable icon;
         try {
-            appName = (String) packageManager.getApplicationLabel(packageManager.getApplicationInfo(Objects.requireNonNull(getIntent().getStringExtra("packageName")), PackageManager.GET_META_DATA));
+            name = (String) packageManager.getApplicationLabel(packageManager.getApplicationInfo(Objects.requireNonNull(getIntent().getStringExtra("packageName")), PackageManager.GET_META_DATA));
             icon = getPackageManager().getApplicationIcon(Objects.requireNonNull(getIntent().getStringExtra("packageName")));
-            tv.setText(appName);
+            appName.setText(name);
             appIcon.setImageDrawable(icon);
         } catch (PackageManager.NameNotFoundException e) {
             // do nothing
         }
 
-        exit.setOnClickListener(v -> {
+        exitButton.setOnClickListener(v -> {
             Intent startMain = new Intent(Intent.ACTION_MAIN);
             startMain.addCategory(Intent.CATEGORY_HOME);
             startMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

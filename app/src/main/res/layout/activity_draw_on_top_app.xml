@@ -9,31 +9,14 @@
     tools:context=".Activity.DrawOnTopWebActivity"
     tools:ignore="HardcodedText,SpUsage,ContentDescription">
 
-    <LinearLayout
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center|top"
-        android:gravity="center"
+        android:text="This App Is Blocked By Achievix"
+        android:textColor="@color/black"
         android:layout_margin="15dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="This App Is Blocked By Achievix"
-            android:textColor="@color/black"
-            android:textSize="25dp" />
-
-        <TextView
-            android:id="@+id/app_block_app_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="App Name"
-            android:textColor="@color/black"
-            android:textSize="25dp" />
-
-    </LinearLayout>
+        android:layout_gravity="center|top"
+        android:textSize="25dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -49,10 +32,19 @@
             app:srcCompat="@mipmap/app_icon" />
 
         <TextView
+            android:id="@+id/app_block_app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="App Name"
+            android:textColor="@color/black"
+            android:textSize="25dp" />
+
+        <TextView
             android:id="@+id/app_motivational_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
+            android:layout_marginTop="25dp"
             android:text="@string/motivational_text"
             android:textColor="@color/black"
             android:lineHeight="35dp"
@@ -68,7 +60,6 @@
         android:layout_marginVertical="20dp"
         android:background="@drawable/exit_btn_theme"
         android:layout_gravity="bottom"
-        android:onClick="exit2"
         android:padding="10dp"
         android:text="Exit"
         android:textColor="@color/white"

@@ -1,5 +1,6 @@
 package com.android.achievix.Permissions;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -12,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.achievix.R;
 
 public class GetDrawOverAppsPermission extends AppCompatActivity {
-    Button finish;
+    Button finishButton;
     TextView status;
 
     @Override
@@ -20,7 +21,7 @@ public class GetDrawOverAppsPermission extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_draw_over_apps_permission);
         status = findViewById(R.id.draw_over_apps_per);
-        finish = findViewById(R.id.grant_over_apps);
+        finishButton = findViewById(R.id.grant_over_apps);
         granted();
     }
 
@@ -30,10 +31,11 @@ public class GetDrawOverAppsPermission extends AppCompatActivity {
         granted();
     }
 
+    @SuppressLint("SetTextI18n")
     public void granted() {
         if (Settings.canDrawOverlays(this)) {
             status.setText("Permission Granted");
-            finish.setVisibility(View.GONE);
+            finishButton.setVisibility(View.GONE);
         }
     }
 

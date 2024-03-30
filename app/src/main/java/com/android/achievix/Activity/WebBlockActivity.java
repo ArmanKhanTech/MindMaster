@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.achievix.Adapter.WebBlockAdapter;
-import com.android.achievix.Database.BlockWebsite;
+import com.android.achievix.Database.BlockDatabase;
 import com.android.achievix.Model.AppSelectModel;
 import com.android.achievix.R;
 import com.android.achievix.Services.LogURLService;
@@ -26,7 +26,7 @@ import kotlin.text.Regex;
 
 // TODO: Fix accessibility settings
 public class WebBlockActivity extends AppCompatActivity {
-    BlockWebsite db;
+    BlockDatabase db;
     TextView tv;
     ArrayList<AppSelectModel> webList = new ArrayList<>();
     RecyclerView recyclerView;
@@ -57,7 +57,7 @@ public class WebBlockActivity extends AppCompatActivity {
                         Toast.makeText(this, "Invalid URL", Toast.LENGTH_SHORT).show();
                     } else {
                         String url = website.getText().toString();
-                        db.addNewWebsite(url);
+//                        db.addNewWebsite(url);
                         populateList();
                     }
                 }
@@ -70,25 +70,24 @@ public class WebBlockActivity extends AppCompatActivity {
 
     @SuppressLint({"SetTextI18n", "NotifyDataSetChanged", "UseCompatLoadingForDrawables"})
     private void populateList() {
-        @SuppressLint("UseCompatLoadingForDrawables")
-        ArrayList<String> w;
-        db = new BlockWebsite(this);
-        w = db.readWebsites();
-        webList.clear();
-
-        for (int i = 0; i < w.size(); i++) {
-            String url = w.get(i);
-            webList.add(new AppSelectModel(url, getDrawable(R.drawable.lock_icon_grey)));
-        }
-
-        webBlockAdapter = new WebBlockAdapter(webList, true);
-        recyclerView.setAdapter(webBlockAdapter);
-
-        if (w.isEmpty()) {
-            tv.setText("No Website Blocked");
-        } else {
-            tv.setText("");
-        }
+//        ArrayList<String> w;
+//        db = new BlockDatabase(this);
+//        w = db.readWebsites();
+//        webList.clear();
+//
+//        for (int i = 0; i < w.size(); i++) {
+//            String url = w.get(i);
+//            webList.add(new AppSelectModel(url, getDrawable(R.drawable.lock_icon_grey)));
+//        }
+//
+//        webBlockAdapter = new WebBlockAdapter(webList, true);
+//        recyclerView.setAdapter(webBlockAdapter);
+//
+//        if (w.isEmpty()) {
+//            tv.setText("No Website Blocked");
+//        } else {
+//            tv.setText("");
+//        }
     }
 
     private boolean isAccessibilitySettingsOn(Context mContext) {

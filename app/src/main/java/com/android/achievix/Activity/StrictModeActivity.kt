@@ -22,7 +22,7 @@ import com.android.achievix.Services.AdminReceiver
 import com.android.achievix.Utility.ItemStatus
 import java.util.Objects
 
-class SelectStrictMode : AppCompatActivity() {
+class StrictModeActivity : AppCompatActivity() {
     private lateinit var adapter: TimeLineAdapter
     private val dataList = ArrayList<TimeLineModel>()
     private lateinit var layoutManager: LinearLayoutManager
@@ -32,7 +32,7 @@ class SelectStrictMode : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_select_strict_mode)
+        setContentView(R.layout.activity_strict_mode)
 
         sh = getSharedPreferences("mode", MODE_PRIVATE)
         editor = sh.edit()
@@ -94,7 +94,7 @@ class SelectStrictMode : AppCompatActivity() {
             override fun onTimeClick(position: Int) {
                 when (position) {
                     0 -> {
-                        val dialog = Dialog(this@SelectStrictMode)
+                        val dialog = Dialog(this@StrictModeActivity)
                         dialog.setContentView(R.layout.strict_level_dialog)
                         dialog.setCancelable(true)
                         Objects.requireNonNull(
@@ -120,7 +120,7 @@ class SelectStrictMode : AppCompatActivity() {
                                 dialog.dismiss()
                                 initRecyclerView()
                             } else {
-                                Toast.makeText(this@SelectStrictMode, "Blocking Level already set to One", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@StrictModeActivity, "Blocking Level already set to One", Toast.LENGTH_SHORT).show()
                             }
                         }
 
@@ -133,7 +133,7 @@ class SelectStrictMode : AppCompatActivity() {
                                 dialog.dismiss()
                                 initRecyclerView()
                             } else {
-                                Toast.makeText(this@SelectStrictMode, "Blocking Level already set to Two", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@StrictModeActivity, "Blocking Level already set to Two", Toast.LENGTH_SHORT).show()
                             }
                         }
 
@@ -146,7 +146,7 @@ class SelectStrictMode : AppCompatActivity() {
                                 dialog.dismiss()
                                 initRecyclerView()
                             } else {
-                                Toast.makeText(this@SelectStrictMode, "Blocking Level already set to Three", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@StrictModeActivity, "Blocking Level already set to Three", Toast.LENGTH_SHORT).show()
                             }
                         }
 
@@ -159,7 +159,7 @@ class SelectStrictMode : AppCompatActivity() {
                                 dialog.dismiss()
                                 initRecyclerView()
                             } else {
-                                Toast.makeText(this@SelectStrictMode, "Blocking Level already set to Four", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@StrictModeActivity, "Blocking Level already set to Four", Toast.LENGTH_SHORT).show()
                             }
                         }
 
@@ -168,21 +168,21 @@ class SelectStrictMode : AppCompatActivity() {
 
                     1 -> {
                         if(dataList[0].status != ItemStatus.COMPLETED) {
-                            Toast.makeText(this@SelectStrictMode, "Please select blocking level first", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@StrictModeActivity, "Please select blocking level first", Toast.LENGTH_SHORT).show()
                             return
                         } else {
                             if(dataList[1].status == ItemStatus.ACTIVE) {
-                                val intent = Intent(this@SelectStrictMode, NewPasswordActivity::class.java)
+                                val intent = Intent(this@StrictModeActivity, NewPasswordActivity::class.java)
                                 startActivityForResult(intent, 100)
                             } else {
-                                Toast.makeText(this@SelectStrictMode, "Password already set", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@StrictModeActivity, "Password already set", Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
 
                     2 -> {
                         if(dataList[1].status != ItemStatus.COMPLETED) {
-                            Toast.makeText(this@SelectStrictMode, "Please set password first", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@StrictModeActivity, "Please set password first", Toast.LENGTH_SHORT).show()
                             return
                         } else {
                             if(dataList[2].status == ItemStatus.ACTIVE) {
@@ -191,7 +191,11 @@ class SelectStrictMode : AppCompatActivity() {
                                 intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "Achievix requires device admin rights to restrict deletion of the app.")
                                 startActivityForResult(intent, 101)
                             } else {
-                                Toast.makeText(this@SelectStrictMode, "Device Admin already activated", Toast.LENGTH_SHORT).show()
+                                if(dataList[0].text.contains("Two") || dataList[0].text.contains("Three")) {
+                                    Toast.makeText(this@StrictModeActivity, "Device admin already activated", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    Toast.makeText(this@StrictModeActivity, "Device admin activation not required", Toast.LENGTH_SHORT).show()
+                                }
                             }
                         }
                     }
@@ -208,7 +212,11 @@ class SelectStrictMode : AppCompatActivity() {
         if(requestCode == 100) {
             if(resultCode == RESULT_OK) {
                 dataList[1].status = ItemStatus.COMPLETED
-                dataList[2].status = ItemStatus.ACTIVE
+                if(dataList[0].text.contains("Two") || dataList[0].text.contains("Three")) {
+                    dataList[2].status = ItemStatus.ACTIVE
+                } else {
+                    dataList[2].status = ItemStatus.COMPLETED
+                }
                 dataList[1].text = "Password set"
                 initRecyclerView()
             }

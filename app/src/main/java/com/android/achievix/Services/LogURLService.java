@@ -9,7 +9,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import androidx.annotation.NonNull;
 
 import com.android.achievix.Activity.DrawOnTopWebActivity;
-import com.android.achievix.Database.BlockWebsite;
+import com.android.achievix.Database.BlockDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class LogURLService extends AccessibilityService {
 
     public String browserApp = "";
     public String browserUrl = "";
-    BlockWebsite db;
+    BlockDatabase db;
     ArrayList<String> blockedUrls;
 
     @NonNull
@@ -84,17 +84,17 @@ public class LogURLService extends AccessibilityService {
                                     url = browserUrl;
                                 }
                             }
-                            db = new BlockWebsite(this);
-                            blockedUrls = db.readWebsites();
-                            if (blockedUrls.contains(url)) {
-                                Intent lockIntent = new Intent(this, DrawOnTopWebActivity.class);
-                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                lockIntent.putExtra("URL", url);
-                                lockIntent.putExtra("PACKAGE", browserApp);
-                                startActivity(lockIntent);
-                            }
+                            db = new BlockDatabase(this);
+//                            blockedUrls = db.readWebsites();
+//                            if (blockedUrls.contains(url)) {
+//                                Intent lockIntent = new Intent(this, DrawOnTopWebActivity.class);
+//                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                                lockIntent.putExtra("URL", url);
+//                                lockIntent.putExtra("PACKAGE", browserApp);
+//                                startActivity(lockIntent);
+//                            }
                         }
                     }
                 } else {
@@ -110,17 +110,17 @@ public class LogURLService extends AccessibilityService {
                                         url = browserUrl;
                                     }
                                 }
-                                db = new BlockWebsite(this);
-                                blockedUrls = db.readWebsites();
-                                if (blockedUrls.contains(url)) {
-                                    Intent lockIntent = new Intent(this, DrawOnTopWebActivity.class);
-                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    lockIntent.putExtra("URL", url);
-                                    lockIntent.putExtra("PACKAGE", browserApp);
-                                    startActivity(lockIntent);
-                                }
+                                db = new BlockDatabase(this);
+//                                blockedUrls = db.readWebsites();
+//                                if (blockedUrls.contains(url)) {
+//                                    Intent lockIntent = new Intent(this, DrawOnTopWebActivity.class);
+//                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                                    lockIntent.putExtra("URL", url);
+//                                    lockIntent.putExtra("PACKAGE", browserApp);
+//                                    startActivity(lockIntent);
+//                                }
                             }
                         }
                     }

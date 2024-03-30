@@ -1,7 +1,7 @@
 package com.android.achievix.Activity
 
 import android.annotation.SuppressLint
-import android.content.Context
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,14 +20,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.achievix.Adapter.AppBlockAdapter
 import com.android.achievix.Model.AppBlockModel
 import com.android.achievix.R
-import com.android.achievix.Utility.UsageUtil.Companion.getInstalledApps
+import com.android.achievix.Utility.UsageUtil.Companion.getInstalledAppsBlock
 
-// TODO: Spinner theme, blocked, on click listener
 @Suppress("DEPRECATION")
 class AppBlockActivity : AppCompatActivity() {
-    lateinit var appList: List<AppBlockModel>
-    lateinit var recyclerView: RecyclerView
-    private var sort: Array<String?> = arrayOf("Name", "Usage", "Blocked")
+    private lateinit var appList: List<AppBlockModel>
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var spinner: Spinner
+    private lateinit var searchView: EditText
+    private lateinit var adapter: ArrayAdapter<String>
+    private var appBlockAdapter: AppBlockAdapter? = null
     private lateinit var llAppBlock: LinearLayout
     private lateinit var loadingLayout: LinearLayout
     private var sortValue = "Name"
@@ -34,92 +37,105 @@ class AppBlockActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_app_block)
+        initializeViews()
+        setupRecyclerView()
+        setupSearchView()
+        setupSpinner()
+        GetInstalledAppsTask(sortValue).execute()
+    }
 
+    private fun initializeViews() {
         llAppBlock = findViewById(R.id.ll_block_apps)
         loadingLayout = findViewById(R.id.loading_block_apps)
-
         recyclerView = findViewById(R.id.app_block_recycler_view)
+        spinner = findViewById(R.id.app_block_spinner)
+        searchView = findViewById(R.id.search_app_block)
+    }
+
+    private fun setupRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.itemAnimator = DefaultItemAnimator()
+    }
 
-        GetInstalledAppsTask(this, this, sortValue).execute()
-
-        val searchView = findViewById<EditText>(R.id.search_app_block)
+    private fun setupSearchView() {
         searchView.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 filter(s.toString())
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // do nothing
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // do nothing
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
+    }
 
-        val spinner = findViewById<Spinner>(R.id.app_block_spinner)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, sort)
+    private fun setupSpinner() {
+        adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, arrayOf("Name", "Usage", "Blocked"))
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         spinner.adapter = adapter
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             var isFirstTime = true
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // do nothing
-            }
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if (isFirstTime) {
-                    isFirstTime = false
-                } else {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (!isFirstTime) {
                     sortValue = parent!!.getItemAtPosition(position).toString()
-                    GetInstalledAppsTask(this@AppBlockActivity, this@AppBlockActivity, sortValue)
-                        .execute()
+                    GetInstalledAppsTask(sortValue).execute()
                 }
+                isFirstTime = false
             }
         }
     }
 
     private fun filter(text: String) {
         val filteredList = appList.filter { it.appName.contains(text, ignoreCase = true) }
-        (recyclerView.adapter as AppBlockAdapter).updateListBlock(filteredList)
+        appBlockAdapter?.updateListBlock(filteredList)
     }
 
-
     @SuppressLint("StaticFieldLeak")
-    class GetInstalledAppsTask(
-        private val activity: AppBlockActivity,
-        private val context: Context,
-        private val sort: String
-    ) : AsyncTask<Void?, Void?, List<AppBlockModel>>() {
-
+    private inner class GetInstalledAppsTask(private val sort: String) : AsyncTask<Void?, Void?, List<AppBlockModel>>() {
         @Deprecated("Deprecated in Java")
         override fun onPreExecute() {
             super.onPreExecute()
-            activity.llAppBlock.visibility = View.GONE
-            activity.loadingLayout.visibility = View.VISIBLE
+            llAppBlock.visibility = View.GONE
+            loadingLayout.visibility = View.VISIBLE
         }
 
         @Deprecated("Deprecated in Java")
         override fun doInBackground(vararg params: Void?): List<AppBlockModel> {
-            return getInstalledApps(context, sort, "AppBlockActivity")
+            return getInstalledAppsBlock(this@AppBlockActivity, sortValue, "AppBlockActivity")
         }
 
         @Deprecated("Deprecated in Java")
         override fun onPostExecute(result: List<AppBlockModel>?) {
-            if (result != null) {
-                activity.appList = result
+            result?.let {
+                appList = it
+                appBlockAdapter = AppBlockAdapter(appList)
+                recyclerView.adapter = appBlockAdapter
+                llAppBlock.visibility = View.VISIBLE
+                loadingLayout.visibility = View.GONE
+
+                appBlockAdapter?.setOnItemClickListener(object : AppBlockAdapter.OnItemClickListener {
+                    override fun onItemClick(view: View) {
+                        val position = recyclerView.getChildAdapterPosition(view)
+                        val app = appList[position]
+                        launchActivity(app.appName, app.packageName)
+                    }
+                })
             }
-            activity.recyclerView.adapter = AppBlockAdapter(activity.appList)
-            activity.llAppBlock.visibility = View.VISIBLE
-            activity.loadingLayout.visibility = View.GONE
+        }
+    }
+
+    private fun launchActivity(appName: String, packageName: String) {
+        val intent = Intent(this, NewScheduleActivity::class.java).apply {
+            putExtra("name", appName)
+            putExtra("packageName", packageName)
+            putExtra("type", "app")
+            putExtra("caller", "appBlock")
+        }
+        if(packageName == "com.android.achievix") {
+            Toast.makeText(this, "Cannot block Achievix", Toast.LENGTH_SHORT).show()
+        } else {
+            startActivity(intent)
         }
     }
 }

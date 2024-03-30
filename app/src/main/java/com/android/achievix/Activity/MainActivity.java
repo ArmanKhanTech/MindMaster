@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
                 if(strictDialog) {
                     Toast.makeText(MainActivity.this, "Strict Mode is already enabled", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(MainActivity.this, SelectStrictMode.class);
+                    Intent intent = new Intent(MainActivity.this, StrictModeActivity.class);
                     dialog.dismiss();
                     startActivityForResult(intent, 100);
                 }

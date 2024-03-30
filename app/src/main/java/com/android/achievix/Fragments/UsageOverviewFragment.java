@@ -22,21 +22,64 @@ import com.android.achievix.Model.AppUsageModel;
 import com.android.achievix.R;
 import com.android.achievix.Utility.UsageUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UsageOverviewFragment extends Fragment {
-    RecyclerView recyclerView;
-    List<AppUsageModel> appUsageModel = new ArrayList<>();
-    TextView stats;
-    String[] sort = {"Daily", "Weekly", "Monthly", "Yearly"};
-    String sortValue = "Daily";
-    private LinearLayout llUsageOverview;
+    private RecyclerView recyclerView;
+    private TextView usageStats;
+    private LinearLayout usageLayout;
     private LinearLayout loadingLayout;
+    private Spinner sortSpinner;;
+    private final String[] sort = {"Daily", "Weekly", "Monthly", "Yearly"};
+    private String sortValue = "Daily";
     private GetInstalledAppsUsageTask getInstalledAppsUsageTask;
 
-    public UsageOverviewFragment() {
-        // do nothing
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_usage_overview, container, false);
+        initializeViews(view);
+        setupSpinner(view);
+        setupRecyclerView(view);
+        getInstalledAppsUsageTask = new GetInstalledAppsUsageTask(requireActivity(), sortValue);
+        getInstalledAppsUsageTask.execute();
+        return view;
+    }
+
+    private void initializeViews(View view) {
+        usageStats = view.findViewById(R.id.tv_total_usage_overview);
+        recyclerView = view.findViewById(R.id.recycler_view_usage_overview);
+        sortSpinner = view.findViewById(R.id.usage_spinner);
+        loadingLayout = view.findViewById(R.id.loading_usage_overview);
+        usageLayout = view.findViewById(R.id.ll_usage_overview);
+    }
+
+    private void setupSpinner(View view) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(), R.layout.spinner_dropdown_item, sort);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        sortSpinner.setAdapter(adapter);
+        sortSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            boolean isFirstTime = true;
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (!isFirstTime) {
+                    sortValue = parent.getItemAtPosition(position).toString();
+                    new GetInstalledAppsUsageTask(requireActivity(), sortValue).execute();
+                }
+                isFirstTime = false;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // do nothing
+            }
+        });
+    }
+
+    private void setupRecyclerView(View view) {
+        recyclerView = view.findViewById(R.id.recycler_view_usage_overview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setHasFixedSize(true);
     }
 
     private static String convertMillisToHoursAndMinutes(long millis) {
@@ -45,60 +88,12 @@ public class UsageOverviewFragment extends Fragment {
         return hours + " hrs " + minutes + " mins";
     }
 
-    @SuppressLint({"SetTextI18n", "ClickableViewAccessibility"})
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater
-                .inflate(R.layout.fragment_usage_overview, container, false);
-
-        Spinner spinner = view.findViewById(R.id.usage_spinner);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(), R.layout.spinner_dropdown_item, sort);
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(
-                new AdapterView.OnItemSelectedListener() {
-                    boolean isFirstTime = true;
-
-                    @SuppressLint("StaticFieldLeak")
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if (isFirstTime) {
-                            isFirstTime = false;
-                        } else {
-                            sortValue = parent.getItemAtPosition(position).toString();
-                            new GetInstalledAppsUsageTask(requireActivity(), sortValue).execute();
-                        }
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-                        // do nothing
-                    }
-                }
-        );
-
-        loadingLayout = view.findViewById(R.id.loading_usage_overview);
-        llUsageOverview = view.findViewById(R.id.ll_usage_overview);
-        stats = view.findViewById(R.id.tv_total_usage_overview);
-
-        recyclerView = view.findViewById(R.id.recycler_view_usage_overview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setHasFixedSize(true);
-
-        getInstalledAppsUsageTask = new GetInstalledAppsUsageTask(requireActivity(), sortValue);
-        getInstalledAppsUsageTask.execute();
-
-        return view;
-    }
-
     @SuppressLint("StaticFieldLeak")
-    public class GetInstalledAppsUsageTask extends AsyncTask<Void, Void, List<AppUsageModel>> {
+    private class GetInstalledAppsUsageTask extends AsyncTask<Void, Void, List<AppUsageModel>> {
         private final Context context;
         private final String sort;
 
-        public GetInstalledAppsUsageTask(Context context, String sort) {
+        GetInstalledAppsUsageTask(Context context, String sort) {
             this.context = context;
             this.sort = sort;
         }
@@ -107,12 +102,12 @@ public class UsageOverviewFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             loadingLayout.setVisibility(View.VISIBLE);
-            llUsageOverview.setVisibility(View.GONE);
+            usageLayout.setVisibility(View.GONE);
         }
 
         @Override
         protected List<AppUsageModel> doInBackground(Void... voids) {
-            return UsageUtil.Companion.getInstalledAppsUsage(context, sort, null);
+            return UsageUtil.Companion.getInstalledAppsUsage(context, sort);
         }
 
         @Override
@@ -120,11 +115,10 @@ public class UsageOverviewFragment extends Fragment {
             if (isCancelled()) {
                 return;
             }
-            appUsageModel = result;
-            stats.setText(convertMillisToHoursAndMinutes(UsageUtil.totalUsage));
-            recyclerView.setAdapter(new AppUsageAdapter(appUsageModel));
+            usageStats.setText(convertMillisToHoursAndMinutes(UsageUtil.totalUsage));
+            recyclerView.setAdapter(new AppUsageAdapter(result));
             loadingLayout.setVisibility(View.GONE);
-            llUsageOverview.setVisibility(View.VISIBLE);
+            usageLayout.setVisibility(View.VISIBLE);
         }
     }
 
