@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,18 +21,25 @@ public class DrawOnTopAppActivity extends AppCompatActivity {
         setContentView(R.layout.activity_draw_on_top_app);
 
         TextView appName = findViewById(R.id.app_block_app_name);
+        TextView text = findViewById(R.id.app_motivational_text);
         ImageView appIcon = findViewById(R.id.app_block_app_icon);
         Button exitButton = findViewById(R.id.exit_app_block);
 
-        PackageManager packageManager = getApplicationContext().getPackageManager();
+        if (!Objects.requireNonNull(getIntent().getStringExtra("text")).isEmpty()) {
+            text.setText(getIntent().getStringExtra("text"));
+        } else {
+            text.setText(R.string.motivational_text);
+        }
 
-        try {
-            String name = (String) packageManager.getApplicationLabel(packageManager.getApplicationInfo(Objects.requireNonNull(getIntent().getStringExtra("packageName")), PackageManager.GET_META_DATA));
-            Drawable icon = getPackageManager().getApplicationIcon(Objects.requireNonNull(getIntent().getStringExtra("packageName")));
-            appName.setText(name);
-            appIcon.setImageDrawable(icon);
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.e("DrawOnTopAppActivity", "Package name not found", e);
+        if (Objects.requireNonNull(getIntent().getStringExtra("type")).equals("app")) {
+            PackageManager packageManager = getApplicationContext().getPackageManager();
+            try {
+                String name = (String) packageManager.getApplicationLabel(packageManager.getApplicationInfo(Objects.requireNonNull(getIntent().getStringExtra("packageName")), PackageManager.GET_META_DATA));
+                Drawable icon = getPackageManager().getApplicationIcon(Objects.requireNonNull(getIntent().getStringExtra("packageName")));
+                appName.setText(name);
+                appIcon.setImageDrawable(icon);
+            } catch (PackageManager.NameNotFoundException ignored) {
+            }
         }
 
         exitButton.setOnClickListener(view -> {

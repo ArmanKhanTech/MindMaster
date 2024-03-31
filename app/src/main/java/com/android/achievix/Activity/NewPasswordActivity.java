@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,8 +12,6 @@ import com.hanks.passcodeview.PasscodeView;
 
 @SuppressLint("UseSwitchCompatOrMaterialCode")
 public class NewPasswordActivity extends AppCompatActivity {
-    PasscodeView passcodeView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +20,7 @@ public class NewPasswordActivity extends AppCompatActivity {
         SharedPreferences sh = getSharedPreferences("mode", MODE_PRIVATE);
         SharedPreferences.Editor editor = sh.edit();
 
-        passcodeView = findViewById(R.id.passcodeViewSet);
+        PasscodeView passcodeView = findViewById(R.id.passcodeViewSet);
         passcodeView.setListener(new PasscodeView.PasscodeViewListener() {
             @Override
             public void onFail(String wrongNumber) {}

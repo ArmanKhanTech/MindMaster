@@ -24,9 +24,9 @@ class UsageUtil {
 
         @SuppressLint("ServiceCast", "QueryPermissionsNeeded", "UseCompatLoadingForDrawables")
         fun getInstalledAppsUsage(context: Context, sort: String?): List<AppUsageModel> {
+            totalUsage = 0
             val usageTimes = getUsageTimes(context, sort)
             val totalUsageTime = usageTimes.values.sum()
-
             return getAppsList(context).mapNotNull { app ->
                 val usageTime = usageTimes.getOrDefault(app.packageName, 0L)
                 if (usageTime != 0L) {
@@ -53,7 +53,6 @@ class UsageUtil {
         fun getInstalledAppsBlock(context: Context, sort: String, caller: String): List<AppBlockModel> {
             val usageTimes = getUsageTimes(context, "Daily")
             val networkUsageMap = getNetworkUsageMap(context, caller)
-
             return getAppsList(context).mapNotNull { app ->
                 val usageTime = usageTimes.getOrDefault(app.packageName, 0L)
                 val appName = app.loadLabel(context.packageManager).toString()
@@ -73,7 +72,6 @@ class UsageUtil {
         private fun getUsageTimes(context: Context, sort: String?): MutableMap<String, Long> {
             val usageStatsManager = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
             val (beginTime, endTime) = getTimeRange(sort)
-
             val events = usageStatsManager.queryAndAggregateUsageStats(beginTime, endTime)
             val usageTimes: MutableMap<String, Long> = HashMap()
             for (packageName in events.keys) {

@@ -29,10 +29,10 @@
 
     <string name="break_inst" translatable="false">
         1. You won\'t be able to use your phone while the break is enabled. \n
-        2. Enable stop button to be able to stop the break. \n
-        3. Enable call button to be able to make calls. \n
-        4. Block notifications to prevent further distractions. \n
-        5. You won\'t be able to receive any calls while the break is underway. \n
+        2. Also, you won\'t be able to receive any calls while the break is underway. \n
+        3. Enable stop button to be able to stop the break. \n
+        4. Enable call button to be able to make calls. \n
+        5. Block notifications to prevent further distractions. \n
     </string>
 
     <string name="motivational_text">

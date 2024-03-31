@@ -14,17 +14,14 @@ import com.android.achievix.R;
 import com.google.android.material.tabs.TabLayout;
 
 public class UsageOverviewActivity extends AppCompatActivity {
-    TabLayout tabLayout;
-    ViewPager viewPager;
-
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usage_overview);
 
-        tabLayout = findViewById(R.id.stats_tab_layout);
-        viewPager = findViewById(R.id.stats_fragment_container);
+        TabLayout tabLayout = findViewById(R.id.stats_tab_layout);
+        ViewPager viewPager = findViewById(R.id.stats_fragment_container);
 
         UsageOverviewFragment usageOverviewFragment = new UsageOverviewFragment();
         AppLaunchesFragment appLaunchesFragment = new AppLaunchesFragment();

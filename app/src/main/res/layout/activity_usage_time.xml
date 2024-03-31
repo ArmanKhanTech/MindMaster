@@ -62,9 +62,10 @@
 
                 <ImageView
                     android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="15dp"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/block_icon" />
 
                 <TextView
@@ -95,7 +96,7 @@
 
                 <ImageView
                     android:layout_width="25dp"
-                    android:layout_height="35dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="15dp"
                     android:scaleType="centerCrop"
@@ -159,7 +160,6 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/day_radio_selector"
-                    android:checked="true"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -175,7 +175,6 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/day_radio_selector"
-                    android:checked="true"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -191,7 +190,6 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/day_radio_selector"
-                    android:checked="true"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -207,7 +205,6 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/day_radio_selector"
-                    android:checked="true"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -223,7 +220,6 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/day_radio_selector"
-                    android:checked="true"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -261,6 +257,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <EditText
@@ -275,7 +272,8 @@
                     android:gravity="center"
                     android:padding="10dp"
                     android:textColor="@color/black"
-                    android:textSize="22dp" />
+                    android:textSize="22dp"
+                    tools:ignore="Autofill" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -300,13 +298,28 @@
                     android:textSize="22dp"
                     tools:ignore="Autofill" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Daily"
-                    android:textColor="@color/black"
-                    android:textSize="25dp" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Hours"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Daily"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -325,8 +338,8 @@
                 android:layout_marginHorizontal="15dp"
                 android:layout_weight="1"
                 android:background="@drawable/app_block_theme"
-                android:hint="something"
-                android:inputType="number"
+                android:hint="Type Here"
+                android:inputType="text"
                 android:gravity="center"
                 android:padding="10dp"
                 android:textColor="@color/black"

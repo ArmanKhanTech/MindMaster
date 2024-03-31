@@ -58,7 +58,6 @@ public class ForegroundService extends Service {
     protected CountDownTimer check = new CountDownTimer(1000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
-            // do nothing
         }
 
         @Override
@@ -188,29 +187,72 @@ public class ForegroundService extends Service {
             for (HashMap<String, String> map : list) {
                 if(Objects.equals(map.get("packageName"), currentApp)) {
                     if (Objects.equals(map.get("scheduleType"), "Usage Time")) {
-                        String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
-                        int hour = Integer.parseInt(params[0]);
-                        int minute = Integer.parseInt(params[1]);
+                        if (Objects.equals(map.get("notification"), "1")) {
+                            SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sh.edit();
+                            editor.putBoolean("notification", true);
+                            editor.apply();
+                        }
 
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.set(Calendar.HOUR_OF_DAY, 0);
-                        calendar.set(Calendar.MINUTE, 0);
-                        calendar.set(Calendar.SECOND, 0);
-                        calendar.set(Calendar.MILLISECOND, 0);
-                        long startMillis;
-                        long endMillis;
+                        if (Objects.equals(map.get("appLaunch"), "1")) {
+                            String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
+                            int hour = Integer.parseInt(params[0]);
+                            int minute = Integer.parseInt(params[1]);
 
-                        startMillis = calendar.getTimeInMillis();
-                        endMillis = System.currentTimeMillis();
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.set(Calendar.HOUR_OF_DAY, 0);
+                            calendar.set(Calendar.MINUTE, 0);
+                            calendar.set(Calendar.SECOND, 0);
+                            calendar.set(Calendar.MILLISECOND, 0);
+                            long startMillis;
+                            long endMillis;
 
-                        UsageStatsManager usageStatsManager = (UsageStatsManager) mContext.getSystemService(Context.USAGE_STATS_SERVICE);
-                        Map<String, UsageStats> aggregatedStatsMap= usageStatsManager.queryAndAggregateUsageStats(startMillis, endMillis);
-                        UsageStats usageStats= aggregatedStatsMap.get(currentApp);
+                            startMillis = calendar.getTimeInMillis();
+                            endMillis = System.currentTimeMillis();
 
-                        if (usageStats != null) {
-                            long time = usageStats.getTotalTimeInForeground();
-                            long timeInMinutes = time / 60000;
-                            if (timeInMinutes >= (hour * 60L + minute)) {
+                            UsageStatsManager usageStatsManager = (UsageStatsManager) mContext.getSystemService(Context.USAGE_STATS_SERVICE);
+                            Map<String, UsageStats> aggregatedStatsMap = usageStatsManager.queryAndAggregateUsageStats(startMillis, endMillis);
+                            UsageStats usageStats = aggregatedStatsMap.get(currentApp);
+
+                            if (usageStats != null) {
+                                long time = usageStats.getTotalTimeInForeground();
+                                long timeInMinutes = time / 60000;
+                                if (timeInMinutes >= (hour * 60L + minute) && checkDay(map.get("scheduleDays"))) {
+                                    timer.cancel();
+                                    System.gc();
+                                    Runtime.getRuntime().runFinalization();
+                                    Intent lockIntent = new Intent(mContext, DrawOnTopAppActivity.class);
+                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                    lockIntent.putExtra("packageName", currentApp);
+                                    lockIntent.putExtra("type", map.get("type"));
+                                    lockIntent.putExtra("text", map.get("text"));
+                                    startActivity(lockIntent);
+                                }
+                            } else {
+                                return;
+                            }
+                        }
+                    } else if (Objects.equals(map.get("scheduleType"), "Specific Time")) {
+                        if (Objects.equals(map.get("notification"), "1")) {
+                            SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sh.edit();
+                            editor.putBoolean("notification", true);
+                            editor.apply();
+                        }
+
+                        if (Objects.equals(map.get("appLaunch"), "1")) {
+                            String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
+                            int fromHours = Integer.parseInt(params[0]);
+                            int fromMinutes = Integer.parseInt(params[1]);
+                            int toHours = Integer.parseInt(params[2]);
+                            int toMinutes = Integer.parseInt(params[3]);
+
+                            if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= fromHours &&
+                                    Calendar.getInstance().get(Calendar.MINUTE) >= fromMinutes &&
+                                    Calendar.getInstance().get(Calendar.HOUR_OF_DAY) <= toHours &&
+                                    Calendar.getInstance().get(Calendar.MINUTE) <= toMinutes && checkDay(map.get("scheduleDays"))) {
                                 timer.cancel();
                                 System.gc();
                                 Runtime.getRuntime().runFinalization();
@@ -219,10 +261,43 @@ public class ForegroundService extends Service {
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                 lockIntent.putExtra("packageName", currentApp);
+                                lockIntent.putExtra("type", map.get("type"));
+                                lockIntent.putExtra("text", map.get("text"));
                                 startActivity(lockIntent);
+                            } else {
+                                return;
                             }
-                        } else {
-                            return;
+                        }
+                    } else if (Objects.equals(map.get("scheduleType"), "Quick Block")) {
+                        if (Objects.equals(map.get("notification"), "1")) {
+                            SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sh.edit();
+                            editor.putBoolean("notification", true);
+                            editor.apply();
+                        }
+
+                        if (Objects.equals(map.get("appLaunch"), "1")) {
+                            String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
+                            int untilHours = Integer.parseInt(params[0]);
+                            int untilMins = Integer.parseInt(params[1]);
+
+                            if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) <= untilHours &&
+                                    Calendar.getInstance().get(Calendar.MINUTE) <= untilMins) {
+                                timer.cancel();
+                                System.gc();
+                                Runtime.getRuntime().runFinalization();
+                                Intent lockIntent = new Intent(mContext, DrawOnTopAppActivity.class);
+                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                lockIntent.putExtra("packageName", currentApp);
+                                lockIntent.putExtra("type", map.get("type"));
+                                lockIntent.putExtra("text", map.get("text"));
+                                startActivity(lockIntent);
+                            } else {
+                                blockDatabase.deleteRecordByPackageName(currentApp);
+                                return;
+                            }
                         }
                     }
                 } else {
@@ -308,6 +383,21 @@ public class ForegroundService extends Service {
                 }
             }
         }
+    }
+
+    public boolean checkDay(String days) {
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        return switch (day) {
+            case Calendar.SUNDAY -> days.contains("Sunday");
+            case Calendar.MONDAY -> days.contains("Monday");
+            case Calendar.TUESDAY -> days.contains("Tuesday");
+            case Calendar.WEDNESDAY -> days.contains("Wednesday");
+            case Calendar.THURSDAY -> days.contains("Thursday");
+            case Calendar.FRIDAY -> days.contains("Friday");
+            case Calendar.SATURDAY -> days.contains("Saturday");
+            default -> false;
+        };
     }
 
     public float getPkgInfo(long startMillis, long endMillis, String packageName) {

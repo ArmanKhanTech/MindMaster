@@ -65,7 +65,7 @@
                 android:value="To run service in the background." />
         </service>
         <service
-            android:name=".Service.NotificationBlock"
+            android:name=".Service.NotificationService"
             android:exported="false"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>

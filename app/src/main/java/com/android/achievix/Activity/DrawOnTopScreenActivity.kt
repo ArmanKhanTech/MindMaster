@@ -17,20 +17,15 @@ import java.util.Locale
 
 @Suppress("DEPRECATION")
 class DrawOnTopScreenActivity : AppCompatActivity() {
-    private lateinit var pauseButton: ImageButton
-    private lateinit var callButton: ImageButton
-    private lateinit var timing: TextView
-
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_draw_on_top_screen)
 
-        pauseButton = findViewById<ImageButton>(R.id.pause_button)
-        callButton = findViewById<ImageButton>(R.id.call_button)
-        timing = findViewById<TextView>(R.id.timing)
+        val pauseButton = findViewById<ImageButton>(R.id.pause_button)
+        val callButton = findViewById<ImageButton>(R.id.call_button)
+        val timing = findViewById<TextView>(R.id.timing)
 
-        val intent = intent
         val hour = intent.getIntExtra("hour", 0)
         val minute = intent.getIntExtra("minute", 0)
         val stop = intent.getBooleanExtra("stop", false)

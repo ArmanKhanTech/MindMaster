@@ -56,4 +56,8 @@ class AppBlockAdapter(private var appList: List<AppBlockModel>) :
     }
 
     override fun getItemCount() = appList.size
+
+    fun getItemAt(position: Int): AppBlockModel {
+        return appList[position]
+    }
 }

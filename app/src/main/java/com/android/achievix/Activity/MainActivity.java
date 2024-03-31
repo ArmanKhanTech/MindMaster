@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private final Calendar c = Calendar.getInstance();
     private final int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
     private String greeting = "";
-    private TextView mode, mode_desc;
-    private ImageView strict_level_one, strict_level_two;
+    private TextView mode, modeDesc;
+    private ImageView strictLevelOne, strictLevelTwo;
 
     @SuppressLint({"NonConstantResourceId", "InlinedApi", "SetTextI18n"})
     @Override
@@ -61,23 +61,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeViews() {
         mode = findViewById(R.id.main_mode);
-        mode_desc = findViewById(R.id.main_mode_desc);
-        strict_level_one = findViewById(R.id.strictness_level_img_one);
-        strict_level_two = findViewById(R.id.strictness_level_img_two);
+        modeDesc = findViewById(R.id.main_mode_desc);
+        strictLevelOne = findViewById(R.id.strictness_level_img_one);
+        strictLevelTwo = findViewById(R.id.strictness_level_img_two);
 
         SharedPreferences sh = getSharedPreferences("mode", MODE_PRIVATE);
         boolean _strict = sh.getBoolean("strict", false);
 
         if (_strict) {
             mode.setText("Strict Mode");
-            mode_desc.setText(R.string.strict_mode);
-            strict_level_one.setImageResource(R.drawable.lock_icon_red);
-            strict_level_two.setImageResource(R.drawable.lock_icon_red);
+            modeDesc.setText(R.string.strict_mode);
+            strictLevelOne.setImageResource(R.drawable.lock_icon_red);
+            strictLevelTwo.setImageResource(R.drawable.lock_icon_red);
         } else {
             mode.setText("Normal Mode");
-            mode_desc.setText(R.string.normal_mode);
-            strict_level_one.setImageResource(R.drawable.lock_icon_red);
-            strict_level_two.setImageResource(R.drawable.lock_icon_grey);
+            modeDesc.setText(R.string.normal_mode);
+            strictLevelOne.setImageResource(R.drawable.lock_icon_red);
+            strictLevelTwo.setImageResource(R.drawable.lock_icon_grey);
         }
 
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -161,14 +161,14 @@ public class MainActivity extends AppCompatActivity {
     private void updateMode(boolean _strict) {
         if (_strict) {
             mode.setText("Strict Mode");
-            mode_desc.setText(R.string.strict_mode);
-            strict_level_one.setImageResource(R.drawable.lock_icon_red);
-            strict_level_two.setImageResource(R.drawable.lock_icon_red);
+            modeDesc.setText(R.string.strict_mode);
+            strictLevelOne.setImageResource(R.drawable.lock_icon_red);
+            strictLevelTwo.setImageResource(R.drawable.lock_icon_red);
         } else {
             mode.setText("Normal Mode");
-            mode_desc.setText(R.string.normal_mode);
-            strict_level_one.setImageResource(R.drawable.lock_icon_red);
-            strict_level_two.setImageResource(R.drawable.lock_icon_grey);
+            modeDesc.setText(R.string.normal_mode);
+            strictLevelOne.setImageResource(R.drawable.lock_icon_red);
+            strictLevelTwo.setImageResource(R.drawable.lock_icon_grey);
         }
     }
 

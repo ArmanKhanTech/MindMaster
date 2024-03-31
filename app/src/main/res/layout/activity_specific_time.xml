@@ -61,7 +61,7 @@
 
                 <ImageView
                     android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="15dp"
                     android:src="@drawable/block_icon" />
@@ -94,7 +94,7 @@
 
                 <ImageView
                     android:layout_width="25dp"
-                    android:layout_height="35dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="15dp"
                     android:scaleType="centerCrop"
@@ -129,19 +129,20 @@
                 android:textColor="@color/skyBlue"
                 android:textSize="22dp" />
 
-            <RadioGroup
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/sun"
+                    android:id="@+id/sunday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_select"
+                    android:background="@drawable/day_radio_selector"
+                    android:checked="false"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -150,13 +151,13 @@
                     android:textSize="22dp" />
 
                 <RadioButton
-                    android:id="@+id/mon"
+                    android:id="@+id/monday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_select"
+                    android:background="@drawable/day_radio_selector"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -165,13 +166,13 @@
                     android:textSize="22dp" />
 
                 <RadioButton
-                    android:id="@+id/tue"
+                    android:id="@+id/tuesday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_select"
+                    android:background="@drawable/day_radio_selector"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -180,13 +181,13 @@
                     android:textSize="22dp" />
 
                 <RadioButton
-                    android:id="@+id/wed"
+                    android:id="@+id/wednesday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_select"
+                    android:background="@drawable/day_radio_selector"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -195,13 +196,13 @@
                     android:textSize="22dp" />
 
                 <RadioButton
-                    android:id="@+id/thu"
+                    android:id="@+id/thursday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_select"
+                    android:background="@drawable/day_radio_selector"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -210,13 +211,13 @@
                     android:textSize="22dp" />
 
                 <RadioButton
-                    android:id="@+id/fri"
+                    android:id="@+id/friday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_select"
+                    android:background="@drawable/day_radio_selector"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -225,26 +226,28 @@
                     android:textSize="22dp" />
 
                 <RadioButton
-                    android:id="@+id/sat"
+                    android:id="@+id/saturday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_select"
+                    android:background="@drawable/day_radio_selector"
+                    android:checked="false"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="S"
+                    android:text="Sa"
                     android:textColor="@color/white"
                     android:textSize="22dp" />
 
-            </RadioGroup>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="15dp"
                 android:text="From"
                 android:textColor="@color/skyBlue"
                 android:textSize="22dp" />
@@ -295,7 +298,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:background="@drawable/app_block_theme"
-                android:hint="something"
+                android:hint="Type Here"
                 android:inputType="text"
                 android:gravity="center"
                 android:padding="10dp"

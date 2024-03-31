@@ -10,14 +10,12 @@ import com.android.achievix.R;
 import com.hanks.passcodeview.PasscodeView;
 
 public class EnterPasswordActivity extends AppCompatActivity {
-    PasscodeView passcodeView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_password);
 
-        passcodeView = findViewById(R.id.passcodeViewCheck);
+        PasscodeView passcodeView = findViewById(R.id.passcodeViewCheck);
 
         Intent intent = getIntent();
         int password = intent.getIntExtra("password", 0);

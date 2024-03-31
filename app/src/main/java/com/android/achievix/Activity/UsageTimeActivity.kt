@@ -1,7 +1,8 @@
 package com.android.achievix.Activity
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
@@ -25,7 +26,7 @@ class UsageTimeActivity : AppCompatActivity() {
     private lateinit var minsEditText: EditText
     private lateinit var textEditText: EditText
     private lateinit var saveButton: Button
-    private val days = mutableListOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
+    private val days = mutableListOf<String>()
     private lateinit var blockDatabase: BlockDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +39,7 @@ class UsageTimeActivity : AppCompatActivity() {
         val type = intent.getStringExtra("type")
 
         initializeViews()
-        setupListeners(name, packageName, type)
+        attachListeners(name, packageName, type)
     }
 
     private fun initializeViews() {
@@ -62,7 +63,7 @@ class UsageTimeActivity : AppCompatActivity() {
         notiSwitch.isChecked = true
     }
 
-    private fun setupListeners(name: String?, packageName: String?, type: String?) {
+    private fun attachListeners(name: String?, packageName: String?, type: String?) {
         saveButton.setOnClickListener {
             val hours = hoursEditText.text.toString().isEmpty().let {
                 if (it) {
@@ -113,11 +114,18 @@ class UsageTimeActivity : AppCompatActivity() {
                         text
                     )
 
-                    Log.d("UsageTimeActivity", blockDatabase.readAllRecords().count.toString())
+                    Toast.makeText(this, "App blocked successfully", Toast.LENGTH_SHORT).show()
+                    Handler().postDelayed({
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                        finish()
+                    }, 1000)
                 }
             }
         }
-
         setupDayCheckListeners()
     }
 

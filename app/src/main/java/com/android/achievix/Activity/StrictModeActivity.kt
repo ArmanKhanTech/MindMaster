@@ -170,7 +170,6 @@ class StrictModeActivity : AppCompatActivity() {
                         } else {
                             if(dataList[1].status == ItemStatus.ACTIVE) {
                                 val intent = Intent(this@StrictModeActivity, NewPasswordActivity::class.java)
-                                @Suppress("DEPRECATION")
                                 startActivityForResult(intent, 100)
                             } else {
                                 Toast.makeText(this@StrictModeActivity, "Password already set", Toast.LENGTH_SHORT).show()
@@ -188,7 +187,6 @@ class StrictModeActivity : AppCompatActivity() {
                                 val intent = Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
                                 intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, cn)
                                 intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "Achievix requires device admin rights to restrict deletion of the app.")
-                                @Suppress("DEPRECATION")
                                 startActivityForResult(intent, 101)
                             } else {
                                 if(dataList[0].text.contains("Two") || dataList[0].text.contains("Three")) {
@@ -231,7 +229,6 @@ class StrictModeActivity : AppCompatActivity() {
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        @Suppress("DEPRECATION")
         super.onBackPressed()
         val intent = Intent()
         setResult(RESULT_CANCELED, intent)

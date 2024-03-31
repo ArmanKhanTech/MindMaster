@@ -117,8 +117,10 @@ class AppBlockActivity : AppCompatActivity() {
                 appBlockAdapter?.setOnItemClickListener(object : AppBlockAdapter.OnItemClickListener {
                     override fun onItemClick(view: View) {
                         val position = recyclerView.getChildAdapterPosition(view)
-                        val app = appBlockModelList[position]
-                        launchActivity(app.appName, app.packageName)
+                        val app = appBlockAdapter?.getItemAt(position)
+                        if (app != null) {
+                            launchActivity(app.appName, app.packageName)
+                        }
                     }
                 })
             }

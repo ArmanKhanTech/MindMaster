@@ -47,22 +47,15 @@
                 android:textColor="@color/black"
                 android:textSize="22dp" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/app_info_block"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fontFamily="sans-serif-condensed-medium">
-
-                <TextView
-                    android:id="@+id/app_info_block"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:text="Spent: 00 sec"
-                    android:textColor="@color/black"
-                    android:textFontWeight="@integer/material_motion_duration_long_2"
-                    android:textSize="22dp" />
-
-            </LinearLayout>
+                android:layout_gravity="center"
+                android:text="Spent: 00 sec"
+                android:textColor="@color/black"
+                android:textFontWeight="@integer/material_motion_duration_long_2"
+                android:textSize="22dp" />
 
         </LinearLayout>
 
