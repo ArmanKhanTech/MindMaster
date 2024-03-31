@@ -34,6 +34,7 @@ class StrictModeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_strict_mode)
 
         sh = getSharedPreferences("mode", MODE_PRIVATE)
+        editor = sh.edit()
 
         val activate = findViewById<Button>(R.id.activate_strict_mode)
         if(!sh.getBoolean("strict", false)) {
@@ -42,7 +43,6 @@ class StrictModeActivity : AppCompatActivity() {
                     Toast.makeText(this, "Please activate device admin first", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 } else {
-                    editor = sh.edit()
                     editor.putBoolean("strict", true)
                     editor.apply()
                     val intent = Intent()
@@ -189,9 +189,10 @@ class StrictModeActivity : AppCompatActivity() {
                                 intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "Achievix requires device admin rights to restrict deletion of the app.")
                                 startActivityForResult(intent, 101)
                             } else {
-                                if(dataList[0].text.contains("Two") || dataList[0].text.contains("Three")) {
-                                    Toast.makeText(this@StrictModeActivity, "Device admin already activated", Toast.LENGTH_SHORT).show()
-                                } else {
+                                if (dataList[0].text.contains("One")
+                                    || dataList[0].text.contains("Two")
+                                    || dataList[0].text.contains("Three")
+                                ) {
                                     Toast.makeText(this@StrictModeActivity, "Device admin activation not required", Toast.LENGTH_SHORT).show()
                                 }
                             }
@@ -210,10 +211,13 @@ class StrictModeActivity : AppCompatActivity() {
         if(requestCode == 100) {
             if(resultCode == RESULT_OK) {
                 dataList[1].status = ItemStatus.COMPLETED
-                if(dataList[0].text.contains("Two") || dataList[0].text.contains("Three")) {
-                    dataList[2].status = ItemStatus.ACTIVE
-                } else {
+                if (dataList[0].text.contains("One") ||
+                    dataList[0].text.contains("Two") ||
+                    dataList[0].text.contains("Three")
+                ) {
                     dataList[2].status = ItemStatus.COMPLETED
+                } else {
+                    dataList[2].status = ItemStatus.ACTIVE
                 }
                 dataList[1].text = "Password set"
                 initRecyclerView()

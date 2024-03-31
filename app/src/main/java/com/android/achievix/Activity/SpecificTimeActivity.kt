@@ -106,7 +106,7 @@ class SpecificTimeActivity : AppCompatActivity() {
                         text
                     )
 
-                    Toast.makeText(this, "App blocked successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Schedule added", Toast.LENGTH_SHORT).show()
                     Handler().postDelayed({
                         val intent = Intent(this, MainActivity::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

@@ -63,7 +63,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="22dp"
         android:fontFamily="sans-serif-condensed-medium"
-        android:text="By : Arman Khan"
+        android:text="By: Arman Khan"
         android:textColor="@color/black"
         android:textSize="25dp" />
 

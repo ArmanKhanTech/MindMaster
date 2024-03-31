@@ -38,8 +38,8 @@ public class UsageOverviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_usage_overview, container, false);
         initializeViews(view);
-        setupSpinner(view);
-        setupRecyclerView(view);
+        setupSpinner();
+        setupRecyclerView();
         getInstalledAppsUsageTask = new GetInstalledAppsUsageTask(requireActivity(), sortValue);
         getInstalledAppsUsageTask.execute();
         return view;
@@ -53,7 +53,7 @@ public class UsageOverviewFragment extends Fragment {
         usageLayout = view.findViewById(R.id.ll_usage_overview);
     }
 
-    private void setupSpinner(View view) {
+    private void setupSpinner() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireActivity(), R.layout.spinner_dropdown_item, sort);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         sortSpinner.setAdapter(adapter);
@@ -76,8 +76,7 @@ public class UsageOverviewFragment extends Fragment {
         });
     }
 
-    private void setupRecyclerView(View view) {
-        recyclerView = view.findViewById(R.id.recycler_view_usage_overview);
+    private void setupRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
     }

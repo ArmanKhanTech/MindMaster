@@ -126,8 +126,8 @@ public class BlockDatabase extends SQLiteOpenHelper {
         db.update(TABLE_NAME, values, ID + " = ?", new String[]{id});
     }
 
-    public void deleteRecordByPackageName(String packageName) {
+    public void deleteRecordById(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, PACKAGE_NAME + " = ?", new String[]{packageName});
+        db.delete(TABLE_NAME, ID + " = ?", new String[]{id});
     }
 }

@@ -74,8 +74,6 @@ class AppBlockActivity : AppCompatActivity() {
         sortSpinner.adapter = arrayAdapter
         sortSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             var isFirstTime = true
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (!isFirstTime) {
                     sortValue = parent!!.getItemAtPosition(position).toString()
@@ -83,6 +81,8 @@ class AppBlockActivity : AppCompatActivity() {
                 }
                 isFirstTime = false
             }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 
@@ -119,7 +119,7 @@ class AppBlockActivity : AppCompatActivity() {
                         val position = recyclerView.getChildAdapterPosition(view)
                         val app = appBlockAdapter?.getItemAt(position)
                         if (app != null) {
-                            launchActivity(app.appName, app.packageName)
+                            launchActivity(app.appName, app.packageName, app.blocked!!)
                         }
                     }
                 })
@@ -127,12 +127,20 @@ class AppBlockActivity : AppCompatActivity() {
         }
     }
 
-    private fun launchActivity(appName: String, packageName: String) {
-        val intent = Intent(this, NewScheduleActivity::class.java).apply {
-            putExtra("name", appName)
-            putExtra("packageName", packageName)
-            putExtra("type", "app")
-            putExtra("caller", "appBlock")
+    private fun launchActivity(appName: String, packageName: String, blocked: Boolean) {
+        val intent = if (!blocked) {
+            Intent(this, NewScheduleActivity::class.java).apply {
+                putExtra("name", appName)
+                putExtra("packageName", packageName)
+                putExtra("type", "app")
+                putExtra("caller", "appBlock")
+            }
+        } else {
+            Intent(this, EditScheduleActivity::class.java).apply {
+                putExtra("name", appName)
+                putExtra("packageName", packageName)
+                putExtra("type", "app")
+            }
         }
         if(packageName == "com.android.achievix") {
             Toast.makeText(this, "Cannot block Achievix", Toast.LENGTH_SHORT).show()

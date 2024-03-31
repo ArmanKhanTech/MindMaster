@@ -1,13 +1,116 @@
 package com.android.achievix.Activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.view.View
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.android.achievix.Adapter.ScheduleAdapter
+import com.android.achievix.Database.BlockDatabase
+import com.android.achievix.Model.ScheduleModel
 import com.android.achievix.R
 
-// TODO: Work on apdater
 class EditScheduleActivity : AppCompatActivity() {
+    private lateinit var scheduleAdapter: ScheduleAdapter
+    private var scheduleList: MutableList<ScheduleModel> = ArrayList()
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var addButton: Button
+    private lateinit var doneButton: Button
+    private lateinit var name: TextView
+    private lateinit var noSchedule: TextView
+    private var blockDatabase: BlockDatabase = BlockDatabase(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_schedule)
+
+        val intent = intent
+        val name = intent.getStringExtra("name")
+        val packageName = intent.getStringExtra("packageName")
+        val type = intent.getStringExtra("type")
+
+        initializeViews(name!!)
+        initRecyclerView(packageName!!, type!!)
+        attachListeners(name, packageName, type)
+    }
+
+    private fun initializeViews(text: String) {
+        name = findViewById(R.id.edit_app_name)
+        name.text = text
+        noSchedule = findViewById(R.id.no_schedule_text)
+        addButton = findViewById(R.id.add_schedule)
+        doneButton = findViewById(R.id.save_edit_schedule_button)
+
+        recyclerView = findViewById(R.id.edit_schedule_list)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.itemAnimator = DefaultItemAnimator()
+    }
+
+    private fun initRecyclerView(packageName: String, type: String) {
+        when (type) {
+            "app" -> {
+                val result = blockDatabase.readRecords(packageName)
+                for (i in result.indices) {
+                    val map = result[i]
+                    val schedule = ScheduleModel(
+                        id = map["id"].toString(),
+                        name = map["name"].toString(),
+                        packageName = map["packageName"].toString(),
+                        type = map["type"].toString(),
+                        appLaunch = map["appLaunch"].toString(),
+                        notification = map["notification"].toString(),
+                        scheduleType = map["scheduleType"].toString(),
+                        scheduleParams = map["scheduleParams"].toString(),
+                        scheduleDays = map["scheduleDays"].toString(),
+                        profileName = map["profileName"].toString(),
+                        profileStatus = map["profileStatus"].toBoolean(),
+                        text = map["text"].toString()
+                    )
+                    if (schedule.profileName == "null") {
+                        scheduleList.add(schedule)
+                    }
+                }
+            }
+        }
+        scheduleAdapter = ScheduleAdapter(scheduleList, this)
+        recyclerView.adapter = scheduleAdapter
+    }
+
+    private fun attachListeners(name: String, packageName: String, type: String) {
+        addButton.setOnClickListener {
+            val intent = Intent(this, NewScheduleActivity::class.java).apply {
+                putExtra("name", name)
+                putExtra("packageName", packageName)
+                putExtra("type", type)
+                putExtra("caller", "editSchedule")
+            }
+            startActivity(intent)
+        }
+
+        doneButton.setOnClickListener {
+            Toast.makeText(this, "Changes saved", Toast.LENGTH_SHORT).show()
+            Handler().postDelayed({
+                val intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }, 1000)
+        }
+    }
+
+    fun updateNoScheduleVisibility() {
+        noSchedule.visibility = if (recyclerView.adapter!!.itemCount == 0) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
     }
 }

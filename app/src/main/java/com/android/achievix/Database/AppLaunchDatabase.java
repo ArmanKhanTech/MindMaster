@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.HashMap;
 
@@ -61,6 +60,18 @@ public class AppLaunchDatabase extends SQLiteOpenHelper {
         }
         cursor.close();
         return result;
+    }
+
+    public int getDailyLaunchCountForSpecificApp(String packageName, String date) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + LAUNCH_COUNT + " FROM " + TABLE_NAME + " WHERE " + PACKAGE_NAME + " = ? AND " + DATE + " = ?", new String[]{packageName, date});
+
+        int count = 0;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(cursor.getColumnIndexOrThrow(LAUNCH_COUNT));
+        }
+        cursor.close();
+        return count;
     }
 
     public HashMap<String, Integer> getWeeklyLaunchCount(String startDate, String endDate) {

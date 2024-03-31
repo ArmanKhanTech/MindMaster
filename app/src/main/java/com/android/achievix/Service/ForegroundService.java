@@ -29,13 +29,11 @@ import com.android.achievix.Activity.EnterPasswordActivity;
 import com.android.achievix.Activity.MainActivity;
 import com.android.achievix.Database.AppLaunchDatabase;
 import com.android.achievix.Database.BlockDatabase;
-import com.android.achievix.Database.InternetBlockDatabase;
 import com.android.achievix.R;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -53,7 +51,6 @@ public class ForegroundService extends Service {
     public Context mContext;
     public AppLaunchDatabase appLaunchDatabase = new AppLaunchDatabase(this);
     public BlockDatabase blockDatabase = new BlockDatabase(this);
-    public InternetBlockDatabase db3 = new InternetBlockDatabase(this);
 
     protected CountDownTimer check = new CountDownTimer(1000, 1000) {
         @Override
@@ -89,36 +86,6 @@ public class ForegroundService extends Service {
             strictMode(this);
             block(this);
 
-            ArrayList<String> packs2 = db3.readInternetPacks();
-            if (packs2.contains(currentApp)) {
-                String temp = db3.readData(currentApp);
-                float data = Float.parseFloat(temp);
-
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.HOUR_OF_DAY, 0);
-                calendar.set(Calendar.MINUTE, 0);
-                calendar.set(Calendar.SECOND, 0);
-                calendar.set(Calendar.MILLISECOND, 0);
-                long startMillis;
-                long endMillis;
-
-                startMillis = calendar.getTimeInMillis();
-                endMillis = System.currentTimeMillis();
-
-                float currentData = getPkgInfo(startMillis, endMillis, currentApp);
-
-                if (data < currentData) {
-                    this.cancel();
-                    Intent lockIntent = new Intent(mContext, DrawOnTopAppActivity.class);
-                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    lockIntent.putExtra("PACK_NAME", currentApp);
-                    String msg = "This App Exceeds The Current Data Usage Limit";
-                    lockIntent.putExtra("MSG", msg);
-                    startActivity(lockIntent);
-                }
-            }
             this.start();
         }
     };
@@ -148,13 +115,13 @@ public class ForegroundService extends Service {
         PendingIntent pendingIntent;
         pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, FLAG_IMMUTABLE);
+
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Achievix")
                 .setContentText("Foreground Service Running")
                 .setSmallIcon(R.drawable.noti_icon)
                 .setContentIntent(pendingIntent)
                 .build();
-
 
         startForeground(1, notification);
         return START_STICKY;
@@ -295,7 +262,64 @@ public class ForegroundService extends Service {
                                 lockIntent.putExtra("text", map.get("text"));
                                 startActivity(lockIntent);
                             } else {
-                                blockDatabase.deleteRecordByPackageName(currentApp);
+                                blockDatabase.deleteRecordById(map.get("id"));
+                                return;
+                            }
+                        }
+                    } else if (Objects.equals(map.get("scheduleType"), "Launch Count")) {
+                        if (Objects.equals(map.get("notification"), "1")) {
+                            SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sh.edit();
+                            editor.putBoolean("notification", true);
+                            editor.apply();
+                        }
+
+                        if (Objects.equals(map.get("appLaunch"), "1")) {
+                            String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
+                            int launchCount = Integer.parseInt(params[0]);
+
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                            String date = sdf.format(new Date());
+                            int dailyCount = appLaunchDatabase.getDailyLaunchCountForSpecificApp(currentApp, date);
+
+                            if (dailyCount >= launchCount && checkDay(map.get("scheduleDays"))) {
+                                timer.cancel();
+                                System.gc();
+                                Runtime.getRuntime().runFinalization();
+                                Intent lockIntent = new Intent(mContext, DrawOnTopAppActivity.class);
+                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                lockIntent.putExtra("packageName", currentApp);
+                                lockIntent.putExtra("type", map.get("type"));
+                                lockIntent.putExtra("text", map.get("text"));
+                                startActivity(lockIntent);
+                            } else {
+                                return;
+                            }
+                        }
+                    } else if (Objects.equals(map.get("scheduleType"), "Fixed Block")) {
+                        if (Objects.equals(map.get("notification"), "1")) {
+                            SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sh.edit();
+                            editor.putBoolean("notification", true);
+                            editor.apply();
+                        }
+
+                        if (Objects.equals(map.get("appLaunch"), "1")) {
+                            if (checkDay(map.get("scheduleDays"))) {
+                                timer.cancel();
+                                System.gc();
+                                Runtime.getRuntime().runFinalization();
+                                Intent lockIntent = new Intent(mContext, DrawOnTopAppActivity.class);
+                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                lockIntent.putExtra("packageName", currentApp);
+                                lockIntent.putExtra("type", map.get("type"));
+                                lockIntent.putExtra("text", map.get("text"));
+                                startActivity(lockIntent);
+                            } else {
                                 return;
                             }
                         }
@@ -403,11 +427,9 @@ public class ForegroundService extends Service {
     public float getPkgInfo(long startMillis, long endMillis, String packageName) {
         PackageManager packageManager = this.getPackageManager();
         ApplicationInfo info = null;
-
         try {
             info = packageManager.getApplicationInfo(packageName, 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            // do nothing
+        } catch (PackageManager.NameNotFoundException ignored) {
         }
         int uid = Objects.requireNonNull(info).uid;
         return fetchNetworkStatsInfo(startMillis, endMillis, uid);

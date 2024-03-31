@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:background="@color/white"
     android:orientation="vertical"
     tools:context=".Activity.UsageTimeActivity"
     tools:ignore="HardcodedText,SpUsage,ContentDescription">
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,7 +63,7 @@
 
                 <ImageView
                     android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="15dp"
                     android:src="@drawable/block_icon" />
@@ -77,7 +78,7 @@
                     android:textSize="22dp" />
 
                 <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/block_app_launch_usage_time"
+                    android:id="@+id/block_app_launch_launches"
                     style="@style/SwitchTheme"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -95,7 +96,7 @@
 
                 <ImageView
                     android:layout_width="25dp"
-                    android:layout_height="35dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="15dp"
                     android:scaleType="centerCrop"
@@ -111,7 +112,7 @@
                     android:textSize="22dp" />
 
                 <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/block_noti_usage_time"
+                    android:id="@+id/block_noti_launches"
                     style="@style/SwitchTheme"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -130,19 +131,20 @@
                 android:textColor="@color/skyBlue"
                 android:textSize="22dp" />
 
-            <RadioGroup
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/sun"
+                    android:id="@+id/sunday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_select"
+                    android:background="@drawable/day_radio_selector"
+                    android:checked="false"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -151,13 +153,13 @@
                     android:textSize="22dp" />
 
                 <RadioButton
-                    android:id="@+id/mon"
+                    android:id="@+id/monday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_select"
+                    android:background="@drawable/day_radio_selector"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -166,13 +168,13 @@
                     android:textSize="22dp" />
 
                 <RadioButton
-                    android:id="@+id/tue"
+                    android:id="@+id/tuesday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_select"
+                    android:background="@drawable/day_radio_selector"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -181,13 +183,13 @@
                     android:textSize="22dp" />
 
                 <RadioButton
-                    android:id="@+id/wed"
+                    android:id="@+id/wednesday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_select"
+                    android:background="@drawable/day_radio_selector"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -196,13 +198,13 @@
                     android:textSize="22dp" />
 
                 <RadioButton
-                    android:id="@+id/thu"
+                    android:id="@+id/thursday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_select"
+                    android:background="@drawable/day_radio_selector"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -211,13 +213,13 @@
                     android:textSize="22dp" />
 
                 <RadioButton
-                    android:id="@+id/fri"
+                    android:id="@+id/friday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_select"
+                    android:background="@drawable/day_radio_selector"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -226,21 +228,22 @@
                     android:textSize="22dp" />
 
                 <RadioButton
-                    android:id="@+id/sat"
+                    android:id="@+id/saturday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_select"
+                    android:background="@drawable/day_radio_selector"
+                    android:checked="false"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="S"
+                    android:text="Sa"
                     android:textColor="@color/white"
                     android:textSize="22dp" />
 
-            </RadioGroup>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -257,12 +260,12 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/usage_time_hrs"
+                    android:id="@+id/launch_count"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/app_block_theme"
-                    android:hint="Count"
+                    android:hint="Daily Count"
                     android:inputType="number"
                     android:gravity="center"
                     android:padding="10dp"
@@ -285,6 +288,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="15dp"
+                android:layout_marginBottom="70dp"
                 android:layout_weight="1"
                 android:background="@drawable/app_block_theme"
                 android:hint="something"
@@ -292,24 +296,25 @@
                 android:gravity="center"
                 android:padding="10dp"
                 android:textColor="@color/black"
-                android:textSize="22dp" />
+                android:textSize="22dp"
+                tools:ignore="Autofill" />
 
         </LinearLayout>
 
-    </ScrollView>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/no_of_launches_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/take_break_btn_theme"
+            android:padding="10dp"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="22dp" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/usage_limit_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginVertical="10dp"
-        android:background="@drawable/take_break_btn_theme"
-        android:padding="10dp"
-        android:text="Save"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="22dp" />
+    </FrameLayout>
 
-</FrameLayout>
+</ScrollView>

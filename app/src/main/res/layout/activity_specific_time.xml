@@ -1,16 +1,18 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:background="@color/white"
     android:orientation="vertical"
     tools:context=".Activity.UsageTimeActivity"
     tools:ignore="HardcodedText,SpUsage,ContentDescription">
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -248,7 +250,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginTop="15dp"
-                android:text="From"
+                android:text="Daily From"
                 android:textColor="@color/skyBlue"
                 android:textSize="22dp" />
 
@@ -268,7 +270,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
-                android:text="To"
+                android:text="Daily To"
                 android:textColor="@color/skyBlue"
                 android:textSize="22dp" />
 
@@ -297,32 +299,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
+                android:layout_marginBottom="70dp"
                 android:background="@drawable/app_block_theme"
                 android:hint="Type Here"
                 android:inputType="text"
                 android:gravity="center"
                 android:padding="10dp"
                 android:textColor="@color/black"
-                android:layout_marginBottom="100dp"
                 android:textSize="22dp"
                 tools:ignore="Autofill" />
 
         </LinearLayout>
 
-    </ScrollView>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/specific_time_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/take_break_btn_theme"
+            android:padding="10dp"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="22dp" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/specific_time_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginVertical="10dp"
-        android:background="@drawable/take_break_btn_theme"
-        android:padding="10dp"
-        android:text="Save"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="22dp" />
+    </FrameLayout>
 
-</FrameLayout>
+</ScrollView>

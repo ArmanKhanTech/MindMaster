@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.achievix.Model.AppSelectModel
 import com.android.achievix.R
 
-class WebBlockAdapter(private var appList: List<AppSelectModel>, private var isWeb: Boolean) :
+class WebBlockAdapter(
+    private var websiteKeywordList: List<AppSelectModel>,
+    private var isWeb: Boolean
+) :
     RecyclerView.Adapter<WebBlockAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -25,7 +28,7 @@ class WebBlockAdapter(private var appList: List<AppSelectModel>, private var isW
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val appInfo = appList[position]
+        val appInfo = websiteKeywordList[position]
 
         holder.webName.text = appInfo.name
 //        if (isWeb) {
@@ -35,5 +38,5 @@ class WebBlockAdapter(private var appList: List<AppSelectModel>, private var isW
 //        }
     }
 
-    override fun getItemCount() = appList.size
+    override fun getItemCount() = websiteKeywordList.size
 }

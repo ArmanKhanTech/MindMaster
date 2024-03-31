@@ -27,16 +27,7 @@ class NewScheduleActivity : AppCompatActivity() {
             profileName = intent.getStringExtra("profileName")!!
         }
 
-        initializeViews()
         setupListeners(caller)
-    }
-
-    private fun initializeViews() {
-        findViewById<LinearLayout>(R.id.usage_limit_button)
-        findViewById<LinearLayout>(R.id.specific_time_button)
-        findViewById<LinearLayout>(R.id.quick_block_button)
-        findViewById<LinearLayout>(R.id.launch_block_button)
-        findViewById<LinearLayout>(R.id.wait_timer_button)
     }
 
     private fun setupListeners(caller: String?) {

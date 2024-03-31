@@ -47,12 +47,14 @@ public class InternetBlockActivity extends AppCompatActivity {
     }
 
     private void initializeViews() {
-        recyclerView = findViewById(R.id.internet_block_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
         loadingLayout = findViewById(R.id.loading_block_internet);
         internetUsageLayout = findViewById(R.id.layout_block_internet);
         searchEditText = findViewById(R.id.search_internet_block);
+
+        recyclerView = findViewById(R.id.internet_block_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
         sortSpinner = findViewById(R.id.internet_block_spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sort);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);

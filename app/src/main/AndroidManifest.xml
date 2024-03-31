@@ -30,9 +30,6 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true">
-        <activity
-            android:name=".Activity.EditScheduleActivity"
-            android:exported="false" />
 
         <receiver
             android:name=".Service.RestartService"
@@ -85,6 +82,10 @@
                 android:resource="@xml/accessibility_service" />
         </service>
 
+        <activity
+            android:name=".Activity.EditScheduleActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FocusOnMe" />
         <activity
             android:name=".Activity.NoOfLaunchesActivity"
             android:exported="false"
