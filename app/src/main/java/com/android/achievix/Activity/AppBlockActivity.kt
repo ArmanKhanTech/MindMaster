@@ -24,7 +24,7 @@ import com.android.achievix.Utility.UsageUtil.Companion.getInstalledAppsBlock
 
 @Suppress("DEPRECATION")
 class AppBlockActivity : AppCompatActivity() {
-    private lateinit var appBlockModelList: List<AppBlockModel>
+    private var appBlockModelList: List<AppBlockModel> = ArrayList()
     private lateinit var recyclerView: RecyclerView
     private lateinit var sortSpinner: Spinner
     private lateinit var searchEditText: EditText

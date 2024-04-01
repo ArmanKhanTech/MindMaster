@@ -1,5 +1,6 @@
 package com.android.achievix.Activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -13,7 +14,7 @@ import com.android.achievix.Database.BlockDatabase
 import com.android.achievix.R
 
 class UsageTimeActivity : AppCompatActivity() {
-    private lateinit var appLaunchSwitch: SwitchCompat
+    private lateinit var launchSwitch: SwitchCompat
     private lateinit var notiSwitch: SwitchCompat
     private lateinit var monRadioButton: RadioButton
     private lateinit var tueRadioButton: RadioButton
@@ -43,7 +44,7 @@ class UsageTimeActivity : AppCompatActivity() {
     }
 
     private fun initializeViews() {
-        appLaunchSwitch = findViewById(R.id.block_app_launch_usage_time)
+        launchSwitch = findViewById(R.id.block_app_launch_usage_time)
         notiSwitch = findViewById(R.id.block_noti_usage_time)
         monRadioButton = findViewById(R.id.monday)
         tueRadioButton = findViewById(R.id.tuesday)
@@ -59,10 +60,11 @@ class UsageTimeActivity : AppCompatActivity() {
 
         blockDatabase = BlockDatabase(this)
 
-        appLaunchSwitch.isChecked = true
+        launchSwitch.isChecked = true
         notiSwitch.isChecked = true
     }
 
+    @SuppressLint("SetTextI18n")
     private fun attachListeners(name: String?, packageName: String?, type: String?) {
         saveButton.setOnClickListener {
             val hours = hoursEditText.text.toString().isEmpty().let {
@@ -79,12 +81,12 @@ class UsageTimeActivity : AppCompatActivity() {
                     minsEditText.text.toString().toInt()
                 }
             }
-            val text = textEditText.text.toString().let {
+            val motivationalText = textEditText.text.toString().let {
                 it.ifEmpty {
                     null
                 } ?: it
             }
-            val appLaunch = appLaunchSwitch.isChecked
+            val launch = launchSwitch.isChecked
             val noti = notiSwitch.isChecked
 
             if (hours == 0 && mins == 0) {
@@ -93,7 +95,7 @@ class UsageTimeActivity : AppCompatActivity() {
             } else if (days.isEmpty()) {
                 Toast.makeText(this, "Please select a day", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-            } else if(!appLaunch && !noti) {
+            } else if (!launch && !noti) {
                 Toast.makeText(this, "Please select at least one option", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -104,27 +106,27 @@ class UsageTimeActivity : AppCompatActivity() {
                         name,
                         packageName,
                         "app",
-                        appLaunch,
+                        launch,
                         noti,
                         "Usage Time",
                         "$hours $mins",
                         days.toString(),
                         null,
                         false,
-                        text
+                        motivationalText
                     )
-
-                    Toast.makeText(this, "Schedule added", Toast.LENGTH_SHORT).show()
-                    Handler().postDelayed({
-                        val intent = Intent(this, MainActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        startActivity(intent)
-                        finish()
-                    }, 1000)
                 }
             }
+
+            Toast.makeText(this, "Schedule added", Toast.LENGTH_SHORT).show()
+            Handler().postDelayed({
+                val intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }, 1000)
         }
         setupDayCheckListeners()
     }

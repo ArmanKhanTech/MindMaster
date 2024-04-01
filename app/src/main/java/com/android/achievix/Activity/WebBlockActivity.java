@@ -5,89 +5,149 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.achievix.Adapter.WebBlockAdapter;
+import com.android.achievix.Adapter.WebKeywordBlockAdapter;
 import com.android.achievix.Database.BlockDatabase;
-import com.android.achievix.Model.AppSelectModel;
+import com.android.achievix.Model.WebKeywordModel;
 import com.android.achievix.R;
 import com.android.achievix.Service.LogURLService;
 
 import java.util.ArrayList;
-
-import kotlin.text.Regex;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
+import java.util.regex.Pattern;
 
 // TODO: Fix accessibility settings
 public class WebBlockActivity extends AppCompatActivity {
-    BlockDatabase db;
-    TextView tv;
-    ArrayList<AppSelectModel> webList = new ArrayList<>();
-    RecyclerView recyclerView;
-    WebBlockAdapter webBlockAdapter;
-    Button block_web;
+    private final BlockDatabase blockDatabase = new BlockDatabase(this);
+    private final List<WebKeywordModel> webKeywordModelList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private EditText searchEditText;
+    private TextView noWebBlock;
+    private Button blockButton;
+    private WebKeywordBlockAdapter webKeywordBlockAdapter;
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_block);
+        initializeViews();
+        setupRecyclerView();
+        setupSearchView();
+        setUpButton();
+        getBlockedWebsite();
+    }
 
-        block_web = findViewById(R.id.block_web_button);
-        tv = findViewById(R.id.no_web_block);
+    private void initializeViews() {
         recyclerView = findViewById(R.id.blocked_website);
-        recyclerView.setLayoutManager(new androidx.recyclerview.widget.LinearLayoutManager(this));
+        searchEditText = findViewById(R.id.search_web_block);
+        noWebBlock = findViewById(R.id.no_web_block);
+        blockButton = findViewById(R.id.add_web_button);
+    }
 
-        populateList();
+    private void setupRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+    }
 
-        block_web.setOnClickListener(v -> {
-            if (isAccessibilitySettingsOn(this)) {
-                EditText website = findViewById(R.id.add_website);
+    private void setupSearchView() {
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-                if (TextUtils.isEmpty(website.getText().toString())) {
-                    Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT).show();
-                    Regex urlRegex = new Regex("/^((https?|ftp|smtp):\\/\\/)?(www.)?[a-z0-9]+(\\.[a-z]{2,}){1,3}(#?\\/?[a-zA-Z0-9#]+)*\\/?(\\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/");
-                    if (!urlRegex.matches(website.getText().toString())) {
-                        Toast.makeText(this, "Invalid URL", Toast.LENGTH_SHORT).show();
-                    } else {
-                        String url = website.getText().toString();
-//                        db.addNewWebsite(url);
-                        populateList();
-                    }
-                }
-            } else {
-                Intent i = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-                startActivity(i);
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
             }
         });
     }
 
-    @SuppressLint({"SetTextI18n", "NotifyDataSetChanged", "UseCompatLoadingForDrawables"})
-    private void populateList() {
-//        ArrayList<String> w;
-//        db = new BlockDatabase(this);
-//        w = db.readWebsites();
-//        webList.clear();
-//
-//        for (int i = 0; i < w.size(); i++) {
-//            String url = w.get(i);
-//            webList.add(new AppSelectModel(url, getDrawable(R.drawable.lock_icon_grey)));
-//        }
-//
-//        webBlockAdapter = new WebBlockAdapter(webList, true);
-//        recyclerView.setAdapter(webBlockAdapter);
-//
-//        if (w.isEmpty()) {
-//            tv.setText("No Website Blocked");
-//        } else {
-//            tv.setText("");
-//        }
+    private void setUpButton() {
+        blockButton.setOnClickListener(v -> {
+            if (webKeywordModelList.contains(new WebKeywordModel(searchEditText.getText().toString()))) {
+                Toast.makeText(this, "Website already blocked", Toast.LENGTH_SHORT).show();
+            } else {
+                if (isAccessibilitySettingsOn(this)) {
+                    if (TextUtils.isEmpty(searchEditText.getText().toString())) {
+                        Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Pattern urlPattern = Pattern.compile("^((https?|ftp|smtp)://)?(www.)?[a-z0-9]+(\\.[a-z]{2,}){1,3}(#?\\/?[a-zA-Z0-9#]+)*\\/?(\\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$");
+                        if (!urlPattern.matcher(searchEditText.getText().toString()).matches()) {
+                            Log.d("URL", searchEditText.getText().toString());
+                            Toast.makeText(this, "Invalid URL", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Intent intent = new Intent(this, NewScheduleActivity.class);
+                            intent.putExtra("name", searchEditText.getText().toString());
+                            intent.putExtra("type", "web");
+                            startActivity(intent);
+                        }
+                    }
+                } else {
+                    Intent i = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                    startActivity(i);
+                }
+            }
+        });
+    }
+
+    private void filter(String text) {
+        if (!webKeywordModelList.isEmpty()) {
+            List<WebKeywordModel> filteredList = new ArrayList<>();
+            for (WebKeywordModel item : webKeywordModelList) {
+                if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+                    filteredList.add(item);
+                }
+            }
+            webKeywordBlockAdapter.updateListBlock(filteredList);
+        }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void getBlockedWebsite() {
+        List<HashMap<String, String>> list = blockDatabase.readAllRecordsWeb();
+        if (!list.isEmpty()) {
+            for (HashMap<String, String> map : list) {
+                webKeywordModelList.add(new WebKeywordModel(Objects.requireNonNull(map.get("name"))));
+            }
+        }
+        if (webKeywordModelList.isEmpty()) {
+            noWebBlock.setVisibility(TextView.VISIBLE);
+        } else {
+            webKeywordBlockAdapter = new WebKeywordBlockAdapter(webKeywordModelList, true);
+            recyclerView.setAdapter(webKeywordBlockAdapter);
+
+            webKeywordBlockAdapter.setOnItemClickListener(view -> {
+                int position = recyclerView.getChildAdapterPosition(view);
+                WebKeywordModel app = webKeywordBlockAdapter.getItemAt(position);
+                launchActivity(app.getName());
+            });
+        }
+    }
+
+    private void launchActivity(String webName) {
+        Intent intent = new Intent(this, EditScheduleActivity.class);
+        intent.putExtra("name", webName);
+        intent.putExtra("type", "web");
+        startActivity(intent);
     }
 
     private boolean isAccessibilitySettingsOn(Context mContext) {
@@ -98,7 +158,6 @@ public class WebBlockActivity extends AppCompatActivity {
                     mContext.getApplicationContext().getContentResolver(),
                     android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
         } catch (Settings.SettingNotFoundException ignored) {
-            //
         }
         TextUtils.SimpleStringSplitter mStringColonSplitter = new TextUtils.SimpleStringSplitter(':');
 

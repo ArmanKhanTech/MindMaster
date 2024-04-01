@@ -23,7 +23,7 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import com.android.achievix.Activity.DrawOnTopAppActivity;
+import com.android.achievix.Activity.DrawOnTopLaunchActivity;
 import com.android.achievix.Activity.DrawOnTopScreenActivity;
 import com.android.achievix.Activity.EnterPasswordActivity;
 import com.android.achievix.Activity.MainActivity;
@@ -149,7 +149,7 @@ public class ForegroundService extends Service {
     }
 
     public void block(CountDownTimer timer) {
-        List<HashMap<String, String>> list = blockDatabase.readRecords(currentApp);
+        List<HashMap<String, String>> list = blockDatabase.readRecordsApp(currentApp);
         if(!list.isEmpty()) {
             for (HashMap<String, String> map : list) {
                 if(Objects.equals(map.get("packageName"), currentApp)) {
@@ -161,7 +161,7 @@ public class ForegroundService extends Service {
                             editor.apply();
                         }
 
-                        if (Objects.equals(map.get("appLaunch"), "1")) {
+                        if (Objects.equals(map.get("launch"), "1")) {
                             String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
                             int hour = Integer.parseInt(params[0]);
                             int minute = Integer.parseInt(params[1]);
@@ -188,7 +188,7 @@ public class ForegroundService extends Service {
                                     timer.cancel();
                                     System.gc();
                                     Runtime.getRuntime().runFinalization();
-                                    Intent lockIntent = new Intent(mContext, DrawOnTopAppActivity.class);
+                                    Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
                                     lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -209,7 +209,7 @@ public class ForegroundService extends Service {
                             editor.apply();
                         }
 
-                        if (Objects.equals(map.get("appLaunch"), "1")) {
+                        if (Objects.equals(map.get("launch"), "1")) {
                             String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
                             int fromHours = Integer.parseInt(params[0]);
                             int fromMinutes = Integer.parseInt(params[1]);
@@ -223,7 +223,7 @@ public class ForegroundService extends Service {
                                 timer.cancel();
                                 System.gc();
                                 Runtime.getRuntime().runFinalization();
-                                Intent lockIntent = new Intent(mContext, DrawOnTopAppActivity.class);
+                                Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -243,7 +243,7 @@ public class ForegroundService extends Service {
                             editor.apply();
                         }
 
-                        if (Objects.equals(map.get("appLaunch"), "1")) {
+                        if (Objects.equals(map.get("launch"), "1")) {
                             String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
                             int untilHours = Integer.parseInt(params[0]);
                             int untilMins = Integer.parseInt(params[1]);
@@ -253,7 +253,7 @@ public class ForegroundService extends Service {
                                 timer.cancel();
                                 System.gc();
                                 Runtime.getRuntime().runFinalization();
-                                Intent lockIntent = new Intent(mContext, DrawOnTopAppActivity.class);
+                                Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -274,7 +274,7 @@ public class ForegroundService extends Service {
                             editor.apply();
                         }
 
-                        if (Objects.equals(map.get("appLaunch"), "1")) {
+                        if (Objects.equals(map.get("launch"), "1")) {
                             String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
                             int launchCount = Integer.parseInt(params[0]);
 
@@ -286,7 +286,7 @@ public class ForegroundService extends Service {
                                 timer.cancel();
                                 System.gc();
                                 Runtime.getRuntime().runFinalization();
-                                Intent lockIntent = new Intent(mContext, DrawOnTopAppActivity.class);
+                                Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -306,12 +306,12 @@ public class ForegroundService extends Service {
                             editor.apply();
                         }
 
-                        if (Objects.equals(map.get("appLaunch"), "1")) {
+                        if (Objects.equals(map.get("launch"), "1")) {
                             if (checkDay(map.get("scheduleDays"))) {
                                 timer.cancel();
                                 System.gc();
                                 Runtime.getRuntime().runFinalization();
-                                Intent lockIntent = new Intent(mContext, DrawOnTopAppActivity.class);
+                                Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -343,7 +343,7 @@ public class ForegroundService extends Service {
                 case 4:
                     if (currentApp.equals("com.android.settings")) {
                         timer.cancel();
-                        Intent lockIntent = new Intent(mContext, DrawOnTopAppActivity.class);
+                        Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
                         lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

@@ -27,12 +27,16 @@ class NewScheduleActivity : AppCompatActivity() {
             profileName = intent.getStringExtra("profileName")!!
         }
 
-        setupListeners(caller)
+        setupListeners(caller, type)
     }
 
-    private fun setupListeners(caller: String?) {
-        findViewById<LinearLayout>(R.id.usage_limit_button).setOnClickListener {
-            startNewActivity(caller, UsageTimeActivity::class.java)
+    private fun setupListeners(caller: String?, type: String?) {
+        if (type == "app") {
+            findViewById<LinearLayout>(R.id.usage_limit_button).setOnClickListener {
+                startNewActivity(caller, UsageTimeActivity::class.java)
+            }
+        } else {
+            findViewById<LinearLayout>(R.id.usage_limit_button).visibility = LinearLayout.GONE
         }
 
         findViewById<LinearLayout>(R.id.specific_time_button).setOnClickListener {
@@ -43,8 +47,12 @@ class NewScheduleActivity : AppCompatActivity() {
             startNewActivity(caller, QuickBlockActivity::class.java)
         }
 
-        findViewById<LinearLayout>(R.id.launch_block_button).setOnClickListener {
-            startNewActivity(caller, NoOfLaunchesActivity::class.java)
+        if (type == "app") {
+            findViewById<LinearLayout>(R.id.launch_block_button).setOnClickListener {
+                startNewActivity(caller, NoOfLaunchesActivity::class.java)
+            }
+        } else {
+            findViewById<LinearLayout>(R.id.launch_block_button).visibility = LinearLayout.GONE
         }
 
         findViewById<LinearLayout>(R.id.wait_timer_button).setOnClickListener {

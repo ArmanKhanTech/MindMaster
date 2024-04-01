@@ -1,11 +1,13 @@
 package com.android.achievix.Activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
@@ -13,7 +15,7 @@ import com.android.achievix.Database.BlockDatabase
 import com.android.achievix.R
 
 class FixedBlockActivity : AppCompatActivity() {
-    private lateinit var appLaunchSwitch: SwitchCompat
+    private lateinit var launchSwitch: SwitchCompat
     private lateinit var notiSwitch: SwitchCompat
     private lateinit var monRadioButton: RadioButton
     private lateinit var tueRadioButton: RadioButton
@@ -24,6 +26,7 @@ class FixedBlockActivity : AppCompatActivity() {
     private lateinit var sunRadioButton: RadioButton
     private lateinit var textEditText: EditText
     private lateinit var saveButton: Button
+    private lateinit var text: TextView
     private val days = mutableListOf<String>()
     private lateinit var blockDatabase: BlockDatabase
 
@@ -41,7 +44,7 @@ class FixedBlockActivity : AppCompatActivity() {
     }
 
     private fun initializeViews() {
-        appLaunchSwitch = findViewById(R.id.block_app_launch_fixed)
+        launchSwitch = findViewById(R.id.block_app_launch_fixed)
         notiSwitch = findViewById(R.id.block_noti_fixed)
         monRadioButton = findViewById(R.id.monday)
         tueRadioButton = findViewById(R.id.tuesday)
@@ -52,27 +55,33 @@ class FixedBlockActivity : AppCompatActivity() {
         sunRadioButton = findViewById(R.id.sunday)
         textEditText = findViewById(R.id.fixed_block_text)
         saveButton = findViewById(R.id.fixed_button)
+        text = findViewById(R.id.fixed_block_launch_text)
 
         blockDatabase = BlockDatabase(this)
 
-        appLaunchSwitch.isChecked = true
+        launchSwitch.isChecked = true
         notiSwitch.isChecked = true
     }
 
+    @SuppressLint("SetTextI18n")
     private fun attachListeners(name: String?, packageName: String?, type: String?) {
+        if (type == "web") {
+            text.text = "Site Launch"
+        }
+
         saveButton.setOnClickListener {
             val text = textEditText.text.toString().let {
                 it.ifEmpty {
                     null
                 } ?: it
             }
-            val appLaunch = appLaunchSwitch.isChecked
+            val launch = launchSwitch.isChecked
             val noti = notiSwitch.isChecked
 
             if (days.isEmpty()) {
                 Toast.makeText(this, "Please select a day", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-            } else if (!appLaunch && !noti) {
+            } else if (!launch && !noti) {
                 Toast.makeText(this, "Please select at least one option", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -83,7 +92,7 @@ class FixedBlockActivity : AppCompatActivity() {
                         name,
                         packageName,
                         "app",
-                        appLaunch,
+                        launch,
                         noti,
                         "Fixed Block",
                         null,
@@ -92,18 +101,34 @@ class FixedBlockActivity : AppCompatActivity() {
                         false,
                         text
                     )
+                }
 
-                    Toast.makeText(this, "Schedule added", Toast.LENGTH_SHORT).show()
-                    Handler().postDelayed({
-                        val intent = Intent(this, MainActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        startActivity(intent)
-                        finish()
-                    }, 1000)
+                "web" -> {
+                    blockDatabase.addRecord(
+                        name,
+                        null,
+                        "web",
+                        launch,
+                        noti,
+                        "Fixed Block",
+                        null,
+                        days.toString(),
+                        null,
+                        false,
+                        text
+                    )
                 }
             }
+
+            Toast.makeText(this, "Schedule added", Toast.LENGTH_SHORT).show()
+            Handler().postDelayed({
+                val intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }, 1000)
         }
         setupDayCheckListeners()
     }

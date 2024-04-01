@@ -18,7 +18,7 @@ public class BlockDatabase extends SQLiteOpenHelper {
     private static final String NAME = "name";
     private static final String PACKAGE_NAME = "packageName";
     private static final String TYPE = "type";
-    private static final String APP_LAUNCH = "appLaunch";
+    private static final String LAUNCH = "launch";
     private static final String NOTIFICATION = "notification";
     private static final String SCHEDULE_TYPE = "scheduleType";
     private static final String SCHEDULE_PARAMS = "scheduleParams";
@@ -38,7 +38,7 @@ public class BlockDatabase extends SQLiteOpenHelper {
                 + NAME + " TEXT, "
                 + PACKAGE_NAME + " TEXT, "
                 + TYPE + " TEXT, "
-                + APP_LAUNCH + " BOOL, "
+                + LAUNCH + " BOOL, "
                 + NOTIFICATION + " BOOL, "
                 + SCHEDULE_TYPE + " TEXT, "
                 + SCHEDULE_PARAMS + " TEXT, "
@@ -61,7 +61,7 @@ public class BlockDatabase extends SQLiteOpenHelper {
         values.put(NAME, name);
         values.put(PACKAGE_NAME, packageName);
         values.put(TYPE, type);
-        values.put(APP_LAUNCH, appLaunch);
+        values.put(LAUNCH, appLaunch);
         values.put(NOTIFICATION, notification);
         values.put(SCHEDULE_TYPE, scheduleType);
         values.put(SCHEDULE_PARAMS, scheduleParams);
@@ -72,7 +72,7 @@ public class BlockDatabase extends SQLiteOpenHelper {
         db.insert(TABLE_NAME, null, values);
     }
 
-    public List<HashMap<String, String>> readRecords(String packageName) {
+    public List<HashMap<String, String>> readRecordsApp(String packageName) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PACKAGE_NAME + " = ?", new String[]{packageName});
         List<HashMap<String, String>> list = new ArrayList<>();
@@ -82,7 +82,55 @@ public class BlockDatabase extends SQLiteOpenHelper {
             map.put(NAME, cursor.getString(1));
             map.put(PACKAGE_NAME, cursor.getString(2));
             map.put(TYPE, cursor.getString(3));
-            map.put(APP_LAUNCH, cursor.getString(4));
+            map.put(LAUNCH, cursor.getString(4));
+            map.put(NOTIFICATION, cursor.getString(5));
+            map.put(SCHEDULE_TYPE, cursor.getString(6));
+            map.put(SCHEDULE_PARAMS, cursor.getString(7));
+            map.put(SCHEDULE_DAYS, cursor.getString(8));
+            map.put(PROFILE_NAME, cursor.getString(9));
+            map.put(PROFILE_STATUS, cursor.getString(10));
+            map.put(TEXT, cursor.getString(11));
+            list.add(map);
+        }
+        cursor.close();
+        return list;
+    }
+
+    public List<HashMap<String, String>> readRecordsWeb(String url) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + NAME + " = ?", new String[]{url});
+        List<HashMap<String, String>> list = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            HashMap<String, String> map = new HashMap<>();
+            map.put(ID, cursor.getString(0));
+            map.put(NAME, cursor.getString(1));
+            map.put(PACKAGE_NAME, cursor.getString(2));
+            map.put(TYPE, cursor.getString(3));
+            map.put(LAUNCH, cursor.getString(4));
+            map.put(NOTIFICATION, cursor.getString(5));
+            map.put(SCHEDULE_TYPE, cursor.getString(6));
+            map.put(SCHEDULE_PARAMS, cursor.getString(7));
+            map.put(SCHEDULE_DAYS, cursor.getString(8));
+            map.put(PROFILE_NAME, cursor.getString(9));
+            map.put(PROFILE_STATUS, cursor.getString(10));
+            map.put(TEXT, cursor.getString(11));
+            list.add(map);
+        }
+        cursor.close();
+        return list;
+    }
+
+    public List<HashMap<String, String>> readAllRecordsWeb() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?", new String[]{"web"});
+        List<HashMap<String, String>> list = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            HashMap<String, String> map = new HashMap<>();
+            map.put(ID, cursor.getString(0));
+            map.put(NAME, cursor.getString(1));
+            map.put(PACKAGE_NAME, cursor.getString(2));
+            map.put(TYPE, cursor.getString(3));
+            map.put(LAUNCH, cursor.getString(4));
             map.put(NOTIFICATION, cursor.getString(5));
             map.put(SCHEDULE_TYPE, cursor.getString(6));
             map.put(SCHEDULE_PARAMS, cursor.getString(7));
@@ -115,7 +163,7 @@ public class BlockDatabase extends SQLiteOpenHelper {
         values.put(NAME, name);
         values.put(PACKAGE_NAME, packageName);
         values.put(TYPE, type);
-        values.put(APP_LAUNCH, appLaunch);
+        values.put(LAUNCH, appLaunch);
         values.put(NOTIFICATION, notification);
         values.put(SCHEDULE_TYPE, scheduleType);
         values.put(SCHEDULE_PARAMS, scheduleParams);

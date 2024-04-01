@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="bottom"
             android:layout_marginHorizontal="10dp"
             android:layout_weight="1"
             android:fontFamily="sans-serif-condensed-light"
@@ -31,8 +31,9 @@
         <ImageButton
             android:id="@+id/delete_schedule"
             android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_height="match_parent"
             android:layout_gravity="end"
+            android:scaleType="centerCrop"
             android:layout_marginHorizontal="10dp"
             android:background="@android:color/transparent"
             android:src="@drawable/delete_icon_blue" />

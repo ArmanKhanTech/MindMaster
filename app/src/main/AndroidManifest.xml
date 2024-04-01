@@ -11,6 +11,12 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission
+        android:name="android.permission.BIND_ACCESSIBILITY_SERVICE"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+        tools:ignore="ProtectedPermissions" />
 
     <queries>
         <intent>
@@ -43,13 +49,12 @@
             android:name=".Service.AdminReceiver"
             android:exported="false"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
-            <meta-data
-                android:name="android.app.device_admin"
-                android:resource="@xml/device_admin" />
-
             <intent-filter>
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin" />
         </receiver>
 
         <service
@@ -76,9 +81,8 @@
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
-
             <meta-data
-                android:name="android.accessibility-service"
+                android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_service" />
         </service>
 
@@ -167,7 +171,7 @@
             android:exported="false"
             android:theme="@style/Theme.FocusOnMe" />
         <activity
-            android:name=".Activity.DrawOnTopAppActivity"
+            android:name=".Activity.DrawOnTopLaunchActivity"
             android:exported="false"
             android:noHistory="true"
             android:theme="@style/Theme.FocusOnMe.CustomView.LimitActivity" />

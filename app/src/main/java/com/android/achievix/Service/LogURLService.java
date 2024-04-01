@@ -2,23 +2,23 @@ package com.android.achievix.Service;
 
 import android.accessibilityservice.AccessibilityService;
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
 import androidx.annotation.NonNull;
 
+import com.android.achievix.Activity.DrawOnTopLaunchActivity;
 import com.android.achievix.Database.BlockDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class LogURLService extends AccessibilityService {
-
-    public String browserApp = "";
-    public String browserUrl = "";
-    BlockDatabase db;
-    ArrayList<String> blockedUrls;
-
     @NonNull
     private static List<SupportedBrowserConfig> getSupportedBrowsers() {
         List<SupportedBrowserConfig> browsers = new ArrayList<>();
@@ -26,18 +26,18 @@ public class LogURLService extends AccessibilityService {
         browsers.add(new SupportedBrowserConfig("org.mozilla.firefox", "org.mozilla.firefox:id/mozac_browser_toolbar_url_view"));
         browsers.add(new SupportedBrowserConfig("com.opera.browser", "com.opera.browser:id/url_field"));
         browsers.add(new SupportedBrowserConfig("com.opera.mini.native", "com.opera.mini.native:id/url_field"));
-
         return browsers;
     }
 
     @SuppressLint("SwitchIntDef")
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
+        String browserApp = "";
+        String browserUrl = "";
 
         final int eventType = event.getEventType();
 
         switch (eventType) {
-
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
 
             case AccessibilityEvent.TYPE_WINDOWS_CHANGED:
@@ -48,9 +48,7 @@ public class LogURLService extends AccessibilityService {
                     return;
                 }
 
-                String packageName;
-                event.getPackageName().toString();
-                packageName = event.getPackageName().toString();
+                String packageName = event.getPackageName().toString();
                 SupportedBrowserConfig browserConfig = null;
                 for (SupportedBrowserConfig supportedConfig : getSupportedBrowsers()) {
                     if (supportedConfig.packageName.equals(packageName)) {
@@ -77,22 +75,11 @@ public class LogURLService extends AccessibilityService {
                         if (!browserUrl.isEmpty()) {
                             if (browserUrl.contains("/")) {
                                 url = browserUrl.substring(0, browserUrl.indexOf("/"));
-                            } else {
-                                if (!browserUrl.contains(" ")) {
-                                    url = browserUrl;
-                                }
+                                blockWeb(url, browserApp);
+                            } else if (browserUrl.contains(" ")) {
+                                String[] split = browserUrl.split(" ");
+                                blockKey(split, browserApp);
                             }
-                            db = new BlockDatabase(this);
-//                            blockedUrls = db.readWebsites();
-//                            if (blockedUrls.contains(url)) {
-//                                Intent lockIntent = new Intent(this, DrawOnTopWebActivity.class);
-//                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                                lockIntent.putExtra("URL", url);
-//                                lockIntent.putExtra("PACKAGE", browserApp);
-//                                startActivity(lockIntent);
-//                            }
                         }
                     }
                 } else {
@@ -100,25 +87,16 @@ public class LogURLService extends AccessibilityService {
                         if (android.util.Patterns.WEB_URL.matcher(capturedUrl).matches()) {
                             browserUrl = capturedUrl;
                             String url = "";
-                            if (browserUrl.length() > 0) {
+                            if (!browserUrl.isEmpty()) {
                                 if (browserUrl.contains("/")) {
                                     url = browserUrl.substring(0, browserUrl.indexOf("/"));
+                                    blockWeb(url, browserApp);
                                 } else {
-                                    if (!browserUrl.contains(" ")) {
-                                        url = browserUrl;
+                                    if (browserUrl.contains(" ")) {
+                                        String[] split = browserUrl.split(" ");
+                                        blockKey(split, browserApp);
                                     }
                                 }
-                                db = new BlockDatabase(this);
-//                                blockedUrls = db.readWebsites();
-//                                if (blockedUrls.contains(url)) {
-//                                    Intent lockIntent = new Intent(this, DrawOnTopWebActivity.class);
-//                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                                    lockIntent.putExtra("URL", url);
-//                                    lockIntent.putExtra("PACKAGE", browserApp);
-//                                    startActivity(lockIntent);
-//                                }
                             }
                         }
                     }
@@ -128,9 +106,115 @@ public class LogURLService extends AccessibilityService {
         }
     }
 
+    private void blockWeb(String url, String browserApp) {
+        Log.d("URL", url);
+        try (BlockDatabase blockDatabase = new BlockDatabase(this)) {
+            List<HashMap<String, String>> list = blockDatabase.readRecordsWeb(url);
+            if (!list.isEmpty()) {
+                for (HashMap<String, String> map : list) {
+                    if (Objects.equals(map.get("name"), url)) {
+                        if (Objects.equals(map.get("scheduleType"), "Specific Time")) {
+                            if (Objects.equals(map.get("launch"), "1")) {
+                                String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
+                                int fromHours = Integer.parseInt(params[0]);
+                                int fromMinutes = Integer.parseInt(params[1]);
+                                int toHours = Integer.parseInt(params[2]);
+                                int toMinutes = Integer.parseInt(params[3]);
+
+                                if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= fromHours &&
+                                        Calendar.getInstance().get(Calendar.MINUTE) >= fromMinutes &&
+                                        Calendar.getInstance().get(Calendar.HOUR_OF_DAY) <= toHours &&
+                                        Calendar.getInstance().get(Calendar.MINUTE) <= toMinutes && checkDay(map.get("scheduleDays"))) {
+                                    System.gc();
+                                    Runtime.getRuntime().runFinalization();
+                                    Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
+                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                    lockIntent.putExtra("name", url);
+                                    lockIntent.putExtra("packageName", browserApp);
+                                    lockIntent.putExtra("type", map.get("type"));
+                                    lockIntent.putExtra("text", map.get("text"));
+                                    startActivity(lockIntent);
+                                } else {
+                                    return;
+                                }
+                            }
+                        } else if (Objects.equals(map.get("scheduleType"), "Quick Block")) {
+                            if (Objects.equals(map.get("launch"), "1")) {
+                                String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
+                                int untilHours = Integer.parseInt(params[0]);
+                                int untilMins = Integer.parseInt(params[1]);
+
+                                if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) <= untilHours &&
+                                        Calendar.getInstance().get(Calendar.MINUTE) <= untilMins) {
+                                    System.gc();
+                                    Runtime.getRuntime().runFinalization();
+                                    Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
+                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                    lockIntent.putExtra("name", url);
+                                    lockIntent.putExtra("packageName", browserApp);
+                                    lockIntent.putExtra("type", map.get("type"));
+                                    lockIntent.putExtra("text", map.get("text"));
+                                    startActivity(lockIntent);
+                                } else {
+                                    blockDatabase.deleteRecordById(map.get("id"));
+                                    return;
+                                }
+                            }
+                        } else if (Objects.equals(map.get("scheduleType"), "Fixed Block")) {
+                            if (Objects.equals(map.get("launch"), "1")) {
+                                if (checkDay(map.get("scheduleDays"))) {
+                                    System.gc();
+                                    Runtime.getRuntime().runFinalization();
+                                    Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
+                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                    lockIntent.putExtra("name", url);
+                                    lockIntent.putExtra("packageName", browserApp);
+                                    lockIntent.putExtra("type", map.get("type"));
+                                    lockIntent.putExtra("text", map.get("text"));
+                                    startActivity(lockIntent);
+                                } else {
+                                    return;
+                                }
+                            }
+                        }
+                    } else {
+                        return;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e("Error", Objects.requireNonNull(e.getMessage()));
+        }
+    }
+
+    private void blockKey(String[] keys, String browserApp) {
+
+    }
+
+    public boolean checkDay(String days) {
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        return switch (day) {
+            case Calendar.SUNDAY -> days.contains("Sunday");
+            case Calendar.MONDAY -> days.contains("Monday");
+            case Calendar.TUESDAY -> days.contains("Tuesday");
+            case Calendar.WEDNESDAY -> days.contains("Wednesday");
+            case Calendar.THURSDAY -> days.contains("Thursday");
+            case Calendar.FRIDAY -> days.contains("Friday");
+            case Calendar.SATURDAY -> days.contains("Saturday");
+            default -> false;
+        };
+    }
+
     private String captureUrl(AccessibilityNodeInfo info, SupportedBrowserConfig config) {
         List<AccessibilityNodeInfo> nodes = info.findAccessibilityNodeInfosByViewId(config.addressBarId);
-        if (nodes == null || nodes.size() <= 0) {
+        if (nodes == null || nodes.isEmpty()) {
             return null;
         }
         AccessibilityNodeInfo addressBarNodeInfo = nodes.get(0);
@@ -144,12 +228,10 @@ public class LogURLService extends AccessibilityService {
 
     @Override
     public void onInterrupt() {
-
     }
 
     @Override
-    public void onServiceConnected() {
-
+    protected void onServiceConnected() {
     }
 
     private static class SupportedBrowserConfig {

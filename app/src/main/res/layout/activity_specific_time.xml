@@ -69,6 +69,7 @@
                     android:src="@drawable/block_icon" />
 
                 <TextView
+                    android:id="@+id/specific_time_launch_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

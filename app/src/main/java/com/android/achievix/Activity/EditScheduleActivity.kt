@@ -18,7 +18,7 @@ import com.android.achievix.R
 
 class EditScheduleActivity : AppCompatActivity() {
     private lateinit var scheduleAdapter: ScheduleAdapter
-    private var scheduleList: MutableList<ScheduleModel> = ArrayList()
+    private var scheduleModelList: MutableList<ScheduleModel> = ArrayList()
     private lateinit var recyclerView: RecyclerView
     private lateinit var addButton: Button
     private lateinit var doneButton: Button
@@ -32,11 +32,11 @@ class EditScheduleActivity : AppCompatActivity() {
 
         val intent = intent
         val name = intent.getStringExtra("name")
-        val packageName = intent.getStringExtra("packageName")
+        val packageName = intent.getStringExtra("packageName") ?: "null"
         val type = intent.getStringExtra("type")
 
         initializeViews(name!!)
-        initRecyclerView(packageName!!, type!!)
+        initRecyclerView(name, packageName, type!!)
         attachListeners(name, packageName, type)
     }
 
@@ -52,10 +52,10 @@ class EditScheduleActivity : AppCompatActivity() {
         recyclerView.itemAnimator = DefaultItemAnimator()
     }
 
-    private fun initRecyclerView(packageName: String, type: String) {
+    private fun initRecyclerView(name: String, packageName: String, type: String) {
         when (type) {
             "app" -> {
-                val result = blockDatabase.readRecords(packageName)
+                val result = blockDatabase.readRecordsApp(packageName)
                 for (i in result.indices) {
                     val map = result[i]
                     val schedule = ScheduleModel(
@@ -73,12 +73,12 @@ class EditScheduleActivity : AppCompatActivity() {
                         text = map["text"].toString()
                     )
                     if (schedule.profileName == "null") {
-                        scheduleList.add(schedule)
+                        scheduleModelList.add(schedule)
                     }
                 }
             }
         }
-        scheduleAdapter = ScheduleAdapter(scheduleList, this)
+        scheduleAdapter = ScheduleAdapter(scheduleModelList, this)
         recyclerView.adapter = scheduleAdapter
     }
 

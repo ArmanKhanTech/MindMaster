@@ -53,44 +53,17 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|end"
-            android:layout_marginEnd="10dp"
-            android:elevation="5dp"
-            android:src="@drawable/next_icon" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:background="@drawable/web_block_theme"
-            android:clickable="false"
-            android:gravity="end|center"
-            android:paddingEnd="40dp"
-            android:text="Custom Redirect"
-            android:textColor="@color/white"
-            tools:ignore="RtlSymmetry" />
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center">
 
         <TextView
             android:id="@+id/no_web_block"
+            android:text="No Website Blocked"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="@color/black"
+            android:visibility="gone"
             android:textSize="22dp" />
 
         <LinearLayout
@@ -102,20 +75,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginHorizontal="15dp">
 
                 <EditText
-                    android:id="@+id/add_website"
+                    android:id="@+id/search_web_block"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/web_block_edt_theme"
-                    android:hint="Add a new Website"
-                    android:textAlignment="center"
+                    android:hint="Search/Add"
                     android:inputType="text"
+                    android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="22dp"
+                    android:maxLines="1"
                     tools:ignore="Autofill" />
 
                 <ImageView
@@ -142,7 +115,7 @@
                 android:scrollbars="none" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/block_web_button"
+                android:id="@+id/add_web_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -150,7 +123,7 @@
                 android:layout_marginVertical="10dp"
                 android:background="@drawable/web_block_theme"
                 android:padding="10dp"
-                android:text="Block"
+                android:text="Add Website"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="22dp" />

@@ -1,10 +1,12 @@
 package com.android.achievix.Activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,11 +15,12 @@ import com.android.achievix.Database.BlockDatabase
 import com.android.achievix.R
 
 class QuickBlockActivity : AppCompatActivity() {
-    private lateinit var appLaunchSwitch: SwitchCompat
+    private lateinit var launchSwitch: SwitchCompat
     private lateinit var notiSwitch: SwitchCompat
     private lateinit var untilTimePicker: TimePicker
     private lateinit var saveButton: Button
     private lateinit var textEditText: EditText
+    private lateinit var text: TextView
     private lateinit var blockDatabase: BlockDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,19 +37,25 @@ class QuickBlockActivity : AppCompatActivity() {
     }
 
     private fun initializeViews() {
-        appLaunchSwitch = findViewById(R.id.block_app_launch_usage_time)
+        launchSwitch = findViewById(R.id.block_app_launch_usage_time)
         notiSwitch = findViewById(R.id.block_noti_usage_time)
         untilTimePicker = findViewById(R.id.time_picker_quick_block)
         saveButton = findViewById(R.id.quick_block_button)
         textEditText = findViewById(R.id.quick_block_text)
+        text = findViewById(R.id.quick_block_launch_text)
 
         blockDatabase = BlockDatabase(this)
 
-        appLaunchSwitch.isChecked = true
+        launchSwitch.isChecked = true
         notiSwitch.isChecked = true
     }
 
+    @SuppressLint("SetTextI18n")
     private fun attachListeners(name: String?, packageName: String?, type: String?) {
+        if (type == "web") {
+            text.text = "Site Launch"
+        }
+
         saveButton.setOnClickListener {
             val untilHours = untilTimePicker.hour
             val untilMins = untilTimePicker.minute
@@ -57,13 +66,13 @@ class QuickBlockActivity : AppCompatActivity() {
                 } ?: it
             }
 
-            val appLaunch = appLaunchSwitch.isChecked
+            val launch = launchSwitch.isChecked
             val noti = notiSwitch.isChecked
 
             if (untilHours == 0 && untilMins == 0) {
                 Toast.makeText(this, "Please enter a valid time", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-            } else if (!appLaunch && !noti) {
+            } else if (!launch && !noti) {
                 Toast.makeText(this, "Please select at least one option", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -74,7 +83,7 @@ class QuickBlockActivity : AppCompatActivity() {
                         name,
                         packageName,
                         "app",
-                        appLaunch,
+                        launch,
                         noti,
                         "Quick Block",
                         "$untilHours $untilMins",
@@ -83,18 +92,34 @@ class QuickBlockActivity : AppCompatActivity() {
                         false,
                         text
                     )
+                }
 
-                    Toast.makeText(this, "Schedule added", Toast.LENGTH_SHORT).show()
-                    Handler().postDelayed({
-                        val intent = Intent(this, MainActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        startActivity(intent)
-                        finish()
-                    }, 1000)
+                "web" -> {
+                    blockDatabase.addRecord(
+                        name,
+                        null,
+                        "web",
+                        launch,
+                        noti,
+                        "Quick Block",
+                        "$untilHours $untilMins",
+                        null,
+                        null,
+                        false,
+                        text
+                    )
                 }
             }
+
+            Toast.makeText(this, "Schedule added", Toast.LENGTH_SHORT).show()
+            Handler().postDelayed({
+                val intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }, 1000)
         }
     }
 }
