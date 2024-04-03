@@ -77,6 +77,54 @@ class EditScheduleActivity : AppCompatActivity() {
                     }
                 }
             }
+
+            "web" -> {
+                val result = blockDatabase.readRecordsWeb(name)
+                for (i in result.indices) {
+                    val map = result[i]
+                    val schedule = ScheduleModel(
+                        id = map["id"].toString(),
+                        name = map["name"].toString(),
+                        packageName = map["packageName"].toString(),
+                        type = map["type"].toString(),
+                        appLaunch = map["appLaunch"].toString(),
+                        notification = map["notification"].toString(),
+                        scheduleType = map["scheduleType"].toString(),
+                        scheduleParams = map["scheduleParams"].toString(),
+                        scheduleDays = map["scheduleDays"].toString(),
+                        profileName = map["profileName"].toString(),
+                        profileStatus = map["profileStatus"].toBoolean(),
+                        text = map["text"].toString()
+                    )
+                    if (schedule.profileName == "null") {
+                        scheduleModelList.add(schedule)
+                    }
+                }
+            }
+
+            "key" -> {
+                val result = blockDatabase.readRecordsKey(name)
+                for (i in result.indices) {
+                    val map = result[i]
+                    val schedule = ScheduleModel(
+                        id = map["id"].toString(),
+                        name = map["name"].toString(),
+                        packageName = map["packageName"].toString(),
+                        type = map["type"].toString(),
+                        appLaunch = map["appLaunch"].toString(),
+                        notification = map["notification"].toString(),
+                        scheduleType = map["scheduleType"].toString(),
+                        scheduleParams = map["scheduleParams"].toString(),
+                        scheduleDays = map["scheduleDays"].toString(),
+                        profileName = map["profileName"].toString(),
+                        profileStatus = map["profileStatus"].toBoolean(),
+                        text = map["text"].toString()
+                    )
+                    if (schedule.profileName == "null") {
+                        scheduleModelList.add(schedule)
+                    }
+                }
+            }
         }
         scheduleAdapter = ScheduleAdapter(scheduleModelList, this)
         recyclerView.adapter = scheduleAdapter

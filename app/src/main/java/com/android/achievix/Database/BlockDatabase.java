@@ -120,6 +120,30 @@ public class BlockDatabase extends SQLiteOpenHelper {
         return list;
     }
 
+    public List<HashMap<String, String>> readRecordsKey(String key) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + NAME + " = ?", new String[]{key});
+        List<HashMap<String, String>> list = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            HashMap<String, String> map = new HashMap<>();
+            map.put(ID, cursor.getString(0));
+            map.put(NAME, cursor.getString(1));
+            map.put(PACKAGE_NAME, cursor.getString(2));
+            map.put(TYPE, cursor.getString(3));
+            map.put(LAUNCH, cursor.getString(4));
+            map.put(NOTIFICATION, cursor.getString(5));
+            map.put(SCHEDULE_TYPE, cursor.getString(6));
+            map.put(SCHEDULE_PARAMS, cursor.getString(7));
+            map.put(SCHEDULE_DAYS, cursor.getString(8));
+            map.put(PROFILE_NAME, cursor.getString(9));
+            map.put(PROFILE_STATUS, cursor.getString(10));
+            map.put(TEXT, cursor.getString(11));
+            list.add(map);
+        }
+        cursor.close();
+        return list;
+    }
+
     public List<HashMap<String, String>> readAllRecordsWeb() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?", new String[]{"web"});
@@ -144,9 +168,28 @@ public class BlockDatabase extends SQLiteOpenHelper {
         return list;
     }
 
-    public Cursor readAllRecords() {
+    public List<HashMap<String, String>> readAllRecordsKey() {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?", new String[]{"key"});
+        List<HashMap<String, String>> list = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            HashMap<String, String> map = new HashMap<>();
+            map.put(ID, cursor.getString(0));
+            map.put(NAME, cursor.getString(1));
+            map.put(PACKAGE_NAME, cursor.getString(2));
+            map.put(TYPE, cursor.getString(3));
+            map.put(LAUNCH, cursor.getString(4));
+            map.put(NOTIFICATION, cursor.getString(5));
+            map.put(SCHEDULE_TYPE, cursor.getString(6));
+            map.put(SCHEDULE_PARAMS, cursor.getString(7));
+            map.put(SCHEDULE_DAYS, cursor.getString(8));
+            map.put(PROFILE_NAME, cursor.getString(9));
+            map.put(PROFILE_STATUS, cursor.getString(10));
+            map.put(TEXT, cursor.getString(11));
+            list.add(map);
+        }
+        cursor.close();
+        return list;
     }
 
     public boolean isAppBlocked(String packageName) {

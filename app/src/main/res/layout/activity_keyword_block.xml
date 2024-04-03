@@ -61,9 +61,11 @@
             android:id="@+id/no_keyword_block"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="No Keyword Blocked"
             android:layout_gravity="center"
             android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:textSize="22dp"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,12 +79,12 @@
                 android:layout_marginHorizontal="15dp">
 
                 <EditText
-                    android:id="@+id/add_website"
+                    android:id="@+id/search_add_keyword"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/keyword_block_edt_theme"
-                    android:hint="Add a new Keyword"
+                    android:hint="Search/Add"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="22dp"
@@ -113,7 +115,7 @@
                 android:scrollbars="none" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/blocked_keyword_button"
+                android:id="@+id/add_key_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -121,10 +123,10 @@
                 android:layout_marginVertical="10dp"
                 android:background="@drawable/keyword_block_theme"
                 android:padding="10dp"
-                android:text="Block"
+                android:text="Block Keyword"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="20dp" />
+                android:textSize="22dp" />
 
         </LinearLayout>
 

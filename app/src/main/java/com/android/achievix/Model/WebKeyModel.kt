@@ -1,5 +1,5 @@
 package com.android.achievix.Model
 
-data class WebKeywordModel(
+data class WebKeyModel(
     val name: String
 )

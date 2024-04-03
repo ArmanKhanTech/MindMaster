@@ -109,6 +109,22 @@ class QuickBlockActivity : AppCompatActivity() {
                         text
                     )
                 }
+
+                "key" -> {
+                    blockDatabase.addRecord(
+                        name,
+                        null,
+                        "key",
+                        launch,
+                        noti,
+                        "Quick Block",
+                        "$untilHours $untilMins",
+                        null,
+                        null,
+                        false,
+                        text
+                    )
+                }
             }
 
             Toast.makeText(this, "Schedule added", Toast.LENGTH_SHORT).show()

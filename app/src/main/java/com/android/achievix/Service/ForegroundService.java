@@ -348,6 +348,7 @@ public class ForegroundService extends Service {
                         lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         lockIntent.putExtra("packageName", currentApp);
+                        lockIntent.putExtra("type", "app");
                         startActivity(lockIntent);
                     }
             }

@@ -131,6 +131,22 @@ class SpecificTimeActivity : AppCompatActivity() {
                         text
                     )
                 }
+
+                "key" -> {
+                    blockDatabase.addRecord(
+                        name,
+                        null,
+                        "key",
+                        launch,
+                        noti,
+                        "Specific Time",
+                        "$fromHours $fromMins $toHours $toMins",
+                        days.toString(),
+                        null,
+                        false,
+                        text
+                    )
+                }
             }
 
             Toast.makeText(this, "Schedule added", Toast.LENGTH_SHORT).show()

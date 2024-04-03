@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.android.achievix.Model.WebKeywordModel
+import com.android.achievix.Model.WebKeyModel
 import com.android.achievix.R
 
-class WebKeywordBlockAdapter(
-    private var websiteKeywordList: List<WebKeywordModel>,
+class WebKeyBlockAdapter(
+    private var websiteKeywordList: List<WebKeyModel>,
     private var isWeb: Boolean
-) : RecyclerView.Adapter<WebKeywordBlockAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<WebKeyBlockAdapter.ViewHolder>() {
     interface OnItemClickListener {
         fun onItemClick(view: View)
     }
@@ -48,14 +48,14 @@ class WebKeywordBlockAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateListBlock(newList: List<WebKeywordModel>) {
+    fun updateListBlock(newList: List<WebKeyModel>) {
         websiteKeywordList = newList
         notifyDataSetChanged()
     }
 
     override fun getItemCount() = websiteKeywordList.size
 
-    fun getItemAt(position: Int): WebKeywordModel {
+    fun getItemAt(position: Int): WebKeyModel {
         return websiteKeywordList[position]
     }
 }

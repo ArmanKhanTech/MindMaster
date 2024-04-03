@@ -118,6 +118,22 @@ class FixedBlockActivity : AppCompatActivity() {
                         text
                     )
                 }
+
+                "key" -> {
+                    blockDatabase.addRecord(
+                        name,
+                        null,
+                        "key",
+                        launch,
+                        noti,
+                        "Fixed Block",
+                        null,
+                        days.toString(),
+                        null,
+                        false,
+                        text
+                    )
+                }
             }
 
             Toast.makeText(this, "Schedule added", Toast.LENGTH_SHORT).show()

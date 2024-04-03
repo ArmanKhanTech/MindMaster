@@ -191,9 +191,14 @@ class StrictModeActivity : AppCompatActivity() {
                             } else {
                                 if (dataList[0].text.contains("One")
                                     || dataList[0].text.contains("Two")
-                                    || dataList[0].text.contains("Three")
                                 ) {
                                     Toast.makeText(this@StrictModeActivity, "Device admin activation not required", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    Toast.makeText(
+                                        this@StrictModeActivity,
+                                        "Device admin already activated",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 }
                             }
                         }
@@ -212,8 +217,7 @@ class StrictModeActivity : AppCompatActivity() {
             if(resultCode == RESULT_OK) {
                 dataList[1].status = ItemStatus.COMPLETED
                 if (dataList[0].text.contains("One") ||
-                    dataList[0].text.contains("Two") ||
-                    dataList[0].text.contains("Three")
+                    dataList[0].text.contains("Two")
                 ) {
                     dataList[2].status = ItemStatus.COMPLETED
                 } else {

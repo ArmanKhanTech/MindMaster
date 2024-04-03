@@ -13,6 +13,7 @@ import com.android.achievix.Activity.DrawOnTopLaunchActivity;
 import com.android.achievix.Database.BlockDatabase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -68,35 +69,27 @@ public class LogURLService extends AccessibilityService {
                 }
 
                 if (!packageName.equals(browserApp)) {
-                    if (android.util.Patterns.WEB_URL.matcher(capturedUrl).matches()) {
-                        browserUrl = capturedUrl;
-                        browserApp = packageName;
-                        String url = "";
-                        if (!browserUrl.isEmpty()) {
-                            if (browserUrl.contains("/")) {
-                                url = browserUrl.substring(0, browserUrl.indexOf("/"));
-                                blockWeb(url, browserApp);
-                            } else if (browserUrl.contains(" ")) {
-                                String[] split = browserUrl.split(" ");
-                                blockKey(split, browserApp);
-                            }
+                    browserUrl = capturedUrl;
+                    browserApp = packageName;
+                    if (!browserUrl.isEmpty()) {
+                        if (browserUrl.contains("/")) {
+                            String url = browserUrl.substring(0, browserUrl.indexOf("/"));
+                            blockWeb(url, browserApp);
+                        } else if (browserUrl.contains(" ")) {
+                            String[] keywords = browserUrl.split(" ");
+                            blockKey(keywords, browserApp);
                         }
                     }
                 } else {
                     if (!capturedUrl.equals(browserUrl)) {
-                        if (android.util.Patterns.WEB_URL.matcher(capturedUrl).matches()) {
-                            browserUrl = capturedUrl;
-                            String url = "";
-                            if (!browserUrl.isEmpty()) {
-                                if (browserUrl.contains("/")) {
-                                    url = browserUrl.substring(0, browserUrl.indexOf("/"));
-                                    blockWeb(url, browserApp);
-                                } else {
-                                    if (browserUrl.contains(" ")) {
-                                        String[] split = browserUrl.split(" ");
-                                        blockKey(split, browserApp);
-                                    }
-                                }
+                        browserUrl = capturedUrl;
+                        if (!browserUrl.isEmpty()) {
+                            if (browserUrl.contains("/")) {
+                                String url = browserUrl.substring(0, browserUrl.indexOf("/"));
+                                blockWeb(url, browserApp);
+                            } else if (browserUrl.contains(" ")) {
+                                String[] keywords = browserUrl.split(" ");
+                                blockKey(keywords, browserApp);
                             }
                         }
                     }
@@ -107,7 +100,6 @@ public class LogURLService extends AccessibilityService {
     }
 
     private void blockWeb(String url, String browserApp) {
-        Log.d("URL", url);
         try (BlockDatabase blockDatabase = new BlockDatabase(this)) {
             List<HashMap<String, String>> list = blockDatabase.readRecordsWeb(url);
             if (!list.isEmpty()) {
@@ -188,13 +180,96 @@ public class LogURLService extends AccessibilityService {
                     }
                 }
             }
-        } catch (Exception e) {
-            Log.e("Error", Objects.requireNonNull(e.getMessage()));
+        } catch (Exception ignored) {
         }
     }
 
     private void blockKey(String[] keys, String browserApp) {
+        Log.d("URL", Arrays.toString(keys));
+        try (BlockDatabase blockDatabase = new BlockDatabase(this)) {
+            for (String key : keys) {
+                List<HashMap<String, String>> list = blockDatabase.readRecordsWeb(key);
+                if (!list.isEmpty()) {
+                    for (HashMap<String, String> map : list) {
+                        if (Objects.equals(map.get("name"), key)) {
+                            if (Objects.equals(map.get("scheduleType"), "Specific Time")) {
+                                if (Objects.equals(map.get("launch"), "1")) {
+                                    String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
+                                    int fromHours = Integer.parseInt(params[0]);
+                                    int fromMinutes = Integer.parseInt(params[1]);
+                                    int toHours = Integer.parseInt(params[2]);
+                                    int toMinutes = Integer.parseInt(params[3]);
 
+                                    if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= fromHours &&
+                                            Calendar.getInstance().get(Calendar.MINUTE) >= fromMinutes &&
+                                            Calendar.getInstance().get(Calendar.HOUR_OF_DAY) <= toHours &&
+                                            Calendar.getInstance().get(Calendar.MINUTE) <= toMinutes && checkDay(map.get("scheduleDays"))) {
+                                        System.gc();
+                                        Runtime.getRuntime().runFinalization();
+                                        Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
+                                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                        lockIntent.putExtra("name", key);
+                                        lockIntent.putExtra("packageName", browserApp);
+                                        lockIntent.putExtra("type", map.get("type"));
+                                        lockIntent.putExtra("text", map.get("text"));
+                                        startActivity(lockIntent);
+                                    } else {
+                                        return;
+                                    }
+                                }
+                            } else if (Objects.equals(map.get("scheduleType"), "Quick Block")) {
+                                if (Objects.equals(map.get("launch"), "1")) {
+                                    String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
+                                    int untilHours = Integer.parseInt(params[0]);
+                                    int untilMins = Integer.parseInt(params[1]);
+
+                                    if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) <= untilHours &&
+                                            Calendar.getInstance().get(Calendar.MINUTE) <= untilMins) {
+                                        System.gc();
+                                        Runtime.getRuntime().runFinalization();
+                                        Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
+                                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                        lockIntent.putExtra("name", key);
+                                        lockIntent.putExtra("packageName", browserApp);
+                                        lockIntent.putExtra("type", map.get("type"));
+                                        lockIntent.putExtra("text", map.get("text"));
+                                        startActivity(lockIntent);
+                                    } else {
+                                        blockDatabase.deleteRecordById(map.get("id"));
+                                        return;
+                                    }
+                                }
+                            } else if (Objects.equals(map.get("scheduleType"), "Fixed Block")) {
+                                if (Objects.equals(map.get("launch"), "1")) {
+                                    if (checkDay(map.get("scheduleDays"))) {
+                                        System.gc();
+                                        Runtime.getRuntime().runFinalization();
+                                        Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
+                                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                        lockIntent.putExtra("name", key);
+                                        lockIntent.putExtra("packageName", browserApp);
+                                        lockIntent.putExtra("type", map.get("type"));
+                                        lockIntent.putExtra("text", map.get("text"));
+                                        startActivity(lockIntent);
+                                    } else {
+                                        return;
+                                    }
+                                }
+                            }
+                        } else {
+                            return;
+                        }
+                    }
+                }
+            }
+        } catch (Exception ignored) {
+        }
     }
 
     public boolean checkDay(String days) {

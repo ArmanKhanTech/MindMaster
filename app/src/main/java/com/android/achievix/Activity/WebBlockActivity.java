@@ -19,9 +19,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.achievix.Adapter.WebKeywordBlockAdapter;
+import com.android.achievix.Adapter.WebKeyBlockAdapter;
 import com.android.achievix.Database.BlockDatabase;
-import com.android.achievix.Model.WebKeywordModel;
+import com.android.achievix.Model.WebKeyModel;
 import com.android.achievix.R;
 import com.android.achievix.Service.LogURLService;
 
@@ -34,12 +34,12 @@ import java.util.regex.Pattern;
 // TODO: Fix accessibility settings
 public class WebBlockActivity extends AppCompatActivity {
     private final BlockDatabase blockDatabase = new BlockDatabase(this);
-    private final List<WebKeywordModel> webKeywordModelList = new ArrayList<>();
+    private final List<WebKeyModel> webKeyModelList = new ArrayList<>();
     private RecyclerView recyclerView;
     private EditText searchEditText;
     private TextView noWebBlock;
     private Button blockButton;
-    private WebKeywordBlockAdapter webKeywordBlockAdapter;
+    private WebKeyBlockAdapter webKeyBlockAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,6 @@ public class WebBlockActivity extends AppCompatActivity {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
@@ -83,7 +82,7 @@ public class WebBlockActivity extends AppCompatActivity {
 
     private void setUpButton() {
         blockButton.setOnClickListener(v -> {
-            if (webKeywordModelList.contains(new WebKeywordModel(searchEditText.getText().toString()))) {
+            if (webKeyModelList.contains(new WebKeyModel(searchEditText.getText().toString()))) {
                 Toast.makeText(this, "Website already blocked", Toast.LENGTH_SHORT).show();
             } else {
                 if (isAccessibilitySettingsOn(this)) {
@@ -110,14 +109,14 @@ public class WebBlockActivity extends AppCompatActivity {
     }
 
     private void filter(String text) {
-        if (!webKeywordModelList.isEmpty()) {
-            List<WebKeywordModel> filteredList = new ArrayList<>();
-            for (WebKeywordModel item : webKeywordModelList) {
+        if (!webKeyModelList.isEmpty()) {
+            List<WebKeyModel> filteredList = new ArrayList<>();
+            for (WebKeyModel item : webKeyModelList) {
                 if (item.getName().toLowerCase().contains(text.toLowerCase())) {
                     filteredList.add(item);
                 }
             }
-            webKeywordBlockAdapter.updateListBlock(filteredList);
+            webKeyBlockAdapter.updateListBlock(filteredList);
         }
     }
 
@@ -126,18 +125,18 @@ public class WebBlockActivity extends AppCompatActivity {
         List<HashMap<String, String>> list = blockDatabase.readAllRecordsWeb();
         if (!list.isEmpty()) {
             for (HashMap<String, String> map : list) {
-                webKeywordModelList.add(new WebKeywordModel(Objects.requireNonNull(map.get("name"))));
+                webKeyModelList.add(new WebKeyModel(Objects.requireNonNull(map.get("name"))));
             }
         }
-        if (webKeywordModelList.isEmpty()) {
+        if (webKeyModelList.isEmpty()) {
             noWebBlock.setVisibility(TextView.VISIBLE);
         } else {
-            webKeywordBlockAdapter = new WebKeywordBlockAdapter(webKeywordModelList, true);
-            recyclerView.setAdapter(webKeywordBlockAdapter);
+            webKeyBlockAdapter = new WebKeyBlockAdapter(webKeyModelList, true);
+            recyclerView.setAdapter(webKeyBlockAdapter);
 
-            webKeywordBlockAdapter.setOnItemClickListener(view -> {
+            webKeyBlockAdapter.setOnItemClickListener(view -> {
                 int position = recyclerView.getChildAdapterPosition(view);
-                WebKeywordModel app = webKeywordBlockAdapter.getItemAt(position);
+                WebKeyModel app = webKeyBlockAdapter.getItemAt(position);
                 launchActivity(app.getName());
             });
         }

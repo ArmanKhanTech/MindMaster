@@ -30,7 +30,7 @@ public class DrawOnTopLaunchActivity extends AppCompatActivity {
         ImageView icon = findViewById(R.id.draw_block_icon);
         Button exitButton = findViewById(R.id.draw_exit);
 
-        if (!Objects.requireNonNull(getIntent().getStringExtra("text")).isEmpty()) {
+        if (getIntent().getStringExtra("text") != null && !Objects.requireNonNull(getIntent().getStringExtra("text")).isEmpty()) {
             text.setText(getIntent().getStringExtra("text"));
         } else {
             text.setText(R.string.motivational_text);
@@ -60,6 +60,24 @@ public class DrawOnTopLaunchActivity extends AppCompatActivity {
 
             name.setText(getIntent().getStringExtra("name"));
             icon.setImageResource(R.drawable.web_icon);
+
+            exitButton.setOnClickListener(view -> {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://google.com"));
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.setPackage(getIntent().getStringExtra("packageName"));
+                try {
+                    startActivity(intent);
+                } catch (ActivityNotFoundException ex) {
+                    intent.setPackage(null);
+                    startActivity(intent);
+                }
+                finish();
+            });
+        } else if (Objects.requireNonNull(getIntent().getStringExtra("type")).equals("key")) {
+            title.setText("This keyword is blocked by Achievix");
+
+            name.setText(getIntent().getStringExtra("name"));
+            icon.setImageResource(R.drawable.keyword_icon);
 
             exitButton.setOnClickListener(view -> {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://google.com"));
