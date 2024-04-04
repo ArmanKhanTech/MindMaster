@@ -2,6 +2,7 @@ package com.android.achievix.Activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -25,7 +27,6 @@ import com.android.achievix.Utility.UsageUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class InternetBlockActivity extends AppCompatActivity {
     private final String[] sort = new String[]{"Name", "Usage", "Blocked"};
@@ -36,11 +37,13 @@ public class InternetBlockActivity extends AppCompatActivity {
     private LinearLayout internetUsageLayout;
     private Spinner sortSpinner;
     private EditText searchEditText;
+    private InternetBlockAdapter internetBlockAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_internet_block);
+
         initializeViews();
         attachListeners();
         new GetInstalledAppsInternetTask(this, sortValue).execute();
@@ -101,7 +104,27 @@ public class InternetBlockActivity extends AppCompatActivity {
                 filteredList.add(item);
             }
         }
-        ((InternetBlockAdapter) Objects.requireNonNull(recyclerView.getAdapter())).updateListInternet(filteredList);
+        internetBlockAdapter.updateListInternet(filteredList);
+    }
+
+    private void launchActivity(String appName, String packageName, boolean blocked) {
+        Intent intent;
+        if (!blocked) {
+            intent = new Intent(this, BlockDataActivity.class);
+            intent.putExtra("name", appName);
+            intent.putExtra("packageName", packageName);
+        } else {
+            intent = new Intent(this, EditScheduleActivity.class);
+            intent.putExtra("name", appName);
+            intent.putExtra("packageName", packageName);
+            intent.putExtra("type", "internet");
+        }
+
+        if ("com.android.achievix".equals(packageName)) {
+            Toast.makeText(this, "Cannot block Achievix", Toast.LENGTH_SHORT).show();
+        } else {
+            startActivity(intent);
+        }
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -117,6 +140,7 @@ public class InternetBlockActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
             loadingLayout.setVisibility(View.VISIBLE);
             internetUsageLayout.setVisibility(View.GONE);
         }
@@ -129,9 +153,17 @@ public class InternetBlockActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(List<AppBlockModel> result) {
             appBlockModelList = result;
-            recyclerView.setAdapter(new InternetBlockAdapter(appBlockModelList));
+            internetBlockAdapter = new InternetBlockAdapter(appBlockModelList);
+            recyclerView.setAdapter(internetBlockAdapter);
+
             loadingLayout.setVisibility(View.GONE);
             internetUsageLayout.setVisibility(View.VISIBLE);
+
+            internetBlockAdapter.setOnItemClickListener(view -> {
+                int position = recyclerView.getChildAdapterPosition(view);
+                AppBlockModel app = internetBlockAdapter.getItemAt(position);
+                launchActivity(app.getAppName(), app.getPackageName(), Boolean.TRUE.equals(app.getBlocked()));
+            });
         }
     }
 }

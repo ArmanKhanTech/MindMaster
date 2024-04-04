@@ -96,7 +96,7 @@
 
                 <ImageView
                     android:layout_width="25dp"
-                    android:layout_height="40dp"
+                    android:layout_height="35dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="15dp"
                     android:scaleType="centerCrop"
@@ -292,7 +292,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/app_block_theme"
                 android:hint="something"
-                android:inputType="number"
+                android:inputType="text"
                 android:gravity="center"
                 android:padding="10dp"
                 android:textColor="@color/black"

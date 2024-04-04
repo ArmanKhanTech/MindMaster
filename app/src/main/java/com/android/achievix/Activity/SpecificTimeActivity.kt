@@ -70,7 +70,7 @@ class SpecificTimeActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun attachListeners(name: String?, packageName: String?, type: String?) {
-        if (type == "web") {
+        if (type == "web" || type == "key") {
             text.text = "Site Launch"
         }
 
@@ -80,11 +80,12 @@ class SpecificTimeActivity : AppCompatActivity() {
             val toHours = toTimePicker.hour
             val toMins = toTimePicker.minute
 
-            val text = textEditText.text.toString().let {
+            val motivationalText = textEditText.text.toString().let {
                 it.ifEmpty {
                     null
                 } ?: it
             }
+
             val launch = launchSwitch.isChecked
             val noti = notiSwitch.isChecked
 
@@ -112,7 +113,7 @@ class SpecificTimeActivity : AppCompatActivity() {
                         days.toString(),
                         null,
                         false,
-                        text
+                        motivationalText
                     )
                 }
 
@@ -128,7 +129,7 @@ class SpecificTimeActivity : AppCompatActivity() {
                         days.toString(),
                         null,
                         false,
-                        text
+                        motivationalText
                     )
                 }
 
@@ -144,7 +145,7 @@ class SpecificTimeActivity : AppCompatActivity() {
                         days.toString(),
                         null,
                         false,
-                        text
+                        motivationalText
                     )
                 }
             }

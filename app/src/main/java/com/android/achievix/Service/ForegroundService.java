@@ -45,13 +45,11 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 public class ForegroundService extends Service {
-    public static final String CHANNEL_ID = "ForegroundServiceChannel";
-    public static String currentApp = "";
-    public static String previousApp = "";
-    public Context mContext;
-    public AppLaunchDatabase appLaunchDatabase = new AppLaunchDatabase(this);
-    public BlockDatabase blockDatabase = new BlockDatabase(this);
-
+    private static final String CHANNEL_ID = "ForegroundServiceChannel";
+    private static String currentApp = "";
+    private final AppLaunchDatabase appLaunchDatabase;
+    private final BlockDatabase blockDatabase;
+    private Context mContext;
     protected CountDownTimer check = new CountDownTimer(1000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
@@ -59,36 +57,18 @@ public class ForegroundService extends Service {
 
         @Override
         public void onFinish() {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            String date = sdf.format(new Date());
-
-            UsageStatsManager usm = (UsageStatsManager) mContext.getSystemService(Context.USAGE_STATS_SERVICE);
-
-            long currentTime = System.currentTimeMillis();
-            List<UsageStats> usageStats = usm.queryUsageStats(UsageStatsManager.INTERVAL_BEST, currentTime - 10000, currentTime);
-
-            if (usageStats != null && !usageStats.isEmpty()) {
-                SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
-                for (UsageStats usageStat : usageStats) {
-                    mySortedMap.put(usageStat.getLastTimeUsed(), usageStat);
-                }
-                if (!mySortedMap.isEmpty()) {
-                    previousApp = currentApp;
-                    currentApp = Objects.requireNonNull(mySortedMap.get(mySortedMap.lastKey())).getPackageName();
-
-                    if (!previousApp.equals(currentApp)) {
-                        appLaunchDatabase.incrementLaunchCount(currentApp, date);
-                    }
-                }
-            }
-
+            updateCurrentApp();
             takeBreak(this);
             strictMode(this);
             block(this);
-
             this.start();
         }
     };
+
+    public ForegroundService() {
+        appLaunchDatabase = new AppLaunchDatabase(this);
+        blockDatabase = new BlockDatabase(this);
+    }
 
     @Override
     public void onCreate() {
@@ -100,30 +80,7 @@ public class ForegroundService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         createNotificationChannel();
-
-        SharedPreferences sh = getSharedPreferences("mode", Context.MODE_PRIVATE);
-        int i = sh.getInt("password", 0);
-        Intent notificationIntent;
-        if (i != 0) {
-            notificationIntent = new Intent(this, EnterPasswordActivity.class);
-            notificationIntent.putExtra("password", i);
-            notificationIntent.putExtra("invokedFrom", "ForegroundService");
-        } else {
-            notificationIntent = new Intent(this, MainActivity.class);
-        }
-
-        PendingIntent pendingIntent;
-        pendingIntent = PendingIntent.getActivity(this,
-                0, notificationIntent, FLAG_IMMUTABLE);
-
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("Achievix")
-                .setContentText("Foreground Service Running")
-                .setSmallIcon(R.drawable.noti_icon)
-                .setContentIntent(pendingIntent)
-                .build();
-
-        startForeground(1, notification);
+        startForegroundService();
         return START_STICKY;
     }
 
@@ -146,6 +103,49 @@ public class ForegroundService extends Service {
         );
         NotificationManager manager = getSystemService(NotificationManager.class);
         manager.createNotificationChannel(serviceChannel);
+    }
+
+    private void startForegroundService() {
+        SharedPreferences sh = getSharedPreferences("mode", Context.MODE_PRIVATE);
+        int i = sh.getInt("password", 0);
+        Intent notificationIntent = i != 0 ? new Intent(this, EnterPasswordActivity.class) : new Intent(this, MainActivity.class);
+        notificationIntent.putExtra("password", i);
+        notificationIntent.putExtra("invokedFrom", "ForegroundService");
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, FLAG_IMMUTABLE);
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("Achievix")
+                .setContentText("Foreground Service Running")
+                .setSmallIcon(R.drawable.noti_icon)
+                .setContentIntent(pendingIntent)
+                .build();
+
+        startForeground(1, notification);
+    }
+
+    private void updateCurrentApp() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String date = sdf.format(new Date());
+
+        UsageStatsManager usm = (UsageStatsManager) mContext.getSystemService(Context.USAGE_STATS_SERVICE);
+        long currentTime = System.currentTimeMillis();
+        List<UsageStats> usageStats = usm.queryUsageStats(UsageStatsManager.INTERVAL_BEST, currentTime - 10000, currentTime);
+
+        if (usageStats != null && !usageStats.isEmpty()) {
+            SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
+            for (UsageStats usageStat : usageStats) {
+                mySortedMap.put(usageStat.getLastTimeUsed(), usageStat);
+            }
+            if (!mySortedMap.isEmpty()) {
+                String previousApp = currentApp;
+                currentApp = Objects.requireNonNull(mySortedMap.get(mySortedMap.lastKey())).getPackageName();
+
+                if (!previousApp.equals(currentApp)) {
+                    appLaunchDatabase.incrementLaunchCount(currentApp, date);
+                }
+            }
+        }
     }
 
     public void block(CountDownTimer timer) {
@@ -171,11 +171,9 @@ public class ForegroundService extends Service {
                             calendar.set(Calendar.MINUTE, 0);
                             calendar.set(Calendar.SECOND, 0);
                             calendar.set(Calendar.MILLISECOND, 0);
-                            long startMillis;
-                            long endMillis;
 
-                            startMillis = calendar.getTimeInMillis();
-                            endMillis = System.currentTimeMillis();
+                            long startMillis = calendar.getTimeInMillis();
+                            long endMillis = System.currentTimeMillis();
 
                             UsageStatsManager usageStatsManager = (UsageStatsManager) mContext.getSystemService(Context.USAGE_STATS_SERVICE);
                             Map<String, UsageStats> aggregatedStatsMap = usageStatsManager.queryAndAggregateUsageStats(startMillis, endMillis);
@@ -188,6 +186,7 @@ public class ForegroundService extends Service {
                                     timer.cancel();
                                     System.gc();
                                     Runtime.getRuntime().runFinalization();
+
                                     Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
                                     lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -223,6 +222,7 @@ public class ForegroundService extends Service {
                                 timer.cancel();
                                 System.gc();
                                 Runtime.getRuntime().runFinalization();
+
                                 Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -253,6 +253,7 @@ public class ForegroundService extends Service {
                                 timer.cancel();
                                 System.gc();
                                 Runtime.getRuntime().runFinalization();
+
                                 Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -286,6 +287,7 @@ public class ForegroundService extends Service {
                                 timer.cancel();
                                 System.gc();
                                 Runtime.getRuntime().runFinalization();
+
                                 Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -311,6 +313,7 @@ public class ForegroundService extends Service {
                                 timer.cancel();
                                 System.gc();
                                 Runtime.getRuntime().runFinalization();
+
                                 Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -322,6 +325,29 @@ public class ForegroundService extends Service {
                             } else {
                                 return;
                             }
+                        }
+                    } else if (Objects.equals(map.get("scheduleType"), "Block Data")) {
+                        String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
+                        int usage = Integer.parseInt(params[0]);
+                        boolean mobile = Objects.equals(map.get("launch"), "1");
+                        boolean wifi = Objects.equals(map.get("notification"), "1");
+
+                        float total = getPackageInfo(0, System.currentTimeMillis(), currentApp, mobile, wifi);
+                        if (checkDay(map.get("scheduleDays")) && total >= usage) {
+                            timer.cancel();
+                            System.gc();
+                            Runtime.getRuntime().runFinalization();
+
+                            Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
+                            lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            lockIntent.putExtra("packageName", currentApp);
+                            lockIntent.putExtra("type", map.get("type"));
+                            lockIntent.putExtra("text", map.get("text"));
+                            startActivity(lockIntent);
+                        } else {
+                            return;
                         }
                     }
                 } else {
@@ -425,7 +451,7 @@ public class ForegroundService extends Service {
         };
     }
 
-    public float getPkgInfo(long startMillis, long endMillis, String packageName) {
+    public float getPackageInfo(long startMillis, long endMillis, String packageName, boolean mobile, boolean wifi) {
         PackageManager packageManager = this.getPackageManager();
         ApplicationInfo info = null;
         try {
@@ -433,35 +459,40 @@ public class ForegroundService extends Service {
         } catch (PackageManager.NameNotFoundException ignored) {
         }
         int uid = Objects.requireNonNull(info).uid;
-        return fetchNetworkStatsInfo(startMillis, endMillis, uid);
+        return fetchNetworkStatsInfo(startMillis, endMillis, uid, mobile, wifi);
     }
 
-    public float fetchNetworkStatsInfo(long startMillis, long endMillis, int uid) {
-        NetworkStatsManager networkStatsManager;
+    public float fetchNetworkStatsInfo(long startMillis, long endMillis, int uid, boolean mobile, boolean wifi) {
         float total;
         float receivedWifi = 0;
         float sentWifi = 0;
         float receivedMobData = 0;
         float sentMobData = 0;
 
-        networkStatsManager = (NetworkStatsManager) this.getSystemService(Context.NETWORK_STATS_SERVICE);
-        NetworkStats nwStatsWifi = networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_WIFI, null,
-                startMillis, endMillis, uid);
-        NetworkStats.Bucket bucketWifi = new NetworkStats.Bucket();
-        while (nwStatsWifi.hasNextBucket()) {
-            nwStatsWifi.getNextBucket(bucketWifi);
-            receivedWifi = receivedWifi + bucketWifi.getRxBytes();
-            sentWifi = sentWifi + bucketWifi.getTxBytes();
+        NetworkStatsManager networkStatsManager = (NetworkStatsManager) this.getSystemService(Context.NETWORK_STATS_SERVICE);
+
+        if (wifi) {
+            NetworkStats nwStatsWifi = networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_WIFI, null,
+                    startMillis, endMillis, uid);
+            NetworkStats.Bucket bucketWifi = new NetworkStats.Bucket();
+            while (nwStatsWifi.hasNextBucket()) {
+                nwStatsWifi.getNextBucket(bucketWifi);
+                receivedWifi = receivedWifi + bucketWifi.getRxBytes();
+                sentWifi = sentWifi + bucketWifi.getTxBytes();
+            }
         }
 
-        NetworkStats nwStatsMobData = networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_MOBILE, null,
-                startMillis, endMillis, uid);
-        NetworkStats.Bucket bucketMobData = new NetworkStats.Bucket();
-        while (nwStatsMobData.hasNextBucket()) {
-            nwStatsMobData.getNextBucket(bucketMobData);
-            receivedMobData = receivedMobData + bucketMobData.getRxBytes();
-            sentMobData = sentMobData + bucketMobData.getTxBytes();
+        if (mobile) {
+            NetworkStats nwStatsMobData = networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_MOBILE, null,
+                    startMillis, endMillis, uid);
+            NetworkStats.Bucket bucketMobData = new NetworkStats.Bucket();
+            while (nwStatsMobData.hasNextBucket()) {
+                nwStatsMobData.getNextBucket(bucketMobData);
+                receivedMobData = receivedMobData + bucketMobData.getRxBytes();
+                sentMobData = sentMobData + bucketMobData.getTxBytes();
+            }
         }
+
         total = (receivedWifi + sentWifi + receivedMobData + sentMobData) / (1024 * 1024);
 
         DecimalFormat df = new DecimalFormat("00000");

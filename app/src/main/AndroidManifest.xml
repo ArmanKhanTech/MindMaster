@@ -52,6 +52,7 @@
             <intent-filter>
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.device_admin"
                 android:resource="@xml/device_admin" />
@@ -81,125 +82,130 @@
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
+
             <meta-data
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_service" />
         </service>
 
         <activity
+            android:name=".Activity.BlockDataActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Achievix" />
+        <activity
             android:name=".Activity.EditScheduleActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.NoOfLaunchesActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.FixedBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.QuickBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.SpecificTimeActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.UsageTimeActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.EditProfileActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.NewScheduleActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.DrawOnTopScreenActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.AppSelectActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.StrictModeActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.TakeBreakActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.NewProfileActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.KeywordBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.AppBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.SettingActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.InternetBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.EnterPasswordActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.NewPasswordActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.AboutActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.WebBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.DrawOnTopLaunchActivity"
             android:exported="false"
             android:noHistory="true"
-            android:theme="@style/Theme.FocusOnMe.CustomView.LimitActivity" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Permission.GetNotificationAccess"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.PermissionActivity" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Permission.GetDrawOverAppsPermission"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.PermissionActivity" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Permission.GetUsageStatsPermissionActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.PermissionActivity" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.UsageOverviewActivity"
             android:exported="false"
             android:noHistory="true"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.MainActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe" />
+            android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.SplashScreenActivity"
             android:exported="true"
-            android:theme="@style/Theme.FocusOnMe">
+            android:theme="@style/Theme.Achievix">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -209,7 +215,7 @@
         <activity
             android:name=".Activity.AppStatsActivity"
             android:exported="false"
-            android:theme="@style/Theme.FocusOnMe.CustomView.AppActivity" />
+            android:theme="@style/Theme.Achievix" />
     </application>
 
 </manifest>

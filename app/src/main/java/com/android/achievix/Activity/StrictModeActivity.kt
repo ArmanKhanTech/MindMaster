@@ -238,6 +238,7 @@ class StrictModeActivity : AppCompatActivity() {
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
+
         val intent = Intent()
         setResult(RESULT_CANCELED, intent)
         finish()

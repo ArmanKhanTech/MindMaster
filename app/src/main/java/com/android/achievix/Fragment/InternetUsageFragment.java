@@ -54,6 +54,7 @@ public class InternetUsageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_internet_usage, container, false);
+
         initializeViews(view);
         setupSpinner();
         setupRecyclerView();
@@ -195,10 +196,12 @@ public class InternetUsageFragment extends Fragment {
             appIcon.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
             appIcon.draw(canvas);
             byte[] byteArray;
+
             try (ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byteArray = stream.toByteArray();
             }
+
             appIcon = new BitmapDrawable(getResources(), BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
             float launchCount = appUsage.get(packageName);
             double progress = (double) launchCount / totalCount * 100;

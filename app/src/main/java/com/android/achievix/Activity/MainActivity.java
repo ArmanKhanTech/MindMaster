@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawerLayout);
         navButton = findViewById(R.id.nav_button);
+
         ll1 = findViewById(R.id.goto_block_apps);
         ll2 = findViewById(R.id.goto_block_sites);
         ll3 = findViewById(R.id.goto_block_keywords);
@@ -102,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.menu1 -> startActivity(new Intent(this, SettingActivity.class));
                 case R.id.menu5 -> startActivity(new Intent(MainActivity.this, AboutActivity.class));
             }
-
             return false;
         });
 
@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         Dialog dialog = new Dialog(MainActivity.this);
         dialog.setContentView(R.layout.dialog_mode);
         dialog.setCancelable(true);
+
         Objects.requireNonNull(dialog.getWindow())
                 .setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -158,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    @SuppressLint("SetTextI18n")
     private void updateMode(boolean _strict) {
         if (_strict) {
             mode.setText("Strict Mode");
@@ -192,7 +194,6 @@ public class MainActivity extends AppCompatActivity {
         } else if (timeOfDay >= 21 && timeOfDay < 24) {
             greeting = "Good Evening";
         }
-
         return greeting;
     }
 

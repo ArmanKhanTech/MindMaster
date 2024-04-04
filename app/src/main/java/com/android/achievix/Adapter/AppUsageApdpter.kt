@@ -28,7 +28,6 @@ class AppUsageAdapter(private var appList: List<AppUsageModel>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val appInfo = appList[position]
-
         holder.appName.text = appInfo.name
         holder.appIcon.setImageDrawable(appInfo.icon)
         holder.stats.text = appInfo.extra?.let { convertToHrsMins(it.toLong()) }

@@ -34,10 +34,12 @@ public class NetworkUtil {
     private static float getNetworkStatsTotal(NetworkStats networkStats) {
         NetworkStats.Bucket bucket = new NetworkStats.Bucket();
         float total = 0;
+
         while (networkStats.hasNextBucket()) {
             networkStats.getNextBucket(bucket);
             total += bucket.getRxBytes() + bucket.getTxBytes();
         }
+
         return total;
     }
 }

@@ -33,6 +33,7 @@ class AppSelectActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_app_select)
+
         initializeViews()
         attachListeners()
         getInstalledApps()
@@ -79,6 +80,7 @@ class AppSelectActivity : AppCompatActivity() {
     private fun getInstalledApps() {
         appSelectLayout.visibility = View.GONE
         loadingLayout.visibility = View.VISIBLE
+
         CoroutineScope(Dispatchers.IO).launch {
             val apps = UsageUtil.getInstalledAppsSelect(this@AppSelectActivity)
             withContext(Dispatchers.Main) {

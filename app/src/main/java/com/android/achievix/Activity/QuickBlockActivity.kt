@@ -52,7 +52,7 @@ class QuickBlockActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun attachListeners(name: String?, packageName: String?, type: String?) {
-        if (type == "web") {
+        if (type == "web" || type == "key") {
             text.text = "Site Launch"
         }
 
@@ -60,7 +60,7 @@ class QuickBlockActivity : AppCompatActivity() {
             val untilHours = untilTimePicker.hour
             val untilMins = untilTimePicker.minute
 
-            val text = textEditText.text.toString().let {
+            val motivationalText = textEditText.text.toString().let {
                 it.ifEmpty {
                     null
                 } ?: it
@@ -90,7 +90,7 @@ class QuickBlockActivity : AppCompatActivity() {
                         null,
                         null,
                         false,
-                        text
+                        motivationalText
                     )
                 }
 
@@ -106,7 +106,7 @@ class QuickBlockActivity : AppCompatActivity() {
                         null,
                         null,
                         false,
-                        text
+                        motivationalText
                     )
                 }
 
@@ -122,7 +122,7 @@ class QuickBlockActivity : AppCompatActivity() {
                         null,
                         null,
                         false,
-                        text
+                        motivationalText
                     )
                 }
             }

@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class KeywordBlockActivity extends AppCompatActivity {
     private final BlockDatabase blockDatabase = new BlockDatabase(this);
@@ -42,6 +43,7 @@ public class KeywordBlockActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keyword_block);
+
         initializeViews();
         setupRecyclerView();
         setupSearchView();
@@ -82,6 +84,10 @@ public class KeywordBlockActivity extends AppCompatActivity {
         blockButton.setOnClickListener(v -> {
             if (webKeyModelList.contains(new WebKeyModel(searchEditText.getText().toString()))) {
                 Toast.makeText(this, "Keyword already blocked", Toast.LENGTH_SHORT).show();
+            } else if (Pattern.matches("^(http|https)://.*", searchEditText.getText().toString()) ||
+                    Pattern.matches("^(www\\.)?([a-zA-Z0-9]+\\.)+[a-zA-Z]{2,}$", searchEditText.getText().toString())
+            ) {
+                Toast.makeText(this, "Please enter a keyword, not a URL", Toast.LENGTH_SHORT).show();
             } else {
                 if (isAccessibilitySettingsOn(this)) {
                     if (TextUtils.isEmpty(searchEditText.getText().toString())) {
@@ -120,6 +126,7 @@ public class KeywordBlockActivity extends AppCompatActivity {
                 webKeyModelList.add(new WebKeyModel(Objects.requireNonNull(map.get("name"))));
             }
         }
+
         if (webKeyModelList.isEmpty()) {
             noKeyBlock.setVisibility(TextView.VISIBLE);
         } else {

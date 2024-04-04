@@ -19,6 +19,7 @@ import java.util.Objects;
 
 @SuppressLint("CustomSplashScreen")
 public class DrawOnTopLaunchActivity extends AppCompatActivity {
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +37,9 @@ public class DrawOnTopLaunchActivity extends AppCompatActivity {
             text.setText(R.string.motivational_text);
         }
 
-        if (Objects.requireNonNull(getIntent().getStringExtra("type")).equals("app")) {
-            title.setText("This app is blocked by Achievix");
+        if (Objects.requireNonNull(getIntent().getStringExtra("type")).equals("app") ||
+                Objects.requireNonNull(getIntent().getStringExtra("type")).equals("internet")) {
+            title.setText("This App is Blocked by Achievix");
 
             PackageManager packageManager = getApplicationContext().getPackageManager();
             try {
@@ -56,7 +58,7 @@ public class DrawOnTopLaunchActivity extends AppCompatActivity {
                 finish();
             });
         } else if (Objects.requireNonNull(getIntent().getStringExtra("type")).equals("web")) {
-            title.setText("This website is blocked by Achievix");
+            title.setText("This Website is Blocked by Achievix");
 
             name.setText(getIntent().getStringExtra("name"));
             icon.setImageResource(R.drawable.web_icon);
@@ -74,9 +76,9 @@ public class DrawOnTopLaunchActivity extends AppCompatActivity {
                 finish();
             });
         } else if (Objects.requireNonNull(getIntent().getStringExtra("type")).equals("key")) {
-            title.setText("This keyword is blocked by Achievix");
+            title.setText("This Keyword is Blocked by Achievix");
 
-            name.setText(getIntent().getStringExtra("name"));
+            name.setText("'" + getIntent().getStringExtra("name") + "'");
             icon.setImageResource(R.drawable.keyword_icon);
 
             exitButton.setOnClickListener(view -> {

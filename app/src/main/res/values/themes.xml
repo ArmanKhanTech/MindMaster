@@ -1,5 +1,6 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.FocusOnMe" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+<resources>
+
+    <style name="Theme.Achievix" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/skyBlue</item>
         <item name="colorOnPrimary">@color/skyBlue</item>
@@ -13,61 +14,4 @@
         <item name="android:fontFamily">sans-serif-condensed-medium</item>
         <item name="android:windowDisablePreview">true</item>
     </style>
-
-    <style name="Theme.FocusOnMe.CustomView.LimitActivity" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">@color/skyBlue</item>
-        <item name="colorOnPrimary">@color/skyBlue</item>
-        <item name="colorSecondary">@color/skyBlue</item>
-        <item name="colorSecondaryVariant">@color/skyBlue</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <item name="android:statusBarColor">@color/white</item>
-        <item name="android:navigationBarColor">@color/white</item>
-        <item name="android:windowLightNavigationBar">true</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:fontFamily">sans-serif-condensed-medium</item>
-    </style>
-
-    <style name="Theme.FocusOnMe.CustomView.RestrictActivity" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">@color/skyBlue</item>
-        <item name="colorOnPrimary">@color/skyBlue</item>
-        <item name="colorSecondary">@color/skyBlue</item>
-        <item name="colorSecondaryVariant">@color/skyBlue</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <item name="android:statusBarColor">@color/white</item>
-        <item name="android:navigationBarColor">@color/white</item>
-        <item name="android:windowLightNavigationBar">true</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:fontFamily">sans-serif-condensed-medium</item>
-    </style>
-
-    <style name="Theme.FocusOnMe.CustomView.AppActivity" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">@color/skyBlue</item>
-        <item name="colorOnPrimary">@color/skyBlue</item>
-        <item name="colorSecondary">@color/skyBlue</item>
-        <item name="colorSecondaryVariant">@color/skyBlue</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <item name="android:statusBarColor">@color/white</item>
-        <item name="android:navigationBarColor">@color/white</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowLightNavigationBar">true</item>
-        <item name="android:fontFamily">sans-serif-condensed-medium</item>
-    </style>
-
-    <style name="Theme.FocusOnMe.CustomView.PermissionActivity" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryVariant">@color/skyBlue</item>
-        <item name="colorOnPrimary">@color/skyBlue</item>
-        <item name="colorSecondary">@color/skyBlue</item>
-        <item name="colorSecondaryVariant">@color/skyBlue</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <item name="android:statusBarColor">@color/white</item>
-        <item name="android:navigationBarColor">@color/white</item>
-        <item name="android:windowLightNavigationBar">true</item>
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:fontFamily">sans-serif-condensed-medium</item>
-    </style>
-
 </resources>

@@ -37,6 +37,7 @@ class AppBlockActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_app_block)
+
         initializeViews()
         setupRecyclerView()
         setupSearchView()
@@ -96,6 +97,7 @@ class AppBlockActivity : AppCompatActivity() {
         @Deprecated("Deprecated in Java")
         override fun onPreExecute() {
             super.onPreExecute()
+
             appBlockLayout.visibility = View.GONE
             loadingLayout.visibility = View.VISIBLE
         }
@@ -111,6 +113,7 @@ class AppBlockActivity : AppCompatActivity() {
                 appBlockModelList = it
                 appBlockAdapter = AppBlockAdapter(appBlockModelList)
                 recyclerView.adapter = appBlockAdapter
+
                 appBlockLayout.visibility = View.VISIBLE
                 loadingLayout.visibility = View.GONE
 
@@ -118,6 +121,7 @@ class AppBlockActivity : AppCompatActivity() {
                     override fun onItemClick(view: View) {
                         val position = recyclerView.getChildAdapterPosition(view)
                         val app = appBlockAdapter?.getItemAt(position)
+
                         if (app != null) {
                             launchActivity(app.appName, app.packageName, app.blocked!!)
                         }
@@ -142,6 +146,7 @@ class AppBlockActivity : AppCompatActivity() {
                 putExtra("type", "app")
             }
         }
+
         if(packageName == "com.android.achievix") {
             Toast.makeText(this, "Cannot block Achievix", Toast.LENGTH_SHORT).show()
         } else {

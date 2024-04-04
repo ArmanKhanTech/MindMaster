@@ -8,7 +8,6 @@ import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -84,6 +83,8 @@ public class WebBlockActivity extends AppCompatActivity {
         blockButton.setOnClickListener(v -> {
             if (webKeyModelList.contains(new WebKeyModel(searchEditText.getText().toString()))) {
                 Toast.makeText(this, "Website already blocked", Toast.LENGTH_SHORT).show();
+            } else if (searchEditText.getText().toString().equals("google.com")) {
+                Toast.makeText(this, "Cannot block Google", Toast.LENGTH_SHORT).show();
             } else {
                 if (isAccessibilitySettingsOn(this)) {
                     if (TextUtils.isEmpty(searchEditText.getText().toString())) {
@@ -91,7 +92,6 @@ public class WebBlockActivity extends AppCompatActivity {
                     } else {
                         Pattern urlPattern = Pattern.compile("^((https?|ftp|smtp)://)?(www.)?[a-z0-9]+(\\.[a-z]{2,}){1,3}(#?\\/?[a-zA-Z0-9#]+)*\\/?(\\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$");
                         if (!urlPattern.matcher(searchEditText.getText().toString()).matches()) {
-                            Log.d("URL", searchEditText.getText().toString());
                             Toast.makeText(this, "Invalid URL", Toast.LENGTH_SHORT).show();
                         } else {
                             Intent intent = new Intent(this, NewScheduleActivity.class);

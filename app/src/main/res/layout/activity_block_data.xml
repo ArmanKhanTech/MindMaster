@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
     android:background="@color/white"
+    android:fillViewport="true"
     android:orientation="vertical"
     tools:context=".Activity.UsageTimeActivity"
     tools:ignore="HardcodedText,SpUsage,ContentDescription">
@@ -25,7 +25,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/back_specific_time"
+                    android:id="@+id/back_no_of_launches"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="sans-serif-condensed-medium"
-                    android:text="Specific Interval"
+                    android:text="Block Data"
                     android:textColor="@color/black"
                     android:textSize="30dp" />
 
@@ -53,7 +53,7 @@
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginTop="15dp"
                 android:text="I Want to Block"
-                android:textColor="@color/skyBlue"
+                android:textColor="@color/pink"
                 android:textSize="22dp" />
 
             <LinearLayout
@@ -66,20 +66,19 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="15dp"
-                    android:src="@drawable/block_icon" />
+                    android:src="@drawable/internet_icon_dark" />
 
                 <TextView
-                    android:id="@+id/specific_time_launch_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:paddingBottom="2dp"
-                    android:text="App Launch"
+                    android:text="Mobile Data"
                     android:textColor="@color/black"
                     android:textSize="22dp" />
 
                 <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/block_app_launch_specific_time"
+                    android:id="@+id/block_mobile_data"
                     style="@style/SwitchTheme"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -97,23 +96,24 @@
 
                 <ImageView
                     android:layout_width="25dp"
-                    android:layout_height="35dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="15dp"
+                    android:paddingBottom="8dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/noti_block_icon" />
+                    android:src="@drawable/wifi_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:paddingBottom="2dp"
-                    android:text="Notification"
+                    android:text="Wifi"
                     android:textColor="@color/black"
                     android:textSize="22dp" />
 
                 <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/block_noti_specific_time"
+                    android:id="@+id/block_wifi_data"
                     style="@style/SwitchTheme"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:text="On Days"
-                android:textColor="@color/skyBlue"
+                android:textColor="@color/pink"
                 android:textSize="22dp" />
 
             <LinearLayout
@@ -144,9 +144,9 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_selector"
-                    android:checked="false"
+                    android:background="@drawable/day_radio_internet_selector"
                     android:button="@null"
+                    android:checked="false"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="S"
@@ -160,7 +160,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_selector"
+                    android:background="@drawable/day_radio_internet_selector"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -175,7 +175,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_selector"
+                    android:background="@drawable/day_radio_internet_selector"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -190,7 +190,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_selector"
+                    android:background="@drawable/day_radio_internet_selector"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -205,7 +205,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_selector"
+                    android:background="@drawable/day_radio_internet_selector"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -220,7 +220,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_selector"
+                    android:background="@drawable/day_radio_internet_selector"
                     android:button="@null"
                     android:gravity="center"
                     android:padding="10dp"
@@ -235,9 +235,9 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/day_radio_selector"
-                    android:checked="false"
+                    android:background="@drawable/day_radio_internet_selector"
                     android:button="@null"
+                    android:checked="false"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="Sa"
@@ -249,62 +249,52 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="15dp"
-                android:text="From"
-                android:textColor="@color/skyBlue"
+                android:layout_margin="15dp"
+                android:text="After"
+                android:textColor="@color/pink"
                 android:textSize="22dp" />
 
-            <TimePicker
-                android:id="@+id/time_picker_time_interval_from"
-                style="@style/TimePickerTheme"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginHorizontal="15dp"
-                android:padding="10dp"
-                android:scaleX="1.2"
-                android:scaleY="1.2"
-                android:timePickerMode="spinner" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
-                android:text="To"
-                android:textColor="@color/skyBlue"
-                android:textSize="22dp" />
+                <EditText
+                    android:id="@+id/data_usage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/new_profile_edt_theme"
+                    android:gravity="center"
+                    android:hint="in MBs"
+                    android:inputType="number"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="22dp"
+                    tools:ignore="Autofill" />
 
-            <TimePicker
-                android:id="@+id/time_picker_time_interval_to"
-                style="@style/TimePickerTheme"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="15dp"
-                android:padding="10dp"
-                android:scaleX="1.2"
-                android:scaleY="1.2"
-                android:timePickerMode="spinner" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:text="and Show the Below Text"
-                android:textColor="@color/skyBlue"
+                android:textColor="@color/pink"
                 android:textSize="22dp" />
 
             <EditText
-                android:id="@+id/time_interval_text"
+                android:id="@+id/block_data_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginBottom="70dp"
-                android:background="@drawable/app_block_theme"
-                android:hint="Type Here"
-                android:inputType="text"
+                android:layout_weight="1"
+                android:background="@drawable/new_profile_edt_theme"
                 android:gravity="center"
+                android:hint="something"
+                android:inputType="text"
                 android:padding="10dp"
                 android:textColor="@color/black"
                 android:textSize="22dp"
@@ -313,13 +303,13 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/specific_time_button"
+            android:id="@+id/block_data_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginHorizontal="15dp"
             android:layout_marginVertical="10dp"
-            android:background="@drawable/take_break_btn_theme"
+            android:background="@drawable/block_internet_btn_theme"
             android:padding="10dp"
             android:text="Save"
             android:textAllCaps="false"

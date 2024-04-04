@@ -40,9 +40,7 @@ public class LogURLService extends AccessibilityService {
 
         switch (eventType) {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
-
             case AccessibilityEvent.TYPE_WINDOWS_CHANGED:
-
             case AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED: {
                 AccessibilityNodeInfo parentNodeInfo = event.getSource();
                 if (parentNodeInfo == null) {
@@ -119,6 +117,7 @@ public class LogURLService extends AccessibilityService {
                                         Calendar.getInstance().get(Calendar.MINUTE) <= toMinutes && checkDay(map.get("scheduleDays"))) {
                                     System.gc();
                                     Runtime.getRuntime().runFinalization();
+
                                     Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
                                     lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -142,6 +141,7 @@ public class LogURLService extends AccessibilityService {
                                         Calendar.getInstance().get(Calendar.MINUTE) <= untilMins) {
                                     System.gc();
                                     Runtime.getRuntime().runFinalization();
+
                                     Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
                                     lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -161,6 +161,7 @@ public class LogURLService extends AccessibilityService {
                                 if (checkDay(map.get("scheduleDays"))) {
                                     System.gc();
                                     Runtime.getRuntime().runFinalization();
+
                                     Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
                                     lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -205,6 +206,7 @@ public class LogURLService extends AccessibilityService {
                                             Calendar.getInstance().get(Calendar.HOUR_OF_DAY) <= toHours &&
                                             Calendar.getInstance().get(Calendar.MINUTE) <= toMinutes && checkDay(map.get("scheduleDays"))) {
                                         System.gc();
+
                                         Runtime.getRuntime().runFinalization();
                                         Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
                                         lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -229,6 +231,7 @@ public class LogURLService extends AccessibilityService {
                                             Calendar.getInstance().get(Calendar.MINUTE) <= untilMins) {
                                         System.gc();
                                         Runtime.getRuntime().runFinalization();
+
                                         Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
                                         lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -248,6 +251,7 @@ public class LogURLService extends AccessibilityService {
                                     if (checkDay(map.get("scheduleDays"))) {
                                         System.gc();
                                         Runtime.getRuntime().runFinalization();
+
                                         Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
                                         lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -275,6 +279,7 @@ public class LogURLService extends AccessibilityService {
     public boolean checkDay(String days) {
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);
+
         return switch (day) {
             case Calendar.SUNDAY -> days.contains("Sunday");
             case Calendar.MONDAY -> days.contains("Monday");
@@ -292,11 +297,13 @@ public class LogURLService extends AccessibilityService {
         if (nodes == null || nodes.isEmpty()) {
             return null;
         }
+
         AccessibilityNodeInfo addressBarNodeInfo = nodes.get(0);
         String url = null;
         if (addressBarNodeInfo.getText() != null) {
             url = addressBarNodeInfo.getText().toString();
         }
+
         addressBarNodeInfo.refresh();
         return url;
     }

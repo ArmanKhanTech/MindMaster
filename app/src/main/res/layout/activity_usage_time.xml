@@ -66,7 +66,6 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="15dp"
-                    android:scaleType="centerCrop"
                     android:src="@drawable/block_icon" />
 
                 <TextView
@@ -97,7 +96,7 @@
 
                 <ImageView
                     android:layout_width="25dp"
-                    android:layout_height="40dp"
+                    android:layout_height="35dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="15dp"
                     android:scaleType="centerCrop"

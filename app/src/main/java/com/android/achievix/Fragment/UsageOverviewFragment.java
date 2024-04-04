@@ -37,6 +37,7 @@ public class UsageOverviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_usage_overview, container, false);
+
         initializeViews(view);
         setupSpinner();
         setupRecyclerView();
@@ -71,7 +72,6 @@ public class UsageOverviewFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // do nothing
             }
         });
     }
@@ -87,6 +87,15 @@ public class UsageOverviewFragment extends Fragment {
         return hours + " hrs " + minutes + " mins";
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (getInstalledAppsUsageTask != null) {
+            getInstalledAppsUsageTask.cancel(true);
+        }
+    }
+
     @SuppressLint("StaticFieldLeak")
     private class GetInstalledAppsUsageTask extends AsyncTask<Void, Void, List<AppUsageModel>> {
         private final Context context;
@@ -100,6 +109,7 @@ public class UsageOverviewFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
             loadingLayout.setVisibility(View.VISIBLE);
             usageLayout.setVisibility(View.GONE);
         }
@@ -114,18 +124,11 @@ public class UsageOverviewFragment extends Fragment {
             if (isCancelled()) {
                 return;
             }
+
             usageStats.setText(convertMillisToHoursAndMinutes(UsageUtil.totalUsage));
             recyclerView.setAdapter(new AppUsageAdapter(result));
             loadingLayout.setVisibility(View.GONE);
             usageLayout.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (getInstalledAppsUsageTask != null) {
-            getInstalledAppsUsageTask.cancel(true);
         }
     }
 }

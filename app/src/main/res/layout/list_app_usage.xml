@@ -10,7 +10,7 @@
         android:id="@+id/app_icon"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_gravity="center"
+        android:layout_gravity="top"
         android:layout_marginVertical="5dp"
         android:layout_marginEnd="10dp" />
 

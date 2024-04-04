@@ -65,16 +65,17 @@ class FixedBlockActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun attachListeners(name: String?, packageName: String?, type: String?) {
-        if (type == "web") {
+        if (type == "web" || type == "key") {
             text.text = "Site Launch"
         }
 
         saveButton.setOnClickListener {
-            val text = textEditText.text.toString().let {
+            val motivationalText = textEditText.text.toString().let {
                 it.ifEmpty {
                     null
                 } ?: it
             }
+
             val launch = launchSwitch.isChecked
             val noti = notiSwitch.isChecked
 
@@ -99,7 +100,7 @@ class FixedBlockActivity : AppCompatActivity() {
                         days.toString(),
                         null,
                         false,
-                        text
+                        motivationalText
                     )
                 }
 
@@ -115,7 +116,7 @@ class FixedBlockActivity : AppCompatActivity() {
                         days.toString(),
                         null,
                         false,
-                        text
+                        motivationalText
                     )
                 }
 
@@ -131,7 +132,7 @@ class FixedBlockActivity : AppCompatActivity() {
                         days.toString(),
                         null,
                         false,
-                        text
+                        motivationalText
                     )
                 }
             }

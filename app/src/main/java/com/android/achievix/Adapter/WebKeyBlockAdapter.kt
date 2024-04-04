@@ -33,13 +33,14 @@ class WebKeyBlockAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val info = websiteKeywordList[position]
-
         holder.webName.text = info.name
+
         if (isWeb) {
             holder.icon.setImageResource(R.drawable.web_icon)
         } else {
             holder.icon.setImageResource(R.drawable.keyword_icon)
         }
+
         holder.itemView.setOnClickListener { onItemClickListener?.onItemClick(it) }
     }
 

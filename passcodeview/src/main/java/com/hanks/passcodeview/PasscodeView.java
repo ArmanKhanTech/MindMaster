@@ -37,13 +37,13 @@ public class PasscodeView extends FrameLayout implements View.OnClickListener {
     private TextView tv_input_tip;
     private ImageView iv_lock, iv_ok;
     private View cursor;
-    private String firstInputTip = "Enter a passcode of 4 digits";
-    private String secondInputTip = "Re-enter new passcode";
-    private String wrongLengthTip = "Enter a passcode of 4 digits";
-    private String wrongInputTip = "Passcode do not match";
-    private String correctInputTip = "Passcode is correct";
+    private String firstInputTip;
+    private String secondInputTip;
+    private String wrongLengthTip;
+    private String wrongInputTip;
+    private String correctInputTip;
     private int passcodeLength = 4;
-    private int correctStatusColor = 0xFF61C560; //0xFFFF0000
+    private int correctStatusColor = 0xFF61C560;
     private int wrongStatusColor = 0xFFF24055;
     private int normalStatusColor = 0xFFFFFFFF;
     private int numberTextColor = 0xFF747474;
@@ -155,11 +155,7 @@ public class PasscodeView extends FrameLayout implements View.OnClickListener {
         addChar(number);
     }
 
-    public String getLocalPasscode() {
-        return localPasscode;
-    }
-
-    public PasscodeView setLocalPasscode(String localPasscode) {
+    public void setLocalPasscode(String localPasscode) {
         for (int i = 0; i < localPasscode.length(); i++) {
             char c = localPasscode.charAt(i);
             if (c < '0' || c > '9') {
@@ -168,115 +164,10 @@ public class PasscodeView extends FrameLayout implements View.OnClickListener {
         }
         this.localPasscode = localPasscode;
         this.passcodeType = TYPE_CHECK_PASSCODE;
-        return this;
-    }
-
-    public PasscodeViewListener getListener() {
-        return listener;
     }
 
     public void setListener(PasscodeViewListener listener) {
         this.listener = listener;
-    }
-
-    public String getFirstInputTip() {
-        return firstInputTip;
-    }
-
-    public PasscodeView setFirstInputTip(String firstInputTip) {
-        this.firstInputTip = firstInputTip;
-        return this;
-    }
-
-    public String getSecondInputTip() {
-        return secondInputTip;
-    }
-
-    public PasscodeView setSecondInputTip(String secondInputTip) {
-        this.secondInputTip = secondInputTip;
-        return this;
-    }
-
-    public String getWrongLengthTip() {
-        return wrongLengthTip;
-    }
-
-    public PasscodeView setWrongLengthTip(String wrongLengthTip) {
-        this.wrongLengthTip = wrongLengthTip;
-        return this;
-    }
-
-    public String getWrongInputTip() {
-        return wrongInputTip;
-    }
-
-    public PasscodeView setWrongInputTip(String wrongInputTip) {
-        this.wrongInputTip = wrongInputTip;
-        return this;
-    }
-
-    public String getCorrectInputTip() {
-        return correctInputTip;
-    }
-
-    public PasscodeView setCorrectInputTip(String correctInputTip) {
-        this.correctInputTip = correctInputTip;
-        return this;
-    }
-
-    public int getPasscodeLength() {
-        return passcodeLength;
-    }
-
-    public PasscodeView setPasscodeLength(int passcodeLength) {
-        this.passcodeLength = passcodeLength;
-        return this;
-    }
-
-    public int getCorrectStatusColor() {
-        return correctStatusColor;
-    }
-
-    public PasscodeView setCorrectStatusColor(int correctStatusColor) {
-        this.correctStatusColor = correctStatusColor;
-        return this;
-    }
-
-    public int getWrongStatusColor() {
-        return wrongStatusColor;
-    }
-
-    public PasscodeView setWrongStatusColor(int wrongStatusColor) {
-        this.wrongStatusColor = wrongStatusColor;
-        return this;
-    }
-
-    public int getNormalStatusColor() {
-        return normalStatusColor;
-    }
-
-    public PasscodeView setNormalStatusColor(int normalStatusColor) {
-        this.normalStatusColor = normalStatusColor;
-        return this;
-    }
-
-    public int getNumberTextColor() {
-        return numberTextColor;
-    }
-
-    public PasscodeView setNumberTextColor(int numberTextColor) {
-        this.numberTextColor = numberTextColor;
-        return this;
-    }
-
-    public @PasscodeViewType
-    int getPasscodeType() {
-        return passcodeType;
-    }
-
-    public PasscodeView setPasscodeType(@PasscodeViewType int passcodeType) {
-        this.passcodeType = passcodeType;
-        return this;
     }
 
     protected boolean equals(String val) {
@@ -318,6 +209,7 @@ public class PasscodeView extends FrameLayout implements View.OnClickListener {
         CircleView psdView = new CircleView(getContext());
         int size = dpToPx();
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size, size);
+
         params.setMargins(size, 0, size, 0);
         psdView.setLayoutParams(params);
         psdView.setColor(normalStatusColor);
@@ -340,17 +232,21 @@ public class PasscodeView extends FrameLayout implements View.OnClickListener {
 
     private void deleteChar() {
         int childCount = layout_psd.getChildCount();
+
         if (childCount <= 0) {
             return;
         }
+
         layout_psd.removeViewAt(childCount - 1);
     }
 
     private void deleteAllChars() {
         int childCount = layout_psd.getChildCount();
+
         if (childCount <= 0) {
             return;
         }
+
         layout_psd.removeAllViews();
     }
 
@@ -396,6 +292,7 @@ public class PasscodeView extends FrameLayout implements View.OnClickListener {
 
     private void setPSDViewBackgroundResource(int color) {
         int childCount = layout_psd.getChildCount();
+
         for (int i = 0; i < childCount; i++) {
             ((CircleView) layout_psd.getChildAt(i)).setColor(color);
         }
@@ -434,11 +331,13 @@ public class PasscodeView extends FrameLayout implements View.OnClickListener {
     private String getPasscodeFromView() {
         StringBuilder sb = new StringBuilder();
         int childCount = layout_psd.getChildCount();
+
         for (int i = 0; i < childCount; i++) {
             View child = layout_psd.getChildAt(i);
             int num = (int) child.getTag();
             sb.append(num);
         }
+
         return sb.toString();
     }
 

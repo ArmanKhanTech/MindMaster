@@ -42,8 +42,7 @@ class ScheduleAdapter(
         val blockCondition = StringBuilder()
         when (scheduleInfo.scheduleType) {
             "Usage Time" -> {
-                blockCondition.append("Usage Time:")
-                blockCondition.append(" after ")
+                blockCondition.append("Usage Time: after ")
                 val time = scheduleInfo.scheduleParams.split(" ")
                 blockCondition.append(
                     refactorTime(
@@ -54,8 +53,7 @@ class ScheduleAdapter(
             }
 
             "Specific Time" -> {
-                blockCondition.append("Specific Time:")
-                blockCondition.append(" from ")
+                blockCondition.append("Specific Time: from ")
                 val time = scheduleInfo.scheduleParams.split(" ")
                 blockCondition.append(refactorTime(time[0] + " " + time[1], "Specific Time"))
                 blockCondition.append(" to ")
@@ -63,21 +61,25 @@ class ScheduleAdapter(
             }
 
             "Quick Block" -> {
-                blockCondition.append("Quick Block:")
-                blockCondition.append(" until ")
+                blockCondition.append("Quick Block: until ")
                 val time = scheduleInfo.scheduleParams.split(" ")
                 blockCondition.append(refactorTime(time[0] + " " + time[1], "Quick Block"))
             }
 
             "Launch Count" -> {
-                blockCondition.append("App Launch:")
-                blockCondition.append(" after ")
+                blockCondition.append("App Launch: after ")
                 blockCondition.append(scheduleInfo.scheduleParams)
                 blockCondition.append(" launches")
             }
 
             "Fixed Block" -> {
                 blockCondition.append("Fixed Block")
+            }
+
+            "Block Data" -> {
+                blockCondition.append("Block Data: after ")
+                blockCondition.append(scheduleInfo.scheduleParams)
+                blockCondition.append(" MB")
             }
         }
         holder.blockCondition.text = blockCondition.toString()

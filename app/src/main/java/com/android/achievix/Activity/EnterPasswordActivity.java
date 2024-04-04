@@ -23,10 +23,10 @@ public class EnterPasswordActivity extends AppCompatActivity {
 
         ImageButton back = findViewById(R.id.back_enter_password);
         assert invokedFrom != null;
-        if(invokedFrom.equals("MainActivity")) {
-//
+        if (invokedFrom.equals("MainActivity")) {
+            back.setVisibility(ImageButton.VISIBLE);
         } else {
-//
+            back.setVisibility(ImageButton.GONE);
         }
 
         passcodeView.setLocalPasscode(String.valueOf(password));

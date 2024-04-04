@@ -12,6 +12,11 @@ import com.android.achievix.R
 
 class InternetBlockAdapter(private var appList: List<AppBlockModel>) :
     RecyclerView.Adapter<InternetBlockAdapter.ViewHolder>() {
+    interface OnItemClickListener {
+        fun onItemClick(view: View)
+    }
+
+    private var onItemClickListener: OnItemClickListener? = null
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val appName: TextView = view.findViewById(R.id.app_name_internet)
@@ -26,13 +31,18 @@ class InternetBlockAdapter(private var appList: List<AppBlockModel>) :
         return ViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val appInfo = appList[position]
-
         holder.appName.text = appInfo.appName
         holder.appIcon.setImageDrawable(appInfo.icon)
         holder.extra.text = appInfo.extra + " MB"
-        //holder.blocked.setImageDrawable(appInfo.blocked)
+        holder.blocked.setImageResource(if (appInfo.blocked == true) R.drawable.lock_icon_red else R.drawable.lock_icon_grey)
+        holder.itemView.setOnClickListener { onItemClickListener?.onItemClick(it) }
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.onItemClickListener = listener
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -42,4 +52,8 @@ class InternetBlockAdapter(private var appList: List<AppBlockModel>) :
     }
 
     override fun getItemCount() = appList.size
+
+    fun getItemAt(position: Int): AppBlockModel {
+        return appList[position]
+    }
 }

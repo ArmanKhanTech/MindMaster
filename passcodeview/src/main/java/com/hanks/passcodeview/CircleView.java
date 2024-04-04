@@ -45,9 +45,11 @@ public class CircleView extends View {
     protected void onDraw(Canvas canvas) {
         double width = (getWidth() - getPaddingLeft() - getPaddingRight()) * 0.5;
         double height = (getHeight() - getPaddingTop() - getPaddingBottom()) * 0.5;
+
         int cx = (int) (getPaddingLeft() + width);
         int cy = (int) (getPaddingTop() + height);
         int radius = (int) Math.min(width, height);
+
         mPaint.setColor(color);
         canvas.drawCircle(cx, cy, radius, mPaint);
     }

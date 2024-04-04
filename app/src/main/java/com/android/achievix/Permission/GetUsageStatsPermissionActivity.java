@@ -25,6 +25,7 @@ public class GetUsageStatsPermissionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_usage_stats_permission);
+
         expandableTextView = findViewById(R.id.expandableTextViewUsage);
         status = findViewById(R.id.usage_per);
         finishButton = findViewById(R.id.grant_usage_access);

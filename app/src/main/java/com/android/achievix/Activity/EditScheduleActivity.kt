@@ -22,7 +22,6 @@ class EditScheduleActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var addButton: Button
     private lateinit var doneButton: Button
-    private lateinit var name: TextView
     private lateinit var noSchedule: TextView
     private var blockDatabase: BlockDatabase = BlockDatabase(this)
 
@@ -41,18 +40,17 @@ class EditScheduleActivity : AppCompatActivity() {
     }
 
     private fun initializeViews(text: String) {
-        name = findViewById(R.id.edit_app_name)
-        name.text = text
+        findViewById<TextView?>(R.id.edit_app_name).text = text
         noSchedule = findViewById(R.id.no_schedule_text)
         addButton = findViewById(R.id.add_schedule)
         doneButton = findViewById(R.id.save_edit_schedule_button)
-
         recyclerView = findViewById(R.id.edit_schedule_list)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.itemAnimator = DefaultItemAnimator()
     }
 
     private fun initRecyclerView(name: String, packageName: String, type: String) {
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.itemAnimator = DefaultItemAnimator()
+
         when (type) {
             "app" -> {
                 val result = blockDatabase.readRecordsApp(packageName)
@@ -104,6 +102,30 @@ class EditScheduleActivity : AppCompatActivity() {
 
             "key" -> {
                 val result = blockDatabase.readRecordsKey(name)
+                for (i in result.indices) {
+                    val map = result[i]
+                    val schedule = ScheduleModel(
+                        id = map["id"].toString(),
+                        name = map["name"].toString(),
+                        packageName = map["packageName"].toString(),
+                        type = map["type"].toString(),
+                        appLaunch = map["appLaunch"].toString(),
+                        notification = map["notification"].toString(),
+                        scheduleType = map["scheduleType"].toString(),
+                        scheduleParams = map["scheduleParams"].toString(),
+                        scheduleDays = map["scheduleDays"].toString(),
+                        profileName = map["profileName"].toString(),
+                        profileStatus = map["profileStatus"].toBoolean(),
+                        text = map["text"].toString()
+                    )
+                    if (schedule.profileName == "null") {
+                        scheduleModelList.add(schedule)
+                    }
+                }
+            }
+
+            "internet" -> {
+                val result = blockDatabase.readRecordsInternet(packageName)
                 for (i in result.indices) {
                     val map = result[i]
                     val schedule = ScheduleModel(

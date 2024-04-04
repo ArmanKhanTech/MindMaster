@@ -12,9 +12,9 @@ import androidx.appcompat.widget.SwitchCompat
 import com.android.achievix.Database.BlockDatabase
 import com.android.achievix.R
 
-class NoOfLaunchesActivity : AppCompatActivity() {
-    private lateinit var appLaunchSwitch: SwitchCompat
-    private lateinit var notiSwitch: SwitchCompat
+class BlockDataActivity : AppCompatActivity() {
+    private lateinit var mobileDataSwitch: SwitchCompat
+    private lateinit var wifiSwitch: SwitchCompat
     private lateinit var monRadioButton: RadioButton
     private lateinit var tueRadioButton: RadioButton
     private lateinit var wedRadioButton: RadioButton
@@ -22,7 +22,7 @@ class NoOfLaunchesActivity : AppCompatActivity() {
     private lateinit var friRadioButton: RadioButton
     private lateinit var satRadioButton: RadioButton
     private lateinit var sunRadioButton: RadioButton
-    private lateinit var launchEditText: EditText
+    private lateinit var usageDataEditText: EditText
     private lateinit var textEditText: EditText
     private lateinit var saveButton: Button
     private val days = mutableListOf<String>()
@@ -30,20 +30,19 @@ class NoOfLaunchesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_no_of_launches)
+        setContentView(R.layout.activity_block_data)
 
         val intent = intent
         val name = intent.getStringExtra("name")
         val packageName = intent.getStringExtra("packageName")
-        val type = intent.getStringExtra("type")
 
         initializeViews()
-        attachListeners(name, packageName, type)
+        attachListeners(name, packageName)
     }
 
     private fun initializeViews() {
-        appLaunchSwitch = findViewById(R.id.block_app_launch_launches)
-        notiSwitch = findViewById(R.id.block_noti_launches)
+        mobileDataSwitch = findViewById(R.id.block_mobile_data)
+        wifiSwitch = findViewById(R.id.block_wifi_data)
         monRadioButton = findViewById(R.id.monday)
         tueRadioButton = findViewById(R.id.tuesday)
         wedRadioButton = findViewById(R.id.wednesday)
@@ -51,67 +50,63 @@ class NoOfLaunchesActivity : AppCompatActivity() {
         friRadioButton = findViewById(R.id.friday)
         satRadioButton = findViewById(R.id.saturday)
         sunRadioButton = findViewById(R.id.sunday)
-        launchEditText = findViewById(R.id.launch_count)
-        textEditText = findViewById(R.id.no_of_launches_text)
-        saveButton = findViewById(R.id.no_of_launches_button)
+        usageDataEditText = findViewById(R.id.data_usage)
+        textEditText = findViewById(R.id.block_data_text)
+        saveButton = findViewById(R.id.block_data_button)
 
         blockDatabase = BlockDatabase(this)
 
-        appLaunchSwitch.isChecked = true
-        notiSwitch.isChecked = true
+        mobileDataSwitch.isChecked = true
+        wifiSwitch.isChecked = true
     }
 
-    private fun attachListeners(name: String?, packageName: String?, type: String?) {
+    private fun attachListeners(name: String?, packageName: String?) {
         saveButton.setOnClickListener {
-            val launchCount = launchEditText.text.toString().toIntOrNull()
+            val data = usageDataEditText.text.toString().toIntOrNull()
 
-            val motivationalText = textEditText.text.toString().let {
+            val text = textEditText.text.toString().let {
                 it.ifEmpty {
                     null
                 } ?: it
             }
 
-            val appLaunch = appLaunchSwitch.isChecked
-            val noti = notiSwitch.isChecked
+            val mobile = mobileDataSwitch.isChecked
+            val wifi = wifiSwitch.isChecked
 
-            if (launchCount == null || launchCount <= 0) {
-                Toast.makeText(this, "Please enter a launch count", Toast.LENGTH_SHORT).show()
+            if (data == null || data <= 0) {
+                Toast.makeText(this, "Please enter data usage", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             } else if (days.isEmpty()) {
                 Toast.makeText(this, "Please select a day", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-            } else if (!appLaunch && !noti) {
+            } else if (!mobile && !wifi) {
                 Toast.makeText(this, "Please select at least one option", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            when (type) {
-                "app" -> {
-                    blockDatabase.addRecord(
-                        name,
-                        packageName,
-                        "app",
-                        appLaunch,
-                        noti,
-                        "Launch Count",
-                        "$launchCount",
-                        days.toString(),
-                        null,
-                        false,
-                        motivationalText
-                    )
+            blockDatabase.addRecord(
+                name,
+                packageName,
+                "internet",
+                mobile,
+                wifi,
+                "Block Data",
+                "$data",
+                days.toString(),
+                null,
+                false,
+                text
+            )
 
-                    Toast.makeText(this, "Schedule added", Toast.LENGTH_SHORT).show()
-                    Handler().postDelayed({
-                        val intent = Intent(this, MainActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        startActivity(intent)
-                        finish()
-                    }, 1000)
-                }
-            }
+            Toast.makeText(this, "Schedule added", Toast.LENGTH_SHORT).show()
+            Handler().postDelayed({
+                val intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }, 1000)
         }
         setupDayCheckListeners()
     }

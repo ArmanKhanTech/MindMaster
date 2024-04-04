@@ -25,6 +25,7 @@ public class ExpandableTextView extends androidx.appcompat.widget.AppCompatTextV
         } else {
             setMaxLines(Integer.MAX_VALUE);
         }
+
         isExpanded = !isExpanded;
     }
 }

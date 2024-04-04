@@ -20,6 +20,7 @@ public class GetDrawOverAppsPermission extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_draw_over_apps_permission);
+
         status = findViewById(R.id.draw_over_apps_per);
         finishButton = findViewById(R.id.grant_over_apps);
         granted();

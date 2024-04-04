@@ -27,8 +27,10 @@ class UsageUtil {
             totalUsage = 0
             val usageTimes = getUsageTimes(context, sort)
             val totalUsageTime = usageTimes.values.sum()
+
             return getAppsList(context).mapNotNull { app ->
                 val usageTime = usageTimes.getOrDefault(app.packageName, 0L)
+
                 if (usageTime != 0L) {
                     totalUsage += usageTime
                     val usagePercentage = usageTime.toDouble() / totalUsageTime * 100
@@ -53,13 +55,23 @@ class UsageUtil {
         fun getInstalledAppsBlock(context: Context, sort: String, caller: String): List<AppBlockModel> {
             val usageTimes = getUsageTimes(context, "Daily")
             val networkUsageMap = getNetworkUsageMap(context, caller)
+
             return getAppsList(context).mapNotNull { app ->
                 val usageTime = usageTimes.getOrDefault(app.packageName, 0L)
                 val appName = app.loadLabel(context.packageManager).toString()
                 val icon = getIcon(context, app)
 
                 when (caller) {
-                    "InternetBlockActivity" -> AppBlockModel(appName, app.packageName, icon, networkUsageMap[app.packageName].toString(), false)
+                    "InternetBlockActivity" -> {
+                        val blocked = BlockDatabase(context).isInternetBlocked(app.packageName)
+                        AppBlockModel(
+                            appName,
+                            app.packageName,
+                            icon,
+                            networkUsageMap[app.packageName].toString(),
+                            blocked
+                        )
+                    }
                     "AppBlockActivity" -> {
                         val blocked = BlockDatabase(context).isAppBlocked(app.packageName)
                         AppBlockModel(appName, app.packageName, icon, usageTime.toString(), blocked)
@@ -74,9 +86,11 @@ class UsageUtil {
             val (beginTime, endTime) = getTimeRange(sort)
             val events = usageStatsManager.queryAndAggregateUsageStats(beginTime, endTime)
             val usageTimes: MutableMap<String, Long> = HashMap()
+
             for (packageName in events.keys) {
                 val stats = events[packageName]
                 val usageTime = stats?.totalTimeInForeground
+
                 if (usageTime != null) {
                     usageTimes[packageName] = usageTime
                 }
@@ -86,12 +100,14 @@ class UsageUtil {
 
         private fun getTimeRange(sort: String?): Pair<Long, Long> {
             val calendar = Calendar.getInstance()
+
             when (sort) {
                 "Daily" -> calendar.add(Calendar.DAY_OF_YEAR, -1)
                 "Weekly" -> calendar.add(Calendar.DAY_OF_YEAR, -7)
                 "Monthly" -> calendar.add(Calendar.MONTH, -1)
                 "Yearly" -> calendar.add(Calendar.YEAR, -1)
             }
+
             val beginTime = calendar.timeInMillis
             val endTime = System.currentTimeMillis()
             return Pair(beginTime, endTime)
@@ -118,6 +134,7 @@ class UsageUtil {
                     icon.draw(canvas)
                 }
             }
+
             val stream = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream)
             val bitmapData = stream.toByteArray()
@@ -126,6 +143,7 @@ class UsageUtil {
 
         private fun getNetworkUsageMap(context: Context, caller: String): HashMap<String, Float> {
             val networkUsageMap: HashMap<String, Float> = HashMap()
+
             if (caller == "InternetBlockActivity") {
                 for (app in getAppsList(context)) {
                     if (app.flags and ApplicationInfo.FLAG_SYSTEM == 0 || app.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0) {
@@ -138,6 +156,7 @@ class UsageUtil {
                     }
                 }
             }
+
             return networkUsageMap
         }
 

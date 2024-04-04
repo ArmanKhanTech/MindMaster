@@ -59,6 +59,7 @@ public class AppLaunchesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_app_launches, container, false);
+
         initializeViews(view);
         setupSpinner();
         setupRecyclerView();
@@ -101,6 +102,15 @@ public class AppLaunchesFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (getAppLaunchCountTask != null) {
+            getAppLaunchCountTask.cancel(true);
+        }
+    }
+
     /** @noinspection DataFlowIssue*/
     @SuppressLint("StaticFieldLeak")
     public class GetAppLaunchCountTask extends AsyncTask<Void, Void, Void> {
@@ -115,6 +125,7 @@ public class AppLaunchesFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+
             loadingLayout.setVisibility(View.VISIBLE);
             launchLayout.setVisibility(View.GONE);
         }
@@ -156,12 +167,14 @@ public class AppLaunchesFragment extends Fragment {
         private void processAppLaunchData() {
             List<String> packageNames = new ArrayList<>(appLaunchCount.keySet());
             PackageManager pm = context.getPackageManager();
+
             totalCount = 0;
             for (String packageName : packageNames) {
                 if (appLaunchCount.get(packageName) != null && appLaunchCount.get(packageName) > 0 && !packageName.isEmpty()){
                     totalCount += appLaunchCount.get(packageName);
                 }
             }
+
             appLaunchModel.clear();
             for (String packageName : packageNames) {
                 try {
@@ -193,21 +206,15 @@ public class AppLaunchesFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
             if (isCancelled()) {
                 return;
             }
+
             launchStats.setText(String.valueOf(totalCount));
             recyclerView.setAdapter(new AppLaunchAdapter(appLaunchModel));
             loadingLayout.setVisibility(View.GONE);
             launchLayout.setVisibility(View.VISIBLE);
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (getAppLaunchCountTask != null) {
-            getAppLaunchCountTask.cancel(true);
         }
     }
 }

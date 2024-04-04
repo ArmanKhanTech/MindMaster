@@ -30,7 +30,6 @@ class InternetUsageAdapter(private var appList: List<AppUsageModel>) :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val appInfo = appList[position]
-
         holder.appName.text = appInfo.name
         holder.appIcon.setImageDrawable(appInfo.icon)
         holder.stats.text = appInfo.extra + " MB"

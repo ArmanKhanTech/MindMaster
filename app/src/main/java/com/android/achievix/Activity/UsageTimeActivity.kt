@@ -81,11 +81,13 @@ class UsageTimeActivity : AppCompatActivity() {
                     minsEditText.text.toString().toInt()
                 }
             }
+
             val motivationalText = textEditText.text.toString().let {
                 it.ifEmpty {
                     null
                 } ?: it
             }
+
             val launch = launchSwitch.isChecked
             val noti = notiSwitch.isChecked
 

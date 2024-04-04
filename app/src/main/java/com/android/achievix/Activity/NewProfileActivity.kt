@@ -25,6 +25,5 @@ class NewProfileActivity : AppCompatActivity() {
                 return false
             }
         })
-
     }
 }

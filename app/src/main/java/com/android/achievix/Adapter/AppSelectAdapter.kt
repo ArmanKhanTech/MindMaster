@@ -28,16 +28,14 @@ class AppSelectAdapter(private var appList: List<AppSelectModel>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val appInfo = appList[position]
-
         holder.appName.text = appInfo.name
         holder.appIcon.setImageDrawable(appInfo.icon)
-        holder.checkBox.isChecked = appInfo.selected
 
+        holder.checkBox.isChecked = appInfo.selected
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
             appInfo.selected = isChecked
             holder.checkBox.isChecked = isChecked
         }
-
         holder.checkBox.setOnCheckedChangeListener(null)
         holder.checkBox.isChecked = appInfo.selected
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
