@@ -67,7 +67,7 @@ class EditScheduleActivity : AppCompatActivity() {
                         scheduleParams = map["scheduleParams"].toString(),
                         scheduleDays = map["scheduleDays"].toString(),
                         profileName = map["profileName"].toString(),
-                        profileStatus = map["profileStatus"].toBoolean(),
+                        profileStatus = map["profileStatus"].toString(),
                         text = map["text"].toString()
                     )
                     if (schedule.profileName == "null") {
@@ -91,7 +91,7 @@ class EditScheduleActivity : AppCompatActivity() {
                         scheduleParams = map["scheduleParams"].toString(),
                         scheduleDays = map["scheduleDays"].toString(),
                         profileName = map["profileName"].toString(),
-                        profileStatus = map["profileStatus"].toBoolean(),
+                        profileStatus = map["profileStatus"].toString(),
                         text = map["text"].toString()
                     )
                     if (schedule.profileName == "null") {
@@ -115,7 +115,7 @@ class EditScheduleActivity : AppCompatActivity() {
                         scheduleParams = map["scheduleParams"].toString(),
                         scheduleDays = map["scheduleDays"].toString(),
                         profileName = map["profileName"].toString(),
-                        profileStatus = map["profileStatus"].toBoolean(),
+                        profileStatus = map["profileStatus"].toString(),
                         text = map["text"].toString()
                     )
                     if (schedule.profileName == "null") {
@@ -139,7 +139,7 @@ class EditScheduleActivity : AppCompatActivity() {
                         scheduleParams = map["scheduleParams"].toString(),
                         scheduleDays = map["scheduleDays"].toString(),
                         profileName = map["profileName"].toString(),
-                        profileStatus = map["profileStatus"].toBoolean(),
+                        profileStatus = map["profileStatus"].toString(),
                         text = map["text"].toString()
                     )
                     if (schedule.profileName == "null") {
@@ -148,6 +148,7 @@ class EditScheduleActivity : AppCompatActivity() {
                 }
             }
         }
+
         scheduleAdapter = ScheduleAdapter(scheduleModelList, this)
         recyclerView.adapter = scheduleAdapter
     }

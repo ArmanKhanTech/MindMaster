@@ -114,7 +114,23 @@ class UsageTimeActivity : AppCompatActivity() {
                         "$hours $mins",
                         days.toString(),
                         null,
-                        false,
+                        true,
+                        motivationalText
+                    )
+                }
+
+                "profile" -> {
+                    blockDatabase.addRecord(
+                        null,
+                        null,
+                        null,
+                        launch,
+                        noti,
+                        "Usage Time",
+                        "$hours $mins",
+                        days.toString(),
+                        intent.getStringExtra("profileName"),
+                        true,
                         motivationalText
                     )
                 }

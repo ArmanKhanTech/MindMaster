@@ -89,7 +89,7 @@ class QuickBlockActivity : AppCompatActivity() {
                         "$untilHours $untilMins",
                         null,
                         null,
-                        false,
+                        true,
                         motivationalText
                     )
                 }
@@ -105,7 +105,7 @@ class QuickBlockActivity : AppCompatActivity() {
                         "$untilHours $untilMins",
                         null,
                         null,
-                        false,
+                        true,
                         motivationalText
                     )
                 }
@@ -121,7 +121,23 @@ class QuickBlockActivity : AppCompatActivity() {
                         "$untilHours $untilMins",
                         null,
                         null,
-                        false,
+                        true,
+                        motivationalText
+                    )
+                }
+
+                "profile" -> {
+                    blockDatabase.addRecord(
+                        null,
+                        null,
+                        null,
+                        launch,
+                        noti,
+                        "Quick Block",
+                        "$untilHours $untilMins",
+                        null,
+                        intent.getStringExtra("profileName"),
+                        true,
                         motivationalText
                     )
                 }

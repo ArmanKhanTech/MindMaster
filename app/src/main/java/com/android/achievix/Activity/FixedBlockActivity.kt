@@ -99,7 +99,7 @@ class FixedBlockActivity : AppCompatActivity() {
                         null,
                         days.toString(),
                         null,
-                        false,
+                        true,
                         motivationalText
                     )
                 }
@@ -115,7 +115,7 @@ class FixedBlockActivity : AppCompatActivity() {
                         null,
                         days.toString(),
                         null,
-                        false,
+                        true,
                         motivationalText
                     )
                 }
@@ -131,7 +131,23 @@ class FixedBlockActivity : AppCompatActivity() {
                         null,
                         days.toString(),
                         null,
-                        false,
+                        true,
+                        motivationalText
+                    )
+                }
+
+                "profile" -> {
+                    blockDatabase.addRecord(
+                        null,
+                        null,
+                        null,
+                        launch,
+                        noti,
+                        "Fixed Block",
+                        null,
+                        days.toString(),
+                        intent.getStringExtra("profileName"),
+                        true,
                         motivationalText
                     )
                 }

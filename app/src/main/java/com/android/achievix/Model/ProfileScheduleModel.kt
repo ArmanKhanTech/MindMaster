@@ -1,9 +1,7 @@
 package com.android.achievix.Model
 
-data class ScheduleModel(
+data class ProfileScheduleModel(
     val id: String,
-    val name: String,
-    val packageName: String,
     val type: String,
     val appLaunch: String,
     val notification: String,

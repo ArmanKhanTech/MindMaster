@@ -3,7 +3,6 @@ package com.android.achievix.Service;
 import android.accessibilityservice.AccessibilityService;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -13,7 +12,6 @@ import com.android.achievix.Activity.DrawOnTopLaunchActivity;
 import com.android.achievix.Database.BlockDatabase;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -103,7 +101,7 @@ public class LogURLService extends AccessibilityService {
             if (!list.isEmpty()) {
                 for (HashMap<String, String> map : list) {
                     if (Objects.equals(map.get("name"), url)) {
-                        if (Objects.equals(map.get("scheduleType"), "Specific Time")) {
+                        if (Objects.equals(map.get("scheduleType"), "Specific Time") && Objects.equals(map.get("profileStatus"), "1")) {
                             if (Objects.equals(map.get("launch"), "1")) {
                                 String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
                                 int fromHours = Integer.parseInt(params[0]);
@@ -131,7 +129,7 @@ public class LogURLService extends AccessibilityService {
                                     return;
                                 }
                             }
-                        } else if (Objects.equals(map.get("scheduleType"), "Quick Block")) {
+                        } else if (Objects.equals(map.get("scheduleType"), "Quick Block") && Objects.equals(map.get("profileStatus"), "1")) {
                             if (Objects.equals(map.get("launch"), "1")) {
                                 String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
                                 int untilHours = Integer.parseInt(params[0]);
@@ -156,7 +154,7 @@ public class LogURLService extends AccessibilityService {
                                     return;
                                 }
                             }
-                        } else if (Objects.equals(map.get("scheduleType"), "Fixed Block")) {
+                        } else if (Objects.equals(map.get("scheduleType"), "Fixed Block") && Objects.equals(map.get("profileStatus"), "1")) {
                             if (Objects.equals(map.get("launch"), "1")) {
                                 if (checkDay(map.get("scheduleDays"))) {
                                     System.gc();
@@ -186,14 +184,13 @@ public class LogURLService extends AccessibilityService {
     }
 
     private void blockKey(String[] keys, String browserApp) {
-        Log.d("URL", Arrays.toString(keys));
         try (BlockDatabase blockDatabase = new BlockDatabase(this)) {
             for (String key : keys) {
-                List<HashMap<String, String>> list = blockDatabase.readRecordsWeb(key);
+                List<HashMap<String, String>> list = blockDatabase.readRecordsKey(key);
                 if (!list.isEmpty()) {
                     for (HashMap<String, String> map : list) {
                         if (Objects.equals(map.get("name"), key)) {
-                            if (Objects.equals(map.get("scheduleType"), "Specific Time")) {
+                            if (Objects.equals(map.get("scheduleType"), "Specific Time") && Objects.equals(map.get("profileStatus"), "1")) {
                                 if (Objects.equals(map.get("launch"), "1")) {
                                     String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
                                     int fromHours = Integer.parseInt(params[0]);
@@ -221,7 +218,7 @@ public class LogURLService extends AccessibilityService {
                                         return;
                                     }
                                 }
-                            } else if (Objects.equals(map.get("scheduleType"), "Quick Block")) {
+                            } else if (Objects.equals(map.get("scheduleType"), "Quick Block") && Objects.equals(map.get("profileStatus"), "1")) {
                                 if (Objects.equals(map.get("launch"), "1")) {
                                     String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
                                     int untilHours = Integer.parseInt(params[0]);
@@ -246,7 +243,7 @@ public class LogURLService extends AccessibilityService {
                                         return;
                                     }
                                 }
-                            } else if (Objects.equals(map.get("scheduleType"), "Fixed Block")) {
+                            } else if (Objects.equals(map.get("scheduleType"), "Fixed Block") && Objects.equals(map.get("profileStatus"), "1")) {
                                 if (Objects.equals(map.get("launch"), "1")) {
                                     if (checkDay(map.get("scheduleDays"))) {
                                         System.gc();

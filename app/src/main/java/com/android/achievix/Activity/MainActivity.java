@@ -21,12 +21,21 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.achievix.Adapter.ProfileAdapter;
+import com.android.achievix.Database.BlockDatabase;
+import com.android.achievix.Model.ProfileModel;
 import com.android.achievix.R;
 import com.android.achievix.Service.ForegroundService;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private String greeting = "";
     private TextView mode, modeDesc;
     private ImageView strictLevelOne, strictLevelTwo;
+    private final BlockDatabase blockDatabase = new BlockDatabase(this);
 
     @SuppressLint({"NonConstantResourceId", "InlinedApi", "SetTextI18n"})
     @Override
@@ -57,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         initializeViews();
         setupListeners();
+        initRecyclerView();
     }
 
     private void initializeViews() {
@@ -116,6 +127,37 @@ public class MainActivity extends AppCompatActivity {
         ll6.setOnClickListener(view12 -> showModeDialog());
         ll7.setOnClickListener(view12 -> startActivity(new Intent(this, UsageOverviewActivity.class)));
         ll8.setOnClickListener(view12 -> startActivity(new Intent(this, TakeBreakActivity.class)));
+    }
+
+    private void initRecyclerView() {
+        RecyclerView recyclerView = findViewById(R.id.profiles_list_main);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        List<HashMap<String, String>> list = blockDatabase.readAllProfiles();
+        List<ProfileModel> profileModelList = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            profileModelList.add(
+                    new ProfileModel(
+                            Objects.requireNonNull(list.get(i).get("id")),
+                            Objects.requireNonNull(list.get(i).get("profileName")),
+                            Objects.requireNonNull(list.get(i).get("profileStatus"))
+                    )
+            );
+        }
+
+        ProfileAdapter profileAdapter = new ProfileAdapter(profileModelList);
+        recyclerView.setAdapter(profileAdapter);
+
+        profileAdapter.setOnItemClickListener(view -> {
+            int position = recyclerView.getChildLayoutPosition(view);
+            ProfileModel profileModel = profileAdapter.getItemAt(position);
+            Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
+            intent.putExtra("profileId", profileModel.getId());
+            intent.putExtra("profileName", profileModel.getProfileName());
+            startActivity(intent);
+        });
     }
 
     private void showModeDialog() {

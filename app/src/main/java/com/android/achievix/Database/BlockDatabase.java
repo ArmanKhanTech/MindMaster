@@ -170,7 +170,7 @@ public class BlockDatabase extends SQLiteOpenHelper {
 
     public List<HashMap<String, String>> readAllRecordsWeb() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?", new String[]{"web"});
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?" + " AND " + PROFILE_NAME + " =?", new String[]{"web", "null"});
         List<HashMap<String, String>> list = new ArrayList<>();
         while (cursor.moveToNext()) {
             HashMap<String, String> map = new HashMap<>();
@@ -194,7 +194,7 @@ public class BlockDatabase extends SQLiteOpenHelper {
 
     public List<HashMap<String, String>> readAllRecordsKey() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?", new String[]{"key"});
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?" + " AND " + PROFILE_NAME + " =?", new String[]{"key", "null"});
         List<HashMap<String, String>> list = new ArrayList<>();
         while (cursor.moveToNext()) {
             HashMap<String, String> map = new HashMap<>();
@@ -214,6 +214,111 @@ public class BlockDatabase extends SQLiteOpenHelper {
         }
         cursor.close();
         return list;
+    }
+
+    public List<HashMap<String, String>> readAllProfiles() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?", new String[]{"profile"});
+        List<HashMap<String, String>> list = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            HashMap<String, String> map = new HashMap<>();
+            map.put(ID, cursor.getString(0));
+            map.put(PROFILE_NAME, cursor.getString(9));
+            map.put(PROFILE_STATUS, cursor.getString(10));
+            list.add(map);
+        }
+        cursor.close();
+        return list;
+    }
+
+    public List<HashMap<String, String>> readProfileSchedule(String profileName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " = ?", new String[]{profileName});
+        List<HashMap<String, String>> list = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            HashMap<String, String> map = new HashMap<>();
+            map.put(ID, cursor.getString(0));
+            map.put(TYPE, cursor.getString(3));
+            map.put(LAUNCH, cursor.getString(4));
+            map.put(NOTIFICATION, cursor.getString(5));
+            map.put(SCHEDULE_TYPE, cursor.getString(6));
+            map.put(SCHEDULE_PARAMS, cursor.getString(7));
+            map.put(SCHEDULE_DAYS, cursor.getString(8));
+            map.put(PROFILE_NAME, cursor.getString(9));
+            map.put(PROFILE_STATUS, cursor.getString(10));
+            map.put(TEXT, cursor.getString(11));
+            list.add(map);
+        }
+        cursor.close();
+        return list;
+    }
+
+    public List<HashMap<String, String>> readProfileApps(String profileName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " = ?" + " AND " + TYPE + " =?", new String[]{profileName, "app"});
+        List<HashMap<String, String>> list = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            HashMap<String, String> map = new HashMap<>();
+            map.put(ID, cursor.getString(0));
+            map.put(NAME, cursor.getString(1));
+            map.put(PACKAGE_NAME, cursor.getString(2));
+            map.put(TYPE, cursor.getString(3));
+            map.put(PROFILE_NAME, cursor.getString(9));
+            list.add(map);
+        }
+        cursor.close();
+        return list;
+    }
+
+    public List<HashMap<String, String>> readProfileWebs(String profileName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " = ?" + " AND " + TYPE + " =?", new String[]{profileName, "web"});
+        List<HashMap<String, String>> list = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            HashMap<String, String> map = new HashMap<>();
+            map.put(ID, cursor.getString(0));
+            map.put(NAME, cursor.getString(1));
+            map.put(PACKAGE_NAME, cursor.getString(2));
+            map.put(TYPE, cursor.getString(3));
+            map.put(PROFILE_NAME, cursor.getString(9));
+            list.add(map);
+        }
+        cursor.close();
+        return list;
+    }
+
+    public List<HashMap<String, String>> readProfileKeys(String profileName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " = ?" + " AND " + TYPE + " =?", new String[]{profileName, "key"});
+        List<HashMap<String, String>> list = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            HashMap<String, String> map = new HashMap<>();
+            map.put(ID, cursor.getString(0));
+            map.put(NAME, cursor.getString(1));
+            map.put(PACKAGE_NAME, cursor.getString(2));
+            map.put(TYPE, cursor.getString(3));
+            map.put(PROFILE_NAME, cursor.getString(9));
+            list.add(map);
+        }
+        cursor.close();
+        return list;
+    }
+
+    public void deleteProfileItem(String profileName, String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, PROFILE_NAME + " = ?" + " AND " + NAME + " = ?", new String[]{profileName, name});
+    }
+
+    public void deleteProfileItems(String profileName, String scheduleType, String scheduleParams, String scheduleDays) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, PROFILE_NAME + " = ?" + " AND " + SCHEDULE_TYPE + " = ?" + " AND " + SCHEDULE_PARAMS + " = ?" + " AND " + SCHEDULE_DAYS + " = ?", new String[]{profileName, scheduleType, scheduleParams, scheduleDays});
+    }
+
+    public void toggleProfile(String profileName, boolean status) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(PROFILE_STATUS, !status);
+        db.update(TABLE_NAME, values, PROFILE_NAME + " = ?", new String[]{profileName});
     }
 
     public boolean isAppBlocked(String packageName) {

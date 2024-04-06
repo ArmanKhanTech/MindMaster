@@ -8,17 +8,17 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.android.achievix.Activity.EditScheduleActivity
+import com.android.achievix.Activity.EditProfileActivity
 import com.android.achievix.Database.BlockDatabase
-import com.android.achievix.Model.ScheduleModel
+import com.android.achievix.Model.ProfileScheduleModel
 import com.android.achievix.R
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class ScheduleAdapter(
-    private var scheduleList: List<ScheduleModel>,
-    private val activity: EditScheduleActivity
-) : RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
+class ProfileScheduleAdapter(
+    private var scheduleList: List<ProfileScheduleModel>,
+    private val activity: EditProfileActivity
+) : RecyclerView.Adapter<ProfileScheduleAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val daysActive: TextView = view.findViewById(R.id.days_active)
         val blockCondition: TextView = view.findViewById(R.id.block_condition)
@@ -27,7 +27,8 @@ class ScheduleAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.list_edit_schedule, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.list_profile_schedule, parent, false)
         return ViewHolder(view)
     }
 
@@ -79,22 +80,25 @@ class ScheduleAdapter(
             "Fixed Block" -> {
                 blockCondition.append("Fixed Block")
             }
-
-            "Block Data" -> {
-                blockCondition.append("Block Data: after ")
-                blockCondition.append(scheduleInfo.scheduleParams)
-                blockCondition.append(" MB")
-            }
         }
         holder.blockCondition.text = blockCondition.toString()
 
         holder.deleteButton.setOnClickListener {
             val blockDatabase = BlockDatabase(holder.itemView.context)
             blockDatabase.deleteRecordById(scheduleInfo.id)
+            blockDatabase.deleteProfileItems(
+                scheduleInfo.profileName,
+                scheduleInfo.scheduleType,
+                scheduleInfo.scheduleParams,
+                scheduleInfo.scheduleDays
+            )
             scheduleList = scheduleList.filter { it.id != scheduleInfo.id }
             notifyItemRemoved(position)
             Toast.makeText(holder.itemView.context, "Schedule deleted", Toast.LENGTH_SHORT).show()
-            activity.updateNoScheduleVisibility()
+            activity.initAppRecyclerView()
+            activity.initWebRecyclerView()
+            activity.initKeyRecyclerView()
+            activity.updateText()
         }
     }
 

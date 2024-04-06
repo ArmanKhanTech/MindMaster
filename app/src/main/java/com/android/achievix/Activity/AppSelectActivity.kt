@@ -82,7 +82,8 @@ class AppSelectActivity : AppCompatActivity() {
         loadingLayout.visibility = View.VISIBLE
 
         CoroutineScope(Dispatchers.IO).launch {
-            val apps = UsageUtil.getInstalledAppsSelect(this@AppSelectActivity)
+            var apps = UsageUtil.getInstalledAppsSelect(this@AppSelectActivity)
+            apps = apps.sortedBy { it.name }
             withContext(Dispatchers.Main) {
                 appSelectModelList = apps
                 recyclerView.adapter = AppSelectAdapter(appSelectModelList)

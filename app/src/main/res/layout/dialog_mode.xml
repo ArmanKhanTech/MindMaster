@@ -22,7 +22,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="2dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/play_icon" />
+                android:src="@drawable/play_icon_blue" />
 
             <TextView
                 android:layout_width="match_parent"

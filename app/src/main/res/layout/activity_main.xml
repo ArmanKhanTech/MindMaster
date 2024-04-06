@@ -219,7 +219,7 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="22dp"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/play_icon" />
+                        android:src="@drawable/play_icon_blue" />
 
                     <LinearLayout
                         android:id="@+id/mode_button"
@@ -619,7 +619,7 @@
                 <LinearLayout
                     android:id="@+id/add_profile"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="55dp"
                     android:layout_marginHorizontal="15dp"
                     android:layout_weight="1"
                     android:background="@drawable/profile_btn_theme"
@@ -631,6 +631,7 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:layout_gravity="center"
                         android:src="@drawable/add_icon_pink" />
 
                     <TextView

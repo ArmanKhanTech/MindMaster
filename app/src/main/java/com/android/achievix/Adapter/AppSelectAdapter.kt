@@ -13,7 +13,6 @@ import com.android.achievix.R
 
 class AppSelectAdapter(private var appList: List<AppSelectModel>) :
     RecyclerView.Adapter<AppSelectAdapter.ViewHolder>() {
-
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val appName: TextView = view.findViewById(R.id.app_name_select)
         val appIcon: ImageView = view.findViewById(R.id.app_icon_select)

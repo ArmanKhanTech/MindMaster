@@ -112,7 +112,7 @@ class SpecificTimeActivity : AppCompatActivity() {
                         "$fromHours $fromMins $toHours $toMins",
                         days.toString(),
                         null,
-                        false,
+                        true,
                         motivationalText
                     )
                 }
@@ -128,7 +128,7 @@ class SpecificTimeActivity : AppCompatActivity() {
                         "$fromHours $fromMins $toHours $toMins",
                         days.toString(),
                         null,
-                        false,
+                        true,
                         motivationalText
                     )
                 }
@@ -144,7 +144,23 @@ class SpecificTimeActivity : AppCompatActivity() {
                         "$fromHours $fromMins $toHours $toMins",
                         days.toString(),
                         null,
-                        false,
+                        true,
+                        motivationalText
+                    )
+                }
+
+                "profile" -> {
+                    blockDatabase.addRecord(
+                        null,
+                        null,
+                        null,
+                        launch,
+                        noti,
+                        "Specific Time",
+                        "$fromHours $fromMins $toHours $toMins",
+                        days.toString(),
+                        intent.getStringExtra("profileName"),
+                        true,
                         motivationalText
                     )
                 }

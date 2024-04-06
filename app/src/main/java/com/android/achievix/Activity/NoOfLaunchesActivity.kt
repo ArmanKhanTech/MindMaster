@@ -97,21 +97,37 @@ class NoOfLaunchesActivity : AppCompatActivity() {
                         "$launchCount",
                         days.toString(),
                         null,
-                        false,
+                        true,
                         motivationalText
                     )
+                }
 
-                    Toast.makeText(this, "Schedule added", Toast.LENGTH_SHORT).show()
-                    Handler().postDelayed({
-                        val intent = Intent(this, MainActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        startActivity(intent)
-                        finish()
-                    }, 1000)
+                "profile" -> {
+                    blockDatabase.addRecord(
+                        null,
+                        null,
+                        null,
+                        appLaunch,
+                        noti,
+                        "Launch Count",
+                        "$launchCount",
+                        days.toString(),
+                        intent.getStringExtra("profileName"),
+                        true,
+                        motivationalText
+                    )
                 }
             }
+
+            Toast.makeText(this, "Schedule added", Toast.LENGTH_SHORT).show()
+            Handler().postDelayed({
+                val intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }, 1000)
         }
         setupDayCheckListeners()
     }

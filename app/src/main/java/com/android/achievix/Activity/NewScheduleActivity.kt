@@ -23,15 +23,15 @@ class NewScheduleActivity : AppCompatActivity() {
             name = intent.getStringExtra("name").toString()
             packageName = intent.getStringExtra("packageName").toString()
             type = intent.getStringExtra("type").toString()
+            setupListeners(caller, type)
         } else {
             profileName = intent.getStringExtra("profileName")!!
+            setupListeners(caller, "profile")
         }
-
-        setupListeners(caller, type)
     }
 
     private fun setupListeners(caller: String?, type: String?) {
-        if (type == "app") {
+        if (type == "app" || type == "profile") {
             findViewById<LinearLayout>(R.id.usage_limit_button).setOnClickListener {
                 startNewActivity(caller, UsageTimeActivity::class.java)
             }
@@ -47,7 +47,7 @@ class NewScheduleActivity : AppCompatActivity() {
             startNewActivity(caller, QuickBlockActivity::class.java)
         }
 
-        if (type == "app") {
+        if (type == "app" || type == "profile") {
             findViewById<LinearLayout>(R.id.launch_block_button).setOnClickListener {
                 startNewActivity(caller, NoOfLaunchesActivity::class.java)
             }
@@ -68,6 +68,7 @@ class NewScheduleActivity : AppCompatActivity() {
                 it.putExtra("type", type)
             } else {
                 it.putExtra("profileName", profileName)
+                it.putExtra("type", "profile")
             }
             startActivity(it)
         }

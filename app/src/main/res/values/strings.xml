@@ -39,4 +39,8 @@
         The secret of getting ahead is getting started. \n\t\t\t
         - Mark Twain
     </string>
+
+    <string name="profile_note">
+        Note: Schedule - Usage Limit &amp; Number of Launches wont work for websites and keywords.
+    </string>
 </resources>

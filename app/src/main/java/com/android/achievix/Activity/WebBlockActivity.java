@@ -1,7 +1,6 @@
 package com.android.achievix.Activity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -22,7 +21,7 @@ import com.android.achievix.Adapter.WebKeyBlockAdapter;
 import com.android.achievix.Database.BlockDatabase;
 import com.android.achievix.Model.WebKeyModel;
 import com.android.achievix.R;
-import com.android.achievix.Service.LogURLService;
+import com.android.achievix.Utility.AccessibilityUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,6 +43,7 @@ public class WebBlockActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_block);
+
         initializeViews();
         setupRecyclerView();
         setupSearchView();
@@ -86,7 +86,7 @@ public class WebBlockActivity extends AppCompatActivity {
             } else if (searchEditText.getText().toString().equals("google.com")) {
                 Toast.makeText(this, "Cannot block Google", Toast.LENGTH_SHORT).show();
             } else {
-                if (isAccessibilitySettingsOn(this)) {
+                if (new AccessibilityUtil().isAccessibilitySettingsOn(this)) {
                     if (TextUtils.isEmpty(searchEditText.getText().toString())) {
                         Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT).show();
                     } else {
@@ -147,33 +147,5 @@ public class WebBlockActivity extends AppCompatActivity {
         intent.putExtra("name", webName);
         intent.putExtra("type", "web");
         startActivity(intent);
-    }
-
-    private boolean isAccessibilitySettingsOn(Context mContext) {
-        int accessibilityEnabled = 0;
-        final String service = getPackageName() + "/" + LogURLService.class.getCanonicalName();
-        try {
-            accessibilityEnabled = Settings.Secure.getInt(
-                    mContext.getApplicationContext().getContentResolver(),
-                    android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
-        } catch (Settings.SettingNotFoundException ignored) {
-        }
-        TextUtils.SimpleStringSplitter mStringColonSplitter = new TextUtils.SimpleStringSplitter(':');
-
-        if (accessibilityEnabled == 1) {
-            String settingValue = Settings.Secure.getString(
-                    mContext.getApplicationContext().getContentResolver(),
-                    Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES);
-            if (settingValue != null) {
-                mStringColonSplitter.setString(settingValue);
-                while (mStringColonSplitter.hasNext()) {
-                    String accessibilityService = mStringColonSplitter.next();
-                    if (accessibilityService.equalsIgnoreCase(service)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
     }
 }

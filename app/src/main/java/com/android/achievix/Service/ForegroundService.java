@@ -73,6 +73,7 @@ public class ForegroundService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+
         mContext = this;
         check.start();
     }
@@ -108,19 +109,18 @@ public class ForegroundService extends Service {
     private void startForegroundService() {
         SharedPreferences sh = getSharedPreferences("mode", Context.MODE_PRIVATE);
         int i = sh.getInt("password", 0);
+
         Intent notificationIntent = i != 0 ? new Intent(this, EnterPasswordActivity.class) : new Intent(this, MainActivity.class);
         notificationIntent.putExtra("password", i);
         notificationIntent.putExtra("invokedFrom", "ForegroundService");
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, FLAG_IMMUTABLE);
-
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Achievix")
                 .setContentText("Foreground Service Running")
                 .setSmallIcon(R.drawable.noti_icon)
                 .setContentIntent(pendingIntent)
                 .build();
-
         startForeground(1, notification);
     }
 
@@ -153,7 +153,7 @@ public class ForegroundService extends Service {
         if(!list.isEmpty()) {
             for (HashMap<String, String> map : list) {
                 if(Objects.equals(map.get("packageName"), currentApp)) {
-                    if (Objects.equals(map.get("scheduleType"), "Usage Time")) {
+                    if (Objects.equals(map.get("scheduleType"), "Usage Time") && Objects.equals(map.get("profileStatus"), "1")) {
                         if (Objects.equals(map.get("notification"), "1")) {
                             SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sh.edit();
@@ -182,6 +182,7 @@ public class ForegroundService extends Service {
                             if (usageStats != null) {
                                 long time = usageStats.getTotalTimeInForeground();
                                 long timeInMinutes = time / 60000;
+
                                 if (timeInMinutes >= (hour * 60L + minute) && checkDay(map.get("scheduleDays"))) {
                                     timer.cancel();
                                     System.gc();
@@ -200,7 +201,7 @@ public class ForegroundService extends Service {
                                 return;
                             }
                         }
-                    } else if (Objects.equals(map.get("scheduleType"), "Specific Time")) {
+                    } else if (Objects.equals(map.get("scheduleType"), "Specific Time") && Objects.equals(map.get("profileStatus"), "1")) {
                         if (Objects.equals(map.get("notification"), "1")) {
                             SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sh.edit();
@@ -235,7 +236,7 @@ public class ForegroundService extends Service {
                                 return;
                             }
                         }
-                    } else if (Objects.equals(map.get("scheduleType"), "Quick Block")) {
+                    } else if (Objects.equals(map.get("scheduleType"), "Quick Block") && Objects.equals(map.get("profileStatus"), "1")) {
                         if (Objects.equals(map.get("notification"), "1")) {
                             SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sh.edit();
@@ -267,7 +268,7 @@ public class ForegroundService extends Service {
                                 return;
                             }
                         }
-                    } else if (Objects.equals(map.get("scheduleType"), "Launch Count")) {
+                    } else if (Objects.equals(map.get("scheduleType"), "Launch Count") && Objects.equals(map.get("profileStatus"), "1")) {
                         if (Objects.equals(map.get("notification"), "1")) {
                             SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sh.edit();
@@ -300,7 +301,7 @@ public class ForegroundService extends Service {
                                 return;
                             }
                         }
-                    } else if (Objects.equals(map.get("scheduleType"), "Fixed Block")) {
+                    } else if (Objects.equals(map.get("scheduleType"), "Fixed Block") && Objects.equals(map.get("profileStatus"), "1")) {
                         if (Objects.equals(map.get("notification"), "1")) {
                             SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sh.edit();

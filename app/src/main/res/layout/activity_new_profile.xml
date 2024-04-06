@@ -83,8 +83,19 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/no_profile_added_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="No Profile Added"
+        android:textColor="@color/black"
+        android:textSize="22dp"
+        android:visibility="gone" />
+
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/start_break_button"
+        android:id="@+id/add_profile_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -92,7 +103,7 @@
         android:layout_marginVertical="10dp"
         android:background="@drawable/next_profile_btn_theme"
         android:padding="10dp"
-        android:text="Next"
+        android:text="Add Profile"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="22dp" />
