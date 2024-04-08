@@ -56,7 +56,7 @@
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/new_profile_edt_theme"
-                android:hint="Add a new Profile"
+                android:hint="Add"
                 android:maxLines="1"
                 android:textAlignment="center"
                 android:textColor="@color/black"
@@ -69,7 +69,7 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center|start"
                 android:layout_marginStart="10dp"
-                android:src="@drawable/add_icon_pink" />
+                android:src="@drawable/add_icon_pink_outlined" />
 
         </FrameLayout>
 

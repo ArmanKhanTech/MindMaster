@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.provider.Settings
 import android.text.TextUtils
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -21,7 +23,6 @@ import com.android.achievix.Model.ProfileItemModel
 import com.android.achievix.Model.ProfileScheduleModel
 import com.android.achievix.R
 import com.android.achievix.Utility.AccessibilityUtil
-import java.util.Objects
 import java.util.regex.Pattern
 
 @Suppress("DEPRECATION")
@@ -31,15 +32,16 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var scheduleRecyclerView: RecyclerView
     private lateinit var noSchedule: TextView
     private lateinit var appRecyclerView: RecyclerView
-    private lateinit var addScheduleButton: Button
-    private lateinit var addAppButton: Button
+    private lateinit var addScheduleButton: ImageButton
+    private lateinit var addAppButton: ImageButton
     private lateinit var noApp: TextView
     private lateinit var webRecyclerView: RecyclerView
     private lateinit var noWeb: TextView
-    private lateinit var addWebButton: Button
+    private lateinit var addWebButton: ImageButton
     private lateinit var keyRecyclerView: RecyclerView
     private lateinit var noKey: TextView
-    private lateinit var addKeyButton: Button
+    private lateinit var addKeyButton: ImageButton
+    private lateinit var doneButton: Button
     private var profileItemListApp = ArrayList<ProfileItemModel>()
     private var profileItemListWeb = ArrayList<ProfileItemModel>()
     private var profileItemListKey = ArrayList<ProfileItemModel>()
@@ -74,6 +76,7 @@ class EditProfileActivity : AppCompatActivity() {
         keyRecyclerView = findViewById(R.id.edit_profile_block_list_key)
         noKey = findViewById(R.id.no_key)
         addKeyButton = findViewById(R.id.add_key)
+        doneButton = findViewById(R.id.save_edit_profile_button)
     }
 
     private fun initScheduleRecyclerView() {
@@ -86,7 +89,7 @@ class EditProfileActivity : AppCompatActivity() {
             val schedule = ProfileScheduleModel(
                 id = map["id"].toString(),
                 type = map["type"].toString(),
-                appLaunch = map["appLaunch"].toString(),
+                launch = map["launch"].toString(),
                 notification = map["notification"].toString(),
                 scheduleType = map["scheduleType"].toString(),
                 scheduleParams = map["scheduleParams"].toString(),
@@ -105,6 +108,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     fun initAppRecyclerView() {
+        profileItemListApp.clear()
         appRecyclerView.layoutManager = LinearLayoutManager(this)
         appRecyclerView.itemAnimator = DefaultItemAnimator()
 
@@ -120,6 +124,9 @@ class EditProfileActivity : AppCompatActivity() {
             )
             profileItemListApp.add(app)
         }
+
+        profileItemListApp =
+            profileItemListApp.distinctBy { it.name } as ArrayList<ProfileItemModel>
 
         val appAdapter = ProfileItemAdapter(profileItemListApp, this)
         appRecyclerView.adapter = appAdapter
@@ -142,6 +149,9 @@ class EditProfileActivity : AppCompatActivity() {
             profileItemListWeb.add(web)
         }
 
+        profileItemListWeb =
+            profileItemListWeb.distinctBy { it.name } as ArrayList<ProfileItemModel>
+
         val webAdapter = ProfileItemAdapter(profileItemListWeb, this)
         webRecyclerView.adapter = webAdapter
     }
@@ -162,6 +172,9 @@ class EditProfileActivity : AppCompatActivity() {
             )
             profileItemListKey.add(key)
         }
+
+        profileItemListKey =
+            profileItemListKey.distinctBy { it.name } as ArrayList<ProfileItemModel>
 
         val keyAdapter = ProfileItemAdapter(profileItemListKey, this)
         keyRecyclerView.adapter = keyAdapter
@@ -186,11 +199,10 @@ class EditProfileActivity : AppCompatActivity() {
             dialog.setContentView(R.layout.dialog_add_web_key)
             dialog.setCancelable(true)
 
-            Objects.requireNonNull(dialog.window)
-                .setLayout(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
+            dialog.window?.setLayout(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
 
             val title = dialog.findViewById<TextView>(R.id.dialogTitle)
             title.text = "Add Website"
@@ -211,7 +223,7 @@ class EditProfileActivity : AppCompatActivity() {
                                     .matches()
                             ) {
                                 Toast.makeText(this, "Invalid URL", Toast.LENGTH_SHORT).show()
-                            } else {
+                            } else if (scheduleModelList.isNotEmpty()) {
                                 val web = editText.text.toString()
                                 if (web.isNotEmpty()) {
                                     for (i in scheduleModelList) {
@@ -219,7 +231,7 @@ class EditProfileActivity : AppCompatActivity() {
                                             web,
                                             null,
                                             "web",
-                                            i.appLaunch == "1",
+                                            i.launch == "1",
                                             i.notification == "1",
                                             i.scheduleType,
                                             i.scheduleParams,
@@ -234,6 +246,9 @@ class EditProfileActivity : AppCompatActivity() {
                                     updateText()
                                     dialog.dismiss()
                                 }
+                            } else {
+                                Toast.makeText(this, "Add a schedule first", Toast.LENGTH_SHORT)
+                                    .show()
                             }
                         }
                     } else {
@@ -251,11 +266,10 @@ class EditProfileActivity : AppCompatActivity() {
             dialog.setContentView(R.layout.dialog_add_web_key)
             dialog.setCancelable(true)
 
-            Objects.requireNonNull(dialog.window)
-                .setLayout(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
+            dialog.window?.setLayout(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
 
             val title = dialog.findViewById<TextView>(R.id.dialogTitle)
             title.text = "Add Keyword"
@@ -275,7 +289,7 @@ class EditProfileActivity : AppCompatActivity() {
                     if (AccessibilityUtil().isAccessibilitySettingsOn(this)) {
                         if (TextUtils.isEmpty(editText.text.toString())) {
                             Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT).show()
-                        } else {
+                        } else if (scheduleModelList.isNotEmpty()) {
                             val key = editText.text.toString()
                             if (key.isNotEmpty()) {
                                 for (i in scheduleModelList) {
@@ -283,7 +297,7 @@ class EditProfileActivity : AppCompatActivity() {
                                         key,
                                         null,
                                         "key",
-                                        i.appLaunch == "1",
+                                        i.launch == "1",
                                         i.notification == "1",
                                         i.scheduleType,
                                         i.scheduleParams,
@@ -298,6 +312,8 @@ class EditProfileActivity : AppCompatActivity() {
                                 updateText()
                                 dialog.dismiss()
                             }
+                        } else {
+                            Toast.makeText(this, "Add a schedule first", Toast.LENGTH_SHORT).show()
                         }
                     } else {
                         val i = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
@@ -307,6 +323,13 @@ class EditProfileActivity : AppCompatActivity() {
             }
 
             dialog.show()
+        }
+
+        doneButton.setOnClickListener {
+            Toast.makeText(this, "Changes saved", Toast.LENGTH_SHORT).show()
+            Handler().postDelayed({
+                finish()
+            }, 1000)
         }
     }
 
@@ -342,7 +365,7 @@ class EditProfileActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 100) {
-            if (data != null) {
+            if (data != null && scheduleModelList.isNotEmpty()) {
                 val selectedApps = data.getStringArrayListExtra("selectedApps")
                 for (i in selectedApps!!.indices) {
                     val app = selectedApps[i]
@@ -357,7 +380,7 @@ class EditProfileActivity : AppCompatActivity() {
                                 appName,
                                 app,
                                 "app",
-                                j.appLaunch == "1",
+                                j.launch == "1",
                                 j.notification == "1",
                                 j.scheduleType,
                                 j.scheduleParams,
@@ -372,6 +395,8 @@ class EditProfileActivity : AppCompatActivity() {
 
                 initAppRecyclerView()
                 updateText()
+            } else {
+                Toast.makeText(this, "Add a schedule first", Toast.LENGTH_SHORT).show()
             }
         }
     }

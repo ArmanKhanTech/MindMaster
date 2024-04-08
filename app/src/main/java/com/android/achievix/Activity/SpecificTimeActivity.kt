@@ -163,6 +163,17 @@ class SpecificTimeActivity : AppCompatActivity() {
                         true,
                         motivationalText
                     )
+
+                    blockDatabase.addAllItemsToNewProfileSchedule(
+                        launch,
+                        noti,
+                        intent.getStringExtra("profileName"),
+                        "Specific Time",
+                        "$fromHours $fromMins $toHours $toMins",
+                        days.toString(),
+                        true,
+                        motivationalText
+                    )
                 }
             }
 

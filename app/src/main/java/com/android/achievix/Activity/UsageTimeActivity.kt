@@ -133,6 +133,17 @@ class UsageTimeActivity : AppCompatActivity() {
                         true,
                         motivationalText
                     )
+
+                    blockDatabase.addAllItemsToNewProfileSchedule(
+                        launch,
+                        noti,
+                        intent.getStringExtra("profileName"),
+                        "Usage Time",
+                        "$hours $mins",
+                        days.toString(),
+                        true,
+                        motivationalText
+                    )
                 }
             }
 

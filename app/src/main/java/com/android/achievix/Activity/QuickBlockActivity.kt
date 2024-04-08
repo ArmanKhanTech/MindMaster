@@ -140,6 +140,17 @@ class QuickBlockActivity : AppCompatActivity() {
                         true,
                         motivationalText
                     )
+
+                    blockDatabase.addAllItemsToNewProfileSchedule(
+                        launch,
+                        noti,
+                        intent.getStringExtra("profileName"),
+                        "Quick Block",
+                        "$untilHours $untilMins",
+                        null,
+                        true,
+                        motivationalText
+                    )
                 }
             }
 

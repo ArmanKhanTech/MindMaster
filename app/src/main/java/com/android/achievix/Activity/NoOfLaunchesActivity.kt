@@ -71,7 +71,7 @@ class NoOfLaunchesActivity : AppCompatActivity() {
                 } ?: it
             }
 
-            val appLaunch = appLaunchSwitch.isChecked
+            val launch = appLaunchSwitch.isChecked
             val noti = notiSwitch.isChecked
 
             if (launchCount == null || launchCount <= 0) {
@@ -80,7 +80,7 @@ class NoOfLaunchesActivity : AppCompatActivity() {
             } else if (days.isEmpty()) {
                 Toast.makeText(this, "Please select a day", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-            } else if (!appLaunch && !noti) {
+            } else if (!launch && !noti) {
                 Toast.makeText(this, "Please select at least one option", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -91,7 +91,7 @@ class NoOfLaunchesActivity : AppCompatActivity() {
                         name,
                         packageName,
                         "app",
-                        appLaunch,
+                        launch,
                         noti,
                         "Launch Count",
                         "$launchCount",
@@ -107,12 +107,23 @@ class NoOfLaunchesActivity : AppCompatActivity() {
                         null,
                         null,
                         null,
-                        appLaunch,
+                        launch,
                         noti,
                         "Launch Count",
                         "$launchCount",
                         days.toString(),
                         intent.getStringExtra("profileName"),
+                        true,
+                        motivationalText
+                    )
+
+                    blockDatabase.addAllItemsToNewProfileSchedule(
+                        launch,
+                        noti,
+                        intent.getStringExtra("profileName"),
+                        "Launch Count",
+                        "$launchCount",
+                        days.toString(),
                         true,
                         motivationalText
                     )

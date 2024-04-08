@@ -304,6 +304,61 @@ public class BlockDatabase extends SQLiteOpenHelper {
         return list;
     }
 
+    public void addAllItemsToNewProfileSchedule(boolean launch, boolean noti, String profileName, String scheduleType, String scheduleParams, String scheduleDays, boolean profileStatus, String text) {
+        List<HashMap<String, String>> list = readProfileWebs(profileName);
+        for (HashMap<String, String> map : list) {
+            addRecord(
+                    map.get(NAME),
+                    map.get(PACKAGE_NAME),
+                    map.get(TYPE),
+                    launch,
+                    noti,
+                    scheduleType,
+                    scheduleParams,
+                    scheduleDays,
+                    profileName,
+                    profileStatus,
+                    text
+            );
+        }
+        list.clear();
+
+        list = readProfileKeys(profileName);
+        for (HashMap<String, String> map : list) {
+            addRecord(
+                    map.get(NAME),
+                    map.get(PACKAGE_NAME),
+                    map.get(TYPE),
+                    launch,
+                    noti,
+                    scheduleType,
+                    scheduleParams,
+                    scheduleDays,
+                    profileName,
+                    profileStatus,
+                    text
+            );
+        }
+        list.clear();
+
+        list = readProfileApps(profileName);
+        for (HashMap<String, String> map : list) {
+            addRecord(
+                    map.get(NAME),
+                    map.get(PACKAGE_NAME),
+                    map.get(TYPE),
+                    launch,
+                    noti,
+                    scheduleType,
+                    scheduleParams,
+                    scheduleDays,
+                    profileName,
+                    profileStatus,
+                    text
+            );
+        }
+    }
+
     public void deleteProfileItem(String profileName, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, PROFILE_NAME + " = ?" + " AND " + NAME + " = ?", new String[]{profileName, name});

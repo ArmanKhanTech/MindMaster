@@ -632,7 +632,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/add_icon_pink" />
+                        android:src="@drawable/add_icon_pink_outlined" />
 
                     <TextView
                         android:layout_width="match_parent"

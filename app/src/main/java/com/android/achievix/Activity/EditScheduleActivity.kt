@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +21,7 @@ class EditScheduleActivity : AppCompatActivity() {
     private lateinit var scheduleAdapter: ScheduleAdapter
     private var scheduleModelList: MutableList<ScheduleModel> = ArrayList()
     private lateinit var recyclerView: RecyclerView
-    private lateinit var addButton: Button
+    private lateinit var addButton: ImageButton
     private lateinit var doneButton: Button
     private lateinit var noSchedule: TextView
     private var blockDatabase: BlockDatabase = BlockDatabase(this)
@@ -61,7 +62,7 @@ class EditScheduleActivity : AppCompatActivity() {
                         name = map["name"].toString(),
                         packageName = map["packageName"].toString(),
                         type = map["type"].toString(),
-                        appLaunch = map["appLaunch"].toString(),
+                        launch = map["launch"].toString(),
                         notification = map["notification"].toString(),
                         scheduleType = map["scheduleType"].toString(),
                         scheduleParams = map["scheduleParams"].toString(),
@@ -85,7 +86,7 @@ class EditScheduleActivity : AppCompatActivity() {
                         name = map["name"].toString(),
                         packageName = map["packageName"].toString(),
                         type = map["type"].toString(),
-                        appLaunch = map["appLaunch"].toString(),
+                        launch = map["launch"].toString(),
                         notification = map["notification"].toString(),
                         scheduleType = map["scheduleType"].toString(),
                         scheduleParams = map["scheduleParams"].toString(),
@@ -109,7 +110,7 @@ class EditScheduleActivity : AppCompatActivity() {
                         name = map["name"].toString(),
                         packageName = map["packageName"].toString(),
                         type = map["type"].toString(),
-                        appLaunch = map["appLaunch"].toString(),
+                        launch = map["launch"].toString(),
                         notification = map["notification"].toString(),
                         scheduleType = map["scheduleType"].toString(),
                         scheduleParams = map["scheduleParams"].toString(),
@@ -133,7 +134,7 @@ class EditScheduleActivity : AppCompatActivity() {
                         name = map["name"].toString(),
                         packageName = map["packageName"].toString(),
                         type = map["type"].toString(),
-                        appLaunch = map["appLaunch"].toString(),
+                        launch = map["launch"].toString(),
                         notification = map["notification"].toString(),
                         scheduleType = map["scheduleType"].toString(),
                         scheduleParams = map["scheduleParams"].toString(),

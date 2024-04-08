@@ -5,7 +5,7 @@ data class ScheduleModel(
     val name: String,
     val packageName: String,
     val type: String,
-    val appLaunch: String,
+    val launch: String,
     val notification: String,
     val scheduleType: String,
     val scheduleParams: String,

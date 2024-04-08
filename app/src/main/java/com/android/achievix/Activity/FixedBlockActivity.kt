@@ -150,6 +150,17 @@ class FixedBlockActivity : AppCompatActivity() {
                         true,
                         motivationalText
                     )
+
+                    blockDatabase.addAllItemsToNewProfileSchedule(
+                        launch,
+                        noti,
+                        intent.getStringExtra("profileName"),
+                        "Fixed Block",
+                        null,
+                        days.toString(),
+                        true,
+                        motivationalText
+                    )
                 }
             }
 
