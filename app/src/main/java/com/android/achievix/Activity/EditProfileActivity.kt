@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
 import android.text.TextUtils
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
@@ -207,6 +208,7 @@ class EditProfileActivity : AppCompatActivity() {
             val title = dialog.findViewById<TextView>(R.id.dialogTitle)
             title.text = "Add Website"
             val editText = dialog.findViewById<TextView>(R.id.dialogEditText)
+            editText.hint = "Enter URL"
             val addWeb = dialog.findViewById<Button>(R.id.dialogButton)
 
             addWeb.setOnClickListener {
@@ -274,6 +276,7 @@ class EditProfileActivity : AppCompatActivity() {
             val title = dialog.findViewById<TextView>(R.id.dialogTitle)
             title.text = "Add Keyword"
             val editText = dialog.findViewById<TextView>(R.id.dialogEditText)
+            editText.hint = "Enter Keyword"
             val addKey = dialog.findViewById<Button>(R.id.dialogButton)
 
             addKey.setOnClickListener {
@@ -399,5 +402,9 @@ class EditProfileActivity : AppCompatActivity() {
                 Toast.makeText(this, "Add a schedule first", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    fun finish(v: View?) {
+        finish()
     }
 }

@@ -185,4 +185,8 @@ class EditScheduleActivity : AppCompatActivity() {
             View.GONE
         }
     }
+
+    fun finish(v: View?) {
+        finish()
+    }
 }

@@ -2,6 +2,7 @@ package com.android.achievix.Activity
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
@@ -29,5 +30,9 @@ class TakeBreakActivity : AppCompatActivity() {
             editor.putBoolean("notification", notificationSwitch.isChecked)
             editor.apply()
         }
+    }
+
+    fun finish(v: View?) {
+        finish()
     }
 }

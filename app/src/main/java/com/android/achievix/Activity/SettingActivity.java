@@ -5,7 +5,6 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,9 +19,6 @@ public class SettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-
-        ImageButton backButton = findViewById(R.id.back_settings);
-        backButton.setOnClickListener(view -> finish());
     }
 
     public void uninstallProtection(View v) {
@@ -37,5 +33,9 @@ public class SettingActivity extends AppCompatActivity {
         serviceIntent.putExtra("inputExtra", "Foreground Service is Running");
         ContextCompat.startForegroundService(this, serviceIntent);
         Toast.makeText(this, "App Repaired", Toast.LENGTH_SHORT).show();
+    }
+
+    public void finish(View v) {
+        finish();
     }
 }

@@ -153,4 +153,8 @@ class AppBlockActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    fun finish(v: View?) {
+        finish()
+    }
 }

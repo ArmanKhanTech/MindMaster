@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
         <ImageButton
-            android:id="@+id/back_block_internet"
+            android:onClick="finish"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"

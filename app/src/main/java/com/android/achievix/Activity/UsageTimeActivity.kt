@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
@@ -237,5 +238,9 @@ class UsageTimeActivity : AppCompatActivity() {
                 days.remove("Saturday")
             }
         }
+    }
+
+    fun finish(v: View?) {
+        finish()
     }
 }

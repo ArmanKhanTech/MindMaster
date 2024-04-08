@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -36,5 +37,9 @@ public class NewPasswordActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public void finish(View v) {
+        finish();
     }
 }

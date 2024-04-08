@@ -2,6 +2,7 @@ package com.android.achievix.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.android.achievix.R
@@ -72,5 +73,9 @@ class NewScheduleActivity : AppCompatActivity() {
             }
             startActivity(it)
         }
+    }
+
+    fun finish(v: View?) {
+        finish()
     }
 }

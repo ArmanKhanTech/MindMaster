@@ -166,4 +166,8 @@ public class InternetBlockActivity extends AppCompatActivity {
             });
         }
     }
+
+    public void finish(View v) {
+        finish();
+    }
 }

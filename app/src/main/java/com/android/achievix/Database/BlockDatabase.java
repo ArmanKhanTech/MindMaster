@@ -364,6 +364,38 @@ public class BlockDatabase extends SQLiteOpenHelper {
         db.delete(TABLE_NAME, PROFILE_NAME + " = ?" + " AND " + NAME + " = ?", new String[]{profileName, name});
     }
 
+    public int getAppBlockCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?" + " AND " + PROFILE_NAME + " IS NULL", new String[]{"app"});
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+
+    public int getInternetBlockCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?", new String[]{"internet"});
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+
+    public int getKeysBlockCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?", new String[]{"key"});
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+
+    public int getWebBlockCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?", new String[]{"web"});
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
+    }
+
     public void deleteProfileItems(String profileName, String scheduleType, String scheduleParams, String scheduleDays) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, PROFILE_NAME + " = ?" + " AND " + SCHEDULE_TYPE + " = ?" + " AND " + SCHEDULE_PARAMS + " = ?" + " AND " + SCHEDULE_DAYS + " = ?", new String[]{profileName, scheduleType, scheduleParams, scheduleDays});
@@ -390,24 +422,6 @@ public class BlockDatabase extends SQLiteOpenHelper {
         boolean blocked = cursor.getCount() > 0;
         cursor.close();
         return blocked;
-    }
-
-
-    public void updateRecord(String id, String name, String packageName, String type, boolean appLaunch, boolean notification, String scheduleType, String scheduleParams, String scheduleDays, String profileName, boolean profileStatus, String text) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(NAME, name);
-        values.put(PACKAGE_NAME, packageName);
-        values.put(TYPE, type);
-        values.put(LAUNCH, appLaunch);
-        values.put(NOTIFICATION, notification);
-        values.put(SCHEDULE_TYPE, scheduleType);
-        values.put(SCHEDULE_PARAMS, scheduleParams);
-        values.put(SCHEDULE_DAYS, scheduleDays);
-        values.put(PROFILE_NAME, profileName);
-        values.put(PROFILE_STATUS, profileStatus);
-        values.put(TEXT, text);
-        db.update(TABLE_NAME, values, ID + " = ?", new String[]{id});
     }
 
     public void deleteRecordById(String id) {

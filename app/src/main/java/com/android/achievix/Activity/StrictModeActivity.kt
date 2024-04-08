@@ -7,6 +7,7 @@ import android.content.ComponentName
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import android.view.View.GONE
 import android.widget.Button
 import android.widget.LinearLayout
@@ -241,6 +242,10 @@ class StrictModeActivity : AppCompatActivity() {
 
         val intent = Intent()
         setResult(RESULT_CANCELED, intent)
+        finish()
+    }
+
+    fun finish(v: View?) {
         finish()
     }
 }

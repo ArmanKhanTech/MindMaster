@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private String greeting = "";
     private TextView mode, modeDesc;
     private ImageView strictLevelOne, strictLevelTwo;
+    private TextView appBlockCount, webBlockCount, keywordBlockCount, internetBlockCount;
     private final BlockDatabase blockDatabase = new BlockDatabase(this);
 
     @SuppressLint({"NonConstantResourceId", "InlinedApi", "SetTextI18n"})
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         initializeViews();
+        initializeCount();
         setupListeners();
         initRecyclerView();
     }
@@ -103,8 +105,20 @@ public class MainActivity extends AppCompatActivity {
         ll7 = findViewById(R.id.stats_button);
         ll8 = findViewById(R.id.take_a_break_button);
 
+        appBlockCount = findViewById(R.id.main_app_blocks);
+        webBlockCount = findViewById(R.id.main_site_blocks);
+        keywordBlockCount = findViewById(R.id.main_keywords_blocks);
+        internetBlockCount = findViewById(R.id.main_internet_blocks);
+
         TextView greet = findViewById(R.id.greet);
         greet.setText(getGreetings());
+    }
+
+    private void initializeCount() {
+        appBlockCount.setText(String.valueOf(blockDatabase.getAppBlockCount()));
+        webBlockCount.setText(String.valueOf(blockDatabase.getWebBlockCount()));
+        keywordBlockCount.setText(String.valueOf(blockDatabase.getKeysBlockCount()));
+        internetBlockCount.setText(String.valueOf(blockDatabase.getInternetBlockCount()));
     }
 
     private void setupListeners() {
@@ -151,12 +165,30 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(profileAdapter);
 
         profileAdapter.setOnItemClickListener(view -> {
-            int position = recyclerView.getChildLayoutPosition(view);
-            ProfileModel profileModel = profileAdapter.getItemAt(position);
-            Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
-            intent.putExtra("profileId", profileModel.getId());
-            intent.putExtra("profileName", profileModel.getProfileName());
-            startActivity(intent);
+            SharedPreferences profileSh = getSharedPreferences("mode", MODE_PRIVATE);
+            int level = profileSh.getInt("level", 0);
+
+            if (level > 1) {
+                int i = profileSh.getInt("password", 0);
+                Intent intent = new Intent(this, EnterPasswordActivity.class);
+                intent.putExtra("password", i);
+                intent.putExtra("invokedFrom", "main");
+
+                int position = recyclerView.getChildLayoutPosition(view);
+                ProfileModel profileModel = profileAdapter.getItemAt(position);
+
+                intent.putExtra("profileId", profileModel.getId());
+                intent.putExtra("profileName", profileModel.getProfileName());
+                startActivity(intent);
+            } else {
+                int position = recyclerView.getChildLayoutPosition(view);
+                ProfileModel profileModel = profileAdapter.getItemAt(position);
+
+                Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
+                intent.putExtra("profileId", profileModel.getId());
+                intent.putExtra("profileName", profileModel.getProfileName());
+                startActivity(intent);
+            }
         });
     }
 

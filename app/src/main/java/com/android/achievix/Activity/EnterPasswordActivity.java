@@ -2,12 +2,15 @@ package com.android.achievix.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.achievix.R;
 import com.hanks.passcodeview.PasscodeView;
+
+import java.util.Objects;
 
 public class EnterPasswordActivity extends AppCompatActivity {
     @Override
@@ -23,11 +26,13 @@ public class EnterPasswordActivity extends AppCompatActivity {
 
         ImageButton back = findViewById(R.id.back_enter_password);
         assert invokedFrom != null;
-        if (invokedFrom.equals("MainActivity")) {
+        if (invokedFrom.equals("main") || invokedFrom.equals("newProfile")) {
             back.setVisibility(ImageButton.VISIBLE);
+            back.setOnClickListener(v -> finish());
         } else {
             back.setVisibility(ImageButton.GONE);
         }
+
 
         passcodeView.setLocalPasscode(String.valueOf(password));
         passcodeView.setListener(new PasscodeView.PasscodeViewListener() {
@@ -38,10 +43,21 @@ public class EnterPasswordActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(String number) {
-                Intent intent = new Intent(EnterPasswordActivity.this, MainActivity.class);
+                Intent intent;
+                if (invokedFrom.equals("main") || invokedFrom.equals("newProfile")) {
+                    intent = new Intent(EnterPasswordActivity.this, EditProfileActivity.class);
+                    intent.putExtra("profileId", Objects.requireNonNull(Objects.requireNonNull(getIntent().getExtras()).get("profileId")).toString());
+                    intent.putExtra("profileName", Objects.requireNonNull(Objects.requireNonNull(getIntent().getExtras()).get("profileName")).toString());
+                } else {
+                    intent = new Intent(EnterPasswordActivity.this, MainActivity.class);
+                }
                 startActivity(intent);
                 finish();
             }
         });
+    }
+
+    public void finish(View v) {
+        finish();
     }
 }

@@ -92,4 +92,8 @@ class AppSelectActivity : AppCompatActivity() {
             }
         }
     }
+
+    fun finish(v: View?) {
+        finish()
+    }
 }

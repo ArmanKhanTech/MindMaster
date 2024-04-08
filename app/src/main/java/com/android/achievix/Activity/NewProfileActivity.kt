@@ -22,6 +22,7 @@ class NewProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_profile)
 
         val blockDatabase = BlockDatabase(this)
+
         val newProfile: EditText = findViewById(R.id.add_profile)
         findViewById<Button>(R.id.add_profile_button).setOnClickListener {
             if (newProfile.text.isNotEmpty()) {
@@ -71,16 +72,40 @@ class NewProfileActivity : AppCompatActivity() {
 
         profileAdapter.setOnItemClickListener(object : ProfileAdapter.OnItemClickListener {
             override fun onItemClick(view: View) {
-                val position = recyclerView.getChildLayoutPosition(view)
-                val profileModel = profileAdapter.getItemAt(position)
-                val intent = Intent(this@NewProfileActivity, EditProfileActivity::class.java)
-                intent.putExtra("profileId", profileModel.id)
-                startActivity(intent)
+                val profileSh = getSharedPreferences("mode", MODE_PRIVATE)
+                val level = profileSh.getInt("level", 0)
+
+                if (level > 1) {
+                    val i = profileSh.getInt("password", 0)
+                    val intent = Intent(this@NewProfileActivity, EnterPasswordActivity::class.java)
+
+                    intent.putExtra("password", i)
+                    intent.putExtra("invokedFrom", "newProfile")
+
+                    val position = recyclerView.getChildLayoutPosition(view)
+                    val (id, profileName) = profileAdapter.getItemAt(position)
+
+                    intent.putExtra("profileId", id)
+                    intent.putExtra("profileName", profileName)
+                    startActivity(intent)
+                } else {
+                    val position = recyclerView.getChildLayoutPosition(view)
+                    val (id, profileName) = profileAdapter.getItemAt(position)
+
+                    val intent = Intent(this@NewProfileActivity, EditProfileActivity::class.java)
+                    intent.putExtra("profileId", id)
+                    intent.putExtra("profileName", profileName)
+                    startActivity(intent)
+                }
             }
         })
 
         if (profileModelList.isEmpty()) {
             findViewById<View>(R.id.no_profile_added_text).visibility = View.VISIBLE
         }
+    }
+
+    fun finish(v: View?) {
+        finish()
     }
 }

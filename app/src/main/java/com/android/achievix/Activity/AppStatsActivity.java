@@ -279,4 +279,8 @@ public class AppStatsActivity extends AppCompatActivity {
             loadGraph();
         }
     }
+
+    public void finish(View v) {
+        finish();
+    }
 }

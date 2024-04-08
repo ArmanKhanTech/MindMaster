@@ -2,6 +2,7 @@ package com.android.achievix.Activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -33,5 +34,9 @@ public class UsageOverviewActivity extends AppCompatActivity {
         viewPagerAdapter.addFragment(internetUsageFragment, "Internet Usage");
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    public void finish(View v) {
+        finish();
     }
 }
