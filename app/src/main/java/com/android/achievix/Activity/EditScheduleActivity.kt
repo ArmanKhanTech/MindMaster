@@ -156,13 +156,21 @@ class EditScheduleActivity : AppCompatActivity() {
 
     private fun attachListeners(name: String, packageName: String, type: String) {
         addButton.setOnClickListener {
-            val intent = Intent(this, NewScheduleActivity::class.java).apply {
-                putExtra("name", name)
-                putExtra("packageName", packageName)
-                putExtra("type", type)
-                putExtra("caller", "editSchedule")
+            if (type != "internet") {
+                val intent = Intent(this, NewScheduleActivity::class.java).apply {
+                    putExtra("name", name)
+                    putExtra("packageName", packageName)
+                    putExtra("type", type)
+                    putExtra("caller", "editSchedule")
+                }
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, BlockDataActivity::class.java).apply {
+                    putExtra("name", name)
+                    putExtra("packageName", packageName)
+                }
+                startActivity(intent)
             }
-            startActivity(intent)
         }
 
         doneButton.setOnClickListener {

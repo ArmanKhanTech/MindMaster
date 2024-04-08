@@ -2,6 +2,7 @@ package com.android.achievix.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -25,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.achievix.Activity.AppStatsActivity;
 import com.android.achievix.Adapter.InternetUsageAdapter;
 import com.android.achievix.Model.AppUsageModel;
 import com.android.achievix.R;
@@ -41,6 +43,7 @@ public class InternetUsageFragment extends Fragment {
     private final List<AppUsageModel> internetUsageModelList = new ArrayList<>();
     private final String[] sort = {"Daily", "Weekly", "Monthly", "Yearly"};
     private RecyclerView recyclerView;
+    private InternetUsageAdapter internetUsageAdapter;
     private TextView stats;
     private String sortValue = "Daily";
     private Spinner sortSpinner;
@@ -58,6 +61,7 @@ public class InternetUsageFragment extends Fragment {
         initializeViews(view);
         setupSpinner();
         setupRecyclerView();
+
         appInternetUsageTask = new AppInternetUsageTask(requireActivity(), sortValue);
         appInternetUsageTask.execute();
         return view;
@@ -211,8 +215,19 @@ public class InternetUsageFragment extends Fragment {
         @SuppressLint("SetTextI18n")
         @Override
         protected void onPostExecute(Void aVoid) {
+            internetUsageAdapter = new InternetUsageAdapter(internetUsageModelList);
+            recyclerView.setAdapter(internetUsageAdapter);
+            internetUsageAdapter.setOnItemClickListener(view -> {
+                int position = recyclerView.getChildAdapterPosition(view);
+                AppUsageModel app = internetUsageAdapter.getItemAt(position);
+                Intent intent = new Intent(requireActivity(), AppStatsActivity.class);
+                intent.putExtra("appName", app.getName());
+                intent.putExtra("packageName", app.getPackageName());
+                intent.putExtra("position", position);
+                startActivity(intent);
+            });
+
             stats.setText(totalCount + " MB");
-            recyclerView.setAdapter(new InternetUsageAdapter(internetUsageModelList));
             loadingLayout.setVisibility(View.GONE);
             internetUsageLayout.setVisibility(View.VISIBLE);
         }

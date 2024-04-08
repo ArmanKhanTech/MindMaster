@@ -50,57 +50,51 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/app_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical|center"
+                    android:text="App Name"
+                    android:textColor="@color/black"
+                    android:textSize="22dp" />
+
+                <ImageView
+                    android:id="@+id/app_icon"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center_horizontal|center_vertical|center"
+                    android:layout_marginTop="8dp"
+                    android:src="@mipmap/app_icon" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp">
 
                     <TextView
-                        android:id="@+id/app_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|center_vertical|center"
-                        android:text="Focusonme"
+                        android:layout_gravity="start"
+                        android:layout_marginEnd="5dp"
+                        android:text="#"
                         android:textColor="@color/black"
-                        android:textSize="22dp" />
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/app_icon"
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:layout_gravity="center_horizontal|center_vertical|center"
-                        android:layout_marginTop="8dp"
-                        android:src="@mipmap/app_icon" />
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/xy1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginRight="5dp"
-                            android:text="#"
-                            android:textColor="@color/black"
-                            android:textSize="30dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/xy1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="00"
-                            android:textColor="@color/purple_500"
-                            android:textSize="30dp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
+                        android:text="00"
+                        android:textColor="@color/purple_500"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -114,8 +108,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:text="Type :"
+                    android:layout_marginStart="15dp"
+                    android:text="Type: "
                     android:textColor="@color/black"
                     android:textSize="22dp" />
 
@@ -123,7 +117,7 @@
                     android:id="@+id/xyz1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
                     android:text="Productivity"
                     android:textColor="@color/purple_500"
                     android:textSize="22dp" />
@@ -188,7 +182,7 @@
                     android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:text="hrs"
                     android:textColor="@color/black"
                     android:textSize="20dp"
@@ -211,7 +205,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:text="Weekly :"
                     android:textColor="@color/purple_500"
                     android:textSize="20dp"
@@ -240,7 +234,7 @@
                     android:id="@+id/textView20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:text="hrs"
                     android:textColor="@color/black"
                     android:textSize="20dp"
@@ -263,7 +257,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:text="Monthly :"
                     android:textColor="@color/purple_500"
                     android:textSize="20dp"
@@ -292,7 +286,7 @@
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="10dp"
                     android:text="hrs"
                     android:textColor="@color/black"
                     android:textSize="20dp"

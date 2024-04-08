@@ -2,6 +2,7 @@ package com.android.achievix.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.achievix.Activity.AppStatsActivity;
 import com.android.achievix.Adapter.AppUsageAdapter;
 import com.android.achievix.Model.AppUsageModel;
 import com.android.achievix.R;
@@ -26,6 +28,7 @@ import java.util.List;
 
 public class UsageOverviewFragment extends Fragment {
     private RecyclerView recyclerView;
+    private AppUsageAdapter appUsageAdapter;
     private TextView usageStats;
     private LinearLayout usageLayout;
     private LinearLayout loadingLayout;
@@ -125,8 +128,19 @@ public class UsageOverviewFragment extends Fragment {
                 return;
             }
 
+            appUsageAdapter = new AppUsageAdapter(result);
+            recyclerView.setAdapter(appUsageAdapter);
+            appUsageAdapter.setOnItemClickListener(view -> {
+                int position = recyclerView.getChildAdapterPosition(view);
+                AppUsageModel app = appUsageAdapter.getItemAt(position);
+                Intent intent = new Intent(requireActivity(), AppStatsActivity.class);
+                intent.putExtra("appName", app.getName());
+                intent.putExtra("packageName", app.getPackageName());
+                intent.putExtra("position", position);
+                startActivity(intent);
+            });
+
             usageStats.setText(convertMillisToHoursAndMinutes(UsageUtil.totalUsage));
-            recyclerView.setAdapter(new AppUsageAdapter(result));
             loadingLayout.setVisibility(View.GONE);
             usageLayout.setVisibility(View.VISIBLE);
         }

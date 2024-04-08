@@ -107,26 +107,6 @@ public class InternetBlockActivity extends AppCompatActivity {
         internetBlockAdapter.updateListInternet(filteredList);
     }
 
-    private void launchActivity(String appName, String packageName, boolean blocked) {
-        Intent intent;
-        if (!blocked) {
-            intent = new Intent(this, BlockDataActivity.class);
-            intent.putExtra("name", appName);
-            intent.putExtra("packageName", packageName);
-        } else {
-            intent = new Intent(this, EditScheduleActivity.class);
-            intent.putExtra("name", appName);
-            intent.putExtra("packageName", packageName);
-            intent.putExtra("type", "internet");
-        }
-
-        if ("com.android.achievix".equals(packageName)) {
-            Toast.makeText(this, "Cannot block Achievix", Toast.LENGTH_SHORT).show();
-        } else {
-            startActivity(intent);
-        }
-    }
-
     @SuppressLint("StaticFieldLeak")
     public class GetInstalledAppsInternetTask extends AsyncTask<Void, Void, List<AppBlockModel>> {
         private final Context context;
@@ -164,6 +144,26 @@ public class InternetBlockActivity extends AppCompatActivity {
                 AppBlockModel app = internetBlockAdapter.getItemAt(position);
                 launchActivity(app.getAppName(), app.getPackageName(), Boolean.TRUE.equals(app.getBlocked()));
             });
+        }
+    }
+
+    private void launchActivity(String appName, String packageName, boolean blocked) {
+        Intent intent;
+        if (!blocked) {
+            intent = new Intent(this, BlockDataActivity.class);
+            intent.putExtra("name", appName);
+            intent.putExtra("packageName", packageName);
+        } else {
+            intent = new Intent(this, EditScheduleActivity.class);
+            intent.putExtra("name", appName);
+            intent.putExtra("packageName", packageName);
+            intent.putExtra("type", "internet");
+        }
+
+        if ("com.android.achievix".equals(packageName)) {
+            Toast.makeText(this, "Cannot block Achievix", Toast.LENGTH_SHORT).show();
+        } else {
+            startActivity(intent);
         }
     }
 

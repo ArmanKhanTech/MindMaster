@@ -2,6 +2,7 @@ package com.android.achievix.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -24,7 +25,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.achievix.Adapter.AppLaunchAdapter;
+import com.android.achievix.Activity.AppStatsActivity;
+import com.android.achievix.Adapter.AppUsageAdapter;
 import com.android.achievix.Database.AppLaunchDatabase;
 import com.android.achievix.Model.AppUsageModel;
 import com.android.achievix.R;
@@ -41,6 +43,7 @@ import java.util.Objects;
 
 public class AppLaunchesFragment extends Fragment {
     private RecyclerView recyclerView;
+    private AppUsageAdapter appUsageAdapter;
     private TextView launchStats;
     private LinearLayout launchLayout;
     private LinearLayout loadingLayout;
@@ -63,6 +66,7 @@ public class AppLaunchesFragment extends Fragment {
         initializeViews(view);
         setupSpinner();
         setupRecyclerView();
+
         getAppLaunchCountTask = new GetAppLaunchCountTask(requireActivity(), sortValue);
         getAppLaunchCountTask.execute();
         return view;
@@ -212,7 +216,19 @@ public class AppLaunchesFragment extends Fragment {
             }
 
             launchStats.setText(String.valueOf(totalCount));
-            recyclerView.setAdapter(new AppLaunchAdapter(appLaunchModel));
+            appUsageAdapter = new AppUsageAdapter(appLaunchModel);
+            recyclerView.setAdapter(appUsageAdapter);
+
+            appUsageAdapter.setOnItemClickListener(view -> {
+                int position = recyclerView.getChildAdapterPosition(view);
+                AppUsageModel app = appUsageAdapter.getItemAt(position);
+                Intent intent = new Intent(requireActivity(), AppStatsActivity.class);
+                intent.putExtra("appName", app.getName());
+                intent.putExtra("packageName", app.getPackageName());
+                intent.putExtra("position", position);
+                startActivity(intent);
+            });
+
             loadingLayout.setVisibility(View.GONE);
             launchLayout.setVisibility(View.VISIBLE);
         }

@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginTop="15dp"
-                android:text="I Want to Block"
+                android:text="I want to block"
                 android:textColor="@color/pink"
                 android:textSize="22dp" />
 
@@ -66,7 +66,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="15dp"
-                    android:src="@drawable/internet_icon_dark" />
+                    android:src="@drawable/internet_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -250,7 +250,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:text="After"
+                android:text="Once I have spent"
                 android:textColor="@color/pink"
                 android:textSize="22dp" />
 
@@ -267,7 +267,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/new_profile_edt_theme"
                     android:gravity="center"
-                    android:hint="in MBs"
+                    android:hint="MBs"
                     android:inputType="number"
                     android:padding="10dp"
                     android:textColor="@color/black"
@@ -280,7 +280,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-                android:text="and Show the Below Text"
+                android:text="and show the below motivational text"
                 android:textColor="@color/pink"
                 android:textSize="22dp" />
 
@@ -293,7 +293,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/new_profile_edt_theme"
                 android:gravity="center"
-                android:hint="something"
+                android:hint="Type here..."
                 android:inputType="text"
                 android:padding="10dp"
                 android:textColor="@color/black"

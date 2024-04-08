@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="TimePickerTheme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize" tools:ignore="SpUsage">20dp</item>
     </style>
 
     <style name="SwitchTheme" parent="Theme.AppCompat.Light">
-        <item name="colorControlActivated">@color/skyBlue</item>
-        <item name="android:textColorSecondary">@color/skyBlue</item>
-    </style>
-
-    <style name="RadioButtonTheme" parent="Theme.AppCompat.Light">
         <item name="colorControlActivated">@color/skyBlue</item>
         <item name="android:textColorSecondary">@color/skyBlue</item>
     </style>
