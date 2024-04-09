@@ -12,6 +12,11 @@ import com.android.achievix.R
 
 class AppLaunchAdapter(private var appList: List<AppUsageModel>) :
     RecyclerView.Adapter<AppLaunchAdapter.ViewHolder>() {
+    interface OnItemClickListener {
+        fun onItemClick(view: View)
+    }
+
+    private var onItemClickListener: OnItemClickListener? = null
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val appName: TextView = view.findViewById(R.id.app_name)
@@ -34,7 +39,16 @@ class AppLaunchAdapter(private var appList: List<AppUsageModel>) :
         holder.progressBar.max = 100
         holder.progressBar.isIndeterminate = false
         holder.progressBar.progress = appInfo.progress?.toInt()!!
+        holder.itemView.setOnClickListener { onItemClickListener?.onItemClick(it) }
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.onItemClickListener = listener
     }
 
     override fun getItemCount() = appList.size
+
+    fun getItemAt(position: Int): AppUsageModel {
+        return appList[position]
+    }
 }

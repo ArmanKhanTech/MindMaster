@@ -26,7 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.achievix.Activity.AppStatsActivity;
-import com.android.achievix.Adapter.AppUsageAdapter;
+import com.android.achievix.Adapter.AppLaunchAdapter;
 import com.android.achievix.Database.AppLaunchDatabase;
 import com.android.achievix.Model.AppUsageModel;
 import com.android.achievix.R;
@@ -43,7 +43,7 @@ import java.util.Objects;
 
 public class AppLaunchesFragment extends Fragment {
     private RecyclerView recyclerView;
-    private AppUsageAdapter appUsageAdapter;
+    private AppLaunchAdapter appLaunchAdapter;
     private TextView launchStats;
     private LinearLayout launchLayout;
     private LinearLayout loadingLayout;
@@ -216,12 +216,11 @@ public class AppLaunchesFragment extends Fragment {
             }
 
             launchStats.setText(String.valueOf(totalCount));
-            appUsageAdapter = new AppUsageAdapter(appLaunchModel);
-            recyclerView.setAdapter(appUsageAdapter);
-
-            appUsageAdapter.setOnItemClickListener(view -> {
+            appLaunchAdapter = new AppLaunchAdapter(appLaunchModel);
+            recyclerView.setAdapter(appLaunchAdapter);
+            appLaunchAdapter.setOnItemClickListener(view -> {
                 int position = recyclerView.getChildAdapterPosition(view);
-                AppUsageModel app = appUsageAdapter.getItemAt(position);
+                AppUsageModel app = appLaunchAdapter.getItemAt(position);
                 Intent intent = new Intent(requireActivity(), AppStatsActivity.class);
                 intent.putExtra("appName", app.getName());
                 intent.putExtra("packageName", app.getPackageName());
