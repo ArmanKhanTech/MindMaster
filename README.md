@@ -195,9 +195,7 @@ Project Link - [https://github.com/ArmanKhanTech/Achievix](https://github.com/Ar
 [Android-url]: https://developer.android.com/
 [Java]: https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white
 [Java-url]: https://www.java.com/
-
 [Kotlin]: https://img.shields.io/badge/Kotlin-0095D5?style=for-the-badge&logo=kotlin&logoColor=white
-
 [Kotlin-url]: https://kotlinlang.org/
 [Gradle]: https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white
 [Gradle-url]: https://gradle.org/

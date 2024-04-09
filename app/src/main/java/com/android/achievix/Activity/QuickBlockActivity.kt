@@ -88,7 +88,7 @@ class QuickBlockActivity : AppCompatActivity() {
                         noti,
                         "Quick Block",
                         "$untilHours $untilMins",
-                        null,
+                        getCurrentDay().toString(),
                         null,
                         true,
                         motivationalText
@@ -104,7 +104,7 @@ class QuickBlockActivity : AppCompatActivity() {
                         noti,
                         "Quick Block",
                         "$untilHours $untilMins",
-                        null,
+                        getCurrentDay().toString(),
                         null,
                         true,
                         motivationalText
@@ -120,7 +120,7 @@ class QuickBlockActivity : AppCompatActivity() {
                         noti,
                         "Quick Block",
                         "$untilHours $untilMins",
-                        null,
+                        getCurrentDay().toString(),
                         null,
                         true,
                         motivationalText
@@ -136,7 +136,7 @@ class QuickBlockActivity : AppCompatActivity() {
                         noti,
                         "Quick Block",
                         "$untilHours $untilMins",
-                        null,
+                        getCurrentDay().toString(),
                         intent.getStringExtra("profileName"),
                         true,
                         motivationalText
@@ -148,7 +148,7 @@ class QuickBlockActivity : AppCompatActivity() {
                         intent.getStringExtra("profileName"),
                         "Quick Block",
                         "$untilHours $untilMins",
-                        null,
+                        getCurrentDay().toString(),
                         true,
                         motivationalText
                     )
@@ -164,6 +164,19 @@ class QuickBlockActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }, 1000)
+        }
+    }
+
+    private fun getCurrentDay(): List<String> {
+        return when (System.currentTimeMillis() % 7) {
+            0L -> mutableListOf("Sunday")
+            1L -> mutableListOf("Monday")
+            2L -> mutableListOf("Tuesday")
+            3L -> mutableListOf("Wednesday")
+            4L -> mutableListOf("Thursday")
+            5L -> mutableListOf("Friday")
+            6L -> mutableListOf("Saturday")
+            else -> mutableListOf("Sunday")
         }
     }
 

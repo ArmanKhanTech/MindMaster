@@ -4,6 +4,7 @@ import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import com.android.achievix.R;
 import com.android.achievix.Service.AdminReceiver;
 import com.android.achievix.Service.ForegroundService;
+import com.android.achievix.Utility.AccessibilityUtil;
 
 public class SettingActivity extends AppCompatActivity {
     @Override
@@ -33,6 +35,15 @@ public class SettingActivity extends AppCompatActivity {
         serviceIntent.putExtra("inputExtra", "Foreground Service is Running");
         ContextCompat.startForegroundService(this, serviceIntent);
         Toast.makeText(this, "App Repaired", Toast.LENGTH_SHORT).show();
+    }
+
+    public void repairLog(View v) {
+        if (!new AccessibilityUtil().isAccessibilitySettingsOn(this)) {
+            Intent i = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+            startActivity(i);
+        } else {
+            Toast.makeText(this, "Accessibility Service is already enabled", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void finish(View v) {

@@ -3,6 +3,7 @@ package com.android.achievix.Service;
 import android.accessibilityservice.AccessibilityService;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -100,6 +101,8 @@ public class LogURLService extends AccessibilityService {
             List<HashMap<String, String>> list = blockDatabase.readRecordsWeb(url);
             if (!list.isEmpty()) {
                 for (HashMap<String, String> map : list) {
+                    Log.d("Block", url);
+
                     if (Objects.equals(map.get("name"), url)) {
                         if (Objects.equals(map.get("scheduleType"), "Specific Time") && Objects.equals(map.get("profileStatus"), "1")) {
                             if (Objects.equals(map.get("launch"), "1")) {
@@ -155,8 +158,11 @@ public class LogURLService extends AccessibilityService {
                                 }
                             }
                         } else if (Objects.equals(map.get("scheduleType"), "Fixed Block") && Objects.equals(map.get("profileStatus"), "1")) {
+                            Log.d("Block", "Blocked Out");
                             if (Objects.equals(map.get("launch"), "1")) {
                                 if (checkDay(map.get("scheduleDays"))) {
+                                    Log.d("Block", "Blocked In");
+
                                     System.gc();
                                     Runtime.getRuntime().runFinalization();
 

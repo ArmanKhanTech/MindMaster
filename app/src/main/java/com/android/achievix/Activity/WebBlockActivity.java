@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-// TODO: Fix accessibility settings
 public class WebBlockActivity extends AppCompatActivity {
     private final BlockDatabase blockDatabase = new BlockDatabase(this);
     private final List<WebKeyModel> webKeyModelList = new ArrayList<>();
@@ -91,7 +90,7 @@ public class WebBlockActivity extends AppCompatActivity {
                     if (TextUtils.isEmpty(searchEditText.getText().toString())) {
                         Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT).show();
                     } else {
-                        Pattern urlPattern = Pattern.compile("^((https?|ftp|smtp)://)?(www.)?[a-z0-9]+(\\.[a-z]{2,}){1,3}(#?\\/?[a-zA-Z0-9#]+)*\\/?(\\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$");
+                        Pattern urlPattern = Pattern.compile("^((https?|ftp|smtp)://)?(www.)?[a-z0-9]+(\\.[a-z]{2,}){1,3}(#?/?[a-zA-Z0-9#]+)*/?(\\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$");
                         if (!urlPattern.matcher(searchEditText.getText().toString()).matches()) {
                             Toast.makeText(this, "Invalid URL", Toast.LENGTH_SHORT).show();
                         } else {

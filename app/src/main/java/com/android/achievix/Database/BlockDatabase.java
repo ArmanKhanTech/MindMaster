@@ -99,7 +99,7 @@ public class BlockDatabase extends SQLiteOpenHelper {
 
     public List<HashMap<String, String>> readRecordsWeb(String url) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + NAME + " = ?", new String[]{url});
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + NAME + " = ?" + " AND " + TYPE + " = ?", new String[]{url, "web"});
         List<HashMap<String, String>> list = new ArrayList<>();
         while (cursor.moveToNext()) {
             HashMap<String, String> map = new HashMap<>();
@@ -123,7 +123,7 @@ public class BlockDatabase extends SQLiteOpenHelper {
 
     public List<HashMap<String, String>> readRecordsKey(String key) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + NAME + " = ?", new String[]{key});
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + NAME + " = ?" + " AND " + TYPE + " = ?", new String[]{key, "key"});
         List<HashMap<String, String>> list = new ArrayList<>();
         while (cursor.moveToNext()) {
             HashMap<String, String> map = new HashMap<>();
@@ -171,7 +171,7 @@ public class BlockDatabase extends SQLiteOpenHelper {
 
     public List<HashMap<String, String>> readAllRecordsWeb() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?" + " AND " + PROFILE_NAME + " = ?", new String[]{"web", "null"});
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?" + " AND " + PROFILE_NAME + " IS NULL", new String[]{"web"});
         List<HashMap<String, String>> list = new ArrayList<>();
         while (cursor.moveToNext()) {
             HashMap<String, String> map = new HashMap<>();
@@ -195,7 +195,7 @@ public class BlockDatabase extends SQLiteOpenHelper {
 
     public List<HashMap<String, String>> readAllRecordsKey() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?" + " AND " + PROFILE_NAME + " = ?", new String[]{"key", "null"});
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?" + " AND " + PROFILE_NAME + " IS NULL", new String[]{"key"});
         List<HashMap<String, String>> list = new ArrayList<>();
         while (cursor.moveToNext()) {
             HashMap<String, String> map = new HashMap<>();
