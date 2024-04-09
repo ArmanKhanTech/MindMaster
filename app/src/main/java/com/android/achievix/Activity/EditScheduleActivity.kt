@@ -71,7 +71,7 @@ class EditScheduleActivity : AppCompatActivity() {
                         profileStatus = map["profileStatus"].toString(),
                         text = map["text"].toString()
                     )
-                    if (schedule.profileName == "null") {
+                    if (schedule.profileName == "null" && schedule.type == "app") {
                         scheduleModelList.add(schedule)
                     }
                 }
@@ -95,7 +95,7 @@ class EditScheduleActivity : AppCompatActivity() {
                         profileStatus = map["profileStatus"].toString(),
                         text = map["text"].toString()
                     )
-                    if (schedule.profileName == "null") {
+                    if (schedule.profileName == "null" && schedule.type == "web") {
                         scheduleModelList.add(schedule)
                     }
                 }
@@ -119,7 +119,7 @@ class EditScheduleActivity : AppCompatActivity() {
                         profileStatus = map["profileStatus"].toString(),
                         text = map["text"].toString()
                     )
-                    if (schedule.profileName == "null") {
+                    if (schedule.profileName == "null" && schedule.type == "key") {
                         scheduleModelList.add(schedule)
                     }
                 }
@@ -143,7 +143,7 @@ class EditScheduleActivity : AppCompatActivity() {
                         profileStatus = map["profileStatus"].toString(),
                         text = map["text"].toString()
                     )
-                    if (schedule.profileName == "null") {
+                    if (schedule.profileName == "null" && schedule.type == "internet") {
                         scheduleModelList.add(schedule)
                     }
                 }

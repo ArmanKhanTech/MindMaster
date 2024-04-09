@@ -31,6 +31,7 @@
             android:id="@+id/draw_block_icon"
             android:layout_width="75dp"
             android:layout_height="75dp"
+            android:layout_gravity="center"
             app:srcCompat="@mipmap/app_icon" />
 
         <TextView
@@ -39,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="App Name"
+            android:layout_gravity="center"
             android:textColor="@color/black"
             android:textSize="25dp" />
 
@@ -46,7 +48,8 @@
             android:id="@+id/draw_motivational_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="50dp"
+            android:textAlignment="center"
             android:text="@string/motivational_text"
             android:textColor="@color/black"
             android:lineHeight="35dp"

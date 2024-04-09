@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -70,40 +70,23 @@
                     android:layout_marginTop="8dp"
                     android:src="@mipmap/app_icon" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/app_rank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start"
-                        android:layout_marginEnd="5dp"
-                        android:text="#"
-                        android:textColor="@color/black"
-                        android:textSize="30dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/xy1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="00"
-                        android:textColor="@color/purple_500"
-                        android:textSize="30dp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
+                    android:layout_marginTop="10dp"
+                    android:text="00"
+                    android:textColor="@color/purple_500"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="15dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -114,10 +97,9 @@
                     android:textSize="22dp" />
 
                 <TextView
-                    android:id="@+id/xyz1"
+                    android:id="@+id/app_cate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
                     android:text="Productivity"
                     android:textColor="@color/purple_500"
                     android:textSize="22dp" />
@@ -128,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:text="Usage Stats"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
@@ -138,7 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_gravity="center"
-                android:layout_marginVertical="10dp"
+                android:layout_marginVertical="15dp"
                 android:layout_marginHorizontal="15dp">
 
             </com.github.mikephil.charting.charts.BarChart>
@@ -158,14 +140,14 @@
                     android:textColor="@color/purple_500"
                     android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textView6"
+                    app:layout_constraintEnd_toStartOf="@+id/daily_usage"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/daily_usage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="00:00"
@@ -210,14 +192,14 @@
                     android:textColor="@color/purple_500"
                     android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textView21"
+                    app:layout_constraintEnd_toStartOf="@+id/weekly_usage"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/textView21"
+                    android:id="@+id/weekly_usage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="00:00"
@@ -262,14 +244,14 @@
                     android:textColor="@color/purple_500"
                     android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textView13"
+                    app:layout_constraintEnd_toStartOf="@+id/monthly_usage"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/textView13"
+                    android:id="@+id/monthly_usage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="00:00"
@@ -314,14 +296,14 @@
                     android:textColor="@color/purple_500"
                     android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textView14"
+                    app:layout_constraintEnd_toStartOf="@+id/yearly_usage"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/yearly_usage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="00:00"
@@ -366,14 +348,14 @@
                     android:textColor="@color/purple_500"
                     android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textView18"
+                    app:layout_constraintEnd_toStartOf="@+id/data_cons"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/textView18"
+                    android:id="@+id/data_cons"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0000"
@@ -426,7 +408,7 @@
             android:text="Fetching Data. Please Wait..."
             android:textColor="@color/black"
             android:layout_marginVertical="10dp"
-            android:textSize="18dp" />
+            android:textSize="20dp" />
 
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"

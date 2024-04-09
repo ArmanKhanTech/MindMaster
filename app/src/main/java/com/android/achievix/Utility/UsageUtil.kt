@@ -176,40 +176,28 @@ class UsageUtil {
 
         when (sort) {
             "Daily" -> {
-                val calendar = Calendar.getInstance()
-                calendar.add(Calendar.DAY_OF_YEAR, -1)
-                val beginTime = calendar.timeInMillis
-                val endTime = System.currentTimeMillis()
+                val (beginTime, endTime) = getTimeRange(sort)
                 val events = usageStatsManager.queryAndAggregateUsageStats(beginTime, endTime)
                 val stats = events[packageName]
                 return stats?.totalTimeInForeground ?: 0
             }
 
             "Weekly" -> {
-                val calendar = Calendar.getInstance()
-                calendar.add(Calendar.DAY_OF_YEAR, -7)
-                val beginTime = calendar.timeInMillis
-                val endTime = System.currentTimeMillis()
+                val (beginTime, endTime) = getTimeRange(sort)
                 val events = usageStatsManager.queryAndAggregateUsageStats(beginTime, endTime)
                 val stats = events[packageName]
                 return stats?.totalTimeInForeground ?: 0
             }
 
             "Monthly" -> {
-                val calendar = Calendar.getInstance()
-                calendar.add(Calendar.MONTH, -1)
-                val beginTime = calendar.timeInMillis
-                val endTime = System.currentTimeMillis()
+                val (beginTime, endTime) = getTimeRange(sort)
                 val events = usageStatsManager.queryAndAggregateUsageStats(beginTime, endTime)
                 val stats = events[packageName]
                 return stats?.totalTimeInForeground ?: 0
             }
 
             "Yearly" -> {
-                val calendar = Calendar.getInstance()
-                calendar.add(Calendar.YEAR, -1)
-                val beginTime = calendar.timeInMillis
-                val endTime = System.currentTimeMillis()
+                val (beginTime, endTime) = getTimeRange(sort)
                 val events = usageStatsManager.queryAndAggregateUsageStats(beginTime, endTime)
                 val stats = events[packageName]
                 return stats?.totalTimeInForeground ?: 0

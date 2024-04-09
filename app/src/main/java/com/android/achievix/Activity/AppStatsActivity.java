@@ -32,18 +32,16 @@ import java.util.Calendar;
 import java.util.Objects;
 
 public class AppStatsActivity extends AppCompatActivity {
-
-    private static final NetworkUtil networkUtil = new NetworkUtil();
     private static final UsageUtil usageUtil = new UsageUtil();
     private static String packageName = "";
     @SuppressLint("StaticFieldLeak")
     private static Context context;
-    private String category;
-    private int position;
-    private float daily, weekly, monthly, yearly, data;
-    private TextView t6, t21, t13, t14, xy1, xyz1, t18;
-    private BarChart barChart;
-    private LinearLayout layout;
+    private String appCategory;
+    private int appPosition;
+    private float dailyUsage, weeklyUsage, monthlyUsage, yearlyUsage, dataUsage;
+    private TextView dailyUsageTextView, weeklyUsageTextView, monthlyUsageTextView, yearlyUsageTextView, appPositionTextView, appCategoryTextView, dataUsageTextView;
+    private BarChart usageBarChart;
+    private LinearLayout loadingLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,54 +50,55 @@ public class AppStatsActivity extends AppCompatActivity {
 
         context = getApplicationContext();
 
-        position = getIntent().getIntExtra("position", 0);
-
+        appPosition = getIntent().getIntExtra("position", 0) + 1;
         packageName = getIntent().getStringExtra("packageName");
-
         String appName = getIntent().getStringExtra("appName");
-        TextView app_name = findViewById(R.id.app_name);
-        app_name.setText(appName);
 
-        barChart = findViewById(R.id.barChart_view);
+        TextView appNameTextView = findViewById(R.id.app_name);
+        appNameTextView.setText(appName);
 
-        t6 = findViewById(R.id.textView6);
-        t21 = findViewById(R.id.textView21);
-        t13 = findViewById(R.id.textView13);
-        t14 = findViewById(R.id.textView14);
-        t18 = findViewById(R.id.textView18);
-        xy1 = findViewById(R.id.xy1);
-        xyz1 = findViewById(R.id.xyz1);
-        layout = findViewById(R.id.ly1);
+        usageBarChart = findViewById(R.id.barChart_view);
 
-        ImageView appIcon = findViewById(R.id.app_icon);
+        dailyUsageTextView = findViewById(R.id.daily_usage);
+        weeklyUsageTextView = findViewById(R.id.weekly_usage);
+        monthlyUsageTextView = findViewById(R.id.monthly_usage);
+        yearlyUsageTextView = findViewById(R.id.yearly_usage);
+        dataUsageTextView = findViewById(R.id.data_cons);
+        appPositionTextView = findViewById(R.id.app_rank);
+        appCategoryTextView = findViewById(R.id.app_cate);
+        loadingLayout = findViewById(R.id.ly1);
+
+        ImageView appIconImageView = findViewById(R.id.app_icon);
         try {
             Drawable icon = getPackageManager().getApplicationIcon(packageName);
-            appIcon.setImageDrawable(icon);
+            appIconImageView.setImageDrawable(icon);
         } catch (PackageManager.NameNotFoundException ignored) {
         }
 
-        new loadData().execute();
+        new LoadDataAsyncTask().execute();
     }
 
     public void loadGraph() {
+        long DAY_IN_MILLIS = 86400 * 1000;
         ArrayList<BarEntry> entries = new ArrayList<>();
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
+
         long startMillis = calendar.getTimeInMillis();
         long endMillis = System.currentTimeMillis();
 
         for (int daysAgo = 0; daysAgo < 7; daysAgo++) {
             float usageTime = usageUtil.getUsageByPackageNameAndMillis(this, packageName, startMillis, endMillis);
 
-            if (usageTime < (float) 0) {
+            if (usageTime <= (float) 0) {
                 usageTime = 0;
             }
+            usageTime = usageTime / (1000 * 60 * 60);
 
             entries.add(new BarEntry(usageTime, 7 - daysAgo - 1));
-            long DAY_IN_MILLIS = 86400 * 1000;
 
             startMillis -= DAY_IN_MILLIS;
             endMillis -= DAY_IN_MILLIS;
@@ -121,23 +120,36 @@ public class AppStatsActivity extends AppCompatActivity {
         barDataSet.setColor(getResources().getColor(R.color.purple_500));
 
         BarData data = new BarData(labels, barDataSet);
-        barChart.setData(data);
-        barChart.setDescription(null);
-        barChart.getData().setValueFormatter(new TimeFormatter());
-        barChart.getXAxis().setLabelsToSkip(0);
-        barChart.getAxisLeft().setValueFormatter(new LargeValueFormatter());
-        barChart.animateXY(2000, 2000);
-        barChart.invalidate();
+        usageBarChart.setData(data);
+        usageBarChart.setDescription(null);
+        usageBarChart.getData().setValueFormatter(new TimeFormatter());
+        usageBarChart.getXAxis().setLabelsToSkip(0);
+        usageBarChart.getAxisLeft().setValueFormatter(new LargeValueFormatter());
+        usageBarChart.animateXY(2000, 2000);
+        usageBarChart.invalidate();
     }
 
     private void getStatsInfo(String pkgName) {
-        daily = usageUtil.getUsageByPackageName(this, packageName, "Daily");
-        weekly = usageUtil.getUsageByPackageName(this, packageName, "Weekly");
-        monthly = usageUtil.getUsageByPackageName(this, packageName, "Monthly");
-        yearly = usageUtil.getUsageByPackageName(this, packageName, "Yearly");
+        dailyUsage = usageUtil.getUsageByPackageName(this, packageName, "Daily");
+        weeklyUsage = usageUtil.getUsageByPackageName(this, packageName, "Weekly");
+        monthlyUsage = usageUtil.getUsageByPackageName(this, packageName, "Monthly");
+        yearlyUsage = usageUtil.getUsageByPackageName(this, packageName, "Yearly");
+
+        dailyUsage = dailyUsage / (1000 * 60 * 60);
+        weeklyUsage = weeklyUsage / (1000 * 60 * 60);
+        monthlyUsage = monthlyUsage / (1000 * 60 * 60);
+        yearlyUsage = yearlyUsage / (1000 * 60 * 60);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+
+        long startMillis = calendar.getTimeInMillis();
+        dataUsage = NetworkUtil.getUID(startMillis, System.currentTimeMillis(), pkgName, this);
     }
 
-    private void getCategoryTitle() {
+    private void getAppCategoryTitle() {
         PackageManager pm = context.getPackageManager();
         ApplicationInfo applicationInfo = null;
 
@@ -146,67 +158,50 @@ public class AppStatsActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException ignored) {
         }
 
-        int appCategory = Objects.requireNonNull(applicationInfo).category;
-        category = (String) ApplicationInfo.getCategoryTitle(context, appCategory);
+        int appCategoryCode = Objects.requireNonNull(applicationInfo).category;
+        appCategory = (String) ApplicationInfo.getCategoryTitle(context, appCategoryCode);
     }
 
     private static class TimeFormatter implements ValueFormatter {
+        @SuppressLint("DefaultLocale")
         @Override
         public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-            if (value == 0) {
-                return "0s";
-            }
-
-            String hour = String.valueOf(value);
-            String time = "";
-            time += hour + " hrs";
-            return time;
+            int hours = (int) value;
+            int minutes = (int) ((value - hours) * 60);
+            return String.format("%02d:%02d", hours, minutes);
         }
     }
 
     @SuppressLint("StaticFieldLeak")
-    private class loadData extends AsyncTask<Void, Void, Void> {
+    private class LoadDataAsyncTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            layout.setVisibility(View.VISIBLE);
+            loadingLayout.setVisibility(View.VISIBLE);
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
             getStatsInfo(packageName);
-            getCategoryTitle();
+            getAppCategoryTitle();
             return null;
         }
 
-        @SuppressLint("SetTextI18n")
+        @SuppressLint({"SetTextI18n", "DefaultLocale"})
         @Override
         protected void onPostExecute(Void results) {
             super.onPostExecute(results);
 
-            layout.setVisibility(View.GONE);
-            t6.setText(String.valueOf(daily));
-            t21.setText(String.valueOf(weekly));
-            t13.setText(String.valueOf(monthly));
-            t14.setText(String.valueOf(yearly));
-            xyz1.setText(category);
+            loadingLayout.setVisibility(View.GONE);
+            dailyUsageTextView.setText(String.format("%02d:%02d", (int) dailyUsage, (int) ((dailyUsage - (int) dailyUsage) * 60)));
+            weeklyUsageTextView.setText(String.format("%02d:%02d", (int) weeklyUsage, (int) ((weeklyUsage - (int) weeklyUsage) * 60)));
+            monthlyUsageTextView.setText(String.format("%02d:%02d", (int) monthlyUsage, (int) ((monthlyUsage - (int) monthlyUsage) * 60)));
+            yearlyUsageTextView.setText(String.format("%02d:%02d", (int) yearlyUsage, (int) ((yearlyUsage - (int) yearlyUsage) * 60)));
+            appCategoryTextView.setText(appCategory != null ? appCategory : "Other");
 
-            if (category == null) {
-                xyz1.setText("Other");
-            }
+            appPositionTextView.setText(appPosition < 10 ? "0" + appPosition : appPosition > 99 ? "99+" : String.valueOf(appPosition));
 
-            xy1.setText(String.valueOf(position));
-            if (position < 10) {
-                String p = "0" + position;
-                xy1.setText(p);
-            }
-
-            if (position > 99) {
-                xy1.setText("99+");
-                xy1.setTextSize(18);
-            }
-
-            t18.setText(String.valueOf(data));
+            dataUsageTextView.setText(String.valueOf(dataUsage));
             loadGraph();
         }
     }

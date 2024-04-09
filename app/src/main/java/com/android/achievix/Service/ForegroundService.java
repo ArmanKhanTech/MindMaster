@@ -34,6 +34,7 @@ import com.android.achievix.R;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -151,7 +152,18 @@ public class ForegroundService extends Service {
     public void block(CountDownTimer timer) {
         List<HashMap<String, String>> list = blockDatabase.readRecordsApp(currentApp);
         if(!list.isEmpty()) {
+            Calendar calender = Calendar.getInstance();
+            int currentDay = calender.get(Calendar.DAY_OF_WEEK);
+            String currentDayName = getDayName(currentDay);
+
+            List<HashMap<String, String>> filteredList = new ArrayList<>();
             for (HashMap<String, String> map : list) {
+                if (Objects.requireNonNull(map.get("scheduleDays")).contains(currentDayName)) {
+                    filteredList.add(map);
+                }
+            }
+
+            for (HashMap<String, String> map : filteredList) {
                 if(Objects.equals(map.get("packageName"), currentApp)) {
                     if (Objects.equals(map.get("scheduleType"), "Usage Time") && Objects.equals(map.get("profileStatus"), "1")) {
                         if (Objects.equals(map.get("notification"), "1")) {
@@ -449,6 +461,19 @@ public class ForegroundService extends Service {
             case Calendar.FRIDAY -> days.contains("Friday");
             case Calendar.SATURDAY -> days.contains("Saturday");
             default -> false;
+        };
+    }
+
+    private String getDayName(int day) {
+        return switch (day) {
+            case Calendar.SUNDAY -> "Sunday";
+            case Calendar.MONDAY -> "Monday";
+            case Calendar.TUESDAY -> "Tuesday";
+            case Calendar.WEDNESDAY -> "Wednesday";
+            case Calendar.THURSDAY -> "Thursday";
+            case Calendar.FRIDAY -> "Friday";
+            case Calendar.SATURDAY -> "Saturday";
+            default -> "";
         };
     }
 
