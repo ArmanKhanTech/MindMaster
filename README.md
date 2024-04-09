@@ -65,6 +65,7 @@ Achievix is an Android productivity app thats lets you do whats necessary by get
 ### Built With
 
 * [![Java][Java]][Java-url]
+* [!Kotlin](https://img.shields.io/badge/Kotlin-0095D5?style=for-the-badge&logo=kotlin&logoColor=white)
 * [![Sqlite][Sqlite]][Sqlite-url]
 
 
@@ -96,38 +97,47 @@ Follow the below instructions to get started.
 
 ## Usage
 
-...
-
-
-### Features
-
-1. Limit App's Usage per Day.
-2. Notification Block.
-3. Block Websites.
-4. Limit Internet Usage per App.
-5. View Each App's Stats.
-6. Usage Analysis.
-7. Parental Control.
-8. Uninstall Protection.
+1. Block Apps
+2. Block Websites
+3. Block Keywords
+4. Block Internet Access
+5. Create and Manage Various Profiles
+6. Add and Manage Blocking Schedules
+7. Monitor Usage (Time, Launch Count & Data)
+8. Take a Break Feature
+9. Normal & Strict Mode
+10. Five Different Schedule Modes
+11. Uninstall Protection
+12. Parental Control
+13. Notification Block
 
 
 
 ## Roadmap
 
 - [x] Add Home Activity
-- [x] Add Block Activity
-- [x] Add Limit Activity
+- [x] Add App Block Activity
+- [x] Add Schedule Activity
+- [x] Add New Schedule Activity
+- [x] Add Various Blocking Schedule Modes
+- [x] Add Edit Schedules Activity
 - [x] Add Foreground Service
-- [x] Add Website Blocker
+- [x] Add Website Block Activity
+- [x] Add Keyword Block Activity
 - [x] Add URL Service
-- [x] Add Internet Limit Activity
-- [x] Add Usage Stats
+- [x] Add Internet Block Activity
+- [x] Add Internet Block Service
+- [x] Add Usage Overview Activity
+- [x] Add App Insights Activity
 - [x] Add Notification Blocker
-- [x] Add Parented Control
-- [x] Reduce RAM Consumption
-- [x] Add Uninstall Protect
-- [ ] Major Upgrade (UI & Bugs fix + some performance improvements)
-- [ ] Upload on Play Store
+- [x] Add Uninstall Protection
+- [x] Add Take a Break Activity
+- [x] Add Normal Mode
+- [x] Add Strict Mode
+- [x] Add Parental Control
+- [x] Add App Launch Monitoring
+- [x] Add Profile System
+- [x] Major Upgrade (UI & Bugs fix + some performance improvements)
 
 See the [open issues](https://github.com/ArmanKhanTech/Achievix/issues) for a full list of proposed features (and known issues)
 

@@ -10,4 +10,3 @@ dependencyResolutionManagement {
 rootProject.name = "Achievix"
 include ':app'
 include ':passcodeview'
-include ':sample'
