@@ -90,7 +90,7 @@ Follow the below instructions to get started.
 1. Clone this repo
    
    ```sh
-   git clone https://github.com/ArmanKhanTech/FocusOnMe.git
+   git clone https://github.com/ArmanKhanTech/Achievix.git
    ```
 
 
