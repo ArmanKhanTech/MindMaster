@@ -65,7 +65,7 @@ Achievix is an Android productivity app thats lets you do whats necessary by get
 ### Built With
 
 * [![Java][Java]][Java-url]
-* [!Kotlin](https://img.shields.io/badge/Kotlin-0095D5?style=for-the-badge&logo=kotlin&logoColor=white)
+* [![Kotlin][Kotlin]][Kotlin-url]
 * [![Sqlite][Sqlite]][Sqlite-url]
 
 
@@ -111,16 +111,17 @@ Follow the below instructions to get started.
 12. Parental Control
 13. Notification Block
 
+Compressive documentation will be added soon.
+
 
 
 ## Roadmap
 
 - [x] Add Home Activity
 - [x] Add App Block Activity
-- [x] Add Schedule Activity
 - [x] Add New Schedule Activity
-- [x] Add Various Blocking Schedule Modes
-- [x] Add Edit Schedules Activity
+- [x] Add Different Blocking Schedule Modes
+- [x] Add Edit Schedule Activity
 - [x] Add Foreground Service
 - [x] Add Website Block Activity
 - [x] Add Keyword Block Activity
@@ -174,6 +175,7 @@ Project Link - [https://github.com/ArmanKhanTech/Achievix](https://github.com/Ar
 
 **3rd Party Libraries**
 * [Phil Jay's MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
+* [Lottie Animations](https://github.com/airbnb/lottie-android)
 
 
 
@@ -193,6 +195,10 @@ Project Link - [https://github.com/ArmanKhanTech/Achievix](https://github.com/Ar
 [Android-url]: https://developer.android.com/
 [Java]: https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white
 [Java-url]: https://www.java.com/
+
+[Kotlin]: https://img.shields.io/badge/Kotlin-0095D5?style=for-the-badge&logo=kotlin&logoColor=white
+
+[Kotlin-url]: https://kotlinlang.org/
 [Gradle]: https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white
 [Gradle-url]: https://gradle.org/
 [Sqlite]: https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white
