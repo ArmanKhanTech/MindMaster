@@ -211,7 +211,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.AppStatsActivity"
+            android:name=".Activity.AppInsightsActivity"
             android:exported="false"
             android:theme="@style/Theme.Achievix" />
     </application>

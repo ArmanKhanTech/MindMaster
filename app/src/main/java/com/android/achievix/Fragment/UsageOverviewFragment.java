@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.achievix.Activity.AppStatsActivity;
+import com.android.achievix.Activity.AppInsightsActivity;
 import com.android.achievix.Adapter.AppUsageAdapter;
 import com.android.achievix.Model.AppUsageModel;
 import com.android.achievix.R;
@@ -133,7 +133,7 @@ public class UsageOverviewFragment extends Fragment {
             appUsageAdapter.setOnItemClickListener(view -> {
                 int position = recyclerView.getChildAdapterPosition(view);
                 AppUsageModel app = appUsageAdapter.getItemAt(position);
-                Intent intent = new Intent(requireActivity(), AppStatsActivity.class);
+                Intent intent = new Intent(requireActivity(), AppInsightsActivity.class);
                 intent.putExtra("appName", app.getName());
                 intent.putExtra("packageName", app.getPackageName());
                 intent.putExtra("position", position);

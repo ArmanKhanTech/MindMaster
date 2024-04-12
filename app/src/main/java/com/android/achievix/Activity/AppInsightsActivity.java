@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class AppStatsActivity extends AppCompatActivity {
+public class AppInsightsActivity extends AppCompatActivity {
     private static final UsageUtil usageUtil = new UsageUtil();
     private static String packageName = "";
     @SuppressLint("StaticFieldLeak")
@@ -45,7 +45,7 @@ public class AppStatsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_app_stats);
+        setContentView(R.layout.activity_app_insights);
 
         context = getApplicationContext();
 
