@@ -97,12 +97,12 @@ Follow the below instructions to get started.
 
 ## Usage
 
-1. Block Apps
+1. Block Apps & Games
 2. Block Websites
 3. Block Keywords
 4. Block Internet Access
 5. Create and Manage Various Profiles
-6. Add and Manage Blocking Schedules
+6. Add and Manage Various Blocking Schedules
 7. Monitor Usage (Time, Launch Count & Data)
 8. Take a Break Feature
 9. Normal & Strict Mode
@@ -120,9 +120,9 @@ Compressive documentation will be added soon.
 - [x] Add Home Activity
 - [x] Add App Block Activity
 - [x] Add New Schedule Activity
-- [x] Add Different Blocking Schedule Modes
+- [x] Add Various Blocking Schedule Modes
 - [x] Add Edit Schedule Activity
-- [x] Add Foreground Service
+- [x] Add App Block Service
 - [x] Add Website Block Activity
 - [x] Add Keyword Block Activity
 - [x] Add URL Service
@@ -136,9 +136,9 @@ Compressive documentation will be added soon.
 - [x] Add Normal Mode
 - [x] Add Strict Mode
 - [x] Add Parental Control
-- [x] Add App Launch Monitoring
-- [x] Add Profile System
-- [x] Major Upgrade (UI & Bugs fix + some performance improvements)
+- [x] Add App Launch Service
+- [x] Add New Profile Activity
+- [x] Add Edit Profile Activity
 
 See the [open issues](https://github.com/ArmanKhanTech/Achievix/issues) for a full list of proposed features (and known issues)
 
