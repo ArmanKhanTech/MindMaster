@@ -15,7 +15,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.achievix.R;
-import com.android.achievix.Utility.NetworkUtil;
 import com.android.achievix.Utility.UsageUtil;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -39,7 +38,7 @@ public class AppStatsActivity extends AppCompatActivity {
     private String appCategory;
     private int appPosition;
     private float dailyUsage, weeklyUsage, monthlyUsage, yearlyUsage, dataUsage;
-    private TextView dailyUsageTextView, weeklyUsageTextView, monthlyUsageTextView, yearlyUsageTextView, appPositionTextView, appCategoryTextView, dataUsageTextView;
+    private TextView dailyUsageTextView, weeklyUsageTextView, monthlyUsageTextView, yearlyUsageTextView, appPositionTextView, appCategoryTextView;
     private BarChart usageBarChart;
     private LinearLayout loadingLayout;
 
@@ -63,7 +62,6 @@ public class AppStatsActivity extends AppCompatActivity {
         weeklyUsageTextView = findViewById(R.id.weekly_usage);
         monthlyUsageTextView = findViewById(R.id.monthly_usage);
         yearlyUsageTextView = findViewById(R.id.yearly_usage);
-        dataUsageTextView = findViewById(R.id.data_cons);
         appPositionTextView = findViewById(R.id.app_rank);
         appCategoryTextView = findViewById(R.id.app_cate);
         loadingLayout = findViewById(R.id.ly1);
@@ -86,6 +84,7 @@ public class AppStatsActivity extends AppCompatActivity {
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
 
         long startMillis = calendar.getTimeInMillis();
         long endMillis = System.currentTimeMillis();
@@ -127,9 +126,10 @@ public class AppStatsActivity extends AppCompatActivity {
         usageBarChart.getAxisLeft().setValueFormatter(new LargeValueFormatter());
         usageBarChart.animateXY(2000, 2000);
         usageBarChart.invalidate();
+        usageBarChart.getBarData().setValueTextSize(10f);
     }
 
-    private void getStatsInfo(String pkgName) {
+    private void getStatsInfo() {
         dailyUsage = usageUtil.getUsageByPackageName(this, packageName, "Daily");
         weeklyUsage = usageUtil.getUsageByPackageName(this, packageName, "Weekly");
         monthlyUsage = usageUtil.getUsageByPackageName(this, packageName, "Monthly");
@@ -139,14 +139,6 @@ public class AppStatsActivity extends AppCompatActivity {
         weeklyUsage = weeklyUsage / (1000 * 60 * 60);
         monthlyUsage = monthlyUsage / (1000 * 60 * 60);
         yearlyUsage = yearlyUsage / (1000 * 60 * 60);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-
-        long startMillis = calendar.getTimeInMillis();
-        dataUsage = NetworkUtil.getUID(startMillis, System.currentTimeMillis(), pkgName, this);
     }
 
     private void getAppCategoryTitle() {
@@ -168,7 +160,7 @@ public class AppStatsActivity extends AppCompatActivity {
         public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
             int hours = (int) value;
             int minutes = (int) ((value - hours) * 60);
-            return String.format("%02d:%02d", hours, minutes);
+            return String.format("%02d.%02d", hours, minutes);
         }
     }
 
@@ -182,7 +174,7 @@ public class AppStatsActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            getStatsInfo(packageName);
+            getStatsInfo();
             getAppCategoryTitle();
             return null;
         }
@@ -193,15 +185,13 @@ public class AppStatsActivity extends AppCompatActivity {
             super.onPostExecute(results);
 
             loadingLayout.setVisibility(View.GONE);
-            dailyUsageTextView.setText(String.format("%02d:%02d", (int) dailyUsage, (int) ((dailyUsage - (int) dailyUsage) * 60)));
-            weeklyUsageTextView.setText(String.format("%02d:%02d", (int) weeklyUsage, (int) ((weeklyUsage - (int) weeklyUsage) * 60)));
-            monthlyUsageTextView.setText(String.format("%02d:%02d", (int) monthlyUsage, (int) ((monthlyUsage - (int) monthlyUsage) * 60)));
-            yearlyUsageTextView.setText(String.format("%02d:%02d", (int) yearlyUsage, (int) ((yearlyUsage - (int) yearlyUsage) * 60)));
+            dailyUsageTextView.setText(String.format("%02d.%02d", (int) dailyUsage, (int) ((dailyUsage - (int) dailyUsage) * 60)));
+            weeklyUsageTextView.setText(String.format("%02d.%02d", (int) weeklyUsage, (int) ((weeklyUsage - (int) weeklyUsage) * 60)));
+            monthlyUsageTextView.setText(String.format("%02d.%02d", (int) monthlyUsage, (int) ((monthlyUsage - (int) monthlyUsage) * 60)));
+            yearlyUsageTextView.setText(String.format("%02d.%02d", (int) yearlyUsage, (int) ((yearlyUsage - (int) yearlyUsage) * 60)));
             appCategoryTextView.setText(appCategory != null ? appCategory : "Other");
-
             appPositionTextView.setText(appPosition < 10 ? "0" + appPosition : appPosition > 99 ? "99+" : String.valueOf(appPosition));
 
-            dataUsageTextView.setText(String.valueOf(dataUsage));
             loadGraph();
         }
     }

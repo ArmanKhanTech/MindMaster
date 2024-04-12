@@ -195,7 +195,6 @@
         <activity
             android:name=".Activity.UsageOverviewActivity"
             android:exported="false"
-            android:noHistory="true"
             android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.MainActivity"

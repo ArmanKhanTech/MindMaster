@@ -25,6 +25,7 @@
         android:layout_marginStart="10dp"
         android:text="Profile Name"
         android:layout_weight="1"
+        android:paddingBottom="2dp"
         android:textColor="@color/pink"
         android:textSize="22dp" />
 

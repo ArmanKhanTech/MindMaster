@@ -49,25 +49,22 @@ class ScheduleAdapter(
                 blockCondition.append("Usage Time: after ")
                 val time = scheduleInfo.scheduleParams.split(" ")
                 blockCondition.append(
-                    refactorTime(
-                        time[0] + " " + time[1],
-                        "Usage Time"
-                    ) + " hours"
+                    time[0] + "." + time[1] + "hrs"
                 )
             }
 
             "Specific Time" -> {
                 blockCondition.append("Specific Time: from ")
                 val time = scheduleInfo.scheduleParams.split(" ")
-                blockCondition.append(refactorTime(time[0] + " " + time[1], "Specific Time"))
+                blockCondition.append(refactorTime(time[0] + " " + time[1]))
                 blockCondition.append(" to ")
-                blockCondition.append(refactorTime(time[2] + " " + time[3], "Specific Time"))
+                blockCondition.append(refactorTime(time[2] + " " + time[3]))
             }
 
             "Quick Block" -> {
                 blockCondition.append("Quick Block: until ")
                 val time = scheduleInfo.scheduleParams.split(" ")
-                blockCondition.append(refactorTime(time[0] + " " + time[1], "Quick Block"))
+                blockCondition.append(refactorTime(time[0] + " " + time[1]))
             }
 
             "Launch Count" -> {
@@ -98,13 +95,9 @@ class ScheduleAdapter(
         }
     }
 
-    private fun refactorTime(time: String, type: String): String {
+    private fun refactorTime(time: String): String {
         val inputFormat = SimpleDateFormat("HH mm", Locale.getDefault())
-        val outputFormat = if (type == "Usage Time") {
-            SimpleDateFormat("hh:mm", Locale.getDefault())
-        } else {
-            SimpleDateFormat("hh:mm a", Locale.getDefault())
-        }
+        val outputFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
         val date = inputFormat.parse(time)
         return if (date != null) outputFormat.format(date) else time
     }

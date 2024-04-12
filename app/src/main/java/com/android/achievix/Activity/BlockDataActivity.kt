@@ -95,7 +95,7 @@ class BlockDataActivity : AppCompatActivity() {
                 "$data",
                 days.toString(),
                 null,
-                false,
+                true,
                 text
             )
 

@@ -31,16 +31,12 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var scheduleAdapter: ProfileScheduleAdapter
     private lateinit var profileName: TextView
     private lateinit var scheduleRecyclerView: RecyclerView
-    private lateinit var noSchedule: TextView
     private lateinit var appRecyclerView: RecyclerView
     private lateinit var addScheduleButton: ImageButton
     private lateinit var addAppButton: ImageButton
-    private lateinit var noApp: TextView
     private lateinit var webRecyclerView: RecyclerView
-    private lateinit var noWeb: TextView
     private lateinit var addWebButton: ImageButton
     private lateinit var keyRecyclerView: RecyclerView
-    private lateinit var noKey: TextView
     private lateinit var addKeyButton: ImageButton
     private lateinit var doneButton: Button
     private var profileItemListApp = ArrayList<ProfileItemModel>()
@@ -59,23 +55,18 @@ class EditProfileActivity : AppCompatActivity() {
         initWebRecyclerView()
         initKeyRecyclerView()
         attachListeners()
-        updateText()
     }
 
     private fun initializeView() {
         profileName = findViewById(R.id.edit_profile_name)
         profileName.text = intent.getStringExtra("profileName")
         scheduleRecyclerView = findViewById(R.id.edit_profile_schedule_list)
-        noSchedule = findViewById(R.id.no_schedule)
         appRecyclerView = findViewById(R.id.edit_profile_block_list_app)
         addScheduleButton = findViewById(R.id.add_schedule)
         addAppButton = findViewById(R.id.add_app)
-        noApp = findViewById(R.id.no_app)
         webRecyclerView = findViewById(R.id.edit_profile_block_list_web)
-        noWeb = findViewById(R.id.no_web)
         addWebButton = findViewById(R.id.add_web)
         keyRecyclerView = findViewById(R.id.edit_profile_block_list_key)
-        noKey = findViewById(R.id.no_key)
         addKeyButton = findViewById(R.id.add_key)
         doneButton = findViewById(R.id.save_edit_profile_button)
     }
@@ -245,7 +236,6 @@ class EditProfileActivity : AppCompatActivity() {
                                     }
 
                                     initWebRecyclerView()
-                                    updateText()
                                     dialog.dismiss()
                                 }
                             } else {
@@ -312,7 +302,6 @@ class EditProfileActivity : AppCompatActivity() {
                                 }
 
                                 initKeyRecyclerView()
-                                updateText()
                                 dialog.dismiss()
                             }
                         } else {
@@ -336,33 +325,6 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    fun updateText() {
-        if (scheduleRecyclerView.adapter!!.itemCount == 0) {
-            noSchedule.text = "No Schedule"
-        } else {
-            noSchedule.text = ""
-        }
-
-        if (appRecyclerView.adapter!!.itemCount == 0) {
-            noApp.text = "No App"
-        } else {
-            noApp.text = ""
-        }
-
-        if (webRecyclerView.adapter!!.itemCount == 0) {
-            noWeb.text = "No Website"
-        } else {
-            noWeb.text = ""
-        }
-
-        if (keyRecyclerView.adapter!!.itemCount == 0) {
-            noKey.text = "No Keyword"
-        } else {
-            noKey.text = ""
-        }
-    }
-
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -377,6 +339,7 @@ class EditProfileActivity : AppCompatActivity() {
 
                     for (j in scheduleModelList) {
                         if (app == "com.android.achievix") {
+                            Toast.makeText(this, "Cannot block Achievix", Toast.LENGTH_SHORT).show()
                             continue
                         } else {
                             blockDatabase.addRecord(
@@ -397,7 +360,6 @@ class EditProfileActivity : AppCompatActivity() {
                 }
 
                 initAppRecyclerView()
-                updateText()
             } else {
                 Toast.makeText(this, "Add a schedule first", Toast.LENGTH_SHORT).show()
             }

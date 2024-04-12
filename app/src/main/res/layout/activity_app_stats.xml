@@ -70,29 +70,47 @@
                     android:layout_marginTop="8dp"
                     android:src="@mipmap/app_icon" />
 
-                <TextView
-                    android:id="@+id/app_rank"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:text="00"
-                    android:textColor="@color/purple_500"
-                    android:textSize="30dp"
-                    android:textStyle="bold" />
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Daily Rank"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/app_rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="00"
+                        android:textColor="@color/purple_500"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_marginVertical="15dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:text="Type: "
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:text="Category: "
                     android:textColor="@color/black"
                     android:textSize="22dp" />
 
@@ -109,11 +127,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:text="Usage Stats"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:layout_gravity="start"
+                android:layout_marginHorizontal="15dp"
+                android:text="Screen Time"
+                android:textColor="@color/purple_500"
+                android:textSize="25dp" />
 
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChart_view"
@@ -135,7 +153,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginStart="10dp"
                     android:text="Daily :"
                     android:textColor="@color/purple_500"
                     android:textSize="20dp"
@@ -164,7 +181,6 @@
                     android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
                     android:text="hrs"
                     android:textColor="@color/black"
                     android:textSize="20dp"
@@ -187,7 +203,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginStart="10dp"
                     android:text="Weekly :"
                     android:textColor="@color/purple_500"
                     android:textSize="20dp"
@@ -216,7 +231,6 @@
                     android:id="@+id/textView20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
                     android:text="hrs"
                     android:textColor="@color/black"
                     android:textSize="20dp"
@@ -239,7 +253,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginStart="10dp"
                     android:text="Monthly :"
                     android:textColor="@color/purple_500"
                     android:textSize="20dp"
@@ -268,7 +281,6 @@
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
                     android:text="hrs"
                     android:textColor="@color/black"
                     android:textSize="20dp"
@@ -291,7 +303,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginStart="10dp"
                     android:text="Yearly :"
                     android:textColor="@color/purple_500"
                     android:textSize="20dp"
@@ -320,60 +331,7 @@
                     android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
                     android:text="hrs"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="5dp"
-                android:layout_marginHorizontal="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="10dp"
-                    android:text="Data :"
-                    android:textColor="@color/purple_500"
-                    android:textSize="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/data_cons"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
-                    android:id="@+id/data_cons"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0000"
-                    android:textColor="@color/black"
-                    android:textSize="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/textView24"
-                    app:layout_constraintHorizontal_bias="0.966"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
-                    android:id="@+id/textView24"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:text="MB"
                     android:textColor="@color/black"
                     android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"

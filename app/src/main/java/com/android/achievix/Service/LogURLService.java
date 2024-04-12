@@ -3,7 +3,6 @@ package com.android.achievix.Service;
 import android.accessibilityservice.AccessibilityService;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -100,9 +99,18 @@ public class LogURLService extends AccessibilityService {
         try (BlockDatabase blockDatabase = new BlockDatabase(this)) {
             List<HashMap<String, String>> list = blockDatabase.readRecordsWeb(url);
             if (!list.isEmpty()) {
-                for (HashMap<String, String> map : list) {
-                    Log.d("Block", url);
+                Calendar calender = Calendar.getInstance();
+                int currentDay = calender.get(Calendar.DAY_OF_WEEK);
+                String currentDayName = getDay(currentDay);
 
+                List<HashMap<String, String>> filteredList = new ArrayList<>();
+                for (HashMap<String, String> map : list) {
+                    if (Objects.requireNonNull(map.get("scheduleDays")).contains(currentDayName)) {
+                        filteredList.add(map);
+                    }
+                }
+
+                for (HashMap<String, String> map : filteredList) {
                     if (Objects.equals(map.get("name"), url)) {
                         if (Objects.equals(map.get("scheduleType"), "Specific Time") && Objects.equals(map.get("profileStatus"), "1")) {
                             if (Objects.equals(map.get("launch"), "1")) {
@@ -115,7 +123,7 @@ public class LogURLService extends AccessibilityService {
                                 if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= fromHours &&
                                         Calendar.getInstance().get(Calendar.MINUTE) >= fromMinutes &&
                                         Calendar.getInstance().get(Calendar.HOUR_OF_DAY) <= toHours &&
-                                        Calendar.getInstance().get(Calendar.MINUTE) <= toMinutes && checkDay(map.get("scheduleDays"))) {
+                                        Calendar.getInstance().get(Calendar.MINUTE) <= toMinutes) {
                                     System.gc();
                                     Runtime.getRuntime().runFinalization();
 
@@ -158,26 +166,19 @@ public class LogURLService extends AccessibilityService {
                                 }
                             }
                         } else if (Objects.equals(map.get("scheduleType"), "Fixed Block") && Objects.equals(map.get("profileStatus"), "1")) {
-                            Log.d("Block", "Blocked Out");
                             if (Objects.equals(map.get("launch"), "1")) {
-                                if (checkDay(map.get("scheduleDays"))) {
-                                    Log.d("Block", "Blocked In");
+                                System.gc();
+                                Runtime.getRuntime().runFinalization();
 
-                                    System.gc();
-                                    Runtime.getRuntime().runFinalization();
-
-                                    Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
-                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                    lockIntent.putExtra("name", url);
-                                    lockIntent.putExtra("packageName", browserApp);
-                                    lockIntent.putExtra("type", map.get("type"));
-                                    lockIntent.putExtra("text", map.get("text"));
-                                    startActivity(lockIntent);
-                                } else {
-                                    return;
-                                }
+                                Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
+                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                lockIntent.putExtra("name", url);
+                                lockIntent.putExtra("packageName", browserApp);
+                                lockIntent.putExtra("type", map.get("type"));
+                                lockIntent.putExtra("text", map.get("text"));
+                                startActivity(lockIntent);
                             }
                         }
                     } else {
@@ -194,7 +195,18 @@ public class LogURLService extends AccessibilityService {
             for (String key : keys) {
                 List<HashMap<String, String>> list = blockDatabase.readRecordsKey(key);
                 if (!list.isEmpty()) {
+                    Calendar calender = Calendar.getInstance();
+                    int currentDay = calender.get(Calendar.DAY_OF_WEEK);
+                    String currentDayName = getDay(currentDay);
+
+                    List<HashMap<String, String>> filteredList = new ArrayList<>();
                     for (HashMap<String, String> map : list) {
+                        if (Objects.requireNonNull(map.get("scheduleDays")).contains(currentDayName)) {
+                            filteredList.add(map);
+                        }
+                    }
+
+                    for (HashMap<String, String> map : filteredList) {
                         if (Objects.equals(map.get("name"), key)) {
                             if (Objects.equals(map.get("scheduleType"), "Specific Time") && Objects.equals(map.get("profileStatus"), "1")) {
                                 if (Objects.equals(map.get("launch"), "1")) {
@@ -207,7 +219,7 @@ public class LogURLService extends AccessibilityService {
                                     if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= fromHours &&
                                             Calendar.getInstance().get(Calendar.MINUTE) >= fromMinutes &&
                                             Calendar.getInstance().get(Calendar.HOUR_OF_DAY) <= toHours &&
-                                            Calendar.getInstance().get(Calendar.MINUTE) <= toMinutes && checkDay(map.get("scheduleDays"))) {
+                                            Calendar.getInstance().get(Calendar.MINUTE) <= toMinutes) {
                                         System.gc();
 
                                         Runtime.getRuntime().runFinalization();
@@ -251,22 +263,18 @@ public class LogURLService extends AccessibilityService {
                                 }
                             } else if (Objects.equals(map.get("scheduleType"), "Fixed Block") && Objects.equals(map.get("profileStatus"), "1")) {
                                 if (Objects.equals(map.get("launch"), "1")) {
-                                    if (checkDay(map.get("scheduleDays"))) {
-                                        System.gc();
-                                        Runtime.getRuntime().runFinalization();
+                                    System.gc();
+                                    Runtime.getRuntime().runFinalization();
 
-                                        Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
-                                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                        lockIntent.putExtra("name", key);
-                                        lockIntent.putExtra("packageName", browserApp);
-                                        lockIntent.putExtra("type", map.get("type"));
-                                        lockIntent.putExtra("text", map.get("text"));
-                                        startActivity(lockIntent);
-                                    } else {
-                                        return;
-                                    }
+                                    Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
+                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                    lockIntent.putExtra("name", key);
+                                    lockIntent.putExtra("packageName", browserApp);
+                                    lockIntent.putExtra("type", map.get("type"));
+                                    lockIntent.putExtra("text", map.get("text"));
+                                    startActivity(lockIntent);
                                 }
                             }
                         } else {
@@ -279,19 +287,16 @@ public class LogURLService extends AccessibilityService {
         }
     }
 
-    public boolean checkDay(String days) {
-        Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_WEEK);
-
+    private String getDay(int day) {
         return switch (day) {
-            case Calendar.SUNDAY -> days.contains("Sunday");
-            case Calendar.MONDAY -> days.contains("Monday");
-            case Calendar.TUESDAY -> days.contains("Tuesday");
-            case Calendar.WEDNESDAY -> days.contains("Wednesday");
-            case Calendar.THURSDAY -> days.contains("Thursday");
-            case Calendar.FRIDAY -> days.contains("Friday");
-            case Calendar.SATURDAY -> days.contains("Saturday");
-            default -> false;
+            case Calendar.SUNDAY -> "Sunday";
+            case Calendar.MONDAY -> "Monday";
+            case Calendar.TUESDAY -> "Tuesday";
+            case Calendar.WEDNESDAY -> "Wednesday";
+            case Calendar.THURSDAY -> "Thursday";
+            case Calendar.FRIDAY -> "Friday";
+            case Calendar.SATURDAY -> "Saturday";
+            default -> "";
         };
     }
 

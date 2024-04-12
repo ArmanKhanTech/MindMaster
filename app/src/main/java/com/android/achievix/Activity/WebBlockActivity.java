@@ -26,8 +26,10 @@ import com.android.achievix.Utility.AccessibilityUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class WebBlockActivity extends AppCompatActivity {
@@ -131,7 +133,15 @@ public class WebBlockActivity extends AppCompatActivity {
         if (webKeyModelList.isEmpty()) {
             noWebBlock.setVisibility(TextView.VISIBLE);
         } else {
-            webKeyBlockAdapter = new WebKeyBlockAdapter(webKeyModelList, true);
+            Set<String> urls = new HashSet<>();
+            List<WebKeyModel> filteredList = new ArrayList<>();
+
+            for (WebKeyModel model : webKeyModelList) {
+                if (urls.add(model.getName())) {
+                    filteredList.add(model);
+                }
+            }
+            webKeyBlockAdapter = new WebKeyBlockAdapter(filteredList, true);
             recyclerView.setAdapter(webKeyBlockAdapter);
 
             webKeyBlockAdapter.setOnItemClickListener(view -> {

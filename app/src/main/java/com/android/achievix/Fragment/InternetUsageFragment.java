@@ -35,6 +35,7 @@ import com.android.achievix.Utility.NetworkUtil;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -168,11 +169,17 @@ public class InternetUsageFragment extends Fragment {
 
             switch (sort) {
                 case "Daily":
-                    startMillis = System.currentTimeMillis() - 86400000;
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.HOUR_OF_DAY, 0);
+                    calendar.set(Calendar.MINUTE, 0);
+                    calendar.set(Calendar.SECOND, 0);
+                    calendar.set(Calendar.MILLISECOND, 0);
+
+                    startMillis = calendar.getTimeInMillis();
                     endMillis = System.currentTimeMillis();
                     break;
                 case "Weekly":
-                    startMillis = System.currentTimeMillis() - 604800000;
+                    startMillis = System.currentTimeMillis() - 604800000L;
                     endMillis = System.currentTimeMillis();
                     break;
                 case "Monthly":

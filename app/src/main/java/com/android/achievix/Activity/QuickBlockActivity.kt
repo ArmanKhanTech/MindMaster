@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import com.android.achievix.Database.BlockDatabase
 import com.android.achievix.R
+import java.util.Calendar
 
 class QuickBlockActivity : AppCompatActivity() {
     private lateinit var launchSwitch: SwitchCompat
@@ -168,15 +169,15 @@ class QuickBlockActivity : AppCompatActivity() {
     }
 
     private fun getCurrentDay(): List<String> {
-        return when (System.currentTimeMillis() % 7) {
-            0L -> mutableListOf("Sunday")
-            1L -> mutableListOf("Monday")
-            2L -> mutableListOf("Tuesday")
-            3L -> mutableListOf("Wednesday")
-            4L -> mutableListOf("Thursday")
-            5L -> mutableListOf("Friday")
-            6L -> mutableListOf("Saturday")
-            else -> mutableListOf("Sunday")
+        return when (Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) {
+            Calendar.SUNDAY -> mutableListOf("Sunday")
+            Calendar.MONDAY -> mutableListOf("Monday")
+            Calendar.TUESDAY -> mutableListOf("Tuesday")
+            Calendar.WEDNESDAY -> mutableListOf("Wednesday")
+            Calendar.THURSDAY -> mutableListOf("Thursday")
+            Calendar.FRIDAY -> mutableListOf("Friday")
+            Calendar.SATURDAY -> mutableListOf("Saturday")
+            else -> mutableListOf("")
         }
     }
 

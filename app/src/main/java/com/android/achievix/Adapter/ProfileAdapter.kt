@@ -34,9 +34,6 @@ class ProfileAdapter(private var profileList: List<ProfileModel>) :
         holder.profileName.text = profileInfo.profileName
         var status = profileInfo.status == "1"
         holder.profileAction.setImageResource(if (status) R.drawable.pause_icon_pink else R.drawable.play_icon_pink)
-        if (status) {
-            holder.profileName.setPadding(0, 0, 0, 0)
-        }
         holder.profileAction.setOnClickListener {
             BlockDatabase(holder.itemView.context).toggleProfile(profileInfo.profileName, status)
             status = !status

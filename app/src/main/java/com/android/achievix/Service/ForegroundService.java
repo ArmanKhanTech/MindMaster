@@ -19,6 +19,7 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -154,7 +155,7 @@ public class ForegroundService extends Service {
         if(!list.isEmpty()) {
             Calendar calender = Calendar.getInstance();
             int currentDay = calender.get(Calendar.DAY_OF_WEEK);
-            String currentDayName = getDayName(currentDay);
+            String currentDayName = getDay(currentDay);
 
             List<HashMap<String, String>> filteredList = new ArrayList<>();
             for (HashMap<String, String> map : list) {
@@ -184,6 +185,8 @@ public class ForegroundService extends Service {
                             calendar.set(Calendar.SECOND, 0);
                             calendar.set(Calendar.MILLISECOND, 0);
 
+                            Log.d("Usage Time", "Start Time: " + calendar.getTime());
+
                             long startMillis = calendar.getTimeInMillis();
                             long endMillis = System.currentTimeMillis();
 
@@ -195,7 +198,7 @@ public class ForegroundService extends Service {
                                 long time = usageStats.getTotalTimeInForeground();
                                 long timeInMinutes = time / 60000;
 
-                                if (timeInMinutes >= (hour * 60L + minute) && checkDay(map.get("scheduleDays"))) {
+                                if (timeInMinutes >= (hour * 60L + minute)) {
                                     timer.cancel();
                                     System.gc();
                                     Runtime.getRuntime().runFinalization();
@@ -231,7 +234,7 @@ public class ForegroundService extends Service {
                             if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= fromHours &&
                                     Calendar.getInstance().get(Calendar.MINUTE) >= fromMinutes &&
                                     Calendar.getInstance().get(Calendar.HOUR_OF_DAY) <= toHours &&
-                                    Calendar.getInstance().get(Calendar.MINUTE) <= toMinutes && checkDay(map.get("scheduleDays"))) {
+                                    Calendar.getInstance().get(Calendar.MINUTE) <= toMinutes) {
                                 timer.cancel();
                                 System.gc();
                                 Runtime.getRuntime().runFinalization();
@@ -296,7 +299,7 @@ public class ForegroundService extends Service {
                             String date = sdf.format(new Date());
                             int dailyCount = appLaunchDatabase.getDailyLaunchCountForSpecificApp(currentApp, date);
 
-                            if (dailyCount >= launchCount && checkDay(map.get("scheduleDays"))) {
+                            if (dailyCount >= launchCount) {
                                 timer.cancel();
                                 System.gc();
                                 Runtime.getRuntime().runFinalization();
@@ -322,22 +325,18 @@ public class ForegroundService extends Service {
                         }
 
                         if (Objects.equals(map.get("launch"), "1")) {
-                            if (checkDay(map.get("scheduleDays"))) {
-                                timer.cancel();
-                                System.gc();
-                                Runtime.getRuntime().runFinalization();
+                            timer.cancel();
+                            System.gc();
+                            Runtime.getRuntime().runFinalization();
 
-                                Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
-                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                lockIntent.putExtra("packageName", currentApp);
-                                lockIntent.putExtra("type", map.get("type"));
-                                lockIntent.putExtra("text", map.get("text"));
-                                startActivity(lockIntent);
-                            } else {
-                                return;
-                            }
+                            Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
+                            lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            lockIntent.putExtra("packageName", currentApp);
+                            lockIntent.putExtra("type", map.get("type"));
+                            lockIntent.putExtra("text", map.get("text"));
+                            startActivity(lockIntent);
                         }
                     } else if (Objects.equals(map.get("scheduleType"), "Block Data")) {
                         String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
@@ -346,7 +345,7 @@ public class ForegroundService extends Service {
                         boolean wifi = Objects.equals(map.get("notification"), "1");
 
                         float total = getPackageInfo(0, System.currentTimeMillis(), currentApp, mobile, wifi);
-                        if (checkDay(map.get("scheduleDays")) && total >= usage) {
+                        if (total >= usage) {
                             timer.cancel();
                             System.gc();
                             Runtime.getRuntime().runFinalization();
@@ -449,22 +448,7 @@ public class ForegroundService extends Service {
         }
     }
 
-    public boolean checkDay(String days) {
-        Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_WEEK);
-        return switch (day) {
-            case Calendar.SUNDAY -> days.contains("Sunday");
-            case Calendar.MONDAY -> days.contains("Monday");
-            case Calendar.TUESDAY -> days.contains("Tuesday");
-            case Calendar.WEDNESDAY -> days.contains("Wednesday");
-            case Calendar.THURSDAY -> days.contains("Thursday");
-            case Calendar.FRIDAY -> days.contains("Friday");
-            case Calendar.SATURDAY -> days.contains("Saturday");
-            default -> false;
-        };
-    }
-
-    private String getDayName(int day) {
+    private String getDay(int day) {
         return switch (day) {
             case Calendar.SUNDAY -> "Sunday";
             case Calendar.MONDAY -> "Monday";

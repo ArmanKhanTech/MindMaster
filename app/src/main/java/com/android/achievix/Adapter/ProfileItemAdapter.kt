@@ -43,7 +43,6 @@ class ProfileItemAdapter(
             blockDatabase.deleteProfileItem(itemInfo.profileName, itemInfo.name)
             itemList = itemList.filter { it.id != itemInfo.id }
             notifyItemRemoved(position)
-            activity.updateText()
         }
     }
 

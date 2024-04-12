@@ -54,7 +54,7 @@ class UsageUtil {
         @SuppressLint("ServiceCast", "QueryPermissionsNeeded", "UseCompatLoadingForDrawables")
         fun getInstalledAppsBlock(context: Context, sort: String, caller: String): List<AppBlockModel> {
             val usageTimes = getUsageTimes(context, "Daily")
-            val networkUsageMap = getNetworkUsageMap(context, caller)
+            val networkUsageMap = getNetworkUsageMap(context, caller, "Daily")
 
             return getAppsList(context).mapNotNull { app ->
                 val usageTime = usageTimes.getOrDefault(app.packageName, 0L)
@@ -102,7 +102,12 @@ class UsageUtil {
             val calendar = Calendar.getInstance()
 
             when (sort) {
-                "Daily" -> calendar.add(Calendar.DAY_OF_YEAR, -1)
+                "Daily" -> {
+                    calendar.set(Calendar.HOUR_OF_DAY, 0)
+                    calendar.set(Calendar.MINUTE, 0)
+                    calendar.set(Calendar.SECOND, 0)
+                    calendar.set(Calendar.MILLISECOND, 0)
+                }
                 "Weekly" -> calendar.add(Calendar.DAY_OF_YEAR, -7)
                 "Monthly" -> calendar.add(Calendar.MONTH, -1)
                 "Yearly" -> calendar.add(Calendar.YEAR, -1)
@@ -137,19 +142,25 @@ class UsageUtil {
 
             val stream = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream)
+
             val bitmapData = stream.toByteArray()
             return BitmapDrawable(context.resources, BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.size))
         }
 
-        private fun getNetworkUsageMap(context: Context, caller: String): HashMap<String, Float> {
+        private fun getNetworkUsageMap(
+            context: Context,
+            caller: String,
+            sort: String
+        ): HashMap<String, Float> {
             val networkUsageMap: HashMap<String, Float> = HashMap()
+            val (beginTime, endTime) = getTimeRange(sort)
 
             if (caller == "InternetBlockActivity") {
                 for (app in getAppsList(context)) {
                     if (app.flags and ApplicationInfo.FLAG_SYSTEM == 0 || app.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0) {
                         networkUsageMap[app.packageName] = NetworkUtil.getUID(
-                            System.currentTimeMillis() - 86400000,
-                            System.currentTimeMillis(),
+                            beginTime,
+                            endTime,
                             app.packageName,
                             context
                         )

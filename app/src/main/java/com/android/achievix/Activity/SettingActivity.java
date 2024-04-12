@@ -34,7 +34,7 @@ public class SettingActivity extends AppCompatActivity {
         Intent serviceIntent = new Intent(this, ForegroundService.class);
         serviceIntent.putExtra("inputExtra", "Foreground Service is Running");
         ContextCompat.startForegroundService(this, serviceIntent);
-        Toast.makeText(this, "App Repaired", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "App repaired", Toast.LENGTH_SHORT).show();
     }
 
     public void repairLog(View v) {
