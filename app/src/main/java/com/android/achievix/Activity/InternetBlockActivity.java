@@ -46,6 +46,7 @@ public class InternetBlockActivity extends AppCompatActivity {
 
         initializeViews();
         attachListeners();
+
         new GetInstalledAppsInternetTask(this, sortValue).execute();
     }
 

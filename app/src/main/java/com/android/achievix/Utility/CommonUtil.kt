@@ -17,8 +17,10 @@ class CommonUtil {
             Bitmap.Config.ARGB_8888
         )
         val canvas = Canvas(bitmap)
+
         appIcon.setBounds(0, 0, canvas.width, canvas.height)
         appIcon.draw(canvas)
+
         var byteArray: ByteArray
 
         ByteArrayOutputStream().use { stream ->

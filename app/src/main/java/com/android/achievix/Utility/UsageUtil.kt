@@ -98,7 +98,7 @@ class UsageUtil {
             return usageTimes
         }
 
-        private fun getTimeRange(sort: String?): Pair<Long, Long> {
+        fun getTimeRange(sort: String?): Pair<Long, Long> {
             val calendar = Calendar.getInstance()
 
             when (sort) {

@@ -42,6 +42,7 @@ class AppBlockActivity : AppCompatActivity() {
         setupRecyclerView()
         setupSearchView()
         setupSpinner()
+
         GetInstalledAppsTask(sortValue).execute()
     }
 

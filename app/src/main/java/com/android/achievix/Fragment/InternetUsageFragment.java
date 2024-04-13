@@ -28,13 +28,15 @@ import com.android.achievix.Model.AppUsageModel;
 import com.android.achievix.R;
 import com.android.achievix.Utility.CommonUtil;
 import com.android.achievix.Utility.NetworkUtil;
+import com.android.achievix.Utility.UsageUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+
+import kotlin.Pair;
 
 public class InternetUsageFragment extends Fragment {
     private final List<AppUsageModel> internetUsageModelList = new ArrayList<>();
@@ -163,46 +165,27 @@ public class InternetUsageFragment extends Fragment {
                 }
             }
 
-            Calendar calendar = Calendar.getInstance();
+            Pair<Long, Long> pair;
             switch (sort) {
                 case "Daily":
-                    calendar.set(Calendar.HOUR_OF_DAY, 0);
-                    calendar.set(Calendar.MINUTE, 0);
-                    calendar.set(Calendar.SECOND, 0);
-                    calendar.set(Calendar.MILLISECOND, 0);
-
-                    startMillis = calendar.getTimeInMillis();
-                    endMillis = System.currentTimeMillis();
+                    pair = UsageUtil.Companion.getTimeRange("Daily");
+                    startMillis = pair.getFirst();
+                    endMillis = pair.getSecond();
                     break;
                 case "Weekly":
-                    calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
-                    calendar.set(Calendar.HOUR_OF_DAY, 0);
-                    calendar.set(Calendar.MINUTE, 0);
-                    calendar.set(Calendar.SECOND, 0);
-                    calendar.set(Calendar.MILLISECOND, 0);
-
-                    startMillis = calendar.getTimeInMillis();
-                    endMillis = System.currentTimeMillis();
+                    pair = UsageUtil.Companion.getTimeRange("Weekly");
+                    startMillis = pair.getFirst();
+                    endMillis = pair.getSecond();
                     break;
                 case "Monthly":
-                    calendar.set(Calendar.DAY_OF_MONTH, 1);
-                    calendar.set(Calendar.HOUR_OF_DAY, 0);
-                    calendar.set(Calendar.MINUTE, 0);
-                    calendar.set(Calendar.SECOND, 0);
-                    calendar.set(Calendar.MILLISECOND, 0);
-
-                    startMillis = calendar.getTimeInMillis();
-                    endMillis = System.currentTimeMillis();
+                    pair = UsageUtil.Companion.getTimeRange("Monthly");
+                    startMillis = pair.getFirst();
+                    endMillis = pair.getSecond();
                     break;
                 case "Yearly":
-                    calendar.set(Calendar.DAY_OF_YEAR, 1);
-                    calendar.set(Calendar.HOUR_OF_DAY, 0);
-                    calendar.set(Calendar.MINUTE, 0);
-                    calendar.set(Calendar.SECOND, 0);
-                    calendar.set(Calendar.MILLISECOND, 0);
-
-                    startMillis = calendar.getTimeInMillis();
-                    endMillis = System.currentTimeMillis();
+                    pair = UsageUtil.Companion.getTimeRange("Yearly");
+                    startMillis = pair.getFirst();
+                    endMillis = pair.getSecond();
                     break;
             }
 

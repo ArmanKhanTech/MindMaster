@@ -44,6 +44,7 @@ public class UsageOverviewFragment extends Fragment {
         initializeViews(view);
         setupSpinner();
         setupRecyclerView();
+
         getInstalledAppsUsageTask = new GetInstalledAppsUsageTask(requireActivity(), sortValue);
         getInstalledAppsUsageTask.execute();
         return view;
@@ -133,6 +134,7 @@ public class UsageOverviewFragment extends Fragment {
             appUsageAdapter.setOnItemClickListener(view -> {
                 int position = recyclerView.getChildAdapterPosition(view);
                 AppUsageModel app = appUsageAdapter.getItemAt(position);
+
                 Intent intent = new Intent(requireActivity(), AppInsightsActivity.class);
                 intent.putExtra("appName", app.getName());
                 intent.putExtra("packageName", app.getPackageName());
