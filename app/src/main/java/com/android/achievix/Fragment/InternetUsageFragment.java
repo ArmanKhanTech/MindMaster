@@ -6,10 +6,6 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,9 +26,9 @@ import com.android.achievix.Activity.AppInsightsActivity;
 import com.android.achievix.Adapter.InternetUsageAdapter;
 import com.android.achievix.Model.AppUsageModel;
 import com.android.achievix.R;
+import com.android.achievix.Utility.CommonUtil;
 import com.android.achievix.Utility.NetworkUtil;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -179,19 +175,31 @@ public class InternetUsageFragment extends Fragment {
                     endMillis = System.currentTimeMillis();
                     break;
                 case "Weekly":
-                    calendar.add(Calendar.DATE, -7);
+                    calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+                    calendar.set(Calendar.HOUR_OF_DAY, 0);
+                    calendar.set(Calendar.MINUTE, 0);
+                    calendar.set(Calendar.SECOND, 0);
+                    calendar.set(Calendar.MILLISECOND, 0);
 
                     startMillis = calendar.getTimeInMillis();
                     endMillis = System.currentTimeMillis();
                     break;
                 case "Monthly":
-                    calendar.add(Calendar.MONTH, -1);
+                    calendar.set(Calendar.DAY_OF_MONTH, 1);
+                    calendar.set(Calendar.HOUR_OF_DAY, 0);
+                    calendar.set(Calendar.MINUTE, 0);
+                    calendar.set(Calendar.SECOND, 0);
+                    calendar.set(Calendar.MILLISECOND, 0);
 
                     startMillis = calendar.getTimeInMillis();
                     endMillis = System.currentTimeMillis();
                     break;
                 case "Yearly":
-                    calendar.add(Calendar.YEAR, -1);
+                    calendar.set(Calendar.DAY_OF_YEAR, 1);
+                    calendar.set(Calendar.HOUR_OF_DAY, 0);
+                    calendar.set(Calendar.MINUTE, 0);
+                    calendar.set(Calendar.SECOND, 0);
+                    calendar.set(Calendar.MILLISECOND, 0);
 
                     startMillis = calendar.getTimeInMillis();
                     endMillis = System.currentTimeMillis();
@@ -206,20 +214,10 @@ public class InternetUsageFragment extends Fragment {
 
         private AppUsageModel createAppUsageModel(PackageManager pm, HashMap<String, Float> appUsage, String packageName) throws PackageManager.NameNotFoundException, IOException {
             ApplicationInfo appInfo = pm.getPackageInfo(packageName, 0).applicationInfo;
+
             String appName = appInfo.loadLabel(pm).toString();
-            Drawable appIcon = appInfo.loadIcon(pm);
-            Bitmap bitmap = Bitmap.createBitmap(appIcon.getIntrinsicWidth(), appIcon.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(bitmap);
-            appIcon.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-            appIcon.draw(canvas);
-            byte[] byteArray;
+            Drawable appIcon = new CommonUtil().compressIcon(appInfo.loadIcon(pm), context);
 
-            try (ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byteArray = stream.toByteArray();
-            }
-
-            appIcon = new BitmapDrawable(getResources(), BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
             float launchCount = appUsage.get(packageName);
             double progress = (double) launchCount / totalCount * 100;
             return new AppUsageModel(appName, packageName, appIcon, String.valueOf(launchCount), progress);
@@ -233,6 +231,7 @@ public class InternetUsageFragment extends Fragment {
             internetUsageAdapter.setOnItemClickListener(view -> {
                 int position = recyclerView.getChildAdapterPosition(view);
                 AppUsageModel app = internetUsageAdapter.getItemAt(position);
+
                 Intent intent = new Intent(requireActivity(), AppInsightsActivity.class);
                 intent.putExtra("appName", app.getName());
                 intent.putExtra("packageName", app.getPackageName());

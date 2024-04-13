@@ -37,8 +37,9 @@ public class AppInsightsActivity extends AppCompatActivity {
     private static Context context;
     private String appCategory;
     private int appPosition;
-    private float dailyUsage, weeklyUsage, monthlyUsage, yearlyUsage, dataUsage;
-    private TextView dailyUsageTextView, weeklyUsageTextView, monthlyUsageTextView, yearlyUsageTextView, appPositionTextView, appCategoryTextView;
+    private float dailyUsage, weeklyUsage, monthlyUsage, yearlyUsage;
+    private TextView dailyUsageTextView, weeklyUsageTextView, monthlyUsageTextView,
+            yearlyUsageTextView, appPositionTextView, appCategoryTextView;
     private BarChart usageBarChart;
     private LinearLayout loadingLayout;
 
@@ -78,6 +79,7 @@ public class AppInsightsActivity extends AppCompatActivity {
 
     public void loadGraph() {
         long DAY_IN_MILLIS = 86400 * 1000;
+
         ArrayList<BarEntry> entries = new ArrayList<>();
 
         Calendar calendar = Calendar.getInstance();
@@ -95,6 +97,7 @@ public class AppInsightsActivity extends AppCompatActivity {
             if (usageTime <= (float) 0) {
                 usageTime = 0;
             }
+
             usageTime = usageTime / (1000 * 60 * 60);
 
             entries.add(new BarEntry(usageTime, 7 - daysAgo - 1));

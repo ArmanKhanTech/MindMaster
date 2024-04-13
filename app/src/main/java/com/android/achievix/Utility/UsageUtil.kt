@@ -108,9 +108,30 @@ class UsageUtil {
                     calendar.set(Calendar.SECOND, 0)
                     calendar.set(Calendar.MILLISECOND, 0)
                 }
-                "Weekly" -> calendar.add(Calendar.DAY_OF_YEAR, -7)
-                "Monthly" -> calendar.add(Calendar.MONTH, -1)
-                "Yearly" -> calendar.add(Calendar.YEAR, -1)
+
+                "Weekly" -> {
+                    calendar.set(Calendar.DAY_OF_WEEK, calendar.firstDayOfWeek)
+                    calendar.set(Calendar.HOUR_OF_DAY, 0)
+                    calendar.set(Calendar.MINUTE, 0)
+                    calendar.set(Calendar.SECOND, 0)
+                    calendar.set(Calendar.MILLISECOND, 0)
+                }
+
+                "Monthly" -> {
+                    calendar.set(Calendar.DAY_OF_MONTH, 1)
+                    calendar.set(Calendar.HOUR_OF_DAY, 0)
+                    calendar.set(Calendar.MINUTE, 0)
+                    calendar.set(Calendar.SECOND, 0)
+                    calendar.set(Calendar.MILLISECOND, 0)
+                }
+
+                "Yearly" -> {
+                    calendar.set(Calendar.DAY_OF_YEAR, 1)
+                    calendar.set(Calendar.HOUR_OF_DAY, 0)
+                    calendar.set(Calendar.MINUTE, 0)
+                    calendar.set(Calendar.SECOND, 0)
+                    calendar.set(Calendar.MILLISECOND, 0)
+                }
             }
 
             val beginTime = calendar.timeInMillis

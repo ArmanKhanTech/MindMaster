@@ -5,10 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,8 +26,8 @@ import com.android.achievix.Adapter.AppLaunchAdapter;
 import com.android.achievix.Database.AppLaunchDatabase;
 import com.android.achievix.Model.AppUsageModel;
 import com.android.achievix.R;
+import com.android.achievix.Utility.CommonUtil;
 
-import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -184,8 +180,10 @@ public class AppLaunchesFragment extends Fragment {
                 try {
                     if (appLaunchCount.get(packageName) != null && appLaunchCount.get(packageName) > 0 && !packageName.isEmpty()){
                         ApplicationInfo appInfo = pm.getPackageInfo(packageName, 0).applicationInfo;
+
                         String appName = appInfo.loadLabel(pm).toString();
-                        Drawable appIcon = getDrawableFromAppInfo(appInfo, pm);
+                        Drawable appIcon = new CommonUtil().compressIcon(appInfo.loadIcon(pm), context);
+
                         int launchCount = appLaunchCount.get(packageName);
                         double progress = (double) launchCount / totalCount * 100;
                         appLaunchModel.add(new AppUsageModel(appName, packageName, appIcon, String.valueOf(launchCount), progress));
@@ -193,18 +191,6 @@ public class AppLaunchesFragment extends Fragment {
                 } catch (PackageManager.NameNotFoundException ignored) {}
             }
             appLaunchModel.sort((o1, o2) -> Integer.parseInt(Objects.requireNonNull(o2.getExtra())) - Integer.parseInt(Objects.requireNonNull(o1.getExtra())));
-        }
-
-        private Drawable getDrawableFromAppInfo(ApplicationInfo appInfo, PackageManager pm) {
-            Drawable appIcon = appInfo.loadIcon(pm);
-            Bitmap bitmap = Bitmap.createBitmap(appIcon.getIntrinsicWidth(), appIcon.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(bitmap);
-            appIcon.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-            appIcon.draw(canvas);
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteArray = stream.toByteArray();
-            return new BitmapDrawable(getResources(), BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length));
         }
 
         @Override
@@ -216,6 +202,7 @@ public class AppLaunchesFragment extends Fragment {
             }
 
             launchStats.setText(String.valueOf(totalCount));
+
             appLaunchAdapter = new AppLaunchAdapter(appLaunchModel);
             recyclerView.setAdapter(appLaunchAdapter);
             appLaunchAdapter.setOnItemClickListener(view -> {

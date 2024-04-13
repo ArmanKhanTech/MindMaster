@@ -99,8 +99,8 @@ public class LogURLService extends AccessibilityService {
         try (BlockDatabase blockDatabase = new BlockDatabase(this)) {
             List<HashMap<String, String>> list = blockDatabase.readRecordsWeb(url);
             if (!list.isEmpty()) {
-                Calendar calender = Calendar.getInstance();
-                int currentDay = calender.get(Calendar.DAY_OF_WEEK);
+                Calendar cal = Calendar.getInstance();
+                int currentDay = cal.get(Calendar.DAY_OF_WEEK);
                 String currentDayName = getDay(currentDay);
 
                 List<HashMap<String, String>> filteredList = new ArrayList<>();
@@ -195,8 +195,8 @@ public class LogURLService extends AccessibilityService {
             for (String key : keys) {
                 List<HashMap<String, String>> list = blockDatabase.readRecordsKey(key);
                 if (!list.isEmpty()) {
-                    Calendar calender = Calendar.getInstance();
-                    int currentDay = calender.get(Calendar.DAY_OF_WEEK);
+                    Calendar cal = Calendar.getInstance();
+                    int currentDay = cal.get(Calendar.DAY_OF_WEEK);
                     String currentDayName = getDay(currentDay);
 
                     List<HashMap<String, String>> filteredList = new ArrayList<>();

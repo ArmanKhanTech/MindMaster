@@ -153,8 +153,8 @@ public class ForegroundService extends Service {
     public void block(CountDownTimer timer) {
         List<HashMap<String, String>> list = blockDatabase.readRecordsApp(currentApp);
         if(!list.isEmpty()) {
-            Calendar calender = Calendar.getInstance();
-            int currentDay = calender.get(Calendar.DAY_OF_WEEK);
+            Calendar cal = Calendar.getInstance();
+            int currentDay = cal.get(Calendar.DAY_OF_WEEK);
             String currentDayName = getDay(currentDay);
 
             List<HashMap<String, String>> filteredList = new ArrayList<>();
