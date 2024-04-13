@@ -106,10 +106,16 @@ Follow the below instructions to get started.
 7. Monitor Usage (Time, Launch Count & Data)
 8. Take a Break Feature
 9. Normal & Strict Mode
-10. Five Different Schedule Modes
+10. Five Different Blocking Schedule Modes
 11. Uninstall Protection
 12. Parental Control
 13. Notification Block
+
+Supported Browsers:
+1. Google Chrome
+2. Mozilla Firefox
+3. Opera 
+4. Opera Mini
 
 Compressive documentation will be added soon.
 
@@ -125,7 +131,7 @@ Compressive documentation will be added soon.
 - [x] Add App Block Service
 - [x] Add Website Block Activity
 - [x] Add Keyword Block Activity
-- [x] Add URL Service
+- [x] Add Web URL Service
 - [x] Add Internet Block Activity
 - [x] Add Internet Block Service
 - [x] Add Usage Overview Activity
