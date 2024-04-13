@@ -54,7 +54,7 @@ class UsageUtil {
         @SuppressLint("ServiceCast", "QueryPermissionsNeeded", "UseCompatLoadingForDrawables")
         fun getInstalledAppsBlock(context: Context, sort: String, caller: String): List<AppBlockModel> {
             val usageTimes = getUsageTimes(context, "Daily")
-            val networkUsageMap = getNetworkUsageMap(context, caller, "Daily")
+            val networkUsageMap = getNetworkUsageMap(context, caller)
 
             return getAppsList(context).mapNotNull { app ->
                 val usageTime = usageTimes.getOrDefault(app.packageName, 0L)
@@ -149,11 +149,10 @@ class UsageUtil {
 
         private fun getNetworkUsageMap(
             context: Context,
-            caller: String,
-            sort: String
+            caller: String
         ): HashMap<String, Float> {
             val networkUsageMap: HashMap<String, Float> = HashMap()
-            val (beginTime, endTime) = getTimeRange(sort)
+            val (beginTime, endTime) = getTimeRange("Daily")
 
             if (caller == "InternetBlockActivity") {
                 for (app in getAppsList(context)) {

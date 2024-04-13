@@ -23,9 +23,11 @@ public class NetworkUtil {
 
     public static float fetchNetworkStatsInfo(long startMillis, long endMillis, int uid, Context context) {
         NetworkStatsManager networkStatsManager = (NetworkStatsManager) context.getSystemService(Context.NETWORK_STATS_SERVICE);
+
         float totalWifi = getNetworkStatsTotal(networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_WIFI, null, startMillis, endMillis, uid));
         float totalMobData = getNetworkStatsTotal(networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_MOBILE, null, startMillis, endMillis, uid));
         float total = (totalWifi + totalMobData) / (1024 * 1024);
+
         DecimalFormat df = new DecimalFormat("00000");
         df.setRoundingMode(RoundingMode.DOWN);
         return Float.parseFloat(df.format(total));

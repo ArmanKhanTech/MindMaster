@@ -167,9 +167,9 @@ public class InternetUsageFragment extends Fragment {
                 }
             }
 
+            Calendar calendar = Calendar.getInstance();
             switch (sort) {
                 case "Daily":
-                    Calendar calendar = Calendar.getInstance();
                     calendar.set(Calendar.HOUR_OF_DAY, 0);
                     calendar.set(Calendar.MINUTE, 0);
                     calendar.set(Calendar.SECOND, 0);
@@ -179,15 +179,21 @@ public class InternetUsageFragment extends Fragment {
                     endMillis = System.currentTimeMillis();
                     break;
                 case "Weekly":
-                    startMillis = System.currentTimeMillis() - 604800000L;
+                    calendar.add(Calendar.DATE, -7);
+
+                    startMillis = calendar.getTimeInMillis();
                     endMillis = System.currentTimeMillis();
                     break;
                 case "Monthly":
-                    startMillis = System.currentTimeMillis() - 2592000000L;
+                    calendar.add(Calendar.MONTH, -1);
+
+                    startMillis = calendar.getTimeInMillis();
                     endMillis = System.currentTimeMillis();
                     break;
                 case "Yearly":
-                    startMillis = System.currentTimeMillis() - 31536000000L;
+                    calendar.add(Calendar.YEAR, -1);
+
+                    startMillis = calendar.getTimeInMillis();
                     endMillis = System.currentTimeMillis();
                     break;
             }
