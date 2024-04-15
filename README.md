@@ -181,6 +181,7 @@ Project Link - [https://github.com/ArmanKhanTech/Achievix](https://github.com/Ar
 **3rd Party Libraries**
 * [Phil Jay's MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
 * [Lottie Animations](https://github.com/airbnb/lottie-android)
+* [Hank's PasscodeView](https://github.com/hanks-zyh/PasscodeView)
 
 
 
