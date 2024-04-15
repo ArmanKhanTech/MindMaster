@@ -105,6 +105,7 @@ public class InternetBlockActivity extends AppCompatActivity {
                 filteredList.add(item);
             }
         }
+
         internetBlockAdapter.updateListInternet(filteredList);
     }
 
@@ -121,7 +122,6 @@ public class InternetBlockActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
             loadingLayout.setVisibility(View.VISIBLE);
             internetUsageLayout.setVisibility(View.GONE);
         }

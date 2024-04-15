@@ -1,4 +1,4 @@
-package com.hanks.passcodeview;
+package com.achievix.passcodeview;
 
 import android.content.Context;
 import android.graphics.Canvas;

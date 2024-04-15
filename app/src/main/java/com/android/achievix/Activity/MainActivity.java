@@ -126,7 +126,8 @@ public class MainActivity extends AppCompatActivity {
         navigationMenu.setNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.menu1 -> startActivity(new Intent(this, SettingActivity.class));
-                case R.id.menu5 -> startActivity(new Intent(MainActivity.this, AboutActivity.class));
+                case R.id.menu2 ->
+                        startActivity(new Intent(MainActivity.this, AboutActivity.class));
             }
             return false;
         });
@@ -268,6 +269,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (timeOfDay >= 21 && timeOfDay < 24) {
             greeting = "Good Evening";
         }
+
         return greeting;
     }
 

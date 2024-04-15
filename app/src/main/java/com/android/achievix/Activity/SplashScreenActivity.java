@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import com.android.achievix.Permission.GetUsageStatsPermissionActivity;
 import com.android.achievix.R;
@@ -38,6 +37,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 } else {
                     intent = new Intent(this, MainActivity.class);
                 }
+
                 startActivity(intent);
                 finish();
             }, 1800);

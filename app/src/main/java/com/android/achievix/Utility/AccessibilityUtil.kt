@@ -16,6 +16,7 @@ class AccessibilityUtil {
             )
         } catch (ignored: Settings.SettingNotFoundException) {
         }
+
         val mStringColonSplitter = TextUtils.SimpleStringSplitter(':')
         if (accessibilityEnabled == 1) {
             val settingValue = Settings.Secure.getString(
@@ -32,6 +33,7 @@ class AccessibilityUtil {
                 }
             }
         }
+
         return false
     }
 }

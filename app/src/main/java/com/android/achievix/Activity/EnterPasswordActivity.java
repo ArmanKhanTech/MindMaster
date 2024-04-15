@@ -7,8 +7,8 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.achievix.passcodeview.PasscodeView;
 import com.android.achievix.R;
-import com.hanks.passcodeview.PasscodeView;
 
 import java.util.Objects;
 

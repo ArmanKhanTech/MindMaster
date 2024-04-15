@@ -1,7 +1,7 @@
-package com.hanks.passcodeview;
+package com.achievix.passcodeview;
 
-import static com.hanks.passcodeview.PasscodeView.PasscodeViewType.TYPE_CHECK_PASSCODE;
-import static com.hanks.passcodeview.PasscodeView.PasscodeViewType.TYPE_SET_PASSCODE;
+import static com.achievix.passcodeview.PasscodeView.PasscodeViewType.TYPE_CHECK_PASSCODE;
+import static com.achievix.passcodeview.PasscodeView.PasscodeViewType.TYPE_SET_PASSCODE;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -23,8 +23,6 @@ import android.widget.TextView;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import com.android.achievix.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

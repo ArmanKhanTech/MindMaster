@@ -156,6 +156,7 @@ public class AppLaunchesFragment extends Fragment {
                         break;
                 }
             }
+
             processAppLaunchData();
         }
 
@@ -190,6 +191,7 @@ public class AppLaunchesFragment extends Fragment {
                     }
                 } catch (PackageManager.NameNotFoundException ignored) {}
             }
+
             appLaunchModel.sort((o1, o2) -> Integer.parseInt(Objects.requireNonNull(o2.getExtra())) - Integer.parseInt(Objects.requireNonNull(o1.getExtra())));
         }
 

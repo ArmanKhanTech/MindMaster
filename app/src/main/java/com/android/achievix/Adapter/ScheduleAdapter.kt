@@ -88,10 +88,12 @@ class ScheduleAdapter(
         holder.deleteButton.setOnClickListener {
             val blockDatabase = BlockDatabase(holder.itemView.context)
             blockDatabase.deleteRecordById(scheduleInfo.id)
+
             scheduleList = scheduleList.filter { it.id != scheduleInfo.id }
+
             notifyItemRemoved(position)
-            Toast.makeText(holder.itemView.context, "Schedule deleted", Toast.LENGTH_SHORT).show()
             activity.updateNoScheduleVisibility()
+            Toast.makeText(holder.itemView.context, "Schedule deleted", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -202,7 +202,7 @@
             android:theme="@style/Theme.Achievix" />
         <activity
             android:name=".Activity.SplashScreenActivity"
-            android:exported="true"
+            android:exported="false"
             android:theme="@style/Theme.Achievix">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

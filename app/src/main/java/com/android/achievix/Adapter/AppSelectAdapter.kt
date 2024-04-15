@@ -29,16 +29,11 @@ class AppSelectAdapter(private var appList: List<AppSelectModel>) :
         val appInfo = appList[position]
         holder.appName.text = appInfo.name
         holder.appIcon.setImageDrawable(appInfo.icon)
-
+        holder.checkBox.setOnCheckedChangeListener(null) // remove previous listener
         holder.checkBox.isChecked = appInfo.selected
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
             appInfo.selected = isChecked
-            holder.checkBox.isChecked = isChecked
-        }
-        holder.checkBox.setOnCheckedChangeListener(null)
-        holder.checkBox.isChecked = appInfo.selected
-        holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
-            appInfo.selected = isChecked
+            holder.checkBox.post { notifyItemChanged(position) }
         }
     }
 

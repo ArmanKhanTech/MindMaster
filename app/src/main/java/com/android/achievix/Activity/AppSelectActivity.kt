@@ -20,7 +20,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-// TODO: Selection disappears on scrolling
 class AppSelectActivity : AppCompatActivity() {
     private lateinit var appSelectModelList: List<AppSelectModel>
     private lateinit var recyclerView: RecyclerView
@@ -51,12 +50,14 @@ class AppSelectActivity : AppCompatActivity() {
     private fun attachListeners() {
         saveButton.setOnClickListener {
             val intent = Intent()
+
             selectedApps.clear()
             appSelectModelList.forEach {
                 if (it.selected) {
                     selectedApps.add(it.packageName)
                 }
             }
+
             intent.putStringArrayListExtra("selectedApps", ArrayList(selectedApps))
             setResult(RESULT_OK, intent)
             finish()

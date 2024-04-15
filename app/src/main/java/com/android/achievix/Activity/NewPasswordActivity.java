@@ -8,8 +8,8 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.achievix.passcodeview.PasscodeView;
 import com.android.achievix.R;
-import com.hanks.passcodeview.PasscodeView;
 
 @SuppressLint("UseSwitchCompatOrMaterialCode")
 public class NewPasswordActivity extends AppCompatActivity {

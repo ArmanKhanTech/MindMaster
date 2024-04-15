@@ -192,6 +192,7 @@ public class InternetUsageFragment extends Fragment {
             for (String packageName : packageNames) {
                 appUsage.put(packageName, NetworkUtil.getUID(startMillis, endMillis, packageName, context));
             }
+
             return appUsage;
         }
 

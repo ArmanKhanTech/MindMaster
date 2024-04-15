@@ -116,6 +116,7 @@ public class KeywordBlockActivity extends AppCompatActivity {
                     filteredList.add(item);
                 }
             }
+
             webKeyBlockAdapter.updateListBlock(filteredList);
         }
     }
@@ -140,6 +141,7 @@ public class KeywordBlockActivity extends AppCompatActivity {
                     filteredList.add(model);
                 }
             }
+
             webKeyBlockAdapter = new WebKeyBlockAdapter(filteredList, false);
             recyclerView.setAdapter(webKeyBlockAdapter);
 

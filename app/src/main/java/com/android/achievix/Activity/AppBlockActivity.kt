@@ -76,6 +76,7 @@ class AppBlockActivity : AppCompatActivity() {
         sortSpinner.adapter = arrayAdapter
         sortSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             var isFirstTime = true
+
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (!isFirstTime) {
                     sortValue = parent!!.getItemAtPosition(position).toString()
@@ -98,7 +99,6 @@ class AppBlockActivity : AppCompatActivity() {
         @Deprecated("Deprecated in Java")
         override fun onPreExecute() {
             super.onPreExecute()
-
             appBlockLayout.visibility = View.GONE
             loadingLayout.visibility = View.VISIBLE
         }

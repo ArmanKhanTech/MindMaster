@@ -90,6 +90,7 @@ class EditProfileActivity : AppCompatActivity() {
                 profileStatus = map["profileStatus"].toString(),
                 text = map["text"].toString()
             )
+
             if (schedule.type == "null") {
                 scheduleModelList.add(schedule)
             }
@@ -198,8 +199,10 @@ class EditProfileActivity : AppCompatActivity() {
 
             val title = dialog.findViewById<TextView>(R.id.dialogTitle)
             title.text = "Add Website"
+
             val editText = dialog.findViewById<TextView>(R.id.dialogEditText)
             editText.hint = "Enter URL"
+
             val addWeb = dialog.findViewById<Button>(R.id.dialogButton)
 
             addWeb.setOnClickListener {
@@ -265,8 +268,10 @@ class EditProfileActivity : AppCompatActivity() {
 
             val title = dialog.findViewById<TextView>(R.id.dialogTitle)
             title.text = "Add Keyword"
+
             val editText = dialog.findViewById<TextView>(R.id.dialogEditText)
             editText.hint = "Enter Keyword"
+
             val addKey = dialog.findViewById<Button>(R.id.dialogButton)
 
             addKey.setOnClickListener {

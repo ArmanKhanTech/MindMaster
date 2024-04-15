@@ -71,6 +71,7 @@ class NewScheduleActivity : AppCompatActivity() {
                 it.putExtra("profileName", profileName)
                 it.putExtra("type", "profile")
             }
+
             startActivity(it)
         }
     }

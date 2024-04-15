@@ -31,8 +31,8 @@ class ProfileAdapter(private var profileList: List<ProfileModel>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val profileInfo = profileList[position]
-        holder.profileName.text = profileInfo.profileName
         var status = profileInfo.status == "1"
+        holder.profileName.text = profileInfo.profileName
         holder.profileAction.setImageResource(if (status) R.drawable.pause_icon_pink else R.drawable.play_icon_pink)
         holder.profileAction.setOnClickListener {
             BlockDatabase(holder.itemView.context).toggleProfile(profileInfo.profileName, status)

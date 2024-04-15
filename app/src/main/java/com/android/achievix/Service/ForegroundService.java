@@ -19,7 +19,6 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.CountDownTimer;
 import android.os.IBinder;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -63,6 +62,7 @@ public class ForegroundService extends Service {
             takeBreak(this);
             strictMode(this);
             block(this);
+
             this.start();
         }
     };
@@ -75,7 +75,6 @@ public class ForegroundService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-
         mContext = this;
         check.start();
     }
@@ -184,8 +183,6 @@ public class ForegroundService extends Service {
                             calendar.set(Calendar.MINUTE, 0);
                             calendar.set(Calendar.SECOND, 0);
                             calendar.set(Calendar.MILLISECOND, 0);
-
-                            Log.d("Usage Time", "Start Time: " + calendar.getTime());
 
                             long startMillis = calendar.getTimeInMillis();
                             long endMillis = System.currentTimeMillis();
