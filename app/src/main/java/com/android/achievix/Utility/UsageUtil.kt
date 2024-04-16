@@ -25,12 +25,12 @@ class UsageUtil {
         @SuppressLint("ServiceCast", "QueryPermissionsNeeded", "UseCompatLoadingForDrawables")
         fun getInstalledAppsUsage(context: Context, sort: String?): List<AppUsageModel> {
             totalUsage = 0
+
             val usageTimes = getUsageTimes(context, sort)
             val totalUsageTime = usageTimes.values.sum()
 
             return getAppsList(context).mapNotNull { app ->
                 val usageTime = usageTimes.getOrDefault(app.packageName, 0L)
-
                 if (usageTime != 0L) {
                     totalUsage += usageTime
                     val usagePercentage = usageTime.toDouble() / totalUsageTime * 100
@@ -82,8 +82,10 @@ class UsageUtil {
         }
 
         private fun getUsageTimes(context: Context, sort: String?): MutableMap<String, Long> {
-            val usageStatsManager = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
             val (beginTime, endTime) = getTimeRange(sort)
+
+            val usageStatsManager =
+                context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
             val events = usageStatsManager.queryAndAggregateUsageStats(beginTime, endTime)
             val usageTimes: MutableMap<String, Long> = HashMap()
 
@@ -95,6 +97,7 @@ class UsageUtil {
                     usageTimes[packageName] = usageTime
                 }
             }
+
             return usageTimes
         }
 
@@ -136,6 +139,7 @@ class UsageUtil {
 
             val beginTime = calendar.timeInMillis
             val endTime = System.currentTimeMillis()
+
             return Pair(beginTime, endTime)
         }
 
@@ -175,13 +179,16 @@ class UsageUtil {
             val networkUsageMap: HashMap<String, Float> = HashMap()
             val (beginTime, endTime) = getTimeRange("Daily")
 
+            val networkUtil = NetworkUtil()
             if (caller == "InternetBlockActivity") {
                 for (app in getAppsList(context)) {
                     if (app.flags and ApplicationInfo.FLAG_SYSTEM == 0 || app.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0) {
-                        networkUsageMap[app.packageName] = NetworkUtil.getUID(
+                        networkUsageMap[app.packageName] = networkUtil.getPackageInfo(
                             beginTime,
                             endTime,
                             app.packageName,
+                            true,
+                            true,
                             context
                         )
                     }

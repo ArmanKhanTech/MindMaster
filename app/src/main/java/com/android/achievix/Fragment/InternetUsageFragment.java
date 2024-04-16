@@ -189,8 +189,9 @@ public class InternetUsageFragment extends Fragment {
                     break;
             }
 
+            NetworkUtil networkUtil = new NetworkUtil();
             for (String packageName : packageNames) {
-                appUsage.put(packageName, NetworkUtil.getUID(startMillis, endMillis, packageName, context));
+                appUsage.put(packageName, networkUtil.getPackageInfo(startMillis, endMillis, packageName, true, true, context));
             }
 
             return appUsage;

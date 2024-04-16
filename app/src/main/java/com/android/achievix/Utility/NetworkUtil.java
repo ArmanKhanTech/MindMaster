@@ -9,38 +9,58 @@ import android.net.ConnectivityManager;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.Objects;
 
 public class NetworkUtil {
-    public static float getUID(long startMillis, long endMillis, String packageName, Context context) {
+    public float getPackageInfo(long startMillis, long endMillis, String packageName, boolean mobile, boolean wifi, Context context) {
+        PackageManager packageManager = context.getPackageManager();
+
+        ApplicationInfo info = null;
         try {
-            PackageManager packageManager = context.getPackageManager();
-            ApplicationInfo info = packageManager.getApplicationInfo(packageName, 0);
-            return fetchNetworkStatsInfo(startMillis, endMillis, info.uid, context);
-        } catch (PackageManager.NameNotFoundException e) {
-            return 0;
+            info = packageManager.getApplicationInfo(packageName, 0);
+        } catch (PackageManager.NameNotFoundException ignored) {
         }
+
+        int uid = Objects.requireNonNull(info).uid;
+        return fetchNetworkStatsInfo(startMillis, endMillis, uid, mobile, wifi, context);
     }
 
-    public static float fetchNetworkStatsInfo(long startMillis, long endMillis, int uid, Context context) {
+    public float fetchNetworkStatsInfo(long startMillis, long endMillis, int uid, boolean mobile, boolean wifi, Context context) {
+        float total;
+        float receivedWifi = 0;
+        float sentWifi = 0;
+        float receivedMobData = 0;
+        float sentMobData = 0;
+
         NetworkStatsManager networkStatsManager = (NetworkStatsManager) context.getSystemService(Context.NETWORK_STATS_SERVICE);
 
-        float totalWifi = getNetworkStatsTotal(networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_WIFI, null, startMillis, endMillis, uid));
-        float totalMobData = getNetworkStatsTotal(networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_MOBILE, null, startMillis, endMillis, uid));
-        float total = (totalWifi + totalMobData) / (1024 * 1024);
+        if (wifi) {
+            NetworkStats nwStatsWifi = networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_WIFI, null,
+                    startMillis, endMillis, uid);
+            NetworkStats.Bucket bucketWifi = new NetworkStats.Bucket();
+            while (nwStatsWifi.hasNextBucket()) {
+                nwStatsWifi.getNextBucket(bucketWifi);
+                receivedWifi = receivedWifi + bucketWifi.getRxBytes();
+                sentWifi = sentWifi + bucketWifi.getTxBytes();
+            }
+        }
+
+        if (mobile) {
+            NetworkStats nwStatsMobData = networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_MOBILE, null,
+                    startMillis, endMillis, uid);
+            NetworkStats.Bucket bucketMobData = new NetworkStats.Bucket();
+            while (nwStatsMobData.hasNextBucket()) {
+                nwStatsMobData.getNextBucket(bucketMobData);
+                receivedMobData = receivedMobData + bucketMobData.getRxBytes();
+                sentMobData = sentMobData + bucketMobData.getTxBytes();
+            }
+        }
+
+        total = (receivedWifi + sentWifi + receivedMobData + sentMobData) / (1024 * 1024);
 
         DecimalFormat df = new DecimalFormat("00000");
         df.setRoundingMode(RoundingMode.DOWN);
-        return Float.parseFloat(df.format(total));
-    }
-
-    private static float getNetworkStatsTotal(NetworkStats networkStats) {
-        NetworkStats.Bucket bucket = new NetworkStats.Bucket();
-        float total = 0;
-
-        while (networkStats.hasNextBucket()) {
-            networkStats.getNextBucket(bucket);
-            total += bucket.getRxBytes() + bucket.getTxBytes();
-        }
+        total = Float.parseFloat(df.format(total));
 
         return total;
     }

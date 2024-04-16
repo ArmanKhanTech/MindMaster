@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:ignore="HardcodedText,SpUsage,ContentDescription">
 
     <ScrollView
@@ -70,9 +71,9 @@
                     android:layout_marginTop="8dp"
                     android:src="@mipmap/app_icon" />
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
@@ -81,22 +82,26 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="Daily Rank"
-                        android:textAlignment="center"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:gravity="center"
+                        android:text="Rank"
                         android:textColor="@color/black"
-                        android:textSize="10dp" />
+                        android:textSize="12dp" />
 
                     <TextView
                         android:id="@+id/app_rank"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="00"
+                        android:layout_gravity="bottom"
+                        android:gravity="center"
+                        android:padding="0dp"
                         android:textColor="@color/purple_500"
                         android:textSize="30dp"
                         android:textStyle="bold" />
 
-                </LinearLayout>
+                </FrameLayout>
 
             </LinearLayout>
 

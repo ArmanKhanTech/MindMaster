@@ -7,16 +7,11 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.app.usage.NetworkStats;
-import android.app.usage.NetworkStatsManager;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 
@@ -30,9 +25,8 @@ import com.android.achievix.Activity.MainActivity;
 import com.android.achievix.Database.AppLaunchDatabase;
 import com.android.achievix.Database.BlockDatabase;
 import com.android.achievix.R;
+import com.android.achievix.Utility.NetworkUtil;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -341,7 +335,7 @@ public class ForegroundService extends Service {
                         boolean mobile = Objects.equals(map.get("launch"), "1");
                         boolean wifi = Objects.equals(map.get("notification"), "1");
 
-                        float total = getPackageInfo(0, System.currentTimeMillis(), currentApp, mobile, wifi);
+                        float total = new NetworkUtil().getPackageInfo(0, System.currentTimeMillis(), currentApp, mobile, wifi, mContext);
                         if (total >= usage) {
                             timer.cancel();
                             System.gc();
@@ -456,56 +450,5 @@ public class ForegroundService extends Service {
             case Calendar.SATURDAY -> "Saturday";
             default -> "";
         };
-    }
-
-    public float getPackageInfo(long startMillis, long endMillis, String packageName, boolean mobile, boolean wifi) {
-        PackageManager packageManager = this.getPackageManager();
-        ApplicationInfo info = null;
-        try {
-            info = packageManager.getApplicationInfo(packageName, 0);
-        } catch (PackageManager.NameNotFoundException ignored) {
-        }
-        int uid = Objects.requireNonNull(info).uid;
-        return fetchNetworkStatsInfo(startMillis, endMillis, uid, mobile, wifi);
-    }
-
-    public float fetchNetworkStatsInfo(long startMillis, long endMillis, int uid, boolean mobile, boolean wifi) {
-        float total;
-        float receivedWifi = 0;
-        float sentWifi = 0;
-        float receivedMobData = 0;
-        float sentMobData = 0;
-
-        NetworkStatsManager networkStatsManager = (NetworkStatsManager) this.getSystemService(Context.NETWORK_STATS_SERVICE);
-
-        if (wifi) {
-            NetworkStats nwStatsWifi = networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_WIFI, null,
-                    startMillis, endMillis, uid);
-            NetworkStats.Bucket bucketWifi = new NetworkStats.Bucket();
-            while (nwStatsWifi.hasNextBucket()) {
-                nwStatsWifi.getNextBucket(bucketWifi);
-                receivedWifi = receivedWifi + bucketWifi.getRxBytes();
-                sentWifi = sentWifi + bucketWifi.getTxBytes();
-            }
-        }
-
-        if (mobile) {
-            NetworkStats nwStatsMobData = networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_MOBILE, null,
-                    startMillis, endMillis, uid);
-            NetworkStats.Bucket bucketMobData = new NetworkStats.Bucket();
-            while (nwStatsMobData.hasNextBucket()) {
-                nwStatsMobData.getNextBucket(bucketMobData);
-                receivedMobData = receivedMobData + bucketMobData.getRxBytes();
-                sentMobData = sentMobData + bucketMobData.getTxBytes();
-            }
-        }
-
-        total = (receivedWifi + sentWifi + receivedMobData + sentMobData) / (1024 * 1024);
-
-        DecimalFormat df = new DecimalFormat("00000");
-        df.setRoundingMode(RoundingMode.DOWN);
-        total = Float.parseFloat(df.format(total));
-
-        return total;
     }
 }

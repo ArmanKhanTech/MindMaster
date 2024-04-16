@@ -72,6 +72,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun initScheduleRecyclerView() {
+        scheduleModelList.clear()
         scheduleRecyclerView.layoutManager = LinearLayoutManager(this)
         scheduleRecyclerView.itemAnimator = DefaultItemAnimator()
 
@@ -126,6 +127,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     fun initWebRecyclerView() {
+        profileItemListWeb.clear()
         webRecyclerView.layoutManager = LinearLayoutManager(this)
         webRecyclerView.itemAnimator = DefaultItemAnimator()
 
@@ -150,6 +152,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     fun initKeyRecyclerView() {
+        profileItemListKey.clear()
         keyRecyclerView.layoutManager = LinearLayoutManager(this)
         keyRecyclerView.itemAnimator = DefaultItemAnimator()
 
@@ -183,50 +186,133 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         addAppButton.setOnClickListener {
-            val intent = Intent(this, AppSelectActivity::class.java)
-            startActivityForResult(intent, 100)
+            if (scheduleModelList.isNotEmpty()) {
+                val intent = Intent(this, AppSelectActivity::class.java)
+                startActivityForResult(intent, 100)
+            } else {
+                Toast.makeText(this, "Add a schedule first", Toast.LENGTH_SHORT).show()
+            }
         }
 
         addWebButton.setOnClickListener {
-            val dialog = Dialog(this@EditProfileActivity)
-            dialog.setContentView(R.layout.dialog_add_web_key)
-            dialog.setCancelable(true)
+            if (scheduleModelList.isNotEmpty()) {
+                val dialog = Dialog(this@EditProfileActivity)
+                dialog.setContentView(R.layout.dialog_add_web_key)
+                dialog.setCancelable(true)
 
-            dialog.window?.setLayout(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
+                dialog.window?.setLayout(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
 
-            val title = dialog.findViewById<TextView>(R.id.dialogTitle)
-            title.text = "Add Website"
+                val title = dialog.findViewById<TextView>(R.id.dialogTitle)
+                title.text = "Add Website"
 
-            val editText = dialog.findViewById<TextView>(R.id.dialogEditText)
-            editText.hint = "Enter URL"
+                val editText = dialog.findViewById<TextView>(R.id.dialogEditText)
+                editText.hint = "Enter URL"
 
-            val addWeb = dialog.findViewById<Button>(R.id.dialogButton)
+                val addWeb = dialog.findViewById<Button>(R.id.dialogButton)
 
-            addWeb.setOnClickListener {
-                if (editText.text.toString() == "google.com") {
-                    Toast.makeText(this, "Cannot block Google", Toast.LENGTH_SHORT).show()
-                } else {
-                    if (AccessibilityUtil().isAccessibilitySettingsOn(this)) {
-                        if (TextUtils.isEmpty(editText.text.toString())) {
-                            Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT).show()
+                addWeb.setOnClickListener {
+                    if (editText.text.toString() == "google.com") {
+                        Toast.makeText(this, "Cannot block Google", Toast.LENGTH_SHORT).show()
+                    } else {
+                        if (AccessibilityUtil().isAccessibilitySettingsOn(this)) {
+                            if (TextUtils.isEmpty(editText.text.toString())) {
+                                Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT)
+                                    .show()
+                            } else {
+                                val urlPattern =
+                                    Pattern.compile("^((https?|ftp|smtp)://)?(www.)?[a-z0-9]+(\\.[a-z]{2,}){1,3}(#?/?[a-zA-Z0-9#]+)*/?(\\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$")
+                                if (!urlPattern.matcher(editText.text.toString())
+                                        .matches()
+                                ) {
+                                    Toast.makeText(this, "Invalid URL", Toast.LENGTH_SHORT).show()
+                                } else if (scheduleModelList.isNotEmpty()) {
+                                    val web = editText.text.toString()
+                                    if (web.isNotEmpty()) {
+                                        for (i in scheduleModelList) {
+                                            blockDatabase.addRecord(
+                                                web,
+                                                null,
+                                                "web",
+                                                i.launch == "1",
+                                                i.notification == "1",
+                                                i.scheduleType,
+                                                i.scheduleParams,
+                                                i.scheduleDays,
+                                                profileName.text.toString(),
+                                                i.profileStatus == "1",
+                                                i.text
+                                            )
+                                        }
+
+                                        initWebRecyclerView()
+                                        dialog.dismiss()
+                                    }
+                                } else {
+                                    Toast.makeText(this, "Add a schedule first", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
+                            }
                         } else {
-                            val urlPattern =
-                                Pattern.compile("^((https?|ftp|smtp)://)?(www.)?[a-z0-9]+(\\.[a-z]{2,}){1,3}(#?/?[a-zA-Z0-9#]+)*/?(\\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$")
-                            if (!urlPattern.matcher(editText.text.toString())
-                                    .matches()
-                            ) {
-                                Toast.makeText(this, "Invalid URL", Toast.LENGTH_SHORT).show()
+                            val i = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+                            startActivity(i)
+                        }
+                    }
+                }
+
+                dialog.show()
+            } else {
+                Toast.makeText(this, "Add a schedule first", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        addKeyButton.setOnClickListener {
+            if (scheduleModelList.isNotEmpty()) {
+                val dialog = Dialog(this@EditProfileActivity)
+                dialog.setContentView(R.layout.dialog_add_web_key)
+                dialog.setCancelable(true)
+
+                dialog.window?.setLayout(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+
+                val title = dialog.findViewById<TextView>(R.id.dialogTitle)
+                title.text = "Add Keyword"
+
+                val editText = dialog.findViewById<TextView>(R.id.dialogEditText)
+                editText.hint = "Enter Keyword"
+
+                val addKey = dialog.findViewById<Button>(R.id.dialogButton)
+
+                addKey.setOnClickListener {
+                    if (Pattern.matches("^(http|https)://.*", editText.text.toString()) ||
+                        Pattern.matches(
+                            "^(www\\.)?([a-zA-Z0-9]+\\.)+[a-zA-Z]{2,}$",
+                            editText.text.toString()
+                        )
+                    ) {
+                        Toast.makeText(
+                            this,
+                            "Please enter a keyword, not a URL",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    } else {
+                        if (AccessibilityUtil().isAccessibilitySettingsOn(this)) {
+                            if (TextUtils.isEmpty(editText.text.toString())) {
+                                Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT)
+                                    .show()
                             } else if (scheduleModelList.isNotEmpty()) {
-                                val web = editText.text.toString()
-                                if (web.isNotEmpty()) {
+                                val key = editText.text.toString()
+                                if (key.isNotEmpty()) {
                                     for (i in scheduleModelList) {
                                         blockDatabase.addRecord(
-                                            web,
+                                            key,
                                             null,
-                                            "web",
+                                            "key",
                                             i.launch == "1",
                                             i.notification == "1",
                                             i.scheduleType,
@@ -238,88 +324,24 @@ class EditProfileActivity : AppCompatActivity() {
                                         )
                                     }
 
-                                    initWebRecyclerView()
+                                    initKeyRecyclerView()
                                     dialog.dismiss()
                                 }
                             } else {
                                 Toast.makeText(this, "Add a schedule first", Toast.LENGTH_SHORT)
                                     .show()
                             }
-                        }
-                    } else {
-                        val i = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-                        startActivity(i)
-                    }
-                }
-            }
-
-            dialog.show()
-        }
-
-        addKeyButton.setOnClickListener {
-            val dialog = Dialog(this@EditProfileActivity)
-            dialog.setContentView(R.layout.dialog_add_web_key)
-            dialog.setCancelable(true)
-
-            dialog.window?.setLayout(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-
-            val title = dialog.findViewById<TextView>(R.id.dialogTitle)
-            title.text = "Add Keyword"
-
-            val editText = dialog.findViewById<TextView>(R.id.dialogEditText)
-            editText.hint = "Enter Keyword"
-
-            val addKey = dialog.findViewById<Button>(R.id.dialogButton)
-
-            addKey.setOnClickListener {
-                if (Pattern.matches("^(http|https)://.*", editText.text.toString()) ||
-                    Pattern.matches(
-                        "^(www\\.)?([a-zA-Z0-9]+\\.)+[a-zA-Z]{2,}$",
-                        editText.text.toString()
-                    )
-                ) {
-                    Toast.makeText(this, "Please enter a keyword, not a URL", Toast.LENGTH_SHORT)
-                        .show()
-                } else {
-                    if (AccessibilityUtil().isAccessibilitySettingsOn(this)) {
-                        if (TextUtils.isEmpty(editText.text.toString())) {
-                            Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT).show()
-                        } else if (scheduleModelList.isNotEmpty()) {
-                            val key = editText.text.toString()
-                            if (key.isNotEmpty()) {
-                                for (i in scheduleModelList) {
-                                    blockDatabase.addRecord(
-                                        key,
-                                        null,
-                                        "key",
-                                        i.launch == "1",
-                                        i.notification == "1",
-                                        i.scheduleType,
-                                        i.scheduleParams,
-                                        i.scheduleDays,
-                                        profileName.text.toString(),
-                                        i.profileStatus == "1",
-                                        i.text
-                                    )
-                                }
-
-                                initKeyRecyclerView()
-                                dialog.dismiss()
-                            }
                         } else {
-                            Toast.makeText(this, "Add a schedule first", Toast.LENGTH_SHORT).show()
+                            val i = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+                            startActivity(i)
                         }
-                    } else {
-                        val i = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-                        startActivity(i)
                     }
                 }
-            }
 
-            dialog.show()
+                dialog.show()
+            } else {
+                Toast.makeText(this, "Add a schedule first", Toast.LENGTH_SHORT).show()
+            }
         }
 
         doneButton.setOnClickListener {
@@ -335,38 +357,39 @@ class EditProfileActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 100) {
-            if (data != null && scheduleModelList.isNotEmpty()) {
-                val selectedApps = data.getStringArrayListExtra("selectedApps")
-                for (i in selectedApps!!.indices) {
-                    val app = selectedApps[i]
-                    val appInfo = packageManager.getApplicationInfo(app, 0)
-                    val appName = packageManager.getApplicationLabel(appInfo).toString()
+            if (data != null) {
+                if (scheduleModelList.isNotEmpty()) {
+                    val selectedApps = data.getStringArrayListExtra("selectedApps")
+                    for (i in selectedApps!!.indices) {
+                        val app = selectedApps[i]
+                        val appInfo = packageManager.getApplicationInfo(app, 0)
+                        val appName = packageManager.getApplicationLabel(appInfo).toString()
 
-                    for (j in scheduleModelList) {
-                        if (app == "com.android.achievix") {
-                            Toast.makeText(this, "Cannot block Achievix", Toast.LENGTH_SHORT).show()
-                            continue
-                        } else {
-                            blockDatabase.addRecord(
-                                appName,
-                                app,
-                                "app",
-                                j.launch == "1",
-                                j.notification == "1",
-                                j.scheduleType,
-                                j.scheduleParams,
-                                j.scheduleDays,
-                                profileName.text.toString(),
-                                j.profileStatus == "1",
-                                j.text
-                            )
+                        for (j in scheduleModelList) {
+                            if (app == "com.android.achievix") {
+                                Toast.makeText(this, "Cannot block Achievix", Toast.LENGTH_SHORT)
+                                    .show()
+                                continue
+                            } else {
+                                blockDatabase.addRecord(
+                                    appName,
+                                    app,
+                                    "app",
+                                    j.launch == "1",
+                                    j.notification == "1",
+                                    j.scheduleType,
+                                    j.scheduleParams,
+                                    j.scheduleDays,
+                                    profileName.text.toString(),
+                                    j.profileStatus == "1",
+                                    j.text
+                                )
+                            }
                         }
                     }
-                }
 
-                initAppRecyclerView()
-            } else {
-                Toast.makeText(this, "Add a schedule first", Toast.LENGTH_SHORT).show()
+                    initAppRecyclerView()
+                }
             }
         }
     }
