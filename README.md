@@ -100,16 +100,15 @@ Follow the below instructions to get started.
 1. Block Apps & Games
 2. Block Websites
 3. Block Keywords
-4. Block Internet Access
+4. Block Data Access
 5. Create and Manage Various Profiles
-6. Add and Manage Various Blocking Schedules
+6. Add and Manage Five Different Blocking Schedules
 7. Monitor Usage (Time, Launch Count & Data)
 8. Take a Break Feature
 9. Normal & Strict Mode
-10. Five Different Blocking Schedule Modes
-11. Uninstall Protection
-12. Parental Control
-13. Notification Block
+10. Uninstall Protection
+11. Parental Control
+12. Notification Block
 
 Supported Browsers:
 1. Google Chrome
@@ -126,12 +125,12 @@ Compressive documentation will be added soon.
 - [x] Add Home Activity
 - [x] Add App Block Activity
 - [x] Add New Schedule Activity
-- [x] Add Various Blocking Schedule Modes
+- [x] Add Blocking Schedule Modes
 - [x] Add Edit Schedule Activity
 - [x] Add App Block Service
 - [x] Add Website Block Activity
 - [x] Add Keyword Block Activity
-- [x] Add Web URL Service
+- [x] Add Web/Keyword Service
 - [x] Add Internet Block Activity
 - [x] Add Internet Block Service
 - [x] Add Usage Overview Activity
@@ -182,6 +181,7 @@ Project Link - [https://github.com/ArmanKhanTech/Achievix](https://github.com/Ar
 **3rd Party Libraries**
 * [Phil Jay's MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
 * [Lottie Animations](https://github.com/airbnb/lottie-android)
+* [Hank's PasscodeView](https://github.com/hanks-zyh/PasscodeView)
 
 
 
