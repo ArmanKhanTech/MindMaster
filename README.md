@@ -56,13 +56,13 @@
 
 
 
-## About The Project
+## About the Project
 
 Achievix is an Android productivity app thats lets you do whats necessary by getting rid of all kinds of distractions.
 
 **Supports Android 10 & above only.**
 
-### Built With
+### Built with
 
 * [![Java][Java]][Java-url]
 * [![Kotlin][Kotlin]][Kotlin-url]
@@ -116,7 +116,35 @@ Supported Browsers:
 3. Opera 
 4. Opera Mini
 
-Compressive documentation will be added soon.
+More browsers can be added at:
+`app/src/main/java/com/android/achievix/Service/LogURLService.java`
+```java
+private static List<SupportedBrowserConfig> getSupportedBrowsers() {
+    List<SupportedBrowserConfig> browsers = new ArrayList<>();
+    browsers.add(new SupportedBrowserConfig("com.android.chrome", "com.android.chrome:id/url_bar"));
+    browsers.add(new SupportedBrowserConfig("org.mozilla.firefox", "org.mozilla.firefox:id/mozac_browser_toolbar_url_view"));
+    browsers.add(new SupportedBrowserConfig("com.opera.browser", "com.opera.browser:id/url_field"));
+    browsers.add(new SupportedBrowserConfig("com.opera.mini.native", "com.opera.mini.native:id/url_field"));
+    // here
+    return browsers;
+}
+```
+
+
+## Screenshots
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/5b34eaee-fba7-4258-a742-4cba52620b8b" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/a3e82740-5f75-4de2-b5ac-efb7995ea54a" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/81c65e14-291c-4865-8ddb-2526aef89cd8" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/329648ee-b348-4e19-8d1e-4953d0906bbe" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/77eca1fe-f95a-4b0c-882c-2f46908c861b" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/a34dcbee-f772-4f0d-8846-7d9639b1bdc5" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/8a19428f-16fc-470d-b924-a54e3136eb32" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/30b41e95-035a-46af-95e0-eaeb8e5cbcfb" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/83347d7c-0253-48bb-a28e-7cb7cb1ecd36" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/78263931-b145-44b4-a17f-79fc90a39263" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/4470602f-73e1-49a6-88f2-87491b9b8868" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/095e532c-e4b9-4330-82bb-d9feef312b76" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/88b5d183-5589-4464-af19-21a56a03ebf3" alt="Logo" width="250" height="500">
 
 
 
