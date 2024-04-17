@@ -87,7 +87,7 @@ Follow the below instructions to get started.
 
 ### Installation
 
-1. Clone this repo
+1. Clone this repository
    
    ```sh
    git clone https://github.com/ArmanKhanTech/Achievix.git
