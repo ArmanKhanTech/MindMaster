@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="sans-serif-condensed-medium"
-                    android:text="Usage Time"
+                    android:text="Usage Limit"
                     android:textColor="@color/black"
                     android:textSize="30dp" />
 

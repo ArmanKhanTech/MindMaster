@@ -43,7 +43,7 @@ public class InternetUsageFragment extends Fragment {
     private final String[] sort = {"Daily", "Weekly", "Monthly", "Yearly"};
     private RecyclerView recyclerView;
     private InternetUsageAdapter internetUsageAdapter;
-    private TextView stats;
+    private TextView stats, noData;
     private String sortValue = "Daily";
     private Spinner sortSpinner;
     private LinearLayout internetUsageLayout;
@@ -70,6 +70,7 @@ public class InternetUsageFragment extends Fragment {
         loadingLayout = view.findViewById(R.id.loading_internet_usage);
         internetUsageLayout = view.findViewById(R.id.ll_internet_usage);
         stats = view.findViewById(R.id.tv_total_internet_usage);
+        noData = view.findViewById(R.id.tv_no_internet_usage_data);
         recyclerView = view.findViewById(R.id.recycler_view_internet_usage);
         sortSpinner = view.findViewById(R.id.internet_usage_spinner);
     }
@@ -211,22 +212,28 @@ public class InternetUsageFragment extends Fragment {
         @SuppressLint("SetTextI18n")
         @Override
         protected void onPostExecute(Void aVoid) {
-            internetUsageAdapter = new InternetUsageAdapter(internetUsageModelList);
-            recyclerView.setAdapter(internetUsageAdapter);
-            internetUsageAdapter.setOnItemClickListener(view -> {
-                int position = recyclerView.getChildAdapterPosition(view);
-                AppUsageModel app = internetUsageAdapter.getItemAt(position);
+            if (!internetUsageModelList.isEmpty()) {
+                internetUsageAdapter = new InternetUsageAdapter(internetUsageModelList);
+                recyclerView.setAdapter(internetUsageAdapter);
+                internetUsageAdapter.setOnItemClickListener(view -> {
+                    int position = recyclerView.getChildAdapterPosition(view);
+                    AppUsageModel app = internetUsageAdapter.getItemAt(position);
 
-                Intent intent = new Intent(requireActivity(), AppInsightsActivity.class);
-                intent.putExtra("appName", app.getName());
-                intent.putExtra("packageName", app.getPackageName());
-                intent.putExtra("position", position);
-                startActivity(intent);
-            });
+                    Intent intent = new Intent(requireActivity(), AppInsightsActivity.class);
+                    intent.putExtra("appName", app.getName());
+                    intent.putExtra("packageName", app.getPackageName());
+                    intent.putExtra("position", position);
+                    startActivity(intent);
+                });
 
-            stats.setText(totalCount + " MB");
-            loadingLayout.setVisibility(View.GONE);
-            internetUsageLayout.setVisibility(View.VISIBLE);
+                stats.setText(totalCount + " MB");
+                loadingLayout.setVisibility(View.GONE);
+                internetUsageLayout.setVisibility(View.VISIBLE);
+            } else {
+                noData.setVisibility(View.VISIBLE);
+                loadingLayout.setVisibility(View.GONE);
+                internetUsageLayout.setVisibility(View.VISIBLE);
+            }
         }
     }
 }
