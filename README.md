@@ -116,8 +116,7 @@ Supported Browsers:
 3. Opera 
 4. Opera Mini
 
-More browsers can be added at:
-`app/src/main/java/com/android/achievix/Service/LogURLService.java`
+More browsers can be added at `app/src/main/java/com/android/achievix/Service/LogURLService.java`
 ```java
 private static List<SupportedBrowserConfig> getSupportedBrowsers() {
     List<SupportedBrowserConfig> browsers = new ArrayList<>();
@@ -129,6 +128,7 @@ private static List<SupportedBrowserConfig> getSupportedBrowsers() {
     return browsers;
 }
 ```
+
 
 
 ## Screenshots
