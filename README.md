@@ -97,18 +97,25 @@ Follow the below instructions to get started.
 
 ## Usage
 
-1. Block Apps & Games
-2. Block Websites
-3. Block Keywords
-4. Block Data Access (Cellular/Wifi)
-5. Create and Manage Various Profiles
-6. Add and Manage Five Different Blocking Schedules
-7. View App Usage (Screen Time, Launch Count & Data) Upto a Year Old
-8. Take a Break Feature
-9. Normal & Strict Mode
-10. Uninstall Protection
-11. Password Protection
-12. Block Notification
+1. Block
+<br>• Apps
+<br>• Games
+<br>• Webistes
+<br>• Keywords
+<br>• Notifications
+2. Block Data Access
+<br>• Cellular, Wifi or Both
+<br>• Per App or Game
+4. Create and Manage Various Profiles
+5. Add and Manage Five Different Blocking Schedules
+6. View Usage
+<br>• Upto a Year Old
+<br>• Screen Time, Launch Count and Data Usage Wise
+7. Take a Break Feature
+<br>• Four Blocking Levels
+8. Normal & Strict Mode
+9. Uninstall Protection
+10. Password Protection
 
 Supported Browsers:
 1. Google Chrome
