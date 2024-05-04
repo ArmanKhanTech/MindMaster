@@ -100,15 +100,15 @@ Follow the below instructions to get started.
 1. Block Apps & Games
 2. Block Websites
 3. Block Keywords
-4. Block Data Access
+4. Block Data Access (Cellular/Wifi)
 5. Create and Manage Various Profiles
 6. Add and Manage Five Different Blocking Schedules
-7. Monitor Usage (Time, Launch Count & Data)
+7. View App Usage (Screen Time, Launch Count & Data) Upto a Year Old
 8. Take a Break Feature
 9. Normal & Strict Mode
 10. Uninstall Protection
-11. Parental Control
-12. Notification Block
+11. Password Protection
+12. Block Notification
 
 Supported Browsers:
 1. Google Chrome
@@ -150,28 +150,28 @@ private static List<SupportedBrowserConfig> getSupportedBrowsers() {
 
 ## Roadmap
 
-- [x] Add Home Activity
-- [x] Add App Block Activity
-- [x] Add New Schedule Activity
-- [x] Add Blocking Schedule Modes
-- [x] Add Edit Schedule Activity
-- [x] Add App Block Service
-- [x] Add Website Block Activity
-- [x] Add Keyword Block Activity
-- [x] Add Web/Keyword Service
-- [x] Add Internet Block Activity
-- [x] Add Internet Block Service
-- [x] Add Usage Overview Activity
-- [x] Add App Insights Activity
-- [x] Add Notification Blocker
-- [x] Add Uninstall Protection
-- [x] Add Take a Break Activity
-- [x] Add Normal Mode
-- [x] Add Strict Mode
-- [x] Add Parental Control
-- [x] Add App Launch Service
-- [x] Add New Profile Activity
-- [x] Add Edit Profile Activity
+- [x] Home Activity
+- [x] App Block Activity
+- [x] New Schedule Activity
+- [x] Blocking Schedule Modes
+- [x] Edit Schedule Activity
+- [x] App Block Service
+- [x] Website Block Activity
+- [x] Keyword Block Activity
+- [x] Web/Keyword Service
+- [x] Internet Block Activity
+- [x] Internet Block Service
+- [x] Usage Overview Activity
+- [x] App Insights Activity
+- [x] Notification Blocker
+- [x] Uninstall Protection
+- [x] Take a Break Activity
+- [x] Normal Mode
+- [x] Strict Mode
+- [x] Password Protection
+- [x] App Launch Service
+- [x] New Profile Activity
+- [x] Edit Profile Activity
 
 See the [open issues](https://github.com/ArmanKhanTech/Achievix/issues) for a full list of proposed features (and known issues)
 
