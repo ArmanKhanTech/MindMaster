@@ -100,7 +100,7 @@ Follow the below instructions to get started.
 1. Block
 <br>• Apps
 <br>• Games
-<br>• Webistes
+<br>• Websites
 <br>• Keywords
 <br>• Notifications
 2. Block Data Access
