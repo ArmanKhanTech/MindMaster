@@ -164,7 +164,10 @@ private static List<SupportedBrowserConfig> getSupportedBrowsers() {
     browsers.add(new SupportedBrowserConfig("org.mozilla.firefox", "org.mozilla.firefox:id/mozac_browser_toolbar_url_view"));
     browsers.add(new SupportedBrowserConfig("com.opera.browser", "com.opera.browser:id/url_field"));
     browsers.add(new SupportedBrowserConfig("com.opera.mini.native", "com.opera.mini.native:id/url_field"));
-    // here
+    /*
+    here...
+    syntax: browsers.add(new SupportedBrowserConfig("browser_package_name", "browser_package_name:id/url_field"));
+    */
     return browsers;
 }
 ```
