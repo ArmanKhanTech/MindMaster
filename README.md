@@ -97,33 +97,66 @@ Follow the below instructions to get started.
 
 ## Usage
 
-1. Block
-<br>• Apps
-<br>• Games
-<br>• Websites
-<br>• Keywords
-<br>• Notifications
-2. Block Data Access
-<br>• Cellular, Wifi or Both
-<br>• Per App or Game
-4. Create and Manage Various Profiles
-5. Add and Manage Five Different Blocking Schedules
-6. View Usage
-<br>• Upto a Year Old
-<br>• Screen Time, Launch Count and Data Usage Wise
-7. Take a Break Feature
-<br>• Four Blocking Levels
-8. Normal & Strict Mode
-9. Uninstall Protection
-10. Password Protection
+Achievix offers a comprehensive set of features to help you manage your digital well-being and stay focused on your tasks.<br>
+Here's an overview of its key functionalities:
 
-Supported Browsers:
-1. Google Chrome
-2. Mozilla Firefox
-3. Opera 
-4. Opera Mini
+**Blocking:**
 
-More browsers can be added at `app/src/main/java/com/android/achievix/Service/LogURLService.java`
+<ol>
+  <li><b>Apps & Games:</b> Block specific apps and games to prevent distractions and regain control over your time.</li>
+  <li><b>Websites & Keywords:</b> Block unwanted websites and keywords to minimize exposure to harmful content or unproductive browsing.</li>
+  <li><b>Notifications:</b> Silence notifications from distracting apps to maintain focus and avoid interruptions.</li>
+</ol>
+<br>
+
+**Data Access Control:**
+
+<ol>
+  <li><b>Cellular & Wi-Fi:</b> Restrict cellular or Wi-Fi data access per app or game to reduce data usage and prevent unwanted background activity.</li>
+</ol>
+<br>
+
+**Profiles & Schedules:**
+
+<ol>
+  <li><b>Multiple Profiles:</b> Create and manage different profiles for various use cases (e.g., work, study, leisure) with customized blocking settings.</li>
+  <li><b>Flexible Schedules:</b> Set up to five different blocking schedules to automate app and website blocking during specific times of the day or week.</li>
+</ol>
+<br>
+
+**Usage Insights:**
+
+<ol>
+  <li><b>Detailed Overview:</b> Gain insights into your digital habits with comprehensive usage data for up to a year.</li>
+  <li><b>Screen Time & Launch Count:</b> Track the amount of time spent on apps and the number of times you launch them.</li>
+  <li><b>Data Usage:</b> Monitor data usage per app to identify areas for potential optimization.</li>
+</ol>
+<br>
+
+**Additional Features:**
+
+<ol>
+  <li><b>Take-a-Break:</b> Temporarily block all distractions for a set duration to focus on other tasks or simply take a mindful break.</li>
+  <li><b>Blocking Levels:</b> Choose from four blocking levels (None, Mild, Moderate, Strict) to customize the intensity of your blocking experience.</li>
+  <li><b>Normal & Strict Modes:</b> Switch between Normal and Strict modes to adjust the overall level of blocking and access restrictions.</li>
+  <li><b>Uninstall Protection:</b> Prevent accidental uninstallation of Achievix to ensure consistent protection against distractions.</li>
+  <li><b>Password Protection:</b> Secure your settings and preferences with a password to maintain control over your blocking configurations.</li>
+</ol>
+<br>
+<br>
+
+**Supported Browsers:**
+
+Achievix currently supports blocking for the following popular browsers:
+
+<ul>
+  <li>Google Chrome</li>
+  <li>Mozilla Firefox</li>
+  <li>Opera</li>
+  <li>Opera Mini</li>
+</ul>
+
+But more browsers can be added at `app/src/main/java/com/android/achievix/Service/LogURLService.java`
 ```java
 private static List<SupportedBrowserConfig> getSupportedBrowsers() {
     List<SupportedBrowserConfig> browsers = new ArrayList<>();
@@ -135,7 +168,7 @@ private static List<SupportedBrowserConfig> getSupportedBrowsers() {
     return browsers;
 }
 ```
-
+<br>
 
 
 ## Screenshots
@@ -165,14 +198,14 @@ private static List<SupportedBrowserConfig> getSupportedBrowsers() {
 - [x] App Block Service
 - [x] Website Block Activity
 - [x] Keyword Block Activity
-- [x] Web/Keyword Service
+- [x] Web/Keyword Block Service
 - [x] Internet Block Activity
 - [x] Internet Block Service
 - [x] Usage Overview Activity
 - [x] App Insights Activity
-- [x] Notification Blocker
+- [x] Notification Block Service
 - [x] Uninstall Protection
-- [x] Take a Break Activity
+- [x] Take-a-Break Activity
 - [x] Normal Mode
 - [x] Strict Mode
 - [x] Password Protection
