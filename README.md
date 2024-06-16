@@ -13,7 +13,7 @@
     <img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/b6eea048-0f67-4412-b3c4-63840778a990" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Achievix</h3>
+  <h3 align="center">Achievix </h3>
 
   <p align="center">
     An Android productivity app.
@@ -56,13 +56,13 @@
 
 
 
-## About The Project
+## About the Project
 
 Achievix is an Android productivity app thats lets you do whats necessary by getting rid of all kinds of distractions.
 
 **Supports Android 10 & above only.**
 
-### Built With
+### Built with
 
 * [![Java][Java]][Java-url]
 * [![Kotlin][Kotlin]][Kotlin-url]
@@ -87,7 +87,7 @@ Follow the below instructions to get started.
 
 ### Installation
 
-1. Clone this repo
+1. Clone this repository
    
    ```sh
    git clone https://github.com/ArmanKhanTech/Achievix.git
@@ -97,53 +97,124 @@ Follow the below instructions to get started.
 
 ## Usage
 
-1. Block Apps & Games
-2. Block Websites
-3. Block Keywords
-4. Block Data Access
-5. Create and Manage Various Profiles
-6. Add and Manage Five Different Blocking Schedules
-7. Monitor Usage (Time, Launch Count & Data)
-8. Take a Break Feature
-9. Normal & Strict Mode
-10. Uninstall Protection
-11. Parental Control
-12. Notification Block
+Achievix offers a comprehensive set of features to help you manage your digital well-being and stay focused on your tasks.<br>
+Here's an overview of its key functionalities:
 
-Supported Browsers:
-1. Google Chrome
-2. Mozilla Firefox
-3. Opera 
-4. Opera Mini
+**Blocking:**
 
-Compressive documentation will be added soon.
+<ol>
+  <li><b>Apps & Games:</b> Block specific apps and games to prevent distractions and regain control over your time.</li>
+  <li><b>Websites & Keywords:</b> Block unwanted websites and keywords to minimize exposure to harmful content or unproductive browsing.</li>
+  <li><b>Notifications:</b> Silence notifications from distracting apps to maintain focus and avoid interruptions.</li>
+</ol>
+<br>
+
+**Data Access Control:**
+
+<ol>
+  <li><b>Cellular & Wi-Fi:</b> Restrict cellular or Wi-Fi data access per app or game to reduce data usage and prevent unwanted background activity.</li>
+</ol>
+<br>
+
+**Profiles & Schedules:**
+
+<ol>
+  <li><b>Multiple Profiles:</b> Create and manage different profiles for various use cases (e.g., work, study, leisure) with customized blocking settings.</li>
+  <li><b>Flexible Schedules:</b> Set up to five different blocking schedules to automate app and website blocking during specific times of the day or week.</li>
+</ol>
+<br>
+
+**Usage Insights:**
+
+<ol>
+  <li><b>Detailed Overview:</b> Gain insights into your digital habits with comprehensive usage data for up to a year.</li>
+  <li><b>Screen Time & Launch Count:</b> Track the amount of time spent on apps and the number of times you launch them.</li>
+  <li><b>Data Usage:</b> Monitor data usage per app to identify areas for potential optimization.</li>
+</ol>
+<br>
+
+**Additional Features:**
+
+<ol>
+  <li><b>Take-a-Break:</b> Temporarily block all distractions for a set duration to focus on other tasks or simply take a mindful break.</li>
+  <li><b>Blocking Levels:</b> Choose from four blocking levels (None, Mild, Moderate, Strict) to customize the intensity of your blocking experience.</li>
+  <li><b>Normal & Strict Modes:</b> Switch between Normal and Strict modes to adjust the overall level of blocking and access restrictions.</li>
+  <li><b>Uninstall Protection:</b> Prevent accidental uninstallation of Achievix to ensure consistent protection against distractions.</li>
+  <li><b>Password Protection:</b> Secure your settings and preferences with a password to maintain control over your blocking configurations.</li>
+</ol>
+<br>
+<br>
+
+**Supported Browsers:**
+
+Achievix currently supports blocking for the following popular browsers:
+
+<ul>
+  <li>Google Chrome</li>
+  <li>Mozilla Firefox</li>
+  <li>Opera</li>
+  <li>Opera Mini</li>
+</ul>
+
+But more browsers can be added at `app/src/main/java/com/android/achievix/Service/LogURLService.java`
+```java
+private static List<SupportedBrowserConfig> getSupportedBrowsers() {
+    List<SupportedBrowserConfig> browsers = new ArrayList<>();
+    browsers.add(new SupportedBrowserConfig("com.android.chrome", "com.android.chrome:id/url_bar"));
+    browsers.add(new SupportedBrowserConfig("org.mozilla.firefox", "org.mozilla.firefox:id/mozac_browser_toolbar_url_view"));
+    browsers.add(new SupportedBrowserConfig("com.opera.browser", "com.opera.browser:id/url_field"));
+    browsers.add(new SupportedBrowserConfig("com.opera.mini.native", "com.opera.mini.native:id/url_field"));
+    /*
+    here...
+    syntax: browsers.add(new SupportedBrowserConfig("browser_package_name", "browser_package_name:id/url_field"));
+    */
+    return browsers;
+}
+```
+<br>
+
+
+## Screenshots
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/5b34eaee-fba7-4258-a742-4cba52620b8b" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/a3e82740-5f75-4de2-b5ac-efb7995ea54a" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/81c65e14-291c-4865-8ddb-2526aef89cd8" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/329648ee-b348-4e19-8d1e-4953d0906bbe" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/77eca1fe-f95a-4b0c-882c-2f46908c861b" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/a34dcbee-f772-4f0d-8846-7d9639b1bdc5" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/8a19428f-16fc-470d-b924-a54e3136eb32" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/30b41e95-035a-46af-95e0-eaeb8e5cbcfb" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/83347d7c-0253-48bb-a28e-7cb7cb1ecd36" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/78263931-b145-44b4-a17f-79fc90a39263" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/4470602f-73e1-49a6-88f2-87491b9b8868" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/095e532c-e4b9-4330-82bb-d9feef312b76" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/88b5d183-5589-4464-af19-21a56a03ebf3" alt="Logo" width="250" height="500">
 
 
 
 ## Roadmap
 
-- [x] Add Home Activity
-- [x] Add App Block Activity
-- [x] Add New Schedule Activity
-- [x] Add Blocking Schedule Modes
-- [x] Add Edit Schedule Activity
-- [x] Add App Block Service
-- [x] Add Website Block Activity
-- [x] Add Keyword Block Activity
-- [x] Add Web/Keyword Service
-- [x] Add Internet Block Activity
-- [x] Add Internet Block Service
-- [x] Add Usage Overview Activity
-- [x] Add App Insights Activity
-- [x] Add Notification Blocker
-- [x] Add Uninstall Protection
-- [x] Add Take a Break Activity
-- [x] Add Normal Mode
-- [x] Add Strict Mode
-- [x] Add Parental Control
-- [x] Add App Launch Service
-- [x] Add New Profile Activity
-- [x] Add Edit Profile Activity
+- [x] Home Activity
+- [x] App Block Activity
+- [x] New Schedule Activity
+- [x] Blocking Schedule Modes
+- [x] Edit Schedule Activity
+- [x] App Block Service
+- [x] Website Block Activity
+- [x] Keyword Block Activity
+- [x] Web/Keyword Block Service
+- [x] Internet Block Activity
+- [x] Internet Block Service
+- [x] Usage Overview Activity
+- [x] App Insights Activity
+- [x] Notification Block Service
+- [x] Uninstall Protection
+- [x] Take-a-Break Activity
+- [x] Normal Mode
+- [x] Strict Mode
+- [x] Password Protection
+- [x] App Launch Service
+- [x] New Profile Activity
+- [x] Edit Profile Activity
 
 See the [open issues](https://github.com/ArmanKhanTech/Achievix/issues) for a full list of proposed features (and known issues)
 
