@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".Activity.StrictModeActivity"
+    tools:context=".Activities.StrictModeActivity"
     tools:ignore="HardcodedText,SpUsage,ContentDescription">
 
     <LinearLayout

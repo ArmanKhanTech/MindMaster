@@ -7,6 +7,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Achievix"
+rootProject.name = "AchieveIt"
 include ':app'
 include ':passcodeview'

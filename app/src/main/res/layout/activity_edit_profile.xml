@@ -7,7 +7,7 @@
     android:fillViewport="true"
     android:scrollbars="none"
     android:background="@color/white"
-    tools:context=".Activity.TakeBreakActivity"
+    tools:context=".Activities.TakeBreakActivity"
     tools:ignore="HardcodedText,SpUsage,ContentDescription">
 
     <FrameLayout

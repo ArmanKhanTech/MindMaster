@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".Activity.AppSelectActivity"
+    tools:context=".Activities.AppSelectActivity"
     tools:ignore="HardcodedText,SpUsage,ContentDescription">
 
     <LinearLayout
@@ -19,7 +19,7 @@
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="10dp"
             android:background="@color/white"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/back_icon"
