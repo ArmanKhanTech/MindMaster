@@ -37,7 +37,7 @@
         android:supportsRtl="true">
 
         <receiver
-            android:name=".Services.RestartService"
+            android:name=".Service.RestartService"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -45,7 +45,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".Services.AdminReceiver"
+            android:name=".Service.AdminReceiver"
             android:exported="false"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
             <intent-filter>
@@ -57,7 +57,7 @@
         </receiver>
 
         <service
-            android:name=".Services.BackgroundService"
+            android:name=".Service.ForegroundService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="specialUse">
@@ -66,7 +66,7 @@
                 android:value="To run service in the background." />
         </service>
         <service
-            android:name=".Services.NotificationService"
+            android:name=".Service.NotificationService"
             android:exported="false"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
@@ -74,7 +74,7 @@
             </intent-filter>
         </service>
         <service
-            android:name=".Services.LogURLService"
+            android:name=".Service.LogURLService"
             android:exported="true"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
@@ -86,130 +86,130 @@
         </service>
 
         <activity
-            android:name=".Activities.BlockDataActivity"
+            android:name=".Activity.BlockDataActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix.BlockData" />
+            android:theme="@style/Theme.AchieveIt.BlockData" />
         <activity
-            android:name=".Activities.EditScheduleActivity"
+            android:name=".Activity.EditScheduleActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.NoOfLaunchesActivity"
+            android:name=".Activity.NoOfLaunchesActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.FixedBlockActivity"
+            android:name=".Activity.FixedBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.QuickBlockActivity"
+            android:name=".Activity.QuickBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.SpecificTimeActivity"
+            android:name=".Activity.SpecificTimeActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.UsageTimeActivity"
+            android:name=".Activity.UsageTimeActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.EditProfileActivity"
+            android:name=".Activity.EditProfileActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.NewScheduleActivity"
+            android:name=".Activity.NewScheduleActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.DrawOnTopScreenActivity"
+            android:name=".Activity.DrawOnTopScreenActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.AppSelectActivity"
+            android:name=".Activity.AppSelectActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.StrictModeActivity"
+            android:name=".Activity.StrictModeActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.TakeBreakActivity"
+            android:name=".Activity.TakeBreakActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.NewProfileActivity"
+            android:name=".Activity.NewProfileActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.KeywordBlockActivity"
+            android:name=".Activity.KeywordBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.AppBlockActivity"
+            android:name=".Activity.AppBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.SettingActivity"
+            android:name=".Activity.SettingActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.InternetBlockActivity"
+            android:name=".Activity.InternetBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.EnterPasswordActivity"
+            android:name=".Activity.EnterPasswordActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.NewPasswordActivity"
+            android:name=".Activity.NewPasswordActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.AboutActivity"
+            android:name=".Activity.AboutActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.WebBlockActivity"
+            android:name=".Activity.WebBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.DrawOnTopLaunchActivity"
+            android:name=".Activity.DrawOnTopLaunchActivity"
             android:exported="false"
             android:noHistory="true"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Permissions.GetNotificationAccess"
+            android:name=".Permission.GetNotificationAccess"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Permissions.GetDrawOverAppsPermission"
+            android:name=".Permission.GetDrawOverAppsPermission"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Permissions.GetUsageStatsPermissionActivity"
+            android:name=".Permission.GetUsageStatsPermissionActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.UsageOverviewActivity"
+            android:name=".Activity.UsageOverviewActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".Activity.MainActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activities.SplashScreenActivity"
+            android:name=".Activity.SplashScreenActivity"
             android:exported="true"
-            android:theme="@style/Theme.Achievix">
+            android:theme="@style/Theme.AchieveIt">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.AppInsightsActivity"
+            android:name=".Activity.AppInsightsActivity"
             android:exported="false"
-            android:theme="@style/Theme.Achievix" />
+            android:theme="@style/Theme.AchieveIt" />
     </application>
 </manifest>

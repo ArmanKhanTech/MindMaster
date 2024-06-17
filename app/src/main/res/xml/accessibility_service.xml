@@ -6,4 +6,4 @@
     android:canRequestFilterKeyEvents="true"
     android:canRetrieveWindowContent="true"
     android:notificationTimeout="0"
-    android:packageNames="com.android.achieve-it" />
+    android:packageNames="com.android.chrome, org.mozilla.firefox, com.opera.browser, com.opera.mini.native" />

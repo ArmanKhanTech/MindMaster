@@ -1,229 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:scrollbars="none"
+    android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".Activities.TakeBreakActivity"
+    tools:context=".Activity.TakeBreakActivity"
     tools:ignore="HardcodedText,SpUsage,ContentDescription">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-            <LinearLayout
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="15dp"
+                android:background="@color/white"
+                android:onClick="finish"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/back_icon"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="Edit Profile"
+                android:textColor="@color/black"
+                android:textSize="30dp" />
 
-                <ImageButton
-                    android:onClick="finish"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/edit_profile_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="15dp"
-                    android:background="@color/white"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/back_icon"
-                    tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/new_profile_edt_theme"
+                    android:padding="10dp"
+                    android:text="Profile Name"
+                    android:textAlignment="center"
+                    android:textColor="@color/pink"
+                    android:textSize="22dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:layout_weight="1"
+                        android:text="Schedules"
+                        android:textColor="@color/pink"
+                        android:textSize="22dp" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/add_schedule"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="15dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/add_icon_pink" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/edit_profile_schedule_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:layout_weight="1"
+                        android:text="Apps"
+                        android:textColor="@color/pink"
+                        android:textSize="22dp" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/add_app"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="15dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/add_icon_pink" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/edit_profile_block_list_app"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:layout_weight="1"
+                        android:text="Websites"
+                        android:textColor="@color/pink"
+                        android:textSize="22dp" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/add_web"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="15dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/add_icon_pink" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/edit_profile_block_list_web"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="15dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="15dp"
+                        android:layout_weight="1"
+                        android:text="Keywords"
+                        android:textColor="@color/pink"
+                        android:textSize="22dp" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/add_key"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="15dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/add_icon_pink" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/edit_profile_block_list_key"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="15dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="sans-serif-condensed-medium"
-                    android:text="Edit Profile"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="70dp"
+                    android:text="@string/profile_note"
                     android:textColor="@color/black"
-                    android:textSize="30dp" />
+                    android:textSize="18dp" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/edit_profile_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginHorizontal="15dp"
-                android:text="Profile Name"
-                android:background="@drawable/new_profile_edt_theme"
-                android:textColor="@color/pink"
-                android:layout_gravity="center"
-                android:textAlignment="center"
-                android:padding="10dp"
-                android:textSize="22dp" />
+        </ScrollView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+    </LinearLayout>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:text="Schedules"
-                    android:textColor="@color/pink"
-                    android:layout_weight="1"
-                    android:textSize="22dp" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/save_edit_profile_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/next_profile_btn_theme"
+        android:padding="10dp"
+        android:text="Done"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="22dp" />
 
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/add_schedule"
-                    android:layout_width="30dp"
-                    android:layout_marginHorizontal="15dp"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layout_height="30dp"
-                    android:scaleType="fitXY"
-                    android:layout_gravity="center"
-                    android:src="@drawable/add_icon_pink" />
-
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/edit_profile_schedule_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="15dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:text="Apps"
-                    android:textColor="@color/pink"
-                    android:layout_weight="1"
-                    android:textSize="22dp" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/add_app"
-                    android:layout_width="30dp"
-                    android:layout_marginHorizontal="15dp"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layout_height="30dp"
-                    android:scaleType="fitXY"
-                    android:layout_gravity="center"
-                    android:src="@drawable/add_icon_pink" />
-
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/edit_profile_block_list_app"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="15dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:text="Websites"
-                    android:textColor="@color/pink"
-                    android:layout_weight="1"
-                    android:textSize="22dp" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/add_web"
-                    android:layout_width="30dp"
-                    android:layout_marginHorizontal="15dp"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layout_height="30dp"
-                    android:scaleType="fitXY"
-                    android:layout_gravity="center"
-                    android:src="@drawable/add_icon_pink" />
-
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/edit_profile_block_list_web"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="15dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="15dp"
-                    android:text="Keywords"
-                    android:textColor="@color/pink"
-                    android:layout_weight="1"
-                    android:textSize="22dp" />
-
-                <androidx.appcompat.widget.AppCompatImageButton
-                    android:id="@+id/add_key"
-                    android:layout_width="30dp"
-                    android:layout_marginHorizontal="15dp"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:layout_height="30dp"
-                    android:scaleType="fitXY"
-                    android:layout_gravity="center"
-                    android:src="@drawable/add_icon_pink" />
-
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/edit_profile_block_list_key"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="15dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginHorizontal="15dp"
-                android:text="@string/profile_note"
-                android:textColor="@color/black"
-                android:textSize="18dp"
-                android:layout_marginBottom="70dp" />
-
-        </LinearLayout>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/save_edit_profile_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="10dp"
-            android:background="@drawable/next_profile_btn_theme"
-            android:padding="10dp"
-            android:text="Done"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="22dp" />
-
-    </FrameLayout>
-
-</ScrollView>
+</FrameLayout>
