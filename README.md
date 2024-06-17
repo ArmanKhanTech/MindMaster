@@ -97,8 +97,7 @@ Follow the below instructions to get started.
 
 ## Usage
 
-AchieveIt offers a comprehensive set of features to help you manage your digital well-being and stay focused on your tasks.<br>
-Here's an overview of its key functionalities:
+AchieveIt offers a comprehensive set of features to help you manage your digital well-being and stay focused on your tasks. Here's an overview of its key functionalities:
 
 **Blocking:**
 
@@ -120,7 +119,7 @@ Here's an overview of its key functionalities:
 
 <ol>
   <li><b>Multiple Profiles:</b> Create and manage different profiles for various use cases (e.g., work, study, leisure) with customized blocking settings.</li>
-  <li><b>Flexible Schedules:</b> Set up to five different blocking schedules to automate app and website blocking during specific times of the day or week.</li>
+  <li><b>Flexible Schedules:</b> Set up to different blocking schedules to automate app and website blocking during specific times of the day or week.</li>
 </ol>
 <br>
 
@@ -137,7 +136,7 @@ Here's an overview of its key functionalities:
 
 <ol>
   <li><b>Take-a-Break:</b> Temporarily block all distractions for a set duration to focus on other tasks or simply take a mindful break.</li>
-  <li><b>Blocking Levels:</b> Choose from four blocking levels (None, Mild, Moderate, Strict) to customize the intensity of your blocking experience.</li>
+  <li><b>Blocking Modes:</b> Choose from five blocking modes (Usage Limit, Specific Time Interval, Quick Block, Number of Launches & Fixed Block) to customize the intensity of your blocking experience.</li>
   <li><b>Normal & Strict Modes:</b> Switch between Normal and Strict modes to adjust the overall level of blocking and access restrictions.</li>
   <li><b>Uninstall Protection:</b> Prevent accidental uninstallation of AchieveIt to ensure consistent protection against distractions.</li>
   <li><b>Password Protection:</b> Secure your settings and preferences with a password to maintain control over your blocking configurations.</li>
