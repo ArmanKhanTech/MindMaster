@@ -9,21 +9,21 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/ArmanKhanTech/Achievix/">
-    <img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/b6eea048-0f67-4412-b3c4-63840778a990" alt="Logo" width="80" height="80">
+  <a href="https://github.com/ArmanKhanTech/AchieveIt/">
+    <img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/b6eea048-0f67-4412-b3c4-63840778a990" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Achievix </h3>
+  <h3 align="center">AchieveIt </h3>
 
   <p align="center">
     An Android productivity app.
     <br />
-    <a href="https://github.com/ArmanKhanTech/Achievix"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/ArmanKhanTech/AchieveIt"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/ArmanKhanTech/Achievix/issues">Report a Bug</a>
+    <a href="https://github.com/ArmanKhanTech/AchieveIt/issues">Report a Bug</a>
     ·
-    <a href="https://github.com/ArmanKhanTech/Achievix/issues">Request new Feature</a>
+    <a href="https://github.com/ArmanKhanTech/AchieveIt/issues">Request new Feature</a>
   </p>
 </div>
 
@@ -58,7 +58,7 @@
 
 ## About the Project
 
-Achievix is an Android productivity app thats lets you do whats necessary by getting rid of all kinds of distractions.
+AchieveIt is an Android productivity app thats lets you do whats necessary by getting rid of all kinds of distractions.
 
 **Supports Android 10 & above only.**
 
@@ -90,14 +90,14 @@ Follow the below instructions to get started.
 1. Clone this repository
    
    ```sh
-   git clone https://github.com/ArmanKhanTech/Achievix.git
+   git clone https://github.com/ArmanKhanTech/AchieveIt.git
    ```
 
 
 
 ## Usage
 
-Achievix offers a comprehensive set of features to help you manage your digital well-being and stay focused on your tasks.<br>
+AchieveIt offers a comprehensive set of features to help you manage your digital well-being and stay focused on your tasks.<br>
 Here's an overview of its key functionalities:
 
 **Blocking:**
@@ -139,7 +139,7 @@ Here's an overview of its key functionalities:
   <li><b>Take-a-Break:</b> Temporarily block all distractions for a set duration to focus on other tasks or simply take a mindful break.</li>
   <li><b>Blocking Levels:</b> Choose from four blocking levels (None, Mild, Moderate, Strict) to customize the intensity of your blocking experience.</li>
   <li><b>Normal & Strict Modes:</b> Switch between Normal and Strict modes to adjust the overall level of blocking and access restrictions.</li>
-  <li><b>Uninstall Protection:</b> Prevent accidental uninstallation of Achievix to ensure consistent protection against distractions.</li>
+  <li><b>Uninstall Protection:</b> Prevent accidental uninstallation of AchieveIt to ensure consistent protection against distractions.</li>
   <li><b>Password Protection:</b> Secure your settings and preferences with a password to maintain control over your blocking configurations.</li>
 </ol>
 <br>
@@ -147,7 +147,7 @@ Here's an overview of its key functionalities:
 
 **Supported Browsers:**
 
-Achievix currently supports blocking for the following popular browsers:
+AchieveIt currently supports blocking for the following popular browsers:
 
 <ul>
   <li>Google Chrome</li>
@@ -156,7 +156,7 @@ Achievix currently supports blocking for the following popular browsers:
   <li>Opera Mini</li>
 </ul>
 
-But more browsers can be added at `app/src/main/java/com/android/achievix/Service/LogURLService.java`
+But more browsers can be added at `app/src/main/java/com/android/AchieveIt/Service/LogURLService.java`
 ```java
 private static List<SupportedBrowserConfig> getSupportedBrowsers() {
     List<SupportedBrowserConfig> browsers = new ArrayList<>();
@@ -175,19 +175,19 @@ private static List<SupportedBrowserConfig> getSupportedBrowsers() {
 
 
 ## Screenshots
-<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/5b34eaee-fba7-4258-a742-4cba52620b8b" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/a3e82740-5f75-4de2-b5ac-efb7995ea54a" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/81c65e14-291c-4865-8ddb-2526aef89cd8" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/329648ee-b348-4e19-8d1e-4953d0906bbe" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/77eca1fe-f95a-4b0c-882c-2f46908c861b" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/a34dcbee-f772-4f0d-8846-7d9639b1bdc5" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/8a19428f-16fc-470d-b924-a54e3136eb32" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/30b41e95-035a-46af-95e0-eaeb8e5cbcfb" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/83347d7c-0253-48bb-a28e-7cb7cb1ecd36" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/78263931-b145-44b4-a17f-79fc90a39263" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/4470602f-73e1-49a6-88f2-87491b9b8868" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/095e532c-e4b9-4330-82bb-d9feef312b76" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/Achievix/assets/92728787/88b5d183-5589-4464-af19-21a56a03ebf3" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/5b34eaee-fba7-4258-a742-4cba52620b8b" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/a3e82740-5f75-4de2-b5ac-efb7995ea54a" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/81c65e14-291c-4865-8ddb-2526aef89cd8" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/329648ee-b348-4e19-8d1e-4953d0906bbe" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/77eca1fe-f95a-4b0c-882c-2f46908c861b" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/a34dcbee-f772-4f0d-8846-7d9639b1bdc5" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/8a19428f-16fc-470d-b924-a54e3136eb32" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/30b41e95-035a-46af-95e0-eaeb8e5cbcfb" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/83347d7c-0253-48bb-a28e-7cb7cb1ecd36" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/78263931-b145-44b4-a17f-79fc90a39263" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/4470602f-73e1-49a6-88f2-87491b9b8868" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/095e532c-e4b9-4330-82bb-d9feef312b76" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/88b5d183-5589-4464-af19-21a56a03ebf3" alt="Logo" width="250" height="500">
 
 
 
@@ -216,7 +216,7 @@ private static List<SupportedBrowserConfig> getSupportedBrowsers() {
 - [x] New Profile Activity
 - [x] Edit Profile Activity
 
-See the [open issues](https://github.com/ArmanKhanTech/Achievix/issues) for a full list of proposed features (and known issues)
+See the [open issues](https://github.com/ArmanKhanTech/AchieveIt/issues) for a full list of proposed features (and known issues)
 
 
 
@@ -242,7 +242,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Arman Khan - ak2341776@gmail.com
 
-Project Link - [https://github.com/ArmanKhanTech/Achievix](https://github.com/ArmanKhanTech/Achievix)
+Project Link - [https://github.com/ArmanKhanTech/AchieveIt](https://github.com/ArmanKhanTech/AchieveIt)
 
 
 
@@ -256,16 +256,16 @@ Project Link - [https://github.com/ArmanKhanTech/Achievix](https://github.com/Ar
 
 
 
-[contributors-shield]: https://img.shields.io/github/contributors/ArmanKhanTech/Achievix.svg?style=for-the-badge
-[contributors-url]: https://github.com/ArmanKhanTech/Achievix/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/ArmanKhanTech/Achievix.svg?style=for-the-badge
-[forks-url]: https://github.com/ArmanKhanTech/Achievix/network/members
-[stars-shield]: https://img.shields.io/github/stars/ArmanKhanTech/Achievix.svg?style=for-the-badge
-[stars-url]: https://github.com/ArmanKhanTech/Achievix/stargazers
+[contributors-shield]: https://img.shields.io/github/contributors/ArmanKhanTech/AchieveIt.svg?style=for-the-badge
+[contributors-url]: https://github.com/ArmanKhanTech/AchieveIt/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/ArmanKhanTech/AchieveIt.svg?style=for-the-badge
+[forks-url]: https://github.com/ArmanKhanTech/AchieveIt/network/members
+[stars-shield]: https://img.shields.io/github/stars/ArmanKhanTech/AchieveIt.svg?style=for-the-badge
+[stars-url]: https://github.com/ArmanKhanTech/AchieveIt/stargazers
 [issues-shield]: https://img.shields.io/github/issues/ArmanKhanTech/FocusOnMe.svg?style=for-the-badge
-[issues-url]: https://github.com/ArmanKhanTech/Achievix/issues
+[issues-url]: https://github.com/ArmanKhanTech/AchieveIt/issues
 [license-shield]: https://img.shields.io/github/license/ArmanKhanTech/FocusOnMe.svg?style=for-the-badge
-[license-url]: https://github.com/ArmanKhanTech/Achievix/blob/master/LICENSE.txt
+[license-url]: https://github.com/ArmanKhanTech/AchieveIt/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/arman-khan-25b624205/
 [Android]: https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white
