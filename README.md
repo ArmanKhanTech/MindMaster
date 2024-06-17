@@ -143,7 +143,6 @@ Here's an overview of its key functionalities:
   <li><b>Password Protection:</b> Secure your settings and preferences with a password to maintain control over your blocking configurations.</li>
 </ol>
 <br>
-<br>
 
 **Supported Browsers:**
 
