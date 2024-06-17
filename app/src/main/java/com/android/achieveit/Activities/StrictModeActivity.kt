@@ -23,10 +23,13 @@ import com.android.achieveit.Services.AdminReceiver
 import com.android.achieveit.Utilities.ItemStatus
 import java.util.Objects
 
+@Suppress("DEPRECATION")
 class StrictModeActivity : AppCompatActivity() {
     private lateinit var adapter: TimeLineAdapter
-    private val dataList = ArrayList<TimeLineModel>()
     private lateinit var layoutManager: LinearLayoutManager
+
+    private val dataList = ArrayList<TimeLineModel>()
+
     private lateinit var editor: SharedPreferences.Editor
     private lateinit var sh: SharedPreferences
 
@@ -41,7 +44,9 @@ class StrictModeActivity : AppCompatActivity() {
         if(!sh.getBoolean("strict", false)) {
             activate.setOnClickListener {
                 if(dataList[2].status != ItemStatus.COMPLETED) {
-                    Toast.makeText(this, "Please activate device admin first", Toast.LENGTH_SHORT).show()
+                    Toast
+                        .makeText(this, "Please activate device admin first", Toast.LENGTH_SHORT)
+                        .show()
                     return@setOnClickListener
                 } else {
                     editor.putBoolean("strict", true)
@@ -118,7 +123,9 @@ class StrictModeActivity : AppCompatActivity() {
                                 dialog.dismiss()
                                 initRecyclerView()
                             } else {
-                                Toast.makeText(this@StrictModeActivity, "Blocking Level already set to One", Toast.LENGTH_SHORT).show()
+                                Toast
+                                    .makeText(this@StrictModeActivity, "Blocking Level already set to One", Toast.LENGTH_SHORT)
+                                    .show()
                             }
                         }
 
@@ -131,7 +138,9 @@ class StrictModeActivity : AppCompatActivity() {
                                 dialog.dismiss()
                                 initRecyclerView()
                             } else {
-                                Toast.makeText(this@StrictModeActivity, "Blocking Level already set to Two", Toast.LENGTH_SHORT).show()
+                                Toast
+                                    .makeText(this@StrictModeActivity, "Blocking Level already set to Two", Toast.LENGTH_SHORT)
+                                    .show()
                             }
                         }
 
@@ -144,7 +153,9 @@ class StrictModeActivity : AppCompatActivity() {
                                 dialog.dismiss()
                                 initRecyclerView()
                             } else {
-                                Toast.makeText(this@StrictModeActivity, "Blocking Level already set to Three", Toast.LENGTH_SHORT).show()
+                                Toast
+                                    .makeText(this@StrictModeActivity, "Blocking Level already set to Three", Toast.LENGTH_SHORT)
+                                    .show()
                             }
                         }
 
@@ -157,7 +168,9 @@ class StrictModeActivity : AppCompatActivity() {
                                 dialog.dismiss()
                                 initRecyclerView()
                             } else {
-                                Toast.makeText(this@StrictModeActivity, "Blocking Level already set to Four", Toast.LENGTH_SHORT).show()
+                                Toast
+                                    .makeText(this@StrictModeActivity, "Blocking Level already set to Four", Toast.LENGTH_SHORT)
+                                    .show()
                             }
                         }
 
@@ -166,14 +179,18 @@ class StrictModeActivity : AppCompatActivity() {
 
                     1 -> {
                         if(dataList[0].status != ItemStatus.COMPLETED) {
-                            Toast.makeText(this@StrictModeActivity, "Please select blocking level first", Toast.LENGTH_SHORT).show()
+                            Toast
+                                .makeText(this@StrictModeActivity, "Please select blocking level first", Toast.LENGTH_SHORT)
+                                .show()
                             return
                         } else {
                             if(dataList[1].status == ItemStatus.ACTIVE) {
                                 val intent = Intent(this@StrictModeActivity, NewPasswordActivity::class.java)
                                 startActivityForResult(intent, 100)
                             } else {
-                                Toast.makeText(this@StrictModeActivity, "Password already set", Toast.LENGTH_SHORT).show()
+                                Toast
+                                    .makeText(this@StrictModeActivity, "Password already set", Toast.LENGTH_SHORT)
+                                    .show()
                             }
                         }
                     }
@@ -187,19 +204,23 @@ class StrictModeActivity : AppCompatActivity() {
                                 val cn: ComponentName = ComponentName(this@StrictModeActivity, AdminReceiver::class.java)
                                 val intent = Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
                                 intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, cn)
-                                intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "Achievix requires device admin rights to restrict deletion of the app.")
+                                intent
+                                    .putExtra(
+                                        DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+                                        "Achievix requires device admin rights to restrict deletion of the app."
+                                    )
                                 startActivityForResult(intent, 101)
                             } else {
                                 if (dataList[0].text.contains("One")
                                     || dataList[0].text.contains("Two")
                                 ) {
-                                    Toast.makeText(this@StrictModeActivity, "Device admin activation not required", Toast.LENGTH_SHORT).show()
+                                    Toast
+                                        .makeText(this@StrictModeActivity, "Device admin activation not required", Toast.LENGTH_SHORT)
+                                        .show()
                                 } else {
-                                    Toast.makeText(
-                                        this@StrictModeActivity,
-                                        "Device admin already activated",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    Toast
+                                        .makeText(this@StrictModeActivity, "Device admin already activated", Toast.LENGTH_SHORT)
+                                        .show()
                                 }
                             }
                         }
@@ -211,7 +232,6 @@ class StrictModeActivity : AppCompatActivity() {
     }
 
     @Deprecated("Deprecated in Java")
-    @SuppressLint("NotifyDataSetChanged")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == 100) {

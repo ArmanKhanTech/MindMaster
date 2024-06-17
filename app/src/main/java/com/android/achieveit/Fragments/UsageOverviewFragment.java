@@ -22,10 +22,11 @@ import com.android.achieveit.Activities.AppInsightsActivity;
 import com.android.achieveit.Adapters.AppUsageAdapter;
 import com.android.achieveit.Models.AppUsageModel;
 import com.android.achieveit.R;
-import com.android.achieveit.Utilities.UsageUtil;
+import com.android.achieveit.Utilities.UsageUtility;
 
 import java.util.List;
 
+@SuppressLint("StaticFieldLeak")
 public class UsageOverviewFragment extends Fragment {
     private RecyclerView recyclerView;
     private AppUsageAdapter appUsageAdapter;
@@ -33,8 +34,10 @@ public class UsageOverviewFragment extends Fragment {
     private LinearLayout usageLayout;
     private LinearLayout loadingLayout;
     private Spinner sortSpinner;
+
     private final String[] sort = {"Daily", "Weekly", "Monthly", "Yearly"};
     private String sortValue = "Daily";
+
     private GetInstalledAppsUsageTask getInstalledAppsUsageTask;
 
     @Override
@@ -100,7 +103,6 @@ public class UsageOverviewFragment extends Fragment {
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
     private class GetInstalledAppsUsageTask extends AsyncTask<Void, Void, List<AppUsageModel>> {
         private final Context context;
         private final String sort;
@@ -120,7 +122,7 @@ public class UsageOverviewFragment extends Fragment {
 
         @Override
         protected List<AppUsageModel> doInBackground(Void... voids) {
-            return UsageUtil.Companion.getInstalledAppsUsage(context, sort);
+            return UsageUtility.Companion.getInstalledAppsUsage(context, sort);
         }
 
         @Override
@@ -142,7 +144,7 @@ public class UsageOverviewFragment extends Fragment {
                 startActivity(intent);
             });
 
-            usageStats.setText(convertMillisToHoursAndMinutes(UsageUtil.totalUsage));
+            usageStats.setText(convertMillisToHoursAndMinutes(UsageUtility.totalUsage));
             loadingLayout.setVisibility(View.GONE);
             usageLayout.setVisibility(View.VISIBLE);
         }

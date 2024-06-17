@@ -23,21 +23,30 @@ public class AppLaunchDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME + " ( "
-                + PACKAGE_NAME + " TEXT, "
-                + LAUNCH_COUNT + " INTEGER, "
-                + DATE + " TEXT)";
+            + PACKAGE_NAME + " TEXT, "
+            + LAUNCH_COUNT + " INTEGER, "
+            + DATE + " TEXT)";
         db.execSQL(query);
     }
 
     public void incrementLaunchCount(String packageName, String date) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PACKAGE_NAME + " = ? AND " + DATE + " = ?", new String[]{packageName, date});
+        Cursor cursor =
+            db.rawQuery(
+                "SELECT * FROM " + TABLE_NAME + " WHERE " + PACKAGE_NAME + " = ? AND " + DATE + " = ?",
+                new String[]{packageName, date}
+            );
 
         if (cursor.moveToFirst()) {
             int count = cursor.getInt(cursor.getColumnIndexOrThrow(LAUNCH_COUNT));
             ContentValues contentValues = new ContentValues();
             contentValues.put(LAUNCH_COUNT, count + 1);
-            db.update(TABLE_NAME, contentValues, PACKAGE_NAME + " = ? AND " + DATE + " = ?", new String[]{packageName, date});
+            db.update(
+                TABLE_NAME,
+                contentValues,
+                PACKAGE_NAME + " = ? AND " + DATE + " = ?",
+                new String[]{packageName, date}
+            );
         } else {
             ContentValues contentValues = new ContentValues();
             contentValues.put(PACKAGE_NAME, packageName);
@@ -50,7 +59,10 @@ public class AppLaunchDatabase extends SQLiteOpenHelper {
 
     public HashMap<String, Integer> getDailyLaunchCount(String date) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + PACKAGE_NAME + ", SUM(" + LAUNCH_COUNT + ") AS total FROM " + TABLE_NAME + " WHERE " + DATE + " = ? GROUP BY " + PACKAGE_NAME, new String[]{date});
+        Cursor cursor = db.rawQuery(
+            "SELECT " + PACKAGE_NAME + ", SUM(" + LAUNCH_COUNT + ") AS total FROM " + TABLE_NAME + " WHERE " + DATE + " = ? GROUP BY " + PACKAGE_NAME,
+            new String[]{date}
+        );
 
         HashMap<String, Integer> result = new HashMap<>();
         while (cursor.moveToNext()) {
@@ -64,7 +76,10 @@ public class AppLaunchDatabase extends SQLiteOpenHelper {
 
     public int getDailyLaunchCountForSpecificApp(String packageName, String date) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + LAUNCH_COUNT + " FROM " + TABLE_NAME + " WHERE " + PACKAGE_NAME + " = ? AND " + DATE + " = ?", new String[]{packageName, date});
+        Cursor cursor = db.rawQuery(
+            "SELECT " + LAUNCH_COUNT + " FROM " + TABLE_NAME + " WHERE " + PACKAGE_NAME + " = ? AND " + DATE + " = ?",
+            new String[]{packageName, date}
+        );
 
         int count = 0;
         if (cursor.moveToFirst()) {
@@ -76,7 +91,10 @@ public class AppLaunchDatabase extends SQLiteOpenHelper {
 
     public HashMap<String, Integer> getWeeklyLaunchCount(String startDate, String endDate) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + PACKAGE_NAME + ", SUM(" + LAUNCH_COUNT + ") AS total FROM " + TABLE_NAME + " WHERE " + DATE + " BETWEEN ? AND ? GROUP BY " + PACKAGE_NAME, new String[]{startDate, endDate});
+        Cursor cursor = db.rawQuery(
+            "SELECT " + PACKAGE_NAME + ", SUM(" + LAUNCH_COUNT + ") AS total FROM " + TABLE_NAME + " WHERE " + DATE + " BETWEEN ? AND ? GROUP BY " + PACKAGE_NAME,
+            new String[]{startDate, endDate}
+        );
 
         HashMap<String, Integer> result = new HashMap<>();
         while (cursor.moveToNext()) {
@@ -90,7 +108,10 @@ public class AppLaunchDatabase extends SQLiteOpenHelper {
 
     public HashMap<String, Integer> getMonthlyLaunchCount(String startDate, String endDate) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + PACKAGE_NAME + ", SUM(" + LAUNCH_COUNT + ") AS total FROM " + TABLE_NAME + " WHERE " + DATE + " BETWEEN ? AND ? GROUP BY " + PACKAGE_NAME, new String[]{startDate, endDate});
+        Cursor cursor = db.rawQuery(
+            "SELECT " + PACKAGE_NAME + ", SUM(" + LAUNCH_COUNT + ") AS total FROM " + TABLE_NAME + " WHERE " + DATE + " BETWEEN ? AND ? GROUP BY " + PACKAGE_NAME,
+            new String[]{startDate, endDate}
+        );
 
         HashMap<String, Integer> result = new HashMap<>();
         while (cursor.moveToNext()) {
@@ -104,7 +125,10 @@ public class AppLaunchDatabase extends SQLiteOpenHelper {
 
     public HashMap<String, Integer> getYearlyLaunchCount(String startDate, String endDate) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + PACKAGE_NAME + ", SUM(" + LAUNCH_COUNT + ") AS total FROM " + TABLE_NAME + " WHERE " + DATE + " BETWEEN ? AND ? GROUP BY " + PACKAGE_NAME, new String[]{startDate, endDate});
+        Cursor cursor = db.rawQuery(
+            "SELECT " + PACKAGE_NAME + ", SUM(" + LAUNCH_COUNT + ") AS total FROM " + TABLE_NAME + " WHERE " + DATE + " BETWEEN ? AND ? GROUP BY " + PACKAGE_NAME,
+            new String[]{startDate, endDate}
+        );
 
         HashMap<String, Integer> result = new HashMap<>();
         while (cursor.moveToNext()) {

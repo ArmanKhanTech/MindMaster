@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.achieveit.R;
 
+@SuppressLint("SetTextI18n")
 public class GetDrawOverAppsPermission extends AppCompatActivity {
     Button finishButton;
     TextView status;
@@ -32,7 +33,6 @@ public class GetDrawOverAppsPermission extends AppCompatActivity {
         granted();
     }
 
-    @SuppressLint("SetTextI18n")
     public void granted() {
         if (Settings.canDrawOverlays(this)) {
             status.setText("Permission Granted");

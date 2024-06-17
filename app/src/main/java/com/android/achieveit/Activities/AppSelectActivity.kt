@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.achieveit.Adapters.AppSelectAdapter
 import com.android.achieveit.Models.AppSelectModel
 import com.android.achieveit.R
-import com.android.achieveit.Utilities.UsageUtil
+import com.android.achieveit.Utilities.UsageUtility
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,12 +22,14 @@ import kotlinx.coroutines.withContext
 
 class AppSelectActivity : AppCompatActivity() {
     private lateinit var appSelectModelList: List<AppSelectModel>
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var saveButton: Button
     private lateinit var searchEditText: EditText
-    private val selectedApps = mutableListOf<String>()
     private lateinit var appSelectLayout: LinearLayout
     private lateinit var loadingLayout: LinearLayout
+
+    private val selectedApps = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +85,7 @@ class AppSelectActivity : AppCompatActivity() {
         loadingLayout.visibility = View.VISIBLE
 
         CoroutineScope(Dispatchers.IO).launch {
-            var apps = UsageUtil.getInstalledAppsSelect(this@AppSelectActivity)
+            var apps = UsageUtility.getInstalledAppsSelect(this@AppSelectActivity)
             apps = apps.sortedBy { it.name }
             withContext(Dispatchers.Main) {
                 appSelectModelList = apps

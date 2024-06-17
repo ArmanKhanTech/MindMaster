@@ -1,6 +1,5 @@
 package com.android.achieveit.Activities;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -22,7 +21,7 @@ import com.android.achieveit.Adapters.WebKeyBlockAdapter;
 import com.android.achieveit.Databases.BlockDatabase;
 import com.android.achieveit.Models.WebKeyModel;
 import com.android.achieveit.R;
-import com.android.achieveit.Utilities.AccessibilityUtil;
+import com.android.achieveit.Utilities.AccessibilityUtility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +34,7 @@ import java.util.regex.Pattern;
 public class WebBlockActivity extends AppCompatActivity {
     private final BlockDatabase blockDatabase = new BlockDatabase(this);
     private final List<WebKeyModel> webKeyModelList = new ArrayList<>();
+
     private RecyclerView recyclerView;
     private EditText searchEditText;
     private TextView noWebBlock;
@@ -68,11 +68,9 @@ public class WebBlockActivity extends AppCompatActivity {
     private void setupSearchView() {
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -88,11 +86,13 @@ public class WebBlockActivity extends AppCompatActivity {
             } else if (searchEditText.getText().toString().equals("google.com")) {
                 Toast.makeText(this, "Cannot block Google", Toast.LENGTH_SHORT).show();
             } else {
-                if (new AccessibilityUtil().isAccessibilitySettingsOn(this)) {
+                if (new AccessibilityUtility().isAccessibilitySettingsOn(this)) {
                     if (TextUtils.isEmpty(searchEditText.getText().toString())) {
                         Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT).show();
                     } else {
-                        Pattern urlPattern = Pattern.compile("^((https?|ftp|smtp)://)?(www.)?[a-z0-9]+(\\.[a-z]{2,}){1,3}(#?/?[a-zA-Z0-9#]+)*/?(\\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$");
+                        Pattern urlPattern = Pattern.compile(
+                        "^((https?|ftp|smtp)://)?(www.)?[a-z0-9]+(\\.[a-z]{2,}){1,3}(#?/?[a-zA-Z0-9#]+)*/?(\\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$"
+                        );
                         if (!urlPattern.matcher(searchEditText.getText().toString()).matches()) {
                             Toast.makeText(this, "Invalid URL", Toast.LENGTH_SHORT).show();
                         } else {
@@ -122,7 +122,6 @@ public class WebBlockActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     private void getBlockedWebsite() {
         List<HashMap<String, String>> list = blockDatabase.readAllRecordsWeb();
         if (!list.isEmpty()) {

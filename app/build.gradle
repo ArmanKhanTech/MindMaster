@@ -45,8 +45,8 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
     implementation 'com.google.firebase:protolite-well-known-types:18.0.0'
     implementation 'com.github.vipulasri:timelineview:1.1.5'
+    implementation project(':passcodeView')
 
-    implementation project(':passcodeview')
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

@@ -25,7 +25,7 @@ import com.android.achieveit.Activities.MainActivity;
 import com.android.achieveit.Databases.AppLaunchDatabase;
 import com.android.achieveit.Databases.BlockDatabase;
 import com.android.achieveit.R;
-import com.android.achieveit.Utilities.NetworkUtil;
+import com.android.achieveit.Utilities.NetworkUtility;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,10 +45,10 @@ public class BackgroundService extends Service {
     private final AppLaunchDatabase appLaunchDatabase;
     private final BlockDatabase blockDatabase;
     private Context mContext;
+
     protected CountDownTimer check = new CountDownTimer(1000, 1000) {
         @Override
-        public void onTick(long millisUntilFinished) {
-        }
+        public void onTick(long millisUntilFinished) {}
 
         @Override
         public void onFinish() {
@@ -93,9 +93,9 @@ public class BackgroundService extends Service {
 
     private void createNotificationChannel() {
         NotificationChannel serviceChannel = new NotificationChannel(
-                CHANNEL_ID,
-                "AchievixForegroundServiceChannel",
-                NotificationManager.IMPORTANCE_DEFAULT
+            CHANNEL_ID,
+            "AchievixForegroundServiceChannel",
+            NotificationManager.IMPORTANCE_DEFAULT
         );
         NotificationManager manager = getSystemService(NotificationManager.class);
         manager.createNotificationChannel(serviceChannel);
@@ -105,7 +105,9 @@ public class BackgroundService extends Service {
         SharedPreferences sh = getSharedPreferences("mode", Context.MODE_PRIVATE);
         int i = sh.getInt("password", 0);
 
-        Intent notificationIntent = i != 0 ? new Intent(this, EnterPasswordActivity.class) : new Intent(this, MainActivity.class);
+        Intent notificationIntent = i != 0 ?
+            new Intent(this, EnterPasswordActivity.class) :
+            new Intent(this, MainActivity.class);
         notificationIntent.putExtra("password", i);
         notificationIntent.putExtra("invokedFrom", "ForegroundService");
 
@@ -159,7 +161,9 @@ public class BackgroundService extends Service {
 
             for (HashMap<String, String> map : filteredList) {
                 if(Objects.equals(map.get("packageName"), currentApp)) {
-                    if (Objects.equals(map.get("scheduleType"), "Usage Time") && Objects.equals(map.get("profileStatus"), "1")) {
+                    if (Objects.equals(map.get("scheduleType"), "Usage Time") &&
+                        Objects.equals(map.get("profileStatus"), "1")
+                    ) {
                         if (Objects.equals(map.get("notification"), "1")) {
                             SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sh.edit();
@@ -181,8 +185,10 @@ public class BackgroundService extends Service {
                             long startMillis = calendar.getTimeInMillis();
                             long endMillis = System.currentTimeMillis();
 
-                            UsageStatsManager usageStatsManager = (UsageStatsManager) mContext.getSystemService(Context.USAGE_STATS_SERVICE);
-                            Map<String, UsageStats> aggregatedStatsMap = usageStatsManager.queryAndAggregateUsageStats(startMillis, endMillis);
+                            UsageStatsManager usageStatsManager =
+                                    (UsageStatsManager) mContext.getSystemService(Context.USAGE_STATS_SERVICE);
+                            Map<String, UsageStats> aggregatedStatsMap =
+                                    usageStatsManager.queryAndAggregateUsageStats(startMillis, endMillis);
                             UsageStats usageStats = aggregatedStatsMap.get(currentApp);
 
                             if (usageStats != null) {
@@ -207,7 +213,9 @@ public class BackgroundService extends Service {
                                 return;
                             }
                         }
-                    } else if (Objects.equals(map.get("scheduleType"), "Specific Time") && Objects.equals(map.get("profileStatus"), "1")) {
+                    } else if (Objects.equals(map.get("scheduleType"), "Specific Time") &&
+                        Objects.equals(map.get("profileStatus"), "1")
+                    ) {
                         if (Objects.equals(map.get("notification"), "1")) {
                             SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sh.edit();
@@ -242,7 +250,9 @@ public class BackgroundService extends Service {
                                 return;
                             }
                         }
-                    } else if (Objects.equals(map.get("scheduleType"), "Quick Block") && Objects.equals(map.get("profileStatus"), "1")) {
+                    } else if (Objects.equals(map.get("scheduleType"), "Quick Block") &&
+                        Objects.equals(map.get("profileStatus"), "1")
+                    ) {
                         if (Objects.equals(map.get("notification"), "1")) {
                             SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sh.edit();
@@ -256,7 +266,8 @@ public class BackgroundService extends Service {
                             int untilMins = Integer.parseInt(params[1]);
 
                             if (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) <= untilHours &&
-                                    Calendar.getInstance().get(Calendar.MINUTE) <= untilMins) {
+                                    Calendar.getInstance().get(Calendar.MINUTE) <= untilMins
+                            ) {
                                 timer.cancel();
                                 System.gc();
                                 Runtime.getRuntime().runFinalization();
@@ -274,7 +285,9 @@ public class BackgroundService extends Service {
                                 return;
                             }
                         }
-                    } else if (Objects.equals(map.get("scheduleType"), "Launch Count") && Objects.equals(map.get("profileStatus"), "1")) {
+                    } else if (Objects.equals(map.get("scheduleType"), "Launch Count") &&
+                        Objects.equals(map.get("profileStatus"), "1")
+                    ) {
                         if (Objects.equals(map.get("notification"), "1")) {
                             SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sh.edit();
@@ -307,7 +320,9 @@ public class BackgroundService extends Service {
                                 return;
                             }
                         }
-                    } else if (Objects.equals(map.get("scheduleType"), "Fixed Block") && Objects.equals(map.get("profileStatus"), "1")) {
+                    } else if (Objects.equals(map.get("scheduleType"), "Fixed Block") &&
+                        Objects.equals(map.get("profileStatus"), "1")
+                    ) {
                         if (Objects.equals(map.get("notification"), "1")) {
                             SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sh.edit();
@@ -335,7 +350,8 @@ public class BackgroundService extends Service {
                         boolean mobile = Objects.equals(map.get("launch"), "1");
                         boolean wifi = Objects.equals(map.get("notification"), "1");
 
-                        float total = new NetworkUtil().getPackageInfo(0, System.currentTimeMillis(), currentApp, mobile, wifi, mContext);
+                        float total =
+                            new NetworkUtility().getPackageInfo(0, System.currentTimeMillis(), currentApp, mobile, wifi, mContext);
                         if (total >= usage) {
                             timer.cancel();
                             System.gc();

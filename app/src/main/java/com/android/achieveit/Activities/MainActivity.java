@@ -38,31 +38,36 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+@SuppressLint({"NonConstantResourceId", "InlinedApi", "SetTextI18n"})
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private LinearLayout ll1, ll2, ll3, ll4, ll5, ll6, ll7, ll8;
     private Button navButton;
-    private final Calendar c = Calendar.getInstance();
-    private final int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
     private String greeting = "";
     private TextView mode, modeDesc;
     private ImageView strictLevelOne, strictLevelTwo;
     private TextView appBlockCount, webBlockCount, keywordBlockCount, internetBlockCount;
+
+    private final Calendar c = Calendar.getInstance();
+    private final int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
     private final BlockDatabase blockDatabase = new BlockDatabase(this);
 
-    @SuppressLint({"NonConstantResourceId", "InlinedApi", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
+        if (ContextCompat
+            .checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat
+                .requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
         }
 
         if (!isMyServiceRunning(BackgroundService.class)) {
             Intent serviceIntent = new Intent(this, BackgroundService.class);
-            serviceIntent.putExtra("inputExtra", "Foreground Service is Running");
+            serviceIntent.putExtra("inputExtra", "Background Service is Running");
             ContextCompat.startForegroundService(this, serviceIntent);
         }
 
@@ -127,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.menu1 -> startActivity(new Intent(this, SettingActivity.class));
                 case R.id.menu2 ->
-                        startActivity(new Intent(MainActivity.this, AboutActivity.class));
+                    startActivity(new Intent(MainActivity.this, AboutActivity.class));
             }
             return false;
         });
@@ -154,11 +159,11 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < list.size(); i++) {
             profileModelList.add(
-                    new ProfileModel(
-                            Objects.requireNonNull(list.get(i).get("id")),
-                            Objects.requireNonNull(list.get(i).get("profileName")),
-                            Objects.requireNonNull(list.get(i).get("profileStatus"))
-                    )
+                new ProfileModel(
+                    Objects.requireNonNull(list.get(i).get("id")),
+                    Objects.requireNonNull(list.get(i).get("profileName")),
+                    Objects.requireNonNull(list.get(i).get("profileStatus"))
+                )
             );
         }
 
@@ -199,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.setCancelable(true);
 
         Objects.requireNonNull(dialog.getWindow())
-                .setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            .setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         LinearLayout normal = dialog.findViewById(R.id.mode_button_normal);
         LinearLayout strict = dialog.findViewById(R.id.mode_button_strict);
@@ -210,7 +215,8 @@ public class MainActivity extends AppCompatActivity {
 
         normal.setOnClickListener(view1 -> {
             if(!strictDialog) {
-                Toast.makeText(MainActivity.this, "Normal Mode is already enabled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(
+                    MainActivity.this, "Normal Mode is already enabled", Toast.LENGTH_SHORT).show();
             } else {
                 editorDialog.putBoolean("strict", false);
                 editorDialog.putInt("level", 0);
@@ -223,7 +229,8 @@ public class MainActivity extends AppCompatActivity {
 
         strict.setOnClickListener(view1 -> {
             if(strictDialog) {
-                Toast.makeText(MainActivity.this, "Strict Mode is already enabled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(
+                    MainActivity.this, "Strict Mode is already enabled", Toast.LENGTH_SHORT).show();
             } else {
                 Intent intent = new Intent(MainActivity.this, StrictModeActivity.class);
                 dialog.dismiss();
@@ -234,7 +241,6 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    @SuppressLint("SetTextI18n")
     private void updateMode(boolean _strict) {
         if (_strict) {
             mode.setText("Strict Mode");

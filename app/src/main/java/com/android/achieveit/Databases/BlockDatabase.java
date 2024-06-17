@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 
 public class BlockDatabase extends SQLiteOpenHelper {
-    private static final String DB_NAME = "BlockDatabase";
+    private static final String DB_NAME = "BlockDB";
     private static final int DB_VERSION = 1;
     private static final String TABLE_NAME = "BlockData";
     private static final String ID = "id";
@@ -35,18 +35,18 @@ public class BlockDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME + " ( "
-                + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + NAME + " TEXT, "
-                + PACKAGE_NAME + " TEXT, "
-                + TYPE + " TEXT, "
-                + LAUNCH + " BOOL, "
-                + NOTIFICATION + " BOOL, "
-                + SCHEDULE_TYPE + " TEXT, "
-                + SCHEDULE_PARAMS + " TEXT, "
-                + SCHEDULE_DAYS + " TEXT, "
-                + PROFILE_NAME + " TEXT, "
-                + PROFILE_STATUS + " BOOL, "
-                + TEXT + " TEXT " + " )";
+            + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + NAME + " TEXT, "
+            + PACKAGE_NAME + " TEXT, "
+            + TYPE + " TEXT, "
+            + LAUNCH + " BOOL, "
+            + NOTIFICATION + " BOOL, "
+            + SCHEDULE_TYPE + " TEXT, "
+            + SCHEDULE_PARAMS + " TEXT, "
+            + SCHEDULE_DAYS + " TEXT, "
+            + PROFILE_NAME + " TEXT, "
+            + PROFILE_STATUS + " BOOL, "
+            + TEXT + " TEXT " + " )";
         db.execSQL(query);
     }
 
@@ -56,9 +56,15 @@ public class BlockDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addRecord(String name, String packageName, String type, boolean appLaunch, boolean notification, String scheduleType, String scheduleParams, String scheduleDays, String profileName, boolean profileStatus, String text) {
+    public void addRecord(
+        String name, String packageName, String type,
+        boolean appLaunch, boolean notification, String scheduleType,
+        String scheduleParams, String scheduleDays, String profileName,
+        boolean profileStatus, String text
+    ) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+
         values.put(NAME, name);
         values.put(PACKAGE_NAME, packageName);
         values.put(TYPE, type);
@@ -70,12 +76,17 @@ public class BlockDatabase extends SQLiteOpenHelper {
         values.put(PROFILE_NAME, profileName);
         values.put(PROFILE_STATUS, profileStatus);
         values.put(TEXT, text);
+
         db.insert(TABLE_NAME, null, values);
     }
 
     public List<HashMap<String, String>> readRecordsApp(String packageName) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PACKAGE_NAME + " = ?", new String[]{packageName});
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + PACKAGE_NAME + " = ?",
+            new String[]{packageName}
+        );
+
         List<HashMap<String, String>> list = new ArrayList<>();
         while (cursor.moveToNext()) {
             HashMap<String, String> map = new HashMap<>();
@@ -93,13 +104,18 @@ public class BlockDatabase extends SQLiteOpenHelper {
             map.put(TEXT, cursor.getString(11));
             list.add(map);
         }
+
         cursor.close();
         return list;
     }
 
     public List<HashMap<String, String>> readRecordsWeb(String url) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + NAME + " = ?" + " AND " + TYPE + " = ?", new String[]{url, "web"});
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + NAME + " = ?" + " AND " + TYPE + " = ?",
+            new String[]{url, "web"}
+        );
+
         List<HashMap<String, String>> list = new ArrayList<>();
         while (cursor.moveToNext()) {
             HashMap<String, String> map = new HashMap<>();
@@ -117,13 +133,18 @@ public class BlockDatabase extends SQLiteOpenHelper {
             map.put(TEXT, cursor.getString(11));
             list.add(map);
         }
+
         cursor.close();
         return list;
     }
 
     public List<HashMap<String, String>> readRecordsKey(String key) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + NAME + " = ?" + " AND " + TYPE + " = ?", new String[]{key, "key"});
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + NAME + " = ?" + " AND " + TYPE + " = ?",
+            new String[]{key, "key"}
+        );
+
         List<HashMap<String, String>> list = new ArrayList<>();
         while (cursor.moveToNext()) {
             HashMap<String, String> map = new HashMap<>();
@@ -141,13 +162,18 @@ public class BlockDatabase extends SQLiteOpenHelper {
             map.put(TEXT, cursor.getString(11));
             list.add(map);
         }
+
         cursor.close();
         return list;
     }
 
     public List<HashMap<String, String>> readRecordsInternet(String packageName) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PACKAGE_NAME + " = ?" + " AND " + TYPE + " = ?", new String[]{packageName, "internet"});
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + PACKAGE_NAME + " = ?" + " AND " + TYPE + " = ?",
+            new String[]{packageName, "internet"}
+        );
+
         List<HashMap<String, String>> list = new ArrayList<>();
         while (cursor.moveToNext()) {
             HashMap<String, String> map = new HashMap<>();
@@ -165,13 +191,18 @@ public class BlockDatabase extends SQLiteOpenHelper {
             map.put(TEXT, cursor.getString(11));
             list.add(map);
         }
+
         cursor.close();
         return list;
     }
 
     public List<HashMap<String, String>> readAllRecordsWeb() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?" + " AND " + PROFILE_NAME + " IS NULL", new String[]{"web"});
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?" + " AND " + PROFILE_NAME + " IS NULL",
+            new String[]{"web"}
+        );
+
         List<HashMap<String, String>> list = new ArrayList<>();
         while (cursor.moveToNext()) {
             HashMap<String, String> map = new HashMap<>();
@@ -189,13 +220,18 @@ public class BlockDatabase extends SQLiteOpenHelper {
             map.put(TEXT, cursor.getString(11));
             list.add(map);
         }
+
         cursor.close();
         return list;
     }
 
     public List<HashMap<String, String>> readAllRecordsKey() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?" + " AND " + PROFILE_NAME + " IS NULL", new String[]{"key"});
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?" + " AND " + PROFILE_NAME + " IS NULL",
+            new String[]{"key"}
+        );
+
         List<HashMap<String, String>> list = new ArrayList<>();
         while (cursor.moveToNext()) {
             HashMap<String, String> map = new HashMap<>();
@@ -213,13 +249,18 @@ public class BlockDatabase extends SQLiteOpenHelper {
             map.put(TEXT, cursor.getString(11));
             list.add(map);
         }
+
         cursor.close();
         return list;
     }
 
     public List<HashMap<String, String>> readAllProfiles() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?", new String[]{"profile"});
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?",
+            new String[]{"profile"}
+        );
+
         List<HashMap<String, String>> list = new ArrayList<>();
         while (cursor.moveToNext()) {
             HashMap<String, String> map = new HashMap<>();
@@ -228,13 +269,18 @@ public class BlockDatabase extends SQLiteOpenHelper {
             map.put(PROFILE_STATUS, cursor.getString(10));
             list.add(map);
         }
+
         cursor.close();
         return list;
     }
 
     public List<HashMap<String, String>> readProfileSchedule(String profileName) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " = ?", new String[]{profileName});
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " = ?",
+            new String[]{profileName}
+        );
+
         List<HashMap<String, String>> list = new ArrayList<>();
         while (cursor.moveToNext()) {
             HashMap<String, String> map = new HashMap<>();
@@ -250,13 +296,18 @@ public class BlockDatabase extends SQLiteOpenHelper {
             map.put(TEXT, cursor.getString(11));
             list.add(map);
         }
+
         cursor.close();
         return list;
     }
 
     public List<HashMap<String, String>> readProfileApps(String profileName) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " = ?" + " AND " + TYPE + " = ?", new String[]{profileName, "app"});
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " = ?" + " AND " + TYPE + " = ?",
+            new String[]{profileName, "app"}
+        );
+
         List<HashMap<String, String>> list = new ArrayList<>();
         while (cursor.moveToNext()) {
             HashMap<String, String> map = new HashMap<>();
@@ -267,13 +318,18 @@ public class BlockDatabase extends SQLiteOpenHelper {
             map.put(PROFILE_NAME, cursor.getString(9));
             list.add(map);
         }
+
         cursor.close();
         return list;
     }
 
     public List<HashMap<String, String>> readProfileWebs(String profileName) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " = ?" + " AND " + TYPE + " = ?", new String[]{profileName, "web"});
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " = ?" + " AND " + TYPE + " = ?",
+            new String[]{profileName, "web"}
+        );
+
         List<HashMap<String, String>> list = new ArrayList<>();
         while (cursor.moveToNext()) {
             HashMap<String, String> map = new HashMap<>();
@@ -284,13 +340,18 @@ public class BlockDatabase extends SQLiteOpenHelper {
             map.put(PROFILE_NAME, cursor.getString(9));
             list.add(map);
         }
+
         cursor.close();
         return list;
     }
 
     public List<HashMap<String, String>> readProfileKeys(String profileName) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " = ?" + " AND " + TYPE + " = ?", new String[]{profileName, "key"});
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " = ?" + " AND " + TYPE + " = ?",
+            new String[]{profileName, "key"}
+        );
+
         List<HashMap<String, String>> list = new ArrayList<>();
         while (cursor.moveToNext()) {
             HashMap<String, String> map = new HashMap<>();
@@ -301,25 +362,30 @@ public class BlockDatabase extends SQLiteOpenHelper {
             map.put(PROFILE_NAME, cursor.getString(9));
             list.add(map);
         }
+
         cursor.close();
         return list;
     }
 
-    public void addAllItemsToNewProfileSchedule(boolean launch, boolean noti, String profileName, String scheduleType, String scheduleParams, String scheduleDays, boolean profileStatus, String text) {
+    public void addAllItemsToNewProfileSchedule(
+        boolean launch, boolean noti, String profileName,
+        String scheduleType, String scheduleParams, String scheduleDays,
+        boolean profileStatus, String text
+    ) {
         List<HashMap<String, String>> list = readProfileWebs(profileName);
         for (HashMap<String, String> map : list) {
             addRecord(
-                    map.get(NAME),
-                    map.get(PACKAGE_NAME),
-                    map.get(TYPE),
-                    launch,
-                    noti,
-                    scheduleType,
-                    scheduleParams,
-                    scheduleDays,
-                    profileName,
-                    profileStatus,
-                    text
+                map.get(NAME),
+                map.get(PACKAGE_NAME),
+                map.get(TYPE),
+                launch,
+                noti,
+                scheduleType,
+                scheduleParams,
+                scheduleDays,
+                profileName,
+                profileStatus,
+                text
             );
         }
         list.clear();
@@ -327,17 +393,17 @@ public class BlockDatabase extends SQLiteOpenHelper {
         list = readProfileKeys(profileName);
         for (HashMap<String, String> map : list) {
             addRecord(
-                    map.get(NAME),
-                    map.get(PACKAGE_NAME),
-                    map.get(TYPE),
-                    launch,
-                    noti,
-                    scheduleType,
-                    scheduleParams,
-                    scheduleDays,
-                    profileName,
-                    profileStatus,
-                    text
+                map.get(NAME),
+                map.get(PACKAGE_NAME),
+                map.get(TYPE),
+                launch,
+                noti,
+                scheduleType,
+                scheduleParams,
+                scheduleDays,
+                profileName,
+                profileStatus,
+                text
             );
         }
         list.clear();
@@ -345,17 +411,17 @@ public class BlockDatabase extends SQLiteOpenHelper {
         list = readProfileApps(profileName);
         for (HashMap<String, String> map : list) {
             addRecord(
-                    map.get(NAME),
-                    map.get(PACKAGE_NAME),
-                    map.get(TYPE),
-                    launch,
-                    noti,
-                    scheduleType,
-                    scheduleParams,
-                    scheduleDays,
-                    profileName,
-                    profileStatus,
-                    text
+                map.get(NAME),
+                map.get(PACKAGE_NAME),
+                map.get(TYPE),
+                launch,
+                noti,
+                scheduleType,
+                scheduleParams,
+                scheduleDays,
+                profileName,
+                profileStatus,
+                text
             );
         }
     }
@@ -367,7 +433,10 @@ public class BlockDatabase extends SQLiteOpenHelper {
 
     public int getAppBlockCount() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?" + " AND " + PROFILE_NAME + " IS NULL", new String[]{"app"});
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?" + " AND " + PROFILE_NAME + " IS NULL",
+            new String[]{"app"}
+        );
 
         HashSet<String> uniqueApps = new HashSet<>();
         while (cursor.moveToNext()) {
@@ -380,7 +449,10 @@ public class BlockDatabase extends SQLiteOpenHelper {
 
     public int getInternetBlockCount() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?", new String[]{"internet"});
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?",
+            new String[]{"internet"}
+        );
 
         HashSet<String> uniqueInternet = new HashSet<>();
         while (cursor.moveToNext()) {
@@ -393,7 +465,10 @@ public class BlockDatabase extends SQLiteOpenHelper {
 
     public int getKeysBlockCount() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?", new String[]{"key"});
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?",
+            new String[]{"key"}
+        );
 
         HashSet<String> uniqueKeys = new HashSet<>();
         while (cursor.moveToNext()) {
@@ -406,7 +481,10 @@ public class BlockDatabase extends SQLiteOpenHelper {
 
     public int getWebBlockCount() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?", new String[]{"web"});
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?",
+            new String[]{"web"}
+        );
 
         HashSet<String> uniqueWeb = new HashSet<>();
         while (cursor.moveToNext()) {
@@ -417,9 +495,15 @@ public class BlockDatabase extends SQLiteOpenHelper {
         return uniqueWeb.size();
     }
 
-    public void deleteProfileItems(String profileName, String scheduleType, String scheduleParams, String scheduleDays) {
+    public void deleteProfileItems(
+        String profileName, String scheduleType, String scheduleParams, String scheduleDays
+    ) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, PROFILE_NAME + " = ?" + " AND " + SCHEDULE_TYPE + " = ?" + " AND " + SCHEDULE_PARAMS + " = ?" + " AND " + SCHEDULE_DAYS + " = ?", new String[]{profileName, scheduleType, scheduleParams, scheduleDays});
+        db.delete(
+            TABLE_NAME,
+            PROFILE_NAME + " = ?" + " AND " + SCHEDULE_TYPE + " = ?" + " AND " + SCHEDULE_PARAMS + " = ?" + " AND " + SCHEDULE_DAYS + " = ?",
+            new String[]{profileName, scheduleType, scheduleParams, scheduleDays}
+        );
     }
 
     public void toggleProfile(String profileName, boolean status) {
@@ -431,7 +515,11 @@ public class BlockDatabase extends SQLiteOpenHelper {
 
     public boolean isAppBlocked(String packageName) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PACKAGE_NAME + " = ?" + " AND " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?", new String[]{packageName, "app"});
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + PACKAGE_NAME + " = ?" + " AND " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?",
+            new String[]{packageName, "app"}
+        );
+
         boolean blocked =  cursor.getCount() > 0;
         cursor.close();
         return blocked;
@@ -439,7 +527,11 @@ public class BlockDatabase extends SQLiteOpenHelper {
 
     public boolean isInternetBlocked(String packageName) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + PACKAGE_NAME + " = ?" + " AND " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?", new String[]{packageName, "internet"});
+        Cursor cursor = db.rawQuery(
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + PACKAGE_NAME + " = ?" + " AND " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?",
+            new String[]{packageName, "internet"}
+        );
+
         boolean blocked = cursor.getCount() > 0;
         cursor.close();
         return blocked;

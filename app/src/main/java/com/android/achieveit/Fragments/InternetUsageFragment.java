@@ -26,9 +26,9 @@ import com.android.achieveit.Activities.AppInsightsActivity;
 import com.android.achieveit.Adapters.InternetUsageAdapter;
 import com.android.achieveit.Models.AppUsageModel;
 import com.android.achieveit.R;
-import com.android.achieveit.Utilities.CommonUtil;
-import com.android.achieveit.Utilities.NetworkUtil;
-import com.android.achieveit.Utilities.UsageUtil;
+import com.android.achieveit.Utilities.CommonUtility;
+import com.android.achieveit.Utilities.NetworkUtility;
+import com.android.achieveit.Utilities.UsageUtility;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,9 +38,12 @@ import java.util.Objects;
 
 import kotlin.Pair;
 
+/** @noinspection DataFlowIssue*/
+@SuppressLint({"StaticFieldLeak", "SetTextI18n", "QueryPermissionsNeeded"})
 public class InternetUsageFragment extends Fragment {
     private final List<AppUsageModel> internetUsageModelList = new ArrayList<>();
     private final String[] sort = {"Daily", "Weekly", "Monthly", "Yearly"};
+
     private RecyclerView recyclerView;
     private InternetUsageAdapter internetUsageAdapter;
     private TextView stats, noData;
@@ -48,9 +51,11 @@ public class InternetUsageFragment extends Fragment {
     private Spinner sortSpinner;
     private LinearLayout internetUsageLayout;
     private LinearLayout loadingLayout;
+
     private long startMillis;
     private long endMillis;
     private float totalCount;
+
     private AppInternetUsageTask appInternetUsageTask;
 
     @Override
@@ -111,7 +116,6 @@ public class InternetUsageFragment extends Fragment {
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
     private class AppInternetUsageTask extends AsyncTask<Void, Void, Void> {
         private final Context context;
         private final String sort;
@@ -130,11 +134,11 @@ public class InternetUsageFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             PackageManager pm = context.getPackageManager();
-            @SuppressLint("QueryPermissionsNeeded")
+
             List<PackageInfo> packages = pm.getInstalledPackages(0);
             List<String> packageNames = new ArrayList<>();
 
-            HashMap<String, Float> appUsage = getAppUsage(packages, packageNames, pm);
+            HashMap<String, Float> appUsage = getAppUsage(packages, packageNames);
 
             totalCount = 0;
             for (String packageName : packageNames) {
@@ -147,21 +151,29 @@ public class InternetUsageFragment extends Fragment {
             internetUsageModelList.clear();
             for (String packageName : packageNames) {
                 try {
-                    if (appUsage.get(packageName) != null && appUsage.get(packageName) > 0 && !packageName.isEmpty()) {
+                    if (appUsage.get(packageName) != null &&
+                            appUsage.get(packageName) > 0 && !packageName.isEmpty()
+                    ) {
                         internetUsageModelList.add(createAppUsageModel(pm, appUsage, packageName));
                     }
-                } catch (PackageManager.NameNotFoundException | IOException ignored) {
-                }
+                } catch (PackageManager.NameNotFoundException | IOException ignored) {}
             }
 
-            internetUsageModelList.sort((o1, o2) -> Float.compare(Float.parseFloat(Objects.requireNonNull(o2.getExtra())), Float.parseFloat(Objects.requireNonNull(o1.getExtra()))));
+            internetUsageModelList.sort((o1, o2) ->
+                Float.compare(
+                    Float.parseFloat(Objects.requireNonNull(o2.getExtra())),
+                    Float.parseFloat(Objects.requireNonNull(o1.getExtra()))));
             return null;
         }
 
-        private HashMap<String, Float> getAppUsage(List<PackageInfo> packages, List<String> packageNames, PackageManager pm) {
+        private HashMap<String, Float> getAppUsage(
+            List<PackageInfo> packages, List<String> packageNames
+        ) {
             HashMap<String, Float> appUsage = new HashMap<>();
             for (PackageInfo packageInfo : packages) {
-                if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0 || (packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0) {
+                if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0 ||
+                        (packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0
+                ) {
                     packageNames.add(packageInfo.packageName);
                 }
             }
@@ -169,52 +181,57 @@ public class InternetUsageFragment extends Fragment {
             Pair<Long, Long> pair;
             switch (sort) {
                 case "Daily":
-                    pair = UsageUtil.Companion.getTimeRange("Daily");
+                    pair = UsageUtility.Companion.getTimeRange("Daily");
                     startMillis = pair.getFirst();
                     endMillis = pair.getSecond();
                     break;
                 case "Weekly":
-                    pair = UsageUtil.Companion.getTimeRange("Weekly");
+                    pair = UsageUtility.Companion.getTimeRange("Weekly");
                     startMillis = pair.getFirst();
                     endMillis = pair.getSecond();
                     break;
                 case "Monthly":
-                    pair = UsageUtil.Companion.getTimeRange("Monthly");
+                    pair = UsageUtility.Companion.getTimeRange("Monthly");
                     startMillis = pair.getFirst();
                     endMillis = pair.getSecond();
                     break;
                 case "Yearly":
-                    pair = UsageUtil.Companion.getTimeRange("Yearly");
+                    pair = UsageUtility.Companion.getTimeRange("Yearly");
                     startMillis = pair.getFirst();
                     endMillis = pair.getSecond();
                     break;
             }
 
-            NetworkUtil networkUtil = new NetworkUtil();
+            NetworkUtility networkUtility = new NetworkUtility();
             for (String packageName : packageNames) {
-                appUsage.put(packageName, networkUtil.getPackageInfo(startMillis, endMillis, packageName, true, true, context));
+                appUsage.put(
+                    packageName,
+                    networkUtility.getPackageInfo(startMillis, endMillis, packageName, true, true, context)
+                );
             }
 
             return appUsage;
         }
 
-        private AppUsageModel createAppUsageModel(PackageManager pm, HashMap<String, Float> appUsage, String packageName) throws PackageManager.NameNotFoundException, IOException {
+        private AppUsageModel createAppUsageModel(
+                PackageManager pm, HashMap<String, Float> appUsage, String packageName
+        ) throws PackageManager.NameNotFoundException, IOException {
             ApplicationInfo appInfo = pm.getPackageInfo(packageName, 0).applicationInfo;
 
             String appName = appInfo.loadLabel(pm).toString();
-            Drawable appIcon = new CommonUtil().compressIcon(appInfo.loadIcon(pm), context);
+            Drawable appIcon = new CommonUtility().compressIcon(appInfo.loadIcon(pm), context);
 
             float launchCount = appUsage.get(packageName);
             double progress = (double) launchCount / totalCount * 100;
             return new AppUsageModel(appName, packageName, appIcon, String.valueOf(launchCount), progress);
         }
 
-        @SuppressLint("SetTextI18n")
         @Override
         protected void onPostExecute(Void aVoid) {
             if (!internetUsageModelList.isEmpty()) {
                 internetUsageAdapter = new InternetUsageAdapter(internetUsageModelList);
                 recyclerView.setAdapter(internetUsageAdapter);
+
                 internetUsageAdapter.setOnItemClickListener(view -> {
                     int position = recyclerView.getChildAdapterPosition(view);
                     AppUsageModel app = internetUsageAdapter.getItemAt(position);
@@ -227,13 +244,11 @@ public class InternetUsageFragment extends Fragment {
                 });
 
                 stats.setText(totalCount + " MB");
-                loadingLayout.setVisibility(View.GONE);
-                internetUsageLayout.setVisibility(View.VISIBLE);
             } else {
                 noData.setVisibility(View.VISIBLE);
-                loadingLayout.setVisibility(View.GONE);
-                internetUsageLayout.setVisibility(View.VISIBLE);
             }
+            loadingLayout.setVisibility(View.GONE);
+            internetUsageLayout.setVisibility(View.VISIBLE);
         }
     }
 }

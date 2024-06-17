@@ -23,9 +23,10 @@ import com.android.achieveit.Databases.BlockDatabase
 import com.android.achieveit.Models.ProfileItemModel
 import com.android.achieveit.Models.ProfileScheduleModel
 import com.android.achieveit.R
-import com.android.achieveit.Utilities.AccessibilityUtil
+import com.android.achieveit.Utilities.AccessibilityUtility
 import java.util.regex.Pattern
 
+@SuppressLint("CutPasteId", "SetTextI18n")
 @Suppress("DEPRECATION")
 class EditProfileActivity : AppCompatActivity() {
     private lateinit var scheduleAdapter: ProfileScheduleAdapter
@@ -39,9 +40,11 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var keyRecyclerView: RecyclerView
     private lateinit var addKeyButton: ImageButton
     private lateinit var doneButton: Button
+
     private var profileItemListApp = ArrayList<ProfileItemModel>()
     private var profileItemListWeb = ArrayList<ProfileItemModel>()
     private var profileItemListKey = ArrayList<ProfileItemModel>()
+
     private val scheduleModelList: MutableList<ProfileScheduleModel> = ArrayList()
     private val blockDatabase = BlockDatabase(this)
 
@@ -176,7 +179,6 @@ class EditProfileActivity : AppCompatActivity() {
         keyRecyclerView.adapter = keyAdapter
     }
 
-    @SuppressLint("CutPasteId", "SetTextI18n")
     private fun attachListeners() {
         addScheduleButton.setOnClickListener {
             val intent = Intent(this, NewScheduleActivity::class.java)
@@ -217,16 +219,16 @@ class EditProfileActivity : AppCompatActivity() {
                     if (editText.text.toString() == "google.com") {
                         Toast.makeText(this, "Cannot block Google", Toast.LENGTH_SHORT).show()
                     } else {
-                        if (AccessibilityUtil().isAccessibilitySettingsOn(this)) {
+                        if (AccessibilityUtility().isAccessibilitySettingsOn(this)) {
                             if (TextUtils.isEmpty(editText.text.toString())) {
                                 Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT)
                                     .show()
                             } else {
                                 val urlPattern =
-                                    Pattern.compile("^((https?|ftp|smtp)://)?(www.)?[a-z0-9]+(\\.[a-z]{2,}){1,3}(#?/?[a-zA-Z0-9#]+)*/?(\\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$")
-                                if (!urlPattern.matcher(editText.text.toString())
-                                        .matches()
-                                ) {
+                                    Pattern.compile(
+                                        "^((https?|ftp|smtp)://)?(www.)?[a-z0-9]+(\\.[a-z]{2,}){1,3}(#?/?[a-zA-Z0-9#]+)*/?(\\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$"
+                                    )
+                                if (!urlPattern.matcher(editText.text.toString()).matches()) {
                                     Toast.makeText(this, "Invalid URL", Toast.LENGTH_SHORT).show()
                                 } else if (scheduleModelList.isNotEmpty()) {
                                     val web = editText.text.toString()
@@ -301,7 +303,7 @@ class EditProfileActivity : AppCompatActivity() {
                         )
                             .show()
                     } else {
-                        if (AccessibilityUtil().isAccessibilitySettingsOn(this)) {
+                        if (AccessibilityUtility().isAccessibilitySettingsOn(this)) {
                             if (TextUtils.isEmpty(editText.text.toString())) {
                                 Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT)
                                     .show()
@@ -345,7 +347,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         doneButton.setOnClickListener {
-            Toast.makeText(this, "Changes saved", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Changes Saved", Toast.LENGTH_SHORT).show()
             Handler().postDelayed({
                 finish()
             }, 1000)
@@ -366,8 +368,9 @@ class EditProfileActivity : AppCompatActivity() {
                         val appName = packageManager.getApplicationLabel(appInfo).toString()
 
                         for (j in scheduleModelList) {
-                            if (app == "com.android.achievix") {
-                                Toast.makeText(this, "Cannot block Achievix", Toast.LENGTH_SHORT)
+                            if (app == "com.android.achieveit") {
+                                Toast
+                                    .makeText(this, "Cannot block AchieveIt", Toast.LENGTH_SHORT)
                                     .show()
                                 continue
                             } else {

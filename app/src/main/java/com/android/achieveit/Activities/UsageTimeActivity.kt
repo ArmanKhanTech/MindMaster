@@ -13,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import com.android.achieveit.Databases.BlockDatabase
 import com.android.achieveit.R
+import com.android.achieveit.Utilities.CommonUtility
 
+@SuppressLint("SetTextI18n")
 class UsageTimeActivity : AppCompatActivity() {
     private lateinit var launchSwitch: SwitchCompat
     private lateinit var notiSwitch: SwitchCompat
@@ -28,6 +30,7 @@ class UsageTimeActivity : AppCompatActivity() {
     private lateinit var minsEditText: EditText
     private lateinit var textEditText: EditText
     private lateinit var saveButton: Button
+
     private val days = mutableListOf<String>()
     private lateinit var blockDatabase: BlockDatabase
 
@@ -65,7 +68,6 @@ class UsageTimeActivity : AppCompatActivity() {
         notiSwitch.isChecked = true
     }
 
-    @SuppressLint("SetTextI18n")
     private fun attachListeners(name: String?, packageName: String?, type: String?) {
         saveButton.setOnClickListener {
             val hours = hoursEditText.text.toString().isEmpty().let {
@@ -158,86 +160,17 @@ class UsageTimeActivity : AppCompatActivity() {
                 finish()
             }, 1000)
         }
-        setupDayCheckListeners()
-    }
 
-    private fun setupDayCheckListeners() {
-        var isSundayChecked = false
-        sunRadioButton.setOnClickListener {
-            isSundayChecked = !isSundayChecked
-            sunRadioButton.isChecked = isSundayChecked
-            if (isSundayChecked) {
-                days.add("Sunday")
-            } else {
-                days.remove("Sunday")
-            }
-        }
-
-        var isMondayChecked = false
-        monRadioButton.setOnClickListener {
-            isMondayChecked = !isMondayChecked
-            monRadioButton.isChecked = isMondayChecked
-            if (isMondayChecked) {
-                days.add("Monday")
-            } else {
-                days.remove("Monday")
-            }
-        }
-
-        var isTuesdayChecked = false
-        tueRadioButton.setOnClickListener {
-            isTuesdayChecked = !isTuesdayChecked
-            tueRadioButton.isChecked = isTuesdayChecked
-            if (isTuesdayChecked) {
-                days.add("Tuesday")
-            } else {
-                days.remove("Tuesday")
-            }
-        }
-
-        var isWednesdayChecked = false
-        wedRadioButton.setOnClickListener {
-            isWednesdayChecked = !isWednesdayChecked
-            wedRadioButton.isChecked = isWednesdayChecked
-            if (isWednesdayChecked) {
-                days.add("Wednesday")
-            } else {
-                days.remove("Wednesday")
-            }
-        }
-
-        var isThursdayChecked = false
-        thuRadioButton.setOnClickListener {
-            isThursdayChecked = !isThursdayChecked
-            thuRadioButton.isChecked = isThursdayChecked
-            if (isThursdayChecked) {
-                days.add("Thursday")
-            } else {
-                days.remove("Thursday")
-            }
-        }
-
-        var isFridayChecked = false
-        friRadioButton.setOnClickListener {
-            isFridayChecked = !isFridayChecked
-            friRadioButton.isChecked = isFridayChecked
-            if (isFridayChecked) {
-                days.add("Friday")
-            } else {
-                days.remove("Friday")
-            }
-        }
-
-        var isSaturdayChecked = false
-        satRadioButton.setOnClickListener {
-            isSaturdayChecked = !isSaturdayChecked
-            satRadioButton.isChecked = isSaturdayChecked
-            if (isSaturdayChecked) {
-                days.add("Saturday")
-            } else {
-                days.remove("Saturday")
-            }
-        }
+        CommonUtility().setupDayCheckListeners(
+            sunRadioButton,
+            monRadioButton,
+            tueRadioButton,
+            wedRadioButton,
+            thuRadioButton,
+            friRadioButton,
+            satRadioButton,
+            days
+        )
     }
 
     fun finish(v: View?) {

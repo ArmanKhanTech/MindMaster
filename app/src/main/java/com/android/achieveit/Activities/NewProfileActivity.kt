@@ -55,7 +55,7 @@ class NewProfileActivity : AppCompatActivity() {
         recyclerView.itemAnimator = DefaultItemAnimator()
 
         val list = blockDatabase.readAllProfiles()
-        var profileModelList = mutableListOf<ProfileModel>()
+        val profileModelList = mutableListOf<ProfileModel>()
 
         for (i in 0 until list.size) {
             profileModelList.add(
@@ -77,7 +77,8 @@ class NewProfileActivity : AppCompatActivity() {
 
                 if (level > 1) {
                     val i = profileSh.getInt("password", 0)
-                    val intent = Intent(this@NewProfileActivity, EnterPasswordActivity::class.java)
+                    val intent =
+                        Intent(this@NewProfileActivity, EnterPasswordActivity::class.java)
 
                     intent.putExtra("password", i)
                     intent.putExtra("invokedFrom", "newProfile")
@@ -92,7 +93,8 @@ class NewProfileActivity : AppCompatActivity() {
                     val position = recyclerView.getChildLayoutPosition(view)
                     val (id, profileName) = profileAdapter.getItemAt(position)
 
-                    val intent = Intent(this@NewProfileActivity, EditProfileActivity::class.java)
+                    val intent =
+                        Intent(this@NewProfileActivity, EditProfileActivity::class.java)
                     intent.putExtra("profileId", id)
                     intent.putExtra("profileName", profileName)
                     startActivity(intent)

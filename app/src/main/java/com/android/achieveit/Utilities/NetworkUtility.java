@@ -11,32 +11,40 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Objects;
 
-public class NetworkUtil {
-    public float getPackageInfo(long startMillis, long endMillis, String packageName, boolean mobile, boolean wifi, Context context) {
+public class NetworkUtility {
+    public float getPackageInfo(
+        long startMillis, long endMillis, String packageName,
+        boolean mobile, boolean wifi, Context context
+    ) {
         PackageManager packageManager = context.getPackageManager();
 
         ApplicationInfo info = null;
         try {
             info = packageManager.getApplicationInfo(packageName, 0);
-        } catch (PackageManager.NameNotFoundException ignored) {
-        }
+        } catch (PackageManager.NameNotFoundException ignored) {}
 
         int uid = Objects.requireNonNull(info).uid;
         return fetchNetworkStatsInfo(startMillis, endMillis, uid, mobile, wifi, context);
     }
 
-    public float fetchNetworkStatsInfo(long startMillis, long endMillis, int uid, boolean mobile, boolean wifi, Context context) {
+    public float fetchNetworkStatsInfo(
+            long startMillis, long endMillis, int uid,
+            boolean mobile, boolean wifi, Context context
+    ) {
         float total;
         float receivedWifi = 0;
         float sentWifi = 0;
         float receivedMobData = 0;
         float sentMobData = 0;
 
-        NetworkStatsManager networkStatsManager = (NetworkStatsManager) context.getSystemService(Context.NETWORK_STATS_SERVICE);
+        NetworkStatsManager networkStatsManager =
+            (NetworkStatsManager) context.getSystemService(Context.NETWORK_STATS_SERVICE);
 
         if (wifi) {
-            NetworkStats nwStatsWifi = networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_WIFI, null,
-                    startMillis, endMillis, uid);
+            NetworkStats nwStatsWifi =
+                networkStatsManager.queryDetailsForUid(
+                    ConnectivityManager.TYPE_WIFI, null, startMillis, endMillis, uid
+                );
             NetworkStats.Bucket bucketWifi = new NetworkStats.Bucket();
             while (nwStatsWifi.hasNextBucket()) {
                 nwStatsWifi.getNextBucket(bucketWifi);
@@ -46,8 +54,10 @@ public class NetworkUtil {
         }
 
         if (mobile) {
-            NetworkStats nwStatsMobData = networkStatsManager.queryDetailsForUid(ConnectivityManager.TYPE_MOBILE, null,
-                    startMillis, endMillis, uid);
+            NetworkStats nwStatsMobData = networkStatsManager.queryDetailsForUid(
+                ConnectivityManager.TYPE_MOBILE, null,
+                startMillis, endMillis, uid
+            );
             NetworkStats.Bucket bucketMobData = new NetworkStats.Bucket();
             while (nwStatsMobData.hasNextBucket()) {
                 nwStatsMobData.getNextBucket(bucketMobData);

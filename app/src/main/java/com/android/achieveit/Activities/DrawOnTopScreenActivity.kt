@@ -15,9 +15,8 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-@Suppress("DEPRECATION")
+@Suppress("DEPRECATION", "SetTextI18n")
 class DrawOnTopScreenActivity : AppCompatActivity() {
-    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_draw_on_top_screen)

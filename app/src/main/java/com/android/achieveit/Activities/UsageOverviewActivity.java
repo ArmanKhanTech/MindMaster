@@ -14,8 +14,8 @@ import com.android.achieveit.Fragments.UsageOverviewFragment;
 import com.android.achieveit.R;
 import com.google.android.material.tabs.TabLayout;
 
+@SuppressLint("ClickableViewAccessibility")
 public class UsageOverviewActivity extends AppCompatActivity {
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

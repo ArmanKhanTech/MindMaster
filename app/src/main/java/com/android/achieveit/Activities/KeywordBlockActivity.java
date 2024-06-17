@@ -22,7 +22,7 @@ import com.android.achieveit.Adapters.WebKeyBlockAdapter;
 import com.android.achieveit.Databases.BlockDatabase;
 import com.android.achieveit.Models.WebKeyModel;
 import com.android.achieveit.R;
-import com.android.achieveit.Utilities.AccessibilityUtil;
+import com.android.achieveit.Utilities.AccessibilityUtility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,9 +32,11 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+@SuppressLint("UseCompatLoadingForDrawables")
 public class KeywordBlockActivity extends AppCompatActivity {
     private final BlockDatabase blockDatabase = new BlockDatabase(this);
     private final List<WebKeyModel> webKeyModelList = new ArrayList<>();
+
     private RecyclerView recyclerView;
     private EditText searchEditText;
     private TextView noKeyBlock;
@@ -68,12 +70,9 @@ public class KeywordBlockActivity extends AppCompatActivity {
     private void setupSearchView() {
         searchEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -87,11 +86,11 @@ public class KeywordBlockActivity extends AppCompatActivity {
             if (webKeyModelList.contains(new WebKeyModel(searchEditText.getText().toString()))) {
                 Toast.makeText(this, "Keyword already blocked", Toast.LENGTH_SHORT).show();
             } else if (Pattern.matches("^(http|https)://.*", searchEditText.getText().toString()) ||
-                    Pattern.matches("^(www\\.)?([a-zA-Z0-9]+\\.)+[a-zA-Z]{2,}$", searchEditText.getText().toString())
+                Pattern.matches("^(www\\.)?([a-zA-Z0-9]+\\.)+[a-zA-Z]{2,}$", searchEditText.getText().toString())
             ) {
                 Toast.makeText(this, "Please enter a keyword, not a URL", Toast.LENGTH_SHORT).show();
             } else {
-                if (new AccessibilityUtil().isAccessibilitySettingsOn(this)) {
+                if (new AccessibilityUtility().isAccessibilitySettingsOn(this)) {
                     if (TextUtils.isEmpty(searchEditText.getText().toString())) {
                         Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT).show();
                     } else {
@@ -121,7 +120,6 @@ public class KeywordBlockActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     private void getBlockedWebsite() {
         List<HashMap<String, String>> list = blockDatabase.readAllRecordsKey();
         if (!list.isEmpty()) {

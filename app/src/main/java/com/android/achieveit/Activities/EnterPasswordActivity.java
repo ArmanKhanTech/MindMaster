@@ -46,8 +46,15 @@ public class EnterPasswordActivity extends AppCompatActivity {
                 Intent intent;
                 if (invokedFrom.equals("main") || invokedFrom.equals("newProfile")) {
                     intent = new Intent(EnterPasswordActivity.this, EditProfileActivity.class);
-                    intent.putExtra("profileId", Objects.requireNonNull(Objects.requireNonNull(getIntent().getExtras()).get("profileId")).toString());
-                    intent.putExtra("profileName", Objects.requireNonNull(Objects.requireNonNull(getIntent().getExtras()).get("profileName")).toString());
+                    intent.putExtra(
+                        "profileId",
+                        Objects.requireNonNull(
+                            Objects.requireNonNull(getIntent().getExtras()).get("profileId")).toString()
+                    );
+                    intent.putExtra(
+                        "profileName",
+                        Objects.requireNonNull(Objects.requireNonNull(getIntent().getExtras()).get("profileName")).toString()
+                    );
                 } else {
                     intent = new Intent(EnterPasswordActivity.this, MainActivity.class);
                 }

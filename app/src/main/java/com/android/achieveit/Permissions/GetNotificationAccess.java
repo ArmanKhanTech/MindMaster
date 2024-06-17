@@ -15,6 +15,7 @@ import com.android.achieveit.Activities.MainActivity;
 import com.android.achieveit.R;
 import com.android.achieveit.View.ExpandableTextView;
 
+@SuppressLint("SetTextI18n")
 public class GetNotificationAccess extends AppCompatActivity {
     Button finishButton;
     TextView status;
@@ -37,9 +38,11 @@ public class GetNotificationAccess extends AppCompatActivity {
         granted();
     }
 
-    @SuppressLint("SetTextI18n")
     public void granted() {
-        if (Settings.Secure.getString(this.getContentResolver(), "enabled_notification_listeners").contains(getApplicationContext().getPackageName())) {
+        if (Settings.Secure.getString(
+            this.getContentResolver(),
+            "enabled_notification_listeners").contains(getApplicationContext().getPackageName())
+        ) {
             status.setText("Permission Granted");
             finishButton.setVisibility(View.GONE);
         }

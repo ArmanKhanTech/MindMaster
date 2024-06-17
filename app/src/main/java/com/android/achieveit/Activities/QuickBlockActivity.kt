@@ -16,6 +16,7 @@ import com.android.achieveit.Databases.BlockDatabase
 import com.android.achieveit.R
 import java.util.Calendar
 
+@SuppressLint("SetTextI18n")
 class QuickBlockActivity : AppCompatActivity() {
     private lateinit var launchSwitch: SwitchCompat
     private lateinit var notiSwitch: SwitchCompat
@@ -23,6 +24,7 @@ class QuickBlockActivity : AppCompatActivity() {
     private lateinit var saveButton: Button
     private lateinit var textEditText: EditText
     private lateinit var text: TextView
+
     private lateinit var blockDatabase: BlockDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +54,6 @@ class QuickBlockActivity : AppCompatActivity() {
         notiSwitch.isChecked = true
     }
 
-    @SuppressLint("SetTextI18n")
     private fun attachListeners(name: String?, packageName: String?, type: String?) {
         if (type == "web" || type == "key") {
             text.text = "Site Launch"

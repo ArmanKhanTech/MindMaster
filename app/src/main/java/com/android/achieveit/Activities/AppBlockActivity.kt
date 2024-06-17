@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.android.achieveit.Activities
 
 import android.annotation.SuppressLint
@@ -20,19 +22,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.achieveit.Adapters.AppBlockAdapter
 import com.android.achieveit.Models.AppBlockModel
 import com.android.achieveit.R
-import com.android.achieveit.Utilities.UsageUtil.Companion.getInstalledAppsBlock
+import com.android.achieveit.Utilities.UsageUtility.Companion.getInstalledAppsBlock
 
 @Suppress("DEPRECATION")
+@SuppressLint("StaticFieldLeak")
 class AppBlockActivity : AppCompatActivity() {
-    private var appBlockModelList: List<AppBlockModel> = ArrayList()
     private lateinit var recyclerView: RecyclerView
     private lateinit var sortSpinner: Spinner
     private lateinit var searchEditText: EditText
     private lateinit var arrayAdapter: ArrayAdapter<String>
-    private var appBlockAdapter: AppBlockAdapter? = null
     private lateinit var appBlockLayout: LinearLayout
     private lateinit var loadingLayout: LinearLayout
+
     private var sortValue = "Name"
+    private var appBlockAdapter: AppBlockAdapter? = null
+    private var appBlockModelList: List<AppBlockModel> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +47,7 @@ class AppBlockActivity : AppCompatActivity() {
         setupSearchView()
         setupSpinner()
 
-        GetInstalledAppsTask(sortValue).execute()
+        GetInstalledAppsTask().execute()
     }
 
     private fun initializeViews() {
@@ -71,7 +75,8 @@ class AppBlockActivity : AppCompatActivity() {
     }
 
     private fun setupSpinner() {
-        arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, arrayOf("Name", "Usage", "Blocked"))
+        arrayAdapter = ArrayAdapter(
+        this, android.R.layout.simple_spinner_item, arrayOf("Name", "Usage", "Blocked"))
         arrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         sortSpinner.adapter = arrayAdapter
         sortSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -80,7 +85,7 @@ class AppBlockActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (!isFirstTime) {
                     sortValue = parent!!.getItemAtPosition(position).toString()
-                    GetInstalledAppsTask(sortValue).execute()
+                    GetInstalledAppsTask().execute()
                 }
                 isFirstTime = false
             }
@@ -90,12 +95,13 @@ class AppBlockActivity : AppCompatActivity() {
     }
 
     private fun filter(text: String) {
-        val filteredList = appBlockModelList.filter { it.appName.contains(text, ignoreCase = true) }
+        val filteredList = appBlockModelList.filter {
+            it.appName.contains(text, ignoreCase = true)
+        }
         appBlockAdapter?.updateListBlock(filteredList)
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private inner class GetInstalledAppsTask(private val sort: String) : AsyncTask<Void?, Void?, List<AppBlockModel>>() {
+    private inner class GetInstalledAppsTask : AsyncTask<Void?, Void?, List<AppBlockModel>>() {
         @Deprecated("Deprecated in Java")
         override fun onPreExecute() {
             super.onPreExecute()
@@ -148,8 +154,8 @@ class AppBlockActivity : AppCompatActivity() {
             }
         }
 
-        if(packageName == "com.android.achievix") {
-            Toast.makeText(this, "Cannot block Achievix", Toast.LENGTH_SHORT).show()
+        if(packageName == "com.android.achieveit") {
+            Toast.makeText(this, "Cannot block AchieveIt", Toast.LENGTH_SHORT).show()
         } else {
             startActivity(intent)
         }

@@ -17,9 +17,8 @@ import com.android.achieveit.R;
 
 import java.util.Objects;
 
-@SuppressLint("CustomSplashScreen")
+@SuppressLint({"CustomSplashScreen", "SetTextI18n"})
 public class DrawOnTopLaunchActivity extends AppCompatActivity {
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,20 +30,29 @@ public class DrawOnTopLaunchActivity extends AppCompatActivity {
         ImageView icon = findViewById(R.id.draw_block_icon);
         Button exitButton = findViewById(R.id.draw_exit);
 
-        if (getIntent().getStringExtra("text") != null && !Objects.requireNonNull(getIntent().getStringExtra("text")).isEmpty()) {
+        if (getIntent().getStringExtra("text") != null &&
+            !Objects.requireNonNull(getIntent().getStringExtra("text")).isEmpty()
+        ) {
             text.setText(getIntent().getStringExtra("text"));
         } else {
             text.setText(R.string.motivational_text);
         }
 
         if (Objects.requireNonNull(getIntent().getStringExtra("type")).equals("app") ||
-                Objects.requireNonNull(getIntent().getStringExtra("type")).equals("internet")) {
-            title.setText("This App is Blocked by Achievix");
+            Objects.requireNonNull(getIntent().getStringExtra("type")).equals("internet")
+        ) {
+            title.setText("App blocked by AchieveIt");
 
             PackageManager packageManager = getApplicationContext().getPackageManager();
             try {
-                String appName = (String) packageManager.getApplicationLabel(packageManager.getApplicationInfo(Objects.requireNonNull(getIntent().getStringExtra("packageName")), PackageManager.GET_META_DATA));
-                Drawable appIcon = getPackageManager().getApplicationIcon(Objects.requireNonNull(getIntent().getStringExtra("packageName")));
+                String appName = (String) packageManager.getApplicationLabel(
+                    packageManager.getApplicationInfo(
+                        Objects.requireNonNull(getIntent().getStringExtra("packageName")),
+                        PackageManager.GET_META_DATA
+                    )
+                );
+                Drawable appIcon = getPackageManager()
+                    .getApplicationIcon(Objects.requireNonNull(getIntent().getStringExtra("packageName")));
                 name.setText(appName);
                 icon.setImageDrawable(appIcon);
             } catch (PackageManager.NameNotFoundException ignored) {
@@ -58,7 +66,7 @@ public class DrawOnTopLaunchActivity extends AppCompatActivity {
                 finish();
             });
         } else if (Objects.requireNonNull(getIntent().getStringExtra("type")).equals("web")) {
-            title.setText("This Website is Blocked by Achievix");
+            title.setText("Website blocked by Achievix");
 
             name.setText(getIntent().getStringExtra("name"));
             icon.setImageResource(R.drawable.web_icon);
@@ -76,7 +84,7 @@ public class DrawOnTopLaunchActivity extends AppCompatActivity {
                 finish();
             });
         } else if (Objects.requireNonNull(getIntent().getStringExtra("type")).equals("key")) {
-            title.setText("This Keyword is Blocked by Achievix");
+            title.setText("Keyword blocked by Achievix");
 
             name.setText("'" + getIntent().getStringExtra("name") + "'");
             icon.setImageResource(R.drawable.keyword_icon);

@@ -19,11 +19,12 @@ import com.android.achieveit.R
 
 class EditScheduleActivity : AppCompatActivity() {
     private lateinit var scheduleAdapter: ScheduleAdapter
-    private var scheduleModelList: MutableList<ScheduleModel> = ArrayList()
     private lateinit var recyclerView: RecyclerView
     private lateinit var addButton: ImageButton
     private lateinit var doneButton: Button
     private lateinit var noSchedule: TextView
+
+    private var scheduleModelList: MutableList<ScheduleModel> = ArrayList()
     private var blockDatabase: BlockDatabase = BlockDatabase(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +43,7 @@ class EditScheduleActivity : AppCompatActivity() {
 
     private fun initializeViews(text: String) {
         findViewById<TextView?>(R.id.edit_app_name).text = text
+
         noSchedule = findViewById(R.id.no_schedule_text)
         addButton = findViewById(R.id.add_schedule)
         doneButton = findViewById(R.id.save_edit_schedule_button)
@@ -178,7 +180,7 @@ class EditScheduleActivity : AppCompatActivity() {
         }
 
         doneButton.setOnClickListener {
-            Toast.makeText(this, "Changes saved", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Changes Saved", Toast.LENGTH_SHORT).show()
             Handler().postDelayed({
                 val intent = Intent(this, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

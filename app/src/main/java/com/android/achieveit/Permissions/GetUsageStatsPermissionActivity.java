@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.achieveit.R;
 import com.android.achieveit.View.ExpandableTextView;
 
+@SuppressLint("SetTextI18n")
 public class GetUsageStatsPermissionActivity extends AppCompatActivity {
     int mode;
     Button finishButton;
@@ -38,7 +39,6 @@ public class GetUsageStatsPermissionActivity extends AppCompatActivity {
         granted();
     }
 
-    @SuppressLint("SetTextI18n")
     public void granted() {
         if (checkForPermission(this)) {
             status.setText("Permission Granted");

@@ -5,7 +5,7 @@ import android.provider.Settings
 import android.text.TextUtils
 import com.android.achieveit.Services.LogURLService
 
-class AccessibilityUtil {
+class AccessibilityUtility {
     fun isAccessibilitySettingsOn(mContext: Context): Boolean {
         var accessibilityEnabled = 0
         val service = mContext.packageName + "/" + LogURLService::class.java.canonicalName
@@ -14,8 +14,7 @@ class AccessibilityUtil {
                 mContext.applicationContext.contentResolver,
                 Settings.Secure.ACCESSIBILITY_ENABLED
             )
-        } catch (ignored: Settings.SettingNotFoundException) {
-        }
+        } catch (ignored: Settings.SettingNotFoundException) { }
 
         val mStringColonSplitter = TextUtils.SimpleStringSplitter(':')
         if (accessibilityEnabled == 1) {

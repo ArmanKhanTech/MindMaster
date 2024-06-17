@@ -23,15 +23,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.achieveit.Adapters.InternetBlockAdapter;
 import com.android.achieveit.Models.AppBlockModel;
 import com.android.achieveit.R;
-import com.android.achieveit.Utilities.UsageUtil;
+import com.android.achieveit.Utilities.UsageUtility;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressLint("StaticFieldLeak")
 public class InternetBlockActivity extends AppCompatActivity {
     private final String[] sort = new String[]{"Name", "Usage", "Blocked"};
     private String sortValue = "Name";
     private List<AppBlockModel> appBlockModelList;
+
     private RecyclerView recyclerView;
     private LinearLayout loadingLayout;
     private LinearLayout internetUsageLayout;
@@ -60,7 +62,9 @@ public class InternetBlockActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         sortSpinner = findViewById(R.id.internet_block_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sort);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item, sort
+        );
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         sortSpinner.setAdapter(adapter);
     }
@@ -79,22 +83,22 @@ public class InternetBlockActivity extends AppCompatActivity {
         });
 
         sortSpinner.setOnItemSelectedListener(
-                new AdapterView.OnItemSelectedListener() {
-                    boolean isFirstTime = true;
+            new AdapterView.OnItemSelectedListener() {
+                boolean isFirstTime = true;
 
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if (isFirstTime) {
-                            isFirstTime = false;
-                        } else {
-                            sortValue = parent.getItemAtPosition(position).toString();
-                            new GetInstalledAppsInternetTask(InternetBlockActivity.this, sortValue).execute();
-                        }
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (isFirstTime) {
+                        isFirstTime = false;
+                    } else {
+                        sortValue = parent.getItemAtPosition(position).toString();
+                        new GetInstalledAppsInternetTask(InternetBlockActivity.this, sortValue).execute();
                     }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {}
                 }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {}
+            }
         );
     }
 
@@ -109,7 +113,6 @@ public class InternetBlockActivity extends AppCompatActivity {
         internetBlockAdapter.updateListInternet(filteredList);
     }
 
-    @SuppressLint("StaticFieldLeak")
     public class GetInstalledAppsInternetTask extends AsyncTask<Void, Void, List<AppBlockModel>> {
         private final Context context;
         private final String sort;
@@ -128,7 +131,7 @@ public class InternetBlockActivity extends AppCompatActivity {
 
         @Override
         protected List<AppBlockModel> doInBackground(Void... voids) {
-            return UsageUtil.Companion.getInstalledAppsBlock(context, sort, "InternetBlockActivity");
+            return UsageUtility.Companion.getInstalledAppsBlock(context, sort, "InternetBlockActivity");
         }
 
         @Override
@@ -161,8 +164,8 @@ public class InternetBlockActivity extends AppCompatActivity {
             intent.putExtra("type", "internet");
         }
 
-        if ("com.android.achievix".equals(packageName)) {
-            Toast.makeText(this, "Cannot block Achievix", Toast.LENGTH_SHORT).show();
+        if ("com.android.achieveit".equals(packageName)) {
+            Toast.makeText(this, "Cannot block AchieveIt", Toast.LENGTH_SHORT).show();
         } else {
             startActivity(intent);
         }

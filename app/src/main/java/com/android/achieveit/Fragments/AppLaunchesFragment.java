@@ -26,7 +26,7 @@ import com.android.achieveit.Adapters.AppLaunchAdapter;
 import com.android.achieveit.Databases.AppLaunchDatabase;
 import com.android.achieveit.Models.AppUsageModel;
 import com.android.achieveit.R;
-import com.android.achieveit.Utilities.CommonUtil;
+import com.android.achieveit.Utilities.CommonUtility;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,6 +37,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+/** @noinspection ALL*/
+@SuppressLint("StaticFieldLeak")
 public class AppLaunchesFragment extends Fragment {
     private RecyclerView recyclerView;
     private AppLaunchAdapter appLaunchAdapter;
@@ -44,15 +46,22 @@ public class AppLaunchesFragment extends Fragment {
     private LinearLayout launchLayout;
     private LinearLayout loadingLayout;
     private Spinner sortSpinner;
+
     private HashMap<String, Integer> appLaunchCount;
+
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     private final String date = sdf.format(new Date());
     private String startDate = "";
+
     private String sortValue = "Daily";
     private final String[] sort = {"Daily", "Weekly", "Monthly", "Yearly"};
+
     private final List<AppUsageModel> appLaunchModel = new ArrayList<>();
+
     private final Calendar calendar = Calendar.getInstance();
+
     private int totalCount = 0;
+
     private GetAppLaunchCountTask getAppLaunchCountTask;
 
     @Override
@@ -111,8 +120,6 @@ public class AppLaunchesFragment extends Fragment {
         }
     }
 
-    /** @noinspection DataFlowIssue*/
-    @SuppressLint("StaticFieldLeak")
     public class GetAppLaunchCountTask extends AsyncTask<Void, Void, Void> {
         private final Context context;
         private final String sort;
@@ -171,7 +178,8 @@ public class AppLaunchesFragment extends Fragment {
 
             totalCount = 0;
             for (String packageName : packageNames) {
-                if (appLaunchCount.get(packageName) != null && appLaunchCount.get(packageName) > 0 && !packageName.isEmpty()){
+                if (appLaunchCount.get(packageName) != null &&
+                        appLaunchCount.get(packageName) > 0 && !packageName.isEmpty()){
                     totalCount += appLaunchCount.get(packageName);
                 }
             }
@@ -179,11 +187,13 @@ public class AppLaunchesFragment extends Fragment {
             appLaunchModel.clear();
             for (String packageName : packageNames) {
                 try {
-                    if (appLaunchCount.get(packageName) != null && appLaunchCount.get(packageName) > 0 && !packageName.isEmpty()){
+                    if (appLaunchCount.get(packageName) != null &&
+                            appLaunchCount.get(packageName) > 0 && !packageName.isEmpty()
+                    ){
                         ApplicationInfo appInfo = pm.getPackageInfo(packageName, 0).applicationInfo;
 
                         String appName = appInfo.loadLabel(pm).toString();
-                        Drawable appIcon = new CommonUtil().compressIcon(appInfo.loadIcon(pm), context);
+                        Drawable appIcon = new CommonUtility().compressIcon(appInfo.loadIcon(pm), context);
 
                         int launchCount = appLaunchCount.get(packageName);
                         double progress = (double) launchCount / totalCount * 100;
@@ -192,7 +202,9 @@ public class AppLaunchesFragment extends Fragment {
                 } catch (PackageManager.NameNotFoundException ignored) {}
             }
 
-            appLaunchModel.sort((o1, o2) -> Integer.parseInt(Objects.requireNonNull(o2.getExtra())) - Integer.parseInt(Objects.requireNonNull(o1.getExtra())));
+            appLaunchModel.sort((o1, o2) ->
+                Integer.parseInt(
+                    Objects.requireNonNull(o2.getExtra())) - Integer.parseInt(Objects.requireNonNull(o1.getExtra())));
         }
 
         @Override

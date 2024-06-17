@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
+@SuppressLint("SwitchIntDef")
 public class LogURLService extends AccessibilityService {
     @NonNull
     private static List<SupportedBrowserConfig> getSupportedBrowsers() {
@@ -28,7 +29,6 @@ public class LogURLService extends AccessibilityService {
         return browsers;
     }
 
-    @SuppressLint("SwitchIntDef")
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
         String browserApp = "";
@@ -112,7 +112,9 @@ public class LogURLService extends AccessibilityService {
 
                 for (HashMap<String, String> map : filteredList) {
                     if (Objects.equals(map.get("name"), url)) {
-                        if (Objects.equals(map.get("scheduleType"), "Specific Time") && Objects.equals(map.get("profileStatus"), "1")) {
+                        if (Objects.equals(map.get("scheduleType"), "Specific Time") &&
+                            Objects.equals(map.get("profileStatus"), "1")
+                        ) {
                             if (Objects.equals(map.get("launch"), "1")) {
                                 String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
                                 int fromHours = Integer.parseInt(params[0]);
@@ -140,7 +142,9 @@ public class LogURLService extends AccessibilityService {
                                     return;
                                 }
                             }
-                        } else if (Objects.equals(map.get("scheduleType"), "Quick Block") && Objects.equals(map.get("profileStatus"), "1")) {
+                        } else if (Objects.equals(map.get("scheduleType"), "Quick Block") &&
+                            Objects.equals(map.get("profileStatus"), "1")
+                        ) {
                             if (Objects.equals(map.get("launch"), "1")) {
                                 String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
                                 int untilHours = Integer.parseInt(params[0]);
@@ -165,7 +169,9 @@ public class LogURLService extends AccessibilityService {
                                     return;
                                 }
                             }
-                        } else if (Objects.equals(map.get("scheduleType"), "Fixed Block") && Objects.equals(map.get("profileStatus"), "1")) {
+                        } else if (Objects.equals(map.get("scheduleType"), "Fixed Block") &&
+                            Objects.equals(map.get("profileStatus"), "1")
+                        ) {
                             if (Objects.equals(map.get("launch"), "1")) {
                                 System.gc();
                                 Runtime.getRuntime().runFinalization();
@@ -208,7 +214,9 @@ public class LogURLService extends AccessibilityService {
 
                     for (HashMap<String, String> map : filteredList) {
                         if (Objects.equals(map.get("name"), key)) {
-                            if (Objects.equals(map.get("scheduleType"), "Specific Time") && Objects.equals(map.get("profileStatus"), "1")) {
+                            if (Objects.equals(map.get("scheduleType"), "Specific Time") &&
+                                Objects.equals(map.get("profileStatus"), "1")
+                            ) {
                                 if (Objects.equals(map.get("launch"), "1")) {
                                     String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
                                     int fromHours = Integer.parseInt(params[0]);
@@ -236,7 +244,9 @@ public class LogURLService extends AccessibilityService {
                                         return;
                                     }
                                 }
-                            } else if (Objects.equals(map.get("scheduleType"), "Quick Block") && Objects.equals(map.get("profileStatus"), "1")) {
+                            } else if (Objects.equals(map.get("scheduleType"), "Quick Block") &&
+                                Objects.equals(map.get("profileStatus"), "1")
+                            ) {
                                 if (Objects.equals(map.get("launch"), "1")) {
                                     String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
                                     int untilHours = Integer.parseInt(params[0]);
@@ -261,7 +271,9 @@ public class LogURLService extends AccessibilityService {
                                         return;
                                     }
                                 }
-                            } else if (Objects.equals(map.get("scheduleType"), "Fixed Block") && Objects.equals(map.get("profileStatus"), "1")) {
+                            } else if (Objects.equals(map.get("scheduleType"), "Fixed Block") &&
+                                Objects.equals(map.get("profileStatus"), "1")
+                            ) {
                                 if (Objects.equals(map.get("launch"), "1")) {
                                     System.gc();
                                     Runtime.getRuntime().runFinalization();
@@ -317,12 +329,10 @@ public class LogURLService extends AccessibilityService {
     }
 
     @Override
-    public void onInterrupt() {
-    }
+    public void onInterrupt() {}
 
     @Override
-    protected void onServiceConnected() {
-    }
+    protected void onServiceConnected() {}
 
     private static class SupportedBrowserConfig {
         public String packageName, addressBarId;

@@ -43,7 +43,8 @@ public class SplashScreenActivity extends AppCompatActivity {
             }, 1800);
         } else {
             handler.postDelayed(() -> {
-                Intent intent = new Intent(SplashScreenActivity.this, GetUsageStatsPermissionActivity.class);
+                Intent intent =
+                    new Intent(SplashScreenActivity.this, GetUsageStatsPermissionActivity.class);
                 startActivity(intent);
                 finish();
             }, 1800);

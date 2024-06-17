@@ -1,7 +1,5 @@
 package com.android.achieveit.Activities;
 
-import android.app.admin.DevicePolicyManager;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -12,22 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.android.achieveit.R;
-import com.android.achieveit.Services.AdminReceiver;
 import com.android.achieveit.Services.BackgroundService;
-import com.android.achieveit.Utilities.AccessibilityUtil;
+import com.android.achieveit.Utilities.AccessibilityUtility;
 
 public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-    }
-
-    public void uninstallProtection(View v) {
-        ComponentName cn = new ComponentName(this, AdminReceiver.class);
-        Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
-        intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, cn);
-        startActivity(intent);
     }
 
     public void repair(View v) {
@@ -38,7 +28,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void repairLog(View v) {
-        if (!new AccessibilityUtil().isAccessibilitySettingsOn(this)) {
+        if (!new AccessibilityUtility().isAccessibilitySettingsOn(this)) {
             Intent i = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
             startActivity(i);
         } else {

@@ -8,8 +8,8 @@ import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
 import com.android.achieveit.R
 
+@SuppressLint("UseSwitchCompatOrMaterialCode")
 class TakeBreakActivity : AppCompatActivity() {
-    @SuppressLint("UseSwitchCompatOrMaterialCode")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_take_break)
