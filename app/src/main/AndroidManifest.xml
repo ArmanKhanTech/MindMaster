@@ -37,7 +37,7 @@
         android:supportsRtl="true">
 
         <receiver
-            android:name=".Service.RestartService"
+            android:name=".Receiver.RestartReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -45,7 +45,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".Service.AdminReceiver"
+            android:name=".Receiver.AdminReceiver"
             android:exported="false"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
             <intent-filter>
@@ -74,8 +74,9 @@
             </intent-filter>
         </service>
         <service
-            android:name=".Service.LogURLService"
+            android:name=".Service.WebService"
             android:exported="true"
+            android:description="@string/accessibility_service_description"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
@@ -88,7 +89,7 @@
         <activity
             android:name=".Activity.BlockDataActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt.BlockData" />
+            android:theme="@style/Theme.AchieveIt.BlockInternet" />
         <activity
             android:name=".Activity.EditScheduleActivity"
             android:exported="false"
@@ -116,7 +117,7 @@
         <activity
             android:name=".Activity.EditProfileActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.AchieveIt.Profile" />
         <activity
             android:name=".Activity.NewScheduleActivity"
             android:exported="false"
@@ -140,15 +141,15 @@
         <activity
             android:name=".Activity.NewProfileActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.AchieveIt.Profile" />
         <activity
             android:name=".Activity.KeywordBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.AchieveIt.BlockKey" />
         <activity
             android:name=".Activity.AppBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.AchieveIt.BlockApp" />
         <activity
             android:name=".Activity.SettingActivity"
             android:exported="false"
@@ -156,7 +157,7 @@
         <activity
             android:name=".Activity.InternetBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.AchieveIt.BlockInternet" />
         <activity
             android:name=".Activity.EnterPasswordActivity"
             android:exported="false"
@@ -172,7 +173,7 @@
         <activity
             android:name=".Activity.WebBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.AchieveIt.BlockWeb" />
         <activity
             android:name=".Activity.DrawOnTopLaunchActivity"
             android:exported="false"

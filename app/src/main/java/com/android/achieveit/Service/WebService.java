@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 @SuppressLint("SwitchIntDef")
-public class LogURLService extends AccessibilityService {
+public class WebService extends AccessibilityService {
     @NonNull
     private static List<SupportedBrowserConfig> getSupportedBrowsers() {
         List<SupportedBrowserConfig> browsers = new ArrayList<>();
@@ -68,24 +68,30 @@ public class LogURLService extends AccessibilityService {
                     browserUrl = capturedUrl;
                     browserApp = packageName;
                     if (!browserUrl.isEmpty()) {
-                        if (browserUrl.contains("/")) {
-                            String url = browserUrl.substring(0, browserUrl.indexOf("/"));
-                            blockWeb(url, browserApp);
-                        } else if (browserUrl.contains(" ")) {
+                        if (browserUrl.contains(" ")) {
                             String[] keywords = browserUrl.split(" ");
                             blockKey(keywords, browserApp);
+                        } else {
+                            int slashIndex = browserUrl.indexOf("/");
+                            if (slashIndex != -1) {
+                                String url = browserUrl.substring(0, slashIndex);
+                                blockWeb(url, browserApp);
+                            }
                         }
                     }
                 } else {
                     if (!capturedUrl.equals(browserUrl)) {
                         browserUrl = capturedUrl;
                         if (!browserUrl.isEmpty()) {
-                            if (browserUrl.contains("/")) {
-                                String url = browserUrl.substring(0, browserUrl.indexOf("/"));
-                                blockWeb(url, browserApp);
-                            } else if (browserUrl.contains(" ")) {
+                            if (browserUrl.contains(" ")) {
                                 String[] keywords = browserUrl.split(" ");
                                 blockKey(keywords, browserApp);
+                            } else {
+                                int dotIndex = browserUrl.indexOf(".");
+                                if (dotIndex != -1) {
+                                    String url = browserUrl.substring(0, dotIndex);
+                                    blockWeb(url, browserApp);
+                                }
                             }
                         }
                     }

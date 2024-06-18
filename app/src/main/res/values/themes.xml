@@ -1,32 +1,97 @@
 <resources>
-
     <style name="Theme.AchieveIt" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/skyBlue</item>
         <item name="colorOnPrimary">@color/skyBlue</item>
-        <item name="colorSecondary">@color/skyBlue</item>
+        <item name="colorSecondary">@color/white</item>
         <item name="colorSecondaryVariant">@color/skyBlue</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/skyBlue</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:navigationBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar">true</item>
         <item name="android:fontFamily">sans-serif-condensed-medium</item>
         <item name="android:windowDisablePreview">true</item>
+        <item name="colorAccent">@color/skyBlue</item>
     </style>
 
-    <style name="Theme.AchieveIt.BlockData" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.AchieveIt.BlockInternet" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/pink</item>
         <item name="colorOnPrimary">@color/pink</item>
-        <item name="colorSecondary">@color/pink</item>
+        <item name="colorSecondary">@color/white</item>
         <item name="colorSecondaryVariant">@color/pink</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/pink</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:navigationBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar">true</item>
         <item name="android:fontFamily">sans-serif-condensed-medium</item>
         <item name="android:windowDisablePreview">true</item>
+        <item name="colorAccent">@color/pink</item>
+    </style>
+
+    <style name="Theme.AchieveIt.BlockApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/purple_500</item>
+        <item name="colorOnPrimary">@color/purple_500</item>
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorSecondaryVariant">@color/purple_500</item>
+        <item name="colorOnSecondary">@color/purple_500</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="colorAccent">@color/purple_500</item>
+    </style>
+
+    <style name="Theme.AchieveIt.Profile" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">#f43f5e</item>
+        <item name="colorOnPrimary">#f43f5e</item>
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorSecondaryVariant">#f43f5e</item>
+        <item name="colorOnSecondary">#f43f5e</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="colorAccent">#f43f5e</item>
+    </style>
+
+    <style name="Theme.AchieveIt.BlockWeb" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">#FF5722</item>
+        <item name="colorOnPrimary">#FF5722</item>
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorSecondaryVariant">#FF5722</item>
+        <item name="colorOnSecondary">#FF5722</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="colorAccent">#FF5722</item>
+    </style>
+
+    <style name="Theme.AchieveIt.BlockKey" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">#4CAF50</item>
+        <item name="colorOnPrimary">#4CAF50</item>
+        <item name="colorSecondary">@color/white</item>
+        <item name="colorSecondaryVariant">#4CAF50</item>
+        <item name="colorOnSecondary">#4CAF50</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="colorAccent">#4CAF50</item>
     </style>
 </resources>

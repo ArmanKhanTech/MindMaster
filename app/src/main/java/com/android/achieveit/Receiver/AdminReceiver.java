@@ -1,4 +1,4 @@
-package com.android.achieveit.Service;
+package com.android.achieveit.Receiver;
 
 import android.app.admin.DeviceAdminReceiver;
 

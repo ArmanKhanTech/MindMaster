@@ -18,7 +18,7 @@ import com.android.achieveit.Adapter.OnTimeClickListener
 import com.android.achieveit.Adapter.TimeLineAdapter
 import com.android.achieveit.Model.TimeLineModel
 import com.android.achieveit.R
-import com.android.achieveit.Service.AdminReceiver
+import com.android.achieveit.Receiver.AdminReceiver
 import com.android.achieveit.Utility.ItemStatus
 import java.util.Objects
 

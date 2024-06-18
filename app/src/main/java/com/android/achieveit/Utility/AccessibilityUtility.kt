@@ -3,12 +3,12 @@ package com.android.achieveit.Utility
 import android.content.Context
 import android.provider.Settings
 import android.text.TextUtils
-import com.android.achieveit.Service.LogURLService
+import com.android.achieveit.Service.WebService
 
 class AccessibilityUtility {
     fun isAccessibilitySettingsOn(mContext: Context): Boolean {
         var accessibilityEnabled = 0
-        val service = mContext.packageName + "/" + LogURLService::class.java.canonicalName
+        val service = mContext.packageName + "/" + WebService::class.java.canonicalName
         try {
             accessibilityEnabled = Settings.Secure.getInt(
                 mContext.applicationContext.contentResolver,

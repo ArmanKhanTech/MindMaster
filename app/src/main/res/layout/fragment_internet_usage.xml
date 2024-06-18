@@ -108,8 +108,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Please update your system date and time to get the internet usage details."
+                android:fontFamily="sans-serif-condensed-light"
                 android:textAlignment="center"
+                android:text="Update your system date &amp; time to get the internet usage details."
                 android:textColor="@color/black"
                 android:textSize="25dp"
                 android:visibility="gone" />

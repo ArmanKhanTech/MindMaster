@@ -1,12 +1,14 @@
-package com.android.achieveit.Service;
+package com.android.achieveit.Receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.android.achieveit.Service.ForegroundService;
+
 import java.util.Objects;
 
-public class RestartService extends BroadcastReceiver {
+public class RestartReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (Objects.equals(intent.getAction(), Intent.ACTION_BOOT_COMPLETED)) {

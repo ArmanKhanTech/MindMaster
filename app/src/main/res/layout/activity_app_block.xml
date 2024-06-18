@@ -18,8 +18,7 @@
         android:background="@color/white"
         android:onClick="finish"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/back_icon"
-        tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+        app:srcCompat="@drawable/back_icon" />
 
     <LinearLayout
         android:layout_width="wrap_content"

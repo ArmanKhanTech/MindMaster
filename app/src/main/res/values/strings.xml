@@ -61,4 +61,6 @@
     <string name="profile_note">
         Note: Schedule - Usage Limit &amp; Number of Launches won\'t work for websites and keywords.
     </string>
+
+    <string name="accessibility_service_description">This app requires this setting to detect the keywords and websites in the browser.</string>
 </resources>

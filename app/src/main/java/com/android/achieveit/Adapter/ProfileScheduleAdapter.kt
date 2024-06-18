@@ -95,7 +95,7 @@ class ProfileScheduleAdapter(
             activity.initAppRecyclerView()
             activity.initWebRecyclerView()
             activity.initKeyRecyclerView()
-            Toast.makeText(holder.itemView.context, "Schedule deleted", Toast.LENGTH_SHORT).show()
+            Toast.makeText(holder.itemView.context, "Schedule Deleted", Toast.LENGTH_SHORT).show()
         }
     }
 
