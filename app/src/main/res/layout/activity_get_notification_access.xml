@@ -33,12 +33,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Permission not Granted"
+            android:text="Permission Refused"
             android:textColor="#03A9F4"
             android:textSize="22dp" />
 
         <com.android.achieveit.View.ExpandableTextView
-            android:id="@+id/expandableTextViewNoti"
+            android:id="@+id/expandable_tv_noti"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="22dp"

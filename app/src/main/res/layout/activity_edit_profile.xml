@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,42 +10,43 @@
     tools:ignore="HardcodedText,SpUsage,ContentDescription">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:orientation="horizontal">
 
-        <LinearLayout
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/white"
+            android:onClick="finish"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/back_icon" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="Edit Profile"
+            android:textColor="@color/black"
+            android:textSize="30dp" />
 
-            <ImageButton
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="15dp"
-                android:background="@color/white"
-                android:onClick="finish"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/back_icon"
-                tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="sans-serif-condensed-medium"
-                android:text="Edit Profile"
-                android:textColor="@color/black"
-                android:textSize="30dp" />
-
-        </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scrollbars="none"
             android:fillViewport="true">
 
             <LinearLayout
@@ -59,7 +60,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="15dp"
-                    android:layout_marginTop="10dp"
                     android:background="@drawable/new_profile_edt_theme"
                     android:padding="10dp"
                     android:text="Profile Name"
@@ -98,7 +98,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/edit_profile_schedule_list"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp" />
 
                 <LinearLayout
@@ -132,7 +132,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/edit_profile_block_list_app"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp" />
 
                 <LinearLayout
@@ -166,7 +166,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/edit_profile_block_list_web"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp" />
 
                 <LinearLayout
@@ -200,7 +200,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/edit_profile_block_list_key"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp" />
 
                 <TextView
@@ -217,20 +217,20 @@
 
         </ScrollView>
 
-    </LinearLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/save_edit_profile_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/next_profile_btn_theme"
+            android:padding="10dp"
+            android:text="Done"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="22dp" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/save_edit_profile_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginVertical="10dp"
-        android:background="@drawable/next_profile_btn_theme"
-        android:padding="10dp"
-        android:text="Done"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="22dp" />
+    </FrameLayout>
 
-</FrameLayout>
+</LinearLayout>

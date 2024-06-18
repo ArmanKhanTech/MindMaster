@@ -8,7 +8,7 @@ android {
     namespace 'com.android.achieveit'
 
     defaultConfig {
-        applicationId "com.android.achievix"
+        applicationId "com.android.achieveit"
         minSdk 29
         targetSdk 34
         versionCode 1

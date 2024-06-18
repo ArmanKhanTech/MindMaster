@@ -74,14 +74,14 @@ class StrictModeActivity : AppCompatActivity() {
         dataList.add(
             TimeLineModel(
                 "Set Password",
-                "Required for accessing Achievix",
+                "Required for accessing AchieveIt",
                 ItemStatus.COMPLETED
             )
         )
         dataList.add(
             TimeLineModel(
                 "Activate Device Admin",
-                "Grant device admin rights to Achievix",
+                "Grant device admin rights to AchieveIt",
                 ItemStatus.COMPLETED
             )
         )
@@ -206,7 +206,7 @@ class StrictModeActivity : AppCompatActivity() {
                                 intent
                                     .putExtra(
                                         DevicePolicyManager.EXTRA_ADD_EXPLANATION,
-                                        "Achievix requires device admin rights to restrict deletion of the app."
+                                        "AchieveIt requires device admin rights to restrict deletion of the app."
                                     )
                                 startActivityForResult(intent, 101)
                             } else {

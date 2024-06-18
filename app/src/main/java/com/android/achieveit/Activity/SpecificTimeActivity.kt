@@ -191,7 +191,7 @@ class SpecificTimeActivity : AppCompatActivity() {
             }, 1000)
         }
 
-        CommonUtility().setupDayCheckListeners(
+        CommonUtility().setupRadioListeners(
             sunRadioButton,
             monRadioButton,
             tueRadioButton,

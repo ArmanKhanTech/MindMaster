@@ -21,7 +21,7 @@ public class NewPasswordActivity extends AppCompatActivity {
         SharedPreferences sh = getSharedPreferences("mode", MODE_PRIVATE);
         SharedPreferences.Editor editor = sh.edit();
 
-        PasscodeView passcodeView = findViewById(R.id.passcodeViewSet);
+        PasscodeView passcodeView = findViewById(R.id.passcode_view_set);
         passcodeView.setListener(new PasscodeView.PasscodeViewListener() {
             @Override
             public void onFail(String wrongNumber) {}

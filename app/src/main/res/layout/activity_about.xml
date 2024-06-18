@@ -24,8 +24,7 @@
             android:background="@color/white"
             android:scaleType="fitCenter"
             android:onClick="finish"
-            app:srcCompat="@drawable/back_icon"
-            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+            app:srcCompat="@drawable/back_icon" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -47,7 +46,6 @@
         app:lottie_rawRes="@raw/splash" />
 
     <TextView
-        android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -58,7 +56,6 @@
         android:textSize="40dp" />
 
     <TextView
-        android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -69,7 +66,6 @@
         android:textSize="25dp" />
 
     <TextView
-        android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

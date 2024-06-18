@@ -94,7 +94,7 @@
             android:exported="false"
             android:theme="@style/Theme.AchieveIt" />
         <activity
-            android:name=".Activity.NoOfLaunchesActivity"
+            android:name=".Activity.NumberOfLaunchesActivity"
             android:exported="false"
             android:theme="@style/Theme.AchieveIt" />
         <activity

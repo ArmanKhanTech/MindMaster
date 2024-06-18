@@ -207,13 +207,13 @@ class EditProfileActivity : AppCompatActivity() {
                     LinearLayout.LayoutParams.WRAP_CONTENT
                 )
 
-                val title = dialog.findViewById<TextView>(R.id.dialogTitle)
+                val title = dialog.findViewById<TextView>(R.id.dialog_title)
                 title.text = "Add Website"
 
-                val editText = dialog.findViewById<TextView>(R.id.dialogEditText)
+                val editText = dialog.findViewById<TextView>(R.id.dialog_edit_text)
                 editText.hint = "Enter URL"
 
-                val addWeb = dialog.findViewById<Button>(R.id.dialogButton)
+                val addWeb = dialog.findViewById<Button>(R.id.dialog_button)
 
                 addWeb.setOnClickListener {
                     if (editText.text.toString() == "google.com") {
@@ -281,13 +281,13 @@ class EditProfileActivity : AppCompatActivity() {
                     LinearLayout.LayoutParams.WRAP_CONTENT
                 )
 
-                val title = dialog.findViewById<TextView>(R.id.dialogTitle)
+                val title = dialog.findViewById<TextView>(R.id.dialog_title)
                 title.text = "Add Keyword"
 
-                val editText = dialog.findViewById<TextView>(R.id.dialogEditText)
+                val editText = dialog.findViewById<TextView>(R.id.dialog_edit_text)
                 editText.hint = "Enter Keyword"
 
-                val addKey = dialog.findViewById<Button>(R.id.dialogButton)
+                val addKey = dialog.findViewById<Button>(R.id.dialog_button)
 
                 addKey.setOnClickListener {
                     if (Pattern.matches("^(http|https)://.*", editText.text.toString()) ||

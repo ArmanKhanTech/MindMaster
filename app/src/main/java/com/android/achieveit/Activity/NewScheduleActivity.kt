@@ -50,7 +50,7 @@ class NewScheduleActivity : AppCompatActivity() {
 
         if (type == "app" || type == "profile") {
             findViewById<LinearLayout>(R.id.launch_block_button).setOnClickListener {
-                startNewActivity(caller, NoOfLaunchesActivity::class.java)
+                startNewActivity(caller, NumberOfLaunchesActivity::class.java)
             }
         } else {
             findViewById<LinearLayout>(R.id.launch_block_button).visibility = LinearLayout.GONE

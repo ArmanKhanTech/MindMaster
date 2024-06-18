@@ -66,7 +66,7 @@ public class DrawOnTopLaunchActivity extends AppCompatActivity {
                 finish();
             });
         } else if (Objects.requireNonNull(getIntent().getStringExtra("type")).equals("web")) {
-            title.setText("Website blocked by Achievix");
+            title.setText("Website blocked by AchieveIt");
 
             name.setText(getIntent().getStringExtra("name"));
             icon.setImageResource(R.drawable.web_icon);
@@ -84,7 +84,7 @@ public class DrawOnTopLaunchActivity extends AppCompatActivity {
                 finish();
             });
         } else if (Objects.requireNonNull(getIntent().getStringExtra("type")).equals("key")) {
-            title.setText("Keyword blocked by Achievix");
+            title.setText("Keyword blocked by AchieveIt");
 
             name.setText("'" + getIntent().getStringExtra("name") + "'");
             icon.setImageResource(R.drawable.keyword_icon);

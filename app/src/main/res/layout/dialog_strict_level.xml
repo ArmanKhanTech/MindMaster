@@ -84,7 +84,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
-                    android:text="- Restrict access to Achievix"
+                    android:text="- Restrict access to AchieveIt"
                     android:textColor="@color/black"
                     android:fontFamily="sans-serif-condensed-light"
                     android:textSize="22dp" />
@@ -135,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:text="- Restrict access to Achievix"
+                    android:text="- Restrict access to AchieveIt"
                     android:textColor="@color/black"
                     android:fontFamily="sans-serif-condensed-light"
                     android:textSize="22dp" />
@@ -198,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:text="- Restrict access to Achievix"
+                    android:text="- Restrict access to AchieveIt"
                     android:textColor="@color/black"
                     android:fontFamily="sans-serif-condensed-light"
                     android:textSize="22dp" />
@@ -270,7 +270,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:text="- Restrict access to Achievix"
+                    android:text="- Restrict access to AchieveIt"
                     android:textColor="@color/black"
                     android:fontFamily="sans-serif-condensed-light"
                     android:textSize="22dp" />

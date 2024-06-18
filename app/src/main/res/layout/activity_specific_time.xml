@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,322 +10,329 @@
     tools:context=".Activity.UsageTimeActivity"
     tools:ignore="HardcodedText,SpUsage,ContentDescription">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:orientation="horizontal">
 
-        <LinearLayout
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="15dp"
+            android:background="@color/white"
+            android:onClick="finish"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/back_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="Specific Time Interval"
+            android:textColor="@color/black"
+            android:textSize="30dp" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:fillViewport="true"
+            android:scrollbars="none">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:onClick="finish"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="15dp"
-                    android:background="@color/white"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/back_icon"
-                    tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="sans-serif-condensed-medium"
-                    android:text="Specific Time Interval"
-                    android:textColor="@color/black"
-                    android:textSize="30dp" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="15dp"
-                android:text="I want to block"
-                android:textColor="@color/skyBlue"
-                android:textSize="22dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
                     android:layout_marginHorizontal="15dp"
-                    android:src="@drawable/block_icon" />
+                    android:text="I want to block"
+                    android:textColor="@color/skyBlue"
+                    android:textSize="22dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="15dp"
+                        android:src="@drawable/block_icon" />
+
+                    <TextView
+                        android:id="@+id/specific_time_launch_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="2dp"
+                        android:text="App Launch"
+                        android:textColor="@color/black"
+                        android:textSize="22dp" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/block_app_launch_specific_time"
+                        style="@style/SwitchTheme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="15dp"
+                        android:layout_weight="1"
+                        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="15dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/noti_block_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingBottom="2dp"
+                        android:text="Notification"
+                        android:textColor="@color/black"
+                        android:textSize="22dp" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/block_noti_specific_time"
+                        style="@style/SwitchTheme"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="15dp"
+                        android:layout_weight="1"
+                        tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/specific_time_launch_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:paddingBottom="2dp"
-                    android:text="App Launch"
-                    android:textColor="@color/black"
+                    android:layout_margin="15dp"
+                    android:text="on days"
+                    android:textColor="@color/skyBlue"
                     android:textSize="22dp" />
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/block_app_launch_specific_time"
-                    style="@style/SwitchTheme"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="15dp"
-                    android:layout_weight="1"
-                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+                    android:orientation="horizontal">
 
-            </LinearLayout>
+                    <RadioButton
+                        android:id="@+id/sunday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/day_radio_selector"
+                        android:button="@null"
+                        android:checked="false"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="S"
+                        android:textColor="@color/white"
+                        android:textSize="22dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/monday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/day_radio_selector"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="M"
+                        android:textColor="@color/white"
+                        android:textSize="22dp" />
 
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="15dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/noti_block_icon" />
+                    <RadioButton
+                        android:id="@+id/tuesday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/day_radio_selector"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="T"
+                        android:textColor="@color/white"
+                        android:textSize="22dp" />
+
+                    <RadioButton
+                        android:id="@+id/wednesday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/day_radio_selector"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="W"
+                        android:textColor="@color/white"
+                        android:textSize="22dp" />
+
+                    <RadioButton
+                        android:id="@+id/thursday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/day_radio_selector"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="T"
+                        android:textColor="@color/white"
+                        android:textSize="22dp" />
+
+                    <RadioButton
+                        android:id="@+id/friday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/day_radio_selector"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="F"
+                        android:textColor="@color/white"
+                        android:textSize="22dp" />
+
+                    <RadioButton
+                        android:id="@+id/saturday"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/day_radio_selector"
+                        android:button="@null"
+                        android:checked="false"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Sa"
+                        android:textColor="@color/white"
+                        android:textSize="22dp" />
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:paddingBottom="2dp"
-                    android:text="Notification"
-                    android:textColor="@color/black"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="from"
+                    android:textColor="@color/skyBlue"
                     android:textSize="22dp" />
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/block_noti_specific_time"
-                    style="@style/SwitchTheme"
-                    android:layout_width="0dp"
+                <TimePicker
+                    android:id="@+id/time_picker_time_interval_from"
+                    style="@style/TimePickerTheme"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="15dp"
-                    android:layout_weight="1"
-                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+                    android:padding="10dp"
+                    android:scaleX="1.2"
+                    android:scaleY="1.2"
+                    android:timePickerMode="spinner" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:text="to"
+                    android:textColor="@color/skyBlue"
+                    android:textSize="22dp" />
+
+                <TimePicker
+                    android:id="@+id/time_picker_time_interval_to"
+                    style="@style/TimePickerTheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="15dp"
+                    android:padding="10dp"
+                    android:scaleX="1.2"
+                    android:scaleY="1.2"
+                    android:timePickerMode="spinner" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:text="and show the below motivational text"
+                    android:textColor="@color/skyBlue"
+                    android:textSize="22dp" />
+
+                <EditText
+                    android:id="@+id/time_interval_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginBottom="70dp"
+                    android:background="@drawable/app_block_theme"
+                    android:gravity="center"
+                    android:hint="Type here..."
+                    android:inputType="text"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="22dp"
+                    tools:ignore="Autofill" />
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:text="On Days"
-                android:textColor="@color/skyBlue"
-                android:textSize="22dp" />
+        </ScrollView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/specific_time_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/take_break_btn_theme"
+            android:padding="10dp"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="22dp" />
 
-                <RadioButton
-                    android:id="@+id/sunday"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/day_radio_selector"
-                    android:checked="false"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="S"
-                    android:textColor="@color/white"
-                    android:textSize="22dp" />
+    </FrameLayout>
 
-                <RadioButton
-                    android:id="@+id/monday"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/day_radio_selector"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="M"
-                    android:textColor="@color/white"
-                    android:textSize="22dp" />
-
-                <RadioButton
-                    android:id="@+id/tuesday"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/day_radio_selector"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="T"
-                    android:textColor="@color/white"
-                    android:textSize="22dp" />
-
-                <RadioButton
-                    android:id="@+id/wednesday"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/day_radio_selector"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="W"
-                    android:textColor="@color/white"
-                    android:textSize="22dp" />
-
-                <RadioButton
-                    android:id="@+id/thursday"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/day_radio_selector"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="T"
-                    android:textColor="@color/white"
-                    android:textSize="22dp" />
-
-                <RadioButton
-                    android:id="@+id/friday"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/day_radio_selector"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="F"
-                    android:textColor="@color/white"
-                    android:textSize="22dp" />
-
-                <RadioButton
-                    android:id="@+id/saturday"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/day_radio_selector"
-                    android:checked="false"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="Sa"
-                    android:textColor="@color/white"
-                    android:textSize="22dp" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="15dp"
-                android:text="From"
-                android:textColor="@color/skyBlue"
-                android:textSize="22dp" />
-
-            <TimePicker
-                android:id="@+id/time_picker_time_interval_from"
-                style="@style/TimePickerTheme"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="15dp"
-                android:padding="10dp"
-                android:scaleX="1.2"
-                android:scaleY="1.2"
-                android:timePickerMode="spinner" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
-                android:text="To"
-                android:textColor="@color/skyBlue"
-                android:textSize="22dp" />
-
-            <TimePicker
-                android:id="@+id/time_picker_time_interval_to"
-                style="@style/TimePickerTheme"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="15dp"
-                android:padding="10dp"
-                android:scaleX="1.2"
-                android:scaleY="1.2"
-                android:timePickerMode="spinner" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:text="and show the below motivational text"
-                android:textColor="@color/skyBlue"
-                android:textSize="22dp" />
-
-            <EditText
-                android:id="@+id/time_interval_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginBottom="70dp"
-                android:background="@drawable/app_block_theme"
-                android:hint="Type here..."
-                android:inputType="text"
-                android:gravity="center"
-                android:padding="10dp"
-                android:textColor="@color/black"
-                android:textSize="22dp"
-                tools:ignore="Autofill" />
-
-        </LinearLayout>
-
-    </ScrollView>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/specific_time_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginVertical="10dp"
-        android:background="@drawable/take_break_btn_theme"
-        android:padding="10dp"
-        android:text="Save"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="22dp" />
-
-</FrameLayout>
+</LinearLayout>

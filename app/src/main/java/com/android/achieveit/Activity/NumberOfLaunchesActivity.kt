@@ -14,7 +14,7 @@ import com.android.achieveit.Database.BlockDatabase
 import com.android.achieveit.R
 import com.android.achieveit.Utility.CommonUtility
 
-class NoOfLaunchesActivity : AppCompatActivity() {
+class NumberOfLaunchesActivity : AppCompatActivity() {
     private lateinit var appLaunchSwitch: SwitchCompat
     private lateinit var notiSwitch: SwitchCompat
     private lateinit var monRadioButton: RadioButton
@@ -33,7 +33,7 @@ class NoOfLaunchesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_no_of_launches)
+        setContentView(R.layout.activity_number_of_launches)
 
         val intent = intent
         val name = intent.getStringExtra("name")
@@ -144,7 +144,7 @@ class NoOfLaunchesActivity : AppCompatActivity() {
             }, 1000)
         }
 
-        CommonUtility().setupDayCheckListeners(
+        CommonUtility().setupRadioListeners(
             sunRadioButton,
             monRadioButton,
             tueRadioButton,

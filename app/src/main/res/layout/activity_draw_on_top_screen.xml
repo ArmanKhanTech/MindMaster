@@ -12,10 +12,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Phone blocked By AchieveIt"
+        android:layout_marginTop="15dp"
         android:textColor="@color/black"
         android:textSize="25dp"
-        android:layout_marginTop="20dp"
+        android:text="Phone blocked by AchieveIt"
         android:layout_gravity="center"
         tools:ignore="HardcodedText,SpUsage" />
 

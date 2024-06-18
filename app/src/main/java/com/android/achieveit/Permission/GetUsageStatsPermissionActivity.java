@@ -27,7 +27,7 @@ public class GetUsageStatsPermissionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_usage_stats_permission);
 
-        expandableTextView = findViewById(R.id.expandableTextViewUsage);
+        expandableTextView = findViewById(R.id.expandable_tv_usage);
         status = findViewById(R.id.usage_per);
         finishButton = findViewById(R.id.grant_usage_access);
         granted();
@@ -44,7 +44,7 @@ public class GetUsageStatsPermissionActivity extends AppCompatActivity {
             status.setText("Permission Granted");
             finishButton.setVisibility(View.GONE);
         } else {
-            status.setText("Permission not Granted");
+            status.setText("Permission Refused");
             finishButton.setVisibility(View.VISIBLE);
         }
     }

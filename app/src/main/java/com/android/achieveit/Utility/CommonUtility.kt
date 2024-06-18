@@ -35,7 +35,7 @@ class CommonUtility {
         )
     }
 
-    fun setupDayCheckListeners(
+    fun setupRadioListeners(
         sunRadioButton: RadioButton,
         monRadioButton: RadioButton,
         tueRadioButton: RadioButton,

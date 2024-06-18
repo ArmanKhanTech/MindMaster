@@ -8,7 +8,7 @@
     tools:ignore="HardcodedText,SpUsage">
 
     <TextView
-        android:id="@+id/dialogTitle"
+        android:id="@+id/dialog_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-condensed-light"
@@ -18,10 +18,10 @@
         android:textSize="22dp" />
 
     <EditText
-        android:id="@+id/dialogEditText"
+        android:id="@+id/dialog_edit_text"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/new_profile_edt_theme"
         android:gravity="center"
         android:hint="Add"
@@ -30,10 +30,10 @@
         tools:ignore="Autofill" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/dialogButton"
+        android:id="@+id/dialog_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/next_profile_btn_theme"
         android:text="Add"
         android:textAllCaps="false"

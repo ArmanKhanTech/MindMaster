@@ -18,7 +18,7 @@ public class EnterPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_password);
 
-        PasscodeView passcodeView = findViewById(R.id.passcodeViewCheck);
+        PasscodeView passcodeView = findViewById(R.id.passcode_view);
 
         Intent intent = getIntent();
         int password = intent.getIntExtra("password", 0);

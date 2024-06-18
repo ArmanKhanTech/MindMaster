@@ -20,7 +20,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        SharedPreferences sh1 = getSharedPreferences("achievix", MODE_PRIVATE);
+        SharedPreferences sh1 = getSharedPreferences("achieveit", MODE_PRIVATE);
         SharedPreferences sh2 = getSharedPreferences("mode", MODE_PRIVATE);
 
         Handler handler = new Handler();

@@ -26,7 +26,7 @@ public class GetNotificationAccess extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_notification_access);
 
-        expandableTextView = findViewById(R.id.expandableTextViewNoti);
+        expandableTextView = findViewById(R.id.expandable_tv_noti);
         status = findViewById(R.id.noti_per);
         finishButton = findViewById(R.id.grant_noti_access);
         granted();
@@ -58,7 +58,7 @@ public class GetNotificationAccess extends AppCompatActivity {
     }
 
     public void done(View view) {
-        SharedPreferences sharedPref = getSharedPreferences("achievix", 0);
+        SharedPreferences sharedPref = getSharedPreferences("achieveit", 0);
         SharedPreferences.Editor editor = sharedPref.edit();
 
         editor.putString("firstTime", "no");
