@@ -71,12 +71,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="15dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="15dp"
                         android:layout_weight="1"
                         android:text="Schedules"
                         android:textColor="@color/pink"
@@ -99,18 +99,19 @@
                     android:id="@+id/edit_profile_schedule_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_marginHorizontal="15dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="15dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="15dp"
                         android:layout_weight="1"
                         android:text="Apps"
                         android:textColor="@color/pink"
@@ -133,18 +134,19 @@
                     android:id="@+id/edit_profile_block_list_app"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_marginHorizontal="15dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="15dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="15dp"
                         android:layout_weight="1"
                         android:text="Websites"
                         android:textColor="@color/pink"
@@ -167,18 +169,19 @@
                     android:id="@+id/edit_profile_block_list_web"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_marginHorizontal="15dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="15dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="15dp"
                         android:layout_weight="1"
                         android:text="Keywords"
                         android:textColor="@color/pink"
@@ -201,6 +204,7 @@
                     android:id="@+id/edit_profile_block_list_key"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_marginHorizontal="15dp" />
 
                 <TextView

@@ -84,11 +84,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="40dp"
             android:text="No Profile Added"
             android:fontFamily="sans-serif-condensed-light"
             android:textColor="@color/black"
-            android:textSize="22dp"
+            android:textSize="25dp"
             android:visibility="gone" />
 
         <androidx.appcompat.widget.AppCompatButton
