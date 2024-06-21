@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:text="App blocked by AchieveIt"
         android:textColor="@color/black"
-        android:layout_margin="15dp"
+        android:layout_margin="25dp"
         android:layout_gravity="center|top"
         android:textSize="25dp" />
 
