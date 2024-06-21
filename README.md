@@ -81,6 +81,12 @@ Follow the below instructions to get started.
   <li>
     <p>Android Studio</p>
   </li>
+  <li>
+    <p>Java 8+</p>
+  </li>
+  <li>
+    <p>Kotlin 1.9+</p>
+  </li>
 </ol>
 
 
@@ -163,29 +169,43 @@ private static List<SupportedBrowserConfig> getSupportedBrowsers() {
     browsers.add(new SupportedBrowserConfig("com.opera.browser", "com.opera.browser:id/url_field"));
     browsers.add(new SupportedBrowserConfig("com.opera.mini.native", "com.opera.mini.native:id/url_field"));
     /*
-    here...
-    syntax: browsers.add(new SupportedBrowserConfig("browser_package_name", "browser_package_name:id/url_field"));
+    Syntax: browsers.add(new SupportedBrowserConfig("browser_package_name", "browser_package_name:id/url_field"));
     */
     return browsers;
 }
+```
+& at `res/xml/accessibility_service.xml`
+```html
+<?xml version="1.0" encoding="utf-8"?>
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeAllMask"
+    android:accessibilityFeedbackType="feedbackAllMask"
+    android:accessibilityFlags="flagDefault|flagIncludeNotImportantViews|flagRequestTouchExplorationMode|flagRequestEnhancedWebAccessibility|flagReportViewIds|flagRetrieveInteractiveWindows"
+    android:canRequestFilterKeyEvents="true"
+    android:canRetrieveWindowContent="true"
+    android:notificationTimeout="0"
+    android:description="@string/accessibility_service_description"
+    android:packageNames="com.android.chrome, org.mozilla.firefox, com.opera.browser, com.opera.mini.native", "here..." />
 ```
 <br>
 
 
 ## Screenshots
-<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/5b34eaee-fba7-4258-a742-4cba52620b8b" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/f4320699-6398-4c1b-8eab-7455995af16c" alt="Logo" width="250" height="500">
 <img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/a3e82740-5f75-4de2-b5ac-efb7995ea54a" alt="Logo" width="250" height="500">
 <img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/81c65e14-291c-4865-8ddb-2526aef89cd8" alt="Logo" width="250" height="500">
 <img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/329648ee-b348-4e19-8d1e-4953d0906bbe" alt="Logo" width="250" height="500">
 <img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/77eca1fe-f95a-4b0c-882c-2f46908c861b" alt="Logo" width="250" height="500">
 <img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/a34dcbee-f772-4f0d-8846-7d9639b1bdc5" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/b6960e23-1e37-4517-8b6a-6e97c6c0a5f5" alt="Logo" width="250" height="500">
 <img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/8a19428f-16fc-470d-b924-a54e3136eb32" alt="Logo" width="250" height="500">
 <img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/30b41e95-035a-46af-95e0-eaeb8e5cbcfb" alt="Logo" width="250" height="500">
 <img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/83347d7c-0253-48bb-a28e-7cb7cb1ecd36" alt="Logo" width="250" height="500">
 <img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/78263931-b145-44b4-a17f-79fc90a39263" alt="Logo" width="250" height="500">
 <img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/4470602f-73e1-49a6-88f2-87491b9b8868" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/095e532c-e4b9-4330-82bb-d9feef312b76" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/88b5d183-5589-4464-af19-21a56a03ebf3" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/978825b6-6ea5-4ed7-8027-36b0448ef2a4" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/a760df37-8e80-43f4-97b6-12b478ac5fcf" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/AchieveIt/assets/92728787/67093edd-0dbf-40b0-b8c5-47cd3273c735" alt="Logo" width="250" height="500">
 
 
 
