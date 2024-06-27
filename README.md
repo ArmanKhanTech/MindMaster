@@ -192,7 +192,7 @@ private static List<SupportedBrowserConfig> getSupportedBrowsers() {
 
 
 ## Screenshots
-<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/f4320699-6398-4c1b-8eab-7455995af16c" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/d468a8a6-7af3-465a-87d7-39db13835af9" alt="Logo" width="250" height="500">
 <img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/a3e82740-5f75-4de2-b5ac-efb7995ea54a" alt="Logo" width="250" height="500">
 <img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/81c65e14-291c-4865-8ddb-2526aef89cd8" alt="Logo" width="250" height="500">
 <img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/329648ee-b348-4e19-8d1e-4953d0906bbe" alt="Logo" width="250" height="500">
@@ -204,8 +204,8 @@ private static List<SupportedBrowserConfig> getSupportedBrowsers() {
 <img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/83347d7c-0253-48bb-a28e-7cb7cb1ecd36" alt="Logo" width="250" height="500">
 <img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/78263931-b145-44b4-a17f-79fc90a39263" alt="Logo" width="250" height="500">
 <img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/4470602f-73e1-49a6-88f2-87491b9b8868" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/978825b6-6ea5-4ed7-8027-36b0448ef2a4" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/a760df37-8e80-43f4-97b6-12b478ac5fcf" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/123d02e1-d261-4929-b52f-ad50ce04fa32" alt="Logo" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/3218b7c1-f122-4bcd-aafe-cfaf71f86c0a" alt="Logo" width="250" height="500">
 <img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/67093edd-0dbf-40b0-b8c5-47cd3273c735" alt="Logo" width="250" height="500">
 
 
