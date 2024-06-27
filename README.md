@@ -13,7 +13,8 @@
     <img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/b6eea048-0f67-4412-b3c4-63840778a990" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">MindMaster </h3>
+  <h3 align="center">MindMaster</h3>
+  <p align="center">Status: Completed</p>
 
   <p align="center">
     An Android productivity app.
