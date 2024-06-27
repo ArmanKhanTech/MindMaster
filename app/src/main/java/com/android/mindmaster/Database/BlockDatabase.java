@@ -112,7 +112,8 @@ public class BlockDatabase extends SQLiteOpenHelper {
     public List<HashMap<String, String>> readRecordsWeb(String url) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
-            "SELECT * FROM " + TABLE_NAME + " WHERE " + NAME + " = ?" + " AND " + TYPE + " = ?",
+                "SELECT * FROM " + TABLE_NAME + " WHERE " +
+                        NAME + " = ?" + " AND " + TYPE + " = ?",
             new String[]{url, "web"}
         );
 
@@ -141,7 +142,8 @@ public class BlockDatabase extends SQLiteOpenHelper {
     public List<HashMap<String, String>> readRecordsKey(String key) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
-            "SELECT * FROM " + TABLE_NAME + " WHERE " + NAME + " = ?" + " AND " + TYPE + " = ?",
+                "SELECT * FROM " + TABLE_NAME + " WHERE " +
+                        NAME + " = ?" + " AND " + TYPE + " = ?",
             new String[]{key, "key"}
         );
 
@@ -170,7 +172,8 @@ public class BlockDatabase extends SQLiteOpenHelper {
     public List<HashMap<String, String>> readRecordsInternet(String packageName) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
-            "SELECT * FROM " + TABLE_NAME + " WHERE " + PACKAGE_NAME + " = ?" + " AND " + TYPE + " = ?",
+                "SELECT * FROM " + TABLE_NAME + " WHERE " +
+                        PACKAGE_NAME + " = ?" + " AND " + TYPE + " = ?",
             new String[]{packageName, "internet"}
         );
 
@@ -199,7 +202,8 @@ public class BlockDatabase extends SQLiteOpenHelper {
     public List<HashMap<String, String>> readAllRecordsWeb() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
-            "SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?" + " AND " + PROFILE_NAME + " IS NULL",
+                "SELECT * FROM " + TABLE_NAME + " WHERE " +
+                        TYPE + " = ?" + " AND " + PROFILE_NAME + " IS NULL",
             new String[]{"web"}
         );
 
@@ -228,7 +232,8 @@ public class BlockDatabase extends SQLiteOpenHelper {
     public List<HashMap<String, String>> readAllRecordsKey() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
-            "SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?" + " AND " + PROFILE_NAME + " IS NULL",
+                "SELECT * FROM " + TABLE_NAME + " WHERE " +
+                        TYPE + " = ?" + " AND " + PROFILE_NAME + " IS NULL",
             new String[]{"key"}
         );
 
@@ -304,7 +309,8 @@ public class BlockDatabase extends SQLiteOpenHelper {
     public List<HashMap<String, String>> readProfileApps(String profileName) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
-            "SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " = ?" + " AND " + TYPE + " = ?",
+                "SELECT * FROM " + TABLE_NAME + " WHERE " +
+                        PROFILE_NAME + " = ?" + " AND " + TYPE + " = ?",
             new String[]{profileName, "app"}
         );
 
@@ -326,7 +332,8 @@ public class BlockDatabase extends SQLiteOpenHelper {
     public List<HashMap<String, String>> readProfileWebs(String profileName) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
-            "SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " = ?" + " AND " + TYPE + " = ?",
+                "SELECT * FROM " + TABLE_NAME + " WHERE " +
+                        PROFILE_NAME + " = ?" + " AND " + TYPE + " = ?",
             new String[]{profileName, "web"}
         );
 
@@ -348,7 +355,8 @@ public class BlockDatabase extends SQLiteOpenHelper {
     public List<HashMap<String, String>> readProfileKeys(String profileName) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
-            "SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " = ?" + " AND " + TYPE + " = ?",
+                "SELECT * FROM " + TABLE_NAME + " WHERE " +
+                        PROFILE_NAME + " = ?" + " AND " + TYPE + " = ?",
             new String[]{profileName, "key"}
         );
 
@@ -428,13 +436,15 @@ public class BlockDatabase extends SQLiteOpenHelper {
 
     public void deleteProfileItem(String profileName, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, PROFILE_NAME + " = ?" + " AND " + NAME + " = ?", new String[]{profileName, name});
+        db.delete(TABLE_NAME, PROFILE_NAME + " = ?" + " AND " +
+                NAME + " = ?", new String[]{profileName, name});
     }
 
     public int getAppBlockCount() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
-            "SELECT * FROM " + TABLE_NAME + " WHERE " + TYPE + " = ?" + " AND " + PROFILE_NAME + " IS NULL",
+                "SELECT * FROM " + TABLE_NAME + " WHERE " +
+                        TYPE + " = ?" + " AND " + PROFILE_NAME + " IS NULL",
             new String[]{"app"}
         );
 
@@ -450,7 +460,8 @@ public class BlockDatabase extends SQLiteOpenHelper {
     public int getInternetBlockCount() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
-            "SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?",
+                "SELECT * FROM " + TABLE_NAME + " WHERE " +
+                        PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?",
             new String[]{"internet"}
         );
 
@@ -466,7 +477,8 @@ public class BlockDatabase extends SQLiteOpenHelper {
     public int getKeysBlockCount() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
-            "SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?",
+                "SELECT * FROM " + TABLE_NAME + " WHERE " +
+                        PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?",
             new String[]{"key"}
         );
 
@@ -482,7 +494,8 @@ public class BlockDatabase extends SQLiteOpenHelper {
     public int getWebBlockCount() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
-            "SELECT * FROM " + TABLE_NAME + " WHERE " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?",
+                "SELECT * FROM " + TABLE_NAME + " WHERE " +
+                        PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?",
             new String[]{"web"}
         );
 
@@ -501,7 +514,8 @@ public class BlockDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(
             TABLE_NAME,
-            PROFILE_NAME + " = ?" + " AND " + SCHEDULE_TYPE + " = ?" + " AND " + SCHEDULE_PARAMS + " = ?" + " AND " + SCHEDULE_DAYS + " = ?",
+                PROFILE_NAME + " = ?" + " AND " + SCHEDULE_TYPE + " = ?" + " AND " +
+                        SCHEDULE_PARAMS + " = ?" + " AND " + SCHEDULE_DAYS + " = ?",
             new String[]{profileName, scheduleType, scheduleParams, scheduleDays}
         );
     }
@@ -516,7 +530,8 @@ public class BlockDatabase extends SQLiteOpenHelper {
     public boolean isAppBlocked(String packageName) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
-            "SELECT * FROM " + TABLE_NAME + " WHERE " + PACKAGE_NAME + " = ?" + " AND " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?",
+                "SELECT * FROM " + TABLE_NAME + " WHERE " + PACKAGE_NAME + " = ?" +
+                        " AND " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?",
             new String[]{packageName, "app"}
         );
 
@@ -528,7 +543,8 @@ public class BlockDatabase extends SQLiteOpenHelper {
     public boolean isInternetBlocked(String packageName) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(
-            "SELECT * FROM " + TABLE_NAME + " WHERE " + PACKAGE_NAME + " = ?" + " AND " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?",
+                "SELECT * FROM " + TABLE_NAME + " WHERE " + PACKAGE_NAME + " = ?" +
+                        " AND " + PROFILE_NAME + " IS NULL" + " AND " + TYPE + " = ?",
             new String[]{packageName, "internet"}
         );
 
