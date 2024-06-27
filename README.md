@@ -217,19 +217,18 @@ private static List<SupportedBrowserConfig> getSupportedBrowsers() {
 - [x] New Schedule Activity
 - [x] Blocking Schedule Modes
 - [x] Edit Schedule Activity
-- [x] App Block Service
+- [x] Foreground Service
 - [x] Website Block Activity
 - [x] Keyword Block Activity
-- [x] Web/Keyword Block Service
+- [x] Web-Keyword Service
 - [x] Internet Block Activity
 - [x] Internet Block Service
 - [x] Usage Overview Activity
 - [x] App Insights Activity
-- [x] Notification Block Service
+- [x] Notification Service
 - [x] Uninstall Protection
 - [x] Take-a-Break Activity
-- [x] Normal Mode
-- [x] Strict Mode
+- [x] Normal & Strict Mode
 - [x] Password Protection
 - [x] App Launch Service
 - [x] New Profile Activity
