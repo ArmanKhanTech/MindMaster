@@ -14,7 +14,7 @@
         android:id="@+id/draw_block_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="App blocked by AchieveIt"
+        android:text="App blocked by MindMaster"
         android:textColor="@color/black"
         android:layout_margin="25dp"
         android:layout_gravity="center|top"

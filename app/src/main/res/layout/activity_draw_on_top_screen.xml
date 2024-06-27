@@ -15,7 +15,7 @@
         android:layout_margin="25dp"
         android:textColor="@color/black"
         android:textSize="25dp"
-        android:text="Phone blocked by AchieveIt"
+        android:text="Phone blocked by MindMaster"
         android:layout_gravity="center"
         tools:ignore="HardcodedText,SpUsage" />
 
