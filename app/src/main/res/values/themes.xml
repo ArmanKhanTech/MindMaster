@@ -1,5 +1,6 @@
 <resources>
-    <style name="Theme.AchieveIt" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+    <style name="Theme.MindMaster" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/skyBlue</item>
         <item name="colorOnPrimary">@color/skyBlue</item>
@@ -15,7 +16,7 @@
         <item name="colorAccent">@color/skyBlue</item>
     </style>
 
-    <style name="Theme.AchieveIt.BlockInternet" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.MindMaster.BlockInternet" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/pink</item>
         <item name="colorOnPrimary">@color/pink</item>
@@ -31,7 +32,7 @@
         <item name="colorAccent">@color/pink</item>
     </style>
 
-    <style name="Theme.AchieveIt.BlockApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.MindMaster.BlockApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/purple_500</item>
         <item name="colorOnPrimary">@color/purple_500</item>
@@ -47,7 +48,7 @@
         <item name="colorAccent">@color/purple_500</item>
     </style>
 
-    <style name="Theme.AchieveIt.Profile" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.MindMaster.Profile" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">#f43f5e</item>
         <item name="colorOnPrimary">#f43f5e</item>
@@ -63,7 +64,7 @@
         <item name="colorAccent">#f43f5e</item>
     </style>
 
-    <style name="Theme.AchieveIt.BlockWeb" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.MindMaster.BlockWeb" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">#FF5722</item>
         <item name="colorOnPrimary">#FF5722</item>
@@ -79,7 +80,7 @@
         <item name="colorAccent">#FF5722</item>
     </style>
 
-    <style name="Theme.AchieveIt.BlockKey" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.MindMaster.BlockKey" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">#4CAF50</item>
         <item name="colorOnPrimary">#4CAF50</item>

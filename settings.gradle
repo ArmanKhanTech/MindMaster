@@ -7,6 +7,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "AchieveIt"
+rootProject.name = "MindMaster"
 include ':app'
 include ':passcodeview'

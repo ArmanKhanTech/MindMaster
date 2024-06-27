@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">AchieveIt</string>
+    <string name="app_name" translatable="false">MindMaster</string>
 
     <string name="draw_over_apps" translatable="false">
         When you grant the \"Draw Over Other Apps\" permission to an app, it will be able to :
@@ -8,7 +8,8 @@
     </string>
     <string name="noti_per" translatable="false">
         The \"Notification Access\" permission allows our app to read the current set of notifications,
-        including any metadata and attached intents. This permission can be used by apps to provide
+        including any metadata and attached intents.
+        \n\nThis permission can be used by apps to provide
         various features, such as :
         \n1. Displaying a list of all your notifications in a single place.
         \n2. Snoozing or dismissing notifications.
@@ -16,7 +17,8 @@
     <string name="usage_per" translatable="false">
         The \"Usage Access\" permission allows an app to access data about how other apps
         are being used. This data includes the names of the apps, how much time is spent
-        in each app, and when the apps were last used.\nUsage Access permission can be used
+        in each app, and when the apps were last used.
+        \n\nUsage Access permission can be used
         by apps to provide various features, such as:
         \n1. Displaying a list of all the apps that you have used on a given day or week.
         \n2. Blocking or restricting access to certain apps.

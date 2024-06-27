@@ -89,120 +89,120 @@
         <activity
             android:name=".Activity.BlockDataActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt.BlockInternet" />
+            android:theme="@style/Theme.MindMaster.BlockInternet" />
         <activity
             android:name=".Activity.EditScheduleActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Activity.NumberOfLaunchesActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Activity.FixedBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Activity.QuickBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Activity.SpecificTimeActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Activity.UsageTimeActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Activity.EditProfileActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt.Profile" />
+            android:theme="@style/Theme.MindMaster.Profile" />
         <activity
             android:name=".Activity.NewScheduleActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Activity.DrawOnTopScreenActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Activity.AppSelectActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Activity.StrictModeActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Activity.TakeBreakActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Activity.NewProfileActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt.Profile" />
+            android:theme="@style/Theme.MindMaster.Profile" />
         <activity
             android:name=".Activity.KeywordBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt.BlockKey" />
+            android:theme="@style/Theme.MindMaster.BlockKey" />
         <activity
             android:name=".Activity.AppBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt.BlockApp" />
+            android:theme="@style/Theme.MindMaster.BlockApp" />
         <activity
             android:name=".Activity.SettingActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Activity.InternetBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt.BlockInternet" />
+            android:theme="@style/Theme.MindMaster.BlockInternet" />
         <activity
             android:name=".Activity.EnterPasswordActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Activity.NewPasswordActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Activity.AboutActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Activity.WebBlockActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt.BlockWeb" />
+            android:theme="@style/Theme.MindMaster.BlockWeb" />
         <activity
             android:name=".Activity.DrawOnTopLaunchActivity"
             android:exported="false"
             android:noHistory="true"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Permission.GetNotificationAccess"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Permission.GetDrawOverAppsPermission"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Permission.GetUsageStatsPermissionActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Activity.UsageOverviewActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Activity.MainActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
         <activity
             android:name=".Activity.SplashScreenActivity"
             android:exported="true"
-            android:theme="@style/Theme.AchieveIt">
+            android:theme="@style/Theme.MindMaster">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -211,6 +211,6 @@
         <activity
             android:name=".Activity.AppInsightsActivity"
             android:exported="false"
-            android:theme="@style/Theme.AchieveIt" />
+            android:theme="@style/Theme.MindMaster" />
     </application>
 </manifest>
