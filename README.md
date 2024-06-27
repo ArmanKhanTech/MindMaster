@@ -212,27 +212,26 @@ private static List<SupportedBrowserConfig> getSupportedBrowsers() {
 
 ## Roadmap
 
-- [x] Home Activity
-- [x] App Block Activity
-- [x] New Schedule Activity
-- [x] Blocking Schedule Modes
-- [x] Edit Schedule Activity
+- [x] Home Screen
+- [x] App Block 
+- [x] New Schedule 
+- [x] Schedule Modes
+- [x] Edit Schedule 
 - [x] Foreground Service
-- [x] Website Block Activity
-- [x] Keyword Block Activity
+- [x] Website Block 
+- [x] Keyword Block 
 - [x] Web-Keyword Service
-- [x] Internet Block Activity
-- [x] Internet Block Service
-- [x] Usage Overview Activity
-- [x] App Insights Activity
+- [x] Internet Block 
+- [x] Usage Overview 
+- [x] App Insights 
 - [x] Notification Service
 - [x] Uninstall Protection
-- [x] Take-a-Break Activity
-- [x] Normal & Strict Mode
+- [x] Take-a-Break 
+- [x] Normal & Strict Modes
 - [x] Password Protection
 - [x] App Launch Service
-- [x] New Profile Activity
-- [x] Edit Profile Activity
+- [x] New Profile 
+- [x] Edit Profile 
 
 See the [open issues](https://github.com/ArmanKhanTech/MindMaster/issues) for a full list of proposed features (and known issues)
 
