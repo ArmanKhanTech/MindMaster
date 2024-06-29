@@ -220,8 +220,6 @@ Don't forget to give the project a star!
 
 Thanks again!
 
-See the [open issues](https://github.com/ArmanKhanTech/MindMaster/issues) for a full list of proposed features (and known issues)
-
 
 
 ## License
