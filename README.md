@@ -10,7 +10,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/ArmanKhanTech/MindMaster/">
-    <img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/b6eea048-0f67-4412-b3c4-63840778a990" alt="Logo" width="80" height="80">
+    <img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/9e71f80e-5d98-4e77-950d-43fe322372e4" alt="Logo" width="80" height="80" >
   </a>
 
   <h3 align="center">MindMaster</h3>
