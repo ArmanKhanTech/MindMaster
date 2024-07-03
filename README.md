@@ -10,23 +10,22 @@
 <br />
 <div align="center">
   <a href="https://github.com/ArmanKhanTech/MindMaster/">
-    <img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/b6eea048-0f67-4412-b3c4-63840778a990" alt="Logo" width="80" height="80">
+    <img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/9e71f80e-5d98-4e77-950d-43fe322372e4" alt="Logo" width="80" height="80" >
   </a>
 
   <h3 align="center">MindMaster</h3>
   <p align="center">Status: Completed</p>
+  <p align="center">An Android productivity app.</p>
 
   <p align="center">
-    An Android productivity app.
-    <br />
     <a href="https://github.com/ArmanKhanTech/MindMaster"><strong>Explore the docs »</strong></a>
-    <br />
     <br />
     <a href="https://github.com/ArmanKhanTech/MindMaster/issues">Report a Bug</a>
     ·
     <a href="https://github.com/ArmanKhanTech/MindMaster/issues">Request new Feature</a>
   </p>
 </div>
+<br />
 
 
 
@@ -47,7 +46,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#screenshots">Screenshots</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -192,49 +191,21 @@ private static List<SupportedBrowserConfig> getSupportedBrowsers() {
 
 
 ## Screenshots
-<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/d468a8a6-7af3-465a-87d7-39db13835af9" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/a3e82740-5f75-4de2-b5ac-efb7995ea54a" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/81c65e14-291c-4865-8ddb-2526aef89cd8" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/329648ee-b348-4e19-8d1e-4953d0906bbe" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/77eca1fe-f95a-4b0c-882c-2f46908c861b" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/a34dcbee-f772-4f0d-8846-7d9639b1bdc5" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/b6960e23-1e37-4517-8b6a-6e97c6c0a5f5" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/8a19428f-16fc-470d-b924-a54e3136eb32" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/30b41e95-035a-46af-95e0-eaeb8e5cbcfb" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/83347d7c-0253-48bb-a28e-7cb7cb1ecd36" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/78263931-b145-44b4-a17f-79fc90a39263" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/4470602f-73e1-49a6-88f2-87491b9b8868" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/123d02e1-d261-4929-b52f-ad50ce04fa32" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/3218b7c1-f122-4bcd-aafe-cfaf71f86c0a" alt="Logo" width="250" height="500">
-<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/67093edd-0dbf-40b0-b8c5-47cd3273c735" alt="Logo" width="250" height="500">
-
-
-
-## Roadmap
-
-- [x] Home Activity
-- [x] App Block Activity
-- [x] New Schedule Activity
-- [x] Blocking Schedule Modes
-- [x] Edit Schedule Activity
-- [x] Foreground Service
-- [x] Website Block Activity
-- [x] Keyword Block Activity
-- [x] Web-Keyword Service
-- [x] Internet Block Activity
-- [x] Internet Block Service
-- [x] Usage Overview Activity
-- [x] App Insights Activity
-- [x] Notification Service
-- [x] Uninstall Protection
-- [x] Take-a-Break Activity
-- [x] Normal & Strict Mode
-- [x] Password Protection
-- [x] App Launch Service
-- [x] New Profile Activity
-- [x] Edit Profile Activity
-
-See the [open issues](https://github.com/ArmanKhanTech/MindMaster/issues) for a full list of proposed features (and known issues)
+<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/d468a8a6-7af3-465a-87d7-39db13835af9" alt="Screenshot" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/a3e82740-5f75-4de2-b5ac-efb7995ea54a" alt="Screenshot" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/81c65e14-291c-4865-8ddb-2526aef89cd8" alt="Screenshot" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/329648ee-b348-4e19-8d1e-4953d0906bbe" alt="Screenshot" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/77eca1fe-f95a-4b0c-882c-2f46908c861b" alt="Screenshot" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/a34dcbee-f772-4f0d-8846-7d9639b1bdc5" alt="Screenshot" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/b6960e23-1e37-4517-8b6a-6e97c6c0a5f5" alt="Screenshot" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/8a19428f-16fc-470d-b924-a54e3136eb32" alt="Screenshot" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/30b41e95-035a-46af-95e0-eaeb8e5cbcfb" alt="Screenshot" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/83347d7c-0253-48bb-a28e-7cb7cb1ecd36" alt="Screenshot" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/78263931-b145-44b4-a17f-79fc90a39263" alt="Screenshot" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/4470602f-73e1-49a6-88f2-87491b9b8868" alt="Screenshot" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/123d02e1-d261-4929-b52f-ad50ce04fa32" alt="Screenshot" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/3218b7c1-f122-4bcd-aafe-cfaf71f86c0a" alt="Screenshot" width="250" height="500">
+<img src="https://github.com/ArmanKhanTech/MindMaster/assets/92728787/67093edd-0dbf-40b0-b8c5-47cd3273c735" alt="Screenshot" width="250" height="500">
 
 
 
@@ -280,19 +251,19 @@ Project Link - [https://github.com/ArmanKhanTech/MindMaster](https://github.com/
 [forks-url]: https://github.com/ArmanKhanTech/MindMaster/network/members
 [stars-shield]: https://img.shields.io/github/stars/ArmanKhanTech/MindMaster.svg?style=for-the-badge
 [stars-url]: https://github.com/ArmanKhanTech/MindMaster/stargazers
-[issues-shield]: https://img.shields.io/github/issues/ArmanKhanTech/FocusOnMe.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/ArmanKhanTech/MindMaster.svg?style=for-the-badge
 [issues-url]: https://github.com/ArmanKhanTech/MindMaster/issues
-[license-shield]: https://img.shields.io/github/license/ArmanKhanTech/FocusOnMe.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/ArmanKhanTech/MindMaster.svg?style=for-the-badge
 [license-url]: https://github.com/ArmanKhanTech/MindMaster/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&Screenshot=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/arman-khan-25b624205/
-[Android]: https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white
+[Android]: https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&Screenshot=android-studio&ScreenshotColor=white
 [Android-url]: https://developer.android.com/
-[Java]: https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white
+[Java]: https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&Screenshot=openjdk&ScreenshotColor=white
 [Java-url]: https://www.java.com/
-[Kotlin]: https://img.shields.io/badge/Kotlin-0095D5?style=for-the-badge&logo=kotlin&logoColor=white
+[Kotlin]: https://img.shields.io/badge/Kotlin-0095D5?style=for-the-badge&Screenshot=kotlin&ScreenshotColor=white
 [Kotlin-url]: https://kotlinlang.org/
-[Gradle]: https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white
+[Gradle]: https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&Screenshot=Gradle&ScreenshotColor=white
 [Gradle-url]: https://gradle.org/
-[Sqlite]: https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white
+[Sqlite]: https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&Screenshot=sqlite&ScreenshotColor=white
 [Sqlite-url]: https://www.sqlite.org/
