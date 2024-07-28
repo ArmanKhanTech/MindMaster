@@ -346,7 +346,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:baselineAligned="false">
@@ -362,30 +362,15 @@
                         android:elevation="2dp"
                         android:orientation="vertical">
 
-                        <LinearLayout
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginTop="10dp">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:text="Block App"
-                                android:textColor="@color/white"
-                                android:textSize="22dp" />
-
-                            <ImageView
-                                android:layout_width="0dp"
-                                android:layout_height="25dp"
-                                android:layout_marginEnd="10dp"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:src="@drawable/goto_icon_white" />
-
-                        </LinearLayout>
+                            android:layout_gravity="start"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Block App"
+                            android:textColor="@color/white"
+                            android:textSize="22dp" />
 
                         <TextView
                             android:id="@+id/main_app_blocks"
@@ -421,30 +406,14 @@
                         android:elevation="2dp"
                         android:orientation="vertical">
 
-                        <LinearLayout
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
                             android:layout_marginTop="10dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="Block Website"
-                                android:textColor="@color/white"
-                                android:textSize="22dp" />
-
-                            <ImageView
-                                android:layout_width="0dp"
-                                android:layout_height="25dp"
-                                android:layout_marginEnd="10dp"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:src="@drawable/goto_icon_white" />
-
-                        </LinearLayout>
+                            android:layout_marginStart="10dp"
+                            android:text="Block Website"
+                            android:textColor="@color/white"
+                            android:textSize="22dp" />
 
                         <TextView
                             android:id="@+id/main_site_blocks"
@@ -472,7 +441,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:baselineAligned="false">
@@ -488,29 +457,14 @@
                         android:elevation="2dp"
                         android:orientation="vertical">
 
-                        <LinearLayout
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginTop="10dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="Block Keyword"
-                                android:textColor="@color/white"
-                                android:textSize="22dp" />
-
-                            <ImageView
-                                android:layout_width="0dp"
-                                android:layout_height="25dp"
-                                android:layout_marginEnd="10dp"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:src="@drawable/goto_icon_white" />
-
-                        </LinearLayout>
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Block Keyword"
+                            android:textColor="@color/white"
+                            android:textSize="22dp" />
 
                         <TextView
                             android:id="@+id/main_keywords_blocks"
@@ -546,29 +500,14 @@
                         android:elevation="2dp"
                         android:orientation="vertical">
 
-                        <LinearLayout
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginTop="10dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="Block Internet"
-                                android:textColor="@color/white"
-                                android:textSize="22dp" />
-
-                            <ImageView
-                                android:layout_width="0dp"
-                                android:layout_height="25dp"
-                                android:layout_marginEnd="10dp"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:src="@drawable/goto_icon_white" />
-
-                        </LinearLayout>
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Block Internet"
+                            android:textColor="@color/white"
+                            android:textSize="22dp" />
 
                         <TextView
                             android:id="@+id/main_internet_blocks"

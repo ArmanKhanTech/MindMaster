@@ -24,7 +24,6 @@ import com.android.mindmaster.Model.ProfileItemModel
 import com.android.mindmaster.Model.ProfileScheduleModel
 import com.android.mindmaster.R
 import com.android.mindmaster.Utility.AccessibilityUtility
-import java.util.regex.Pattern
 
 @SuppressLint("CutPasteId", "SetTextI18n")
 @Suppress("DEPRECATION")
@@ -211,26 +210,20 @@ class EditProfileActivity : AppCompatActivity() {
                 title.text = "New Website"
 
                 val editText = dialog.findViewById<TextView>(R.id.dialog_edit_text)
-                editText.hint = "eg: m.youtube.com"
+                editText.hint = "eg: youtube"
 
                 val addWeb = dialog.findViewById<Button>(R.id.dialog_button)
 
                 addWeb.setOnClickListener {
-                    if (editText.text.toString() == "google.com") {
-                        Toast.makeText(this, "Cannot block Google", Toast.LENGTH_SHORT).show()
+                    if (editText.text.toString() == "google") {
+                        Toast.makeText(this, "Cannot block google", Toast.LENGTH_SHORT).show()
                     } else {
                         if (AccessibilityUtility().isAccessibilitySettingsOn(this)) {
                             if (TextUtils.isEmpty(editText.text.toString())) {
                                 Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT)
                                     .show()
                             } else {
-                                val urlPattern =
-                                    Pattern.compile(
-                                        "^((https?|ftp|smtp)://)?(www.)?[a-z0-9]+(\\.[a-z]{2,}){1,3}(#?/?[a-zA-Z0-9#]+)*/?(\\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$"
-                                    )
-                                if (!urlPattern.matcher(editText.text.toString()).matches()) {
-                                    Toast.makeText(this, "Invalid URL", Toast.LENGTH_SHORT).show()
-                                } else if (scheduleModelList.isNotEmpty()) {
+                                if (scheduleModelList.isNotEmpty()) {
                                     val web = editText.text.toString()
                                     if (web.isNotEmpty()) {
                                         for (i in scheduleModelList) {
@@ -290,53 +283,39 @@ class EditProfileActivity : AppCompatActivity() {
                 val addKey = dialog.findViewById<Button>(R.id.dialog_button)
 
                 addKey.setOnClickListener {
-                    if (Pattern.matches("^(http|https)://.*", editText.text.toString()) ||
-                        Pattern.matches(
-                            "^(www\\.)?([a-zA-Z0-9]+\\.)+[a-zA-Z]{2,}$",
-                            editText.text.toString()
-                        )
-                    ) {
-                        Toast.makeText(
-                            this,
-                            "Please enter a keyword, not a URL",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                    } else {
-                        if (AccessibilityUtility().isAccessibilitySettingsOn(this)) {
-                            if (TextUtils.isEmpty(editText.text.toString())) {
-                                Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT)
-                                    .show()
-                            } else if (scheduleModelList.isNotEmpty()) {
-                                val key = editText.text.toString()
-                                if (key.isNotEmpty()) {
-                                    for (i in scheduleModelList) {
-                                        blockDatabase.addRecord(
-                                            key,
-                                            null,
-                                            "key",
-                                            i.launch == "1",
-                                            i.notification == "1",
-                                            i.scheduleType,
-                                            i.scheduleParams,
-                                            i.scheduleDays,
-                                            profileName.text.toString(),
-                                            i.profileStatus == "1",
-                                            i.text
-                                        )
-                                    }
-
-                                    initKeyRecyclerView()
-                                    dialog.dismiss()
+                    if (AccessibilityUtility().isAccessibilitySettingsOn(this)) {
+                        if (TextUtils.isEmpty(editText.text.toString())) {
+                            Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT)
+                                .show()
+                        } else if (scheduleModelList.isNotEmpty()) {
+                            val key = editText.text.toString()
+                            if (key.isNotEmpty()) {
+                                for (i in scheduleModelList) {
+                                    blockDatabase.addRecord(
+                                        key,
+                                        null,
+                                        "key",
+                                        i.launch == "1",
+                                        i.notification == "1",
+                                        i.scheduleType,
+                                        i.scheduleParams,
+                                        i.scheduleDays,
+                                        profileName.text.toString(),
+                                        i.profileStatus == "1",
+                                        i.text
+                                    )
                                 }
-                            } else {
-                                Toast.makeText(this, "Add a schedule first", Toast.LENGTH_SHORT)
-                                    .show()
+
+                                initKeyRecyclerView()
+                                dialog.dismiss()
                             }
                         } else {
-                            val i = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-                            startActivity(i)
+                            Toast.makeText(this, "Add a schedule first", Toast.LENGTH_SHORT)
+                                .show()
                         }
+                    } else {
+                        val i = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+                        startActivity(i)
                     }
                 }
 

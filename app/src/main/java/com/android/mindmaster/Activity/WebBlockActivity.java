@@ -29,7 +29,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 public class WebBlockActivity extends AppCompatActivity {
     private final BlockDatabase blockDatabase = new BlockDatabase(this);
@@ -83,24 +82,17 @@ public class WebBlockActivity extends AppCompatActivity {
         blockButton.setOnClickListener(v -> {
             if (webKeyModelList.contains(new WebKeyModel(searchEditText.getText().toString()))) {
                 Toast.makeText(this, "Website already blocked", Toast.LENGTH_SHORT).show();
-            } else if (searchEditText.getText().toString().equals("google.com")) {
+            } else if (searchEditText.getText().toString().equals("google")) {
                 Toast.makeText(this, "Cannot block Google", Toast.LENGTH_SHORT).show();
             } else {
                 if (new AccessibilityUtility().isAccessibilitySettingsOn(this)) {
                     if (TextUtils.isEmpty(searchEditText.getText().toString())) {
                         Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT).show();
                     } else {
-                        Pattern urlPattern = Pattern.compile(
-                        "^((https?|ftp|smtp)://)?(www.)?[a-z0-9]+(\\.[a-z]{2,}){1,3}(#?/?[a-zA-Z0-9#]+)*/?(\\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$"
-                        );
-                        if (!urlPattern.matcher(searchEditText.getText().toString()).matches()) {
-                            Toast.makeText(this, "Invalid URL", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Intent intent = new Intent(this, NewScheduleActivity.class);
-                            intent.putExtra("name", searchEditText.getText().toString());
-                            intent.putExtra("type", "web");
-                            startActivity(intent);
-                        }
+                        Intent intent = new Intent(this, NewScheduleActivity.class);
+                        intent.putExtra("name", searchEditText.getText().toString());
+                        intent.putExtra("type", "web");
+                        startActivity(intent);
                     }
                 } else {
                     Intent i = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);

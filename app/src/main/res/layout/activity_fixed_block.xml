@@ -270,6 +270,7 @@
                     android:gravity="center"
                     android:hint="Type here..."
                     android:inputType="text"
+                    android:textColorHint="@android:color/darker_gray"
                     android:padding="10dp"
                     android:textColor="@color/black"
                     android:textSize="22dp"

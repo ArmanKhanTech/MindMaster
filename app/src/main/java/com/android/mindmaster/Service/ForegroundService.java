@@ -110,7 +110,8 @@ public class ForegroundService extends Service {
         notificationIntent.putExtra("password", i);
         notificationIntent.putExtra("invokedFrom", "ForegroundService");
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, FLAG_IMMUTABLE);
+        PendingIntent pendingIntent =
+                PendingIntent.getActivity(this, 0, notificationIntent, FLAG_IMMUTABLE);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("MindMaster")
                 .setContentText("Foreground Service Running")
@@ -126,7 +127,8 @@ public class ForegroundService extends Service {
 
         UsageStatsManager usm = (UsageStatsManager) mContext.getSystemService(Context.USAGE_STATS_SERVICE);
         long currentTime = System.currentTimeMillis();
-        List<UsageStats> usageStats = usm.queryUsageStats(UsageStatsManager.INTERVAL_BEST, currentTime - 10000, currentTime);
+        List<UsageStats> usageStats =
+                usm.queryUsageStats(UsageStatsManager.INTERVAL_BEST, currentTime - 10000, currentTime);
 
         if (usageStats != null && !usageStats.isEmpty()) {
             SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
@@ -164,10 +166,7 @@ public class ForegroundService extends Service {
                         Objects.equals(map.get("profileStatus"), "1")
                     ) {
                         if (Objects.equals(map.get("notification"), "1")) {
-                            SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sh.edit();
-                            editor.putBoolean("notification", true);
-                            editor.apply();
+                            blockNotification();
                         }
 
                         if (Objects.equals(map.get("launch"), "1")) {
@@ -198,15 +197,7 @@ public class ForegroundService extends Service {
                                     timer.cancel();
                                     System.gc();
                                     Runtime.getRuntime().runFinalization();
-
-                                    Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
-                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                    lockIntent.putExtra("packageName", currentApp);
-                                    lockIntent.putExtra("type", map.get("type"));
-                                    lockIntent.putExtra("text", map.get("text"));
-                                    startActivity(lockIntent);
+                                    drawOnTop(currentApp, map);
                                 }
                             } else {
                                 return;
@@ -216,10 +207,7 @@ public class ForegroundService extends Service {
                         Objects.equals(map.get("profileStatus"), "1")
                     ) {
                         if (Objects.equals(map.get("notification"), "1")) {
-                            SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sh.edit();
-                            editor.putBoolean("notification", true);
-                            editor.apply();
+                            blockNotification();
                         }
 
                         if (Objects.equals(map.get("launch"), "1")) {
@@ -236,15 +224,7 @@ public class ForegroundService extends Service {
                                 timer.cancel();
                                 System.gc();
                                 Runtime.getRuntime().runFinalization();
-
-                                Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
-                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                lockIntent.putExtra("packageName", currentApp);
-                                lockIntent.putExtra("type", map.get("type"));
-                                lockIntent.putExtra("text", map.get("text"));
-                                startActivity(lockIntent);
+                                drawOnTop(currentApp, map);
                             } else {
                                 return;
                             }
@@ -253,10 +233,7 @@ public class ForegroundService extends Service {
                         Objects.equals(map.get("profileStatus"), "1")
                     ) {
                         if (Objects.equals(map.get("notification"), "1")) {
-                            SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sh.edit();
-                            editor.putBoolean("notification", true);
-                            editor.apply();
+                            blockNotification();
                         }
 
                         if (Objects.equals(map.get("launch"), "1")) {
@@ -270,15 +247,7 @@ public class ForegroundService extends Service {
                                 timer.cancel();
                                 System.gc();
                                 Runtime.getRuntime().runFinalization();
-
-                                Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
-                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                lockIntent.putExtra("packageName", currentApp);
-                                lockIntent.putExtra("type", map.get("type"));
-                                lockIntent.putExtra("text", map.get("text"));
-                                startActivity(lockIntent);
+                                drawOnTop(currentApp, map);
                             } else {
                                 blockDatabase.deleteRecordById(map.get("id"));
                                 return;
@@ -288,10 +257,7 @@ public class ForegroundService extends Service {
                         Objects.equals(map.get("profileStatus"), "1")
                     ) {
                         if (Objects.equals(map.get("notification"), "1")) {
-                            SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sh.edit();
-                            editor.putBoolean("notification", true);
-                            editor.apply();
+                            blockNotification();
                         }
 
                         if (Objects.equals(map.get("launch"), "1")) {
@@ -306,15 +272,7 @@ public class ForegroundService extends Service {
                                 timer.cancel();
                                 System.gc();
                                 Runtime.getRuntime().runFinalization();
-
-                                Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
-                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                lockIntent.putExtra("packageName", currentApp);
-                                lockIntent.putExtra("type", map.get("type"));
-                                lockIntent.putExtra("text", map.get("text"));
-                                startActivity(lockIntent);
+                                drawOnTop(currentApp, map);
                             } else {
                                 return;
                             }
@@ -323,25 +281,14 @@ public class ForegroundService extends Service {
                         Objects.equals(map.get("profileStatus"), "1")
                     ) {
                         if (Objects.equals(map.get("notification"), "1")) {
-                            SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sh.edit();
-                            editor.putBoolean("notification", true);
-                            editor.apply();
+                            blockNotification();
                         }
 
                         if (Objects.equals(map.get("launch"), "1")) {
                             timer.cancel();
                             System.gc();
                             Runtime.getRuntime().runFinalization();
-
-                            Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
-                            lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                            lockIntent.putExtra("packageName", currentApp);
-                            lockIntent.putExtra("type", map.get("type"));
-                            lockIntent.putExtra("text", map.get("text"));
-                            startActivity(lockIntent);
+                            drawOnTop(currentApp, map);
                         }
                     } else if (Objects.equals(map.get("scheduleType"), "Block Data")) {
                         String[] params = Objects.requireNonNull(map.get("scheduleParams")).split(" ");
@@ -350,20 +297,13 @@ public class ForegroundService extends Service {
                         boolean wifi = Objects.equals(map.get("notification"), "1");
 
                         float total =
-                            new NetworkUtility().getPackageInfo(0, System.currentTimeMillis(), currentApp, mobile, wifi, mContext);
+                                new NetworkUtility().getPackageInfo(
+                                        0, System.currentTimeMillis(), currentApp, mobile, wifi, mContext);
                         if (total >= usage) {
                             timer.cancel();
                             System.gc();
                             Runtime.getRuntime().runFinalization();
-
-                            Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
-                            lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                            lockIntent.putExtra("packageName", currentApp);
-                            lockIntent.putExtra("type", map.get("type"));
-                            lockIntent.putExtra("text", map.get("text"));
-                            startActivity(lockIntent);
+                            drawOnTop(currentApp, map);
                         } else {
                             return;
                         }
@@ -373,6 +313,24 @@ public class ForegroundService extends Service {
                 }
             }
         }
+    }
+
+    private void drawOnTop(String currentApp, HashMap<String, String> map) {
+        Intent lockIntent = new Intent(mContext, DrawOnTopLaunchActivity.class);
+        lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        lockIntent.putExtra("packageName", currentApp);
+        lockIntent.putExtra("type", map.get("type"));
+        lockIntent.putExtra("text", map.get("text"));
+        startActivity(lockIntent);
+    }
+
+    private void blockNotification() {
+        SharedPreferences sh = getSharedPreferences("notificationBlock", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sh.edit();
+        editor.putBoolean("notification", true);
+        editor.apply();
     }
 
     public void strictMode(CountDownTimer timer) {
@@ -405,53 +363,46 @@ public class ForegroundService extends Service {
             if(sh.getInt("hour", 0) >= Calendar.getInstance().get(Calendar.HOUR_OF_DAY) &&
                     sh.getInt("minute", 0) >= Calendar.getInstance().get(Calendar.MINUTE)) {
                 timer.cancel();
-                Intent lockIntent = new Intent(mContext, DrawOnTopScreenActivity.class);
-                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                lockIntent.putExtra("hour", sh.getInt("hour", 0));
-                lockIntent.putExtra("minute", sh.getInt("minute", 0));
-                lockIntent.putExtra("stop", sh.getBoolean("stop", false));
-                lockIntent.putExtra("call", sh.getBoolean("call", false));
-                lockIntent.putExtra("notification", sh.getBoolean("notification", false));
-                startActivity(lockIntent);
+                drawOnTopScreen(sh);
             } else if(sh.getInt("hour", 0) <= Calendar.getInstance().get(Calendar.HOUR_OF_DAY) &&
                     sh.getInt("minute", 0) <= Calendar.getInstance().get(Calendar.MINUTE)) {
-                SharedPreferences.Editor editor = sh.edit();
-                editor.putInt("hour", 0);
-                editor.putInt("minute", 0);
-                editor.putBoolean("stop", false);
-                editor.putBoolean("call", false);
-                editor.putBoolean("notification", false);
-                editor.apply();
+                resetSharedPreferences(sh);
             }
         } else {
             if(!currentApp.contains("dialer")){
                 if(sh.getInt("hour", 0) >= Calendar.getInstance().get(Calendar.HOUR_OF_DAY) &&
                         sh.getInt("minute", 0) >= Calendar.getInstance().get(Calendar.MINUTE)) {
                     timer.cancel();
-                    Intent lockIntent = new Intent(mContext, DrawOnTopScreenActivity.class);
-                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    lockIntent.putExtra("hour", sh.getInt("hour", 0));
-                    lockIntent.putExtra("minute", sh.getInt("minute", 0));
-                    lockIntent.putExtra("stop", sh.getBoolean("stop", false));
-                    lockIntent.putExtra("call", sh.getBoolean("call", false));
-                    lockIntent.putExtra("notification", sh.getBoolean("notification", false));
-                    startActivity(lockIntent);
-                } else if(sh.getInt("hour", 0) <= Calendar.getInstance().get(Calendar.HOUR_OF_DAY) &&
+                    drawOnTopScreen(sh);
+                } else if (sh.getInt("hour", 0) <= Calendar.getInstance().get(Calendar.HOUR_OF_DAY) &&
                         sh.getInt("minute", 0) <= Calendar.getInstance().get(Calendar.MINUTE)) {
-                    SharedPreferences.Editor editor = sh.edit();
-                    editor.putInt("hour", 0);
-                    editor.putInt("minute", 0);
-                    editor.putBoolean("stop", false);
-                    editor.putBoolean("call", false);
-                    editor.putBoolean("notification", false);
-                    editor.apply();
+                    resetSharedPreferences(sh);
                 }
             }
         }
+    }
+
+    private void drawOnTopScreen(SharedPreferences sh) {
+        Intent lockIntent = new Intent(mContext, DrawOnTopScreenActivity.class);
+        lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        lockIntent.putExtra("hour", sh.getInt("hour", 0));
+        lockIntent.putExtra("minute", sh.getInt("minute", 0));
+        lockIntent.putExtra("stop", sh.getBoolean("stop", false));
+        lockIntent.putExtra("call", sh.getBoolean("call", false));
+        lockIntent.putExtra("notification", sh.getBoolean("notification", false));
+        startActivity(lockIntent);
+    }
+
+    private void resetSharedPreferences(SharedPreferences sh) {
+        SharedPreferences.Editor editor = sh.edit();
+        editor.putInt("hour", 0);
+        editor.putInt("minute", 0);
+        editor.putBoolean("stop", false);
+        editor.putBoolean("call", false);
+        editor.putBoolean("notification", false);
+        editor.apply();
     }
 
     private String getDay(int day) {

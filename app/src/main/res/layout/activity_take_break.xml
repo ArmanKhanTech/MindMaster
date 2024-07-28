@@ -69,6 +69,8 @@
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="15dp"
                     android:padding="10dp"
+                    android:numbersInnerTextColor="@color/black"
+                    android:numbersTextColor="@color/black"
                     android:scaleX="1.2"
                     android:scaleY="1.2"
                     android:timePickerMode="spinner" />

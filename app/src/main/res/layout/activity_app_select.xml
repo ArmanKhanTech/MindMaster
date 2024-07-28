@@ -76,6 +76,7 @@
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/app_block_theme"
                     android:hint="Search"
+                    android:textColorHint="@android:color/darker_gray"
                     android:inputType="text"
                     android:textAlignment="center"
                     android:textColor="@color/black"

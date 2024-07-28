@@ -93,6 +93,7 @@
                         android:background="@drawable/app_block_edt_theme"
                         android:hint="Search"
                         android:maxLines="1"
+                        android:textColorHint="@android:color/darker_gray"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="22dp"

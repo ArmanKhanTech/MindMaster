@@ -3,6 +3,7 @@ package com.android.mindmaster.Service;
 import android.accessibilityservice.AccessibilityService;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -67,41 +68,32 @@ public class WebService extends AccessibilityService {
                 if (!packageName.equals(browserApp)) {
                     browserUrl = capturedUrl;
                     browserApp = packageName;
-                    if (!browserUrl.isEmpty()) {
-                        if (browserUrl.contains(" ")) {
-                            String[] keywords = browserUrl.split(" ");
-                            blockKey(keywords, browserApp);
-                        } else {
-                            int slashIndex = browserUrl.indexOf("/");
-                            if (slashIndex != -1) {
-                                String url = browserUrl.substring(0, slashIndex);
-                                blockWeb(url, browserApp);
-                            }
-                        }
-                    }
-                } else {
-                    if (!capturedUrl.equals(browserUrl)) {
-                        browserUrl = capturedUrl;
-                        if (!browserUrl.isEmpty()) {
-                            if (browserUrl.contains(" ")) {
-                                String[] keywords = browserUrl.split(" ");
-                                blockKey(keywords, browserApp);
-                            } else {
-                                int dotIndex = browserUrl.indexOf(".");
-                                if (dotIndex != -1) {
-                                    String url = browserUrl.substring(0, dotIndex);
-                                    blockWeb(url, browserApp);
-                                }
-                            }
-                        }
-                    }
+                } else if (!capturedUrl.equals(browserUrl)) {
+                    browserUrl = capturedUrl;
+                }
+
+                if (!browserUrl.isEmpty()) {
+                    blockWeb(browserUrl, browserApp);
+                    blockKey(browserUrl, browserApp);
                 }
             }
             break;
         }
     }
 
-    private void blockWeb(String url, String browserApp) {
+    private void blockWeb(String browserUrl, String browserApp) {
+        String url;
+
+        int slashIndex = browserUrl.indexOf("/");
+        int dotIndex = browserUrl.indexOf(".");
+        if (slashIndex != -1) {
+            url = browserUrl.substring(0, slashIndex);
+        } else if (dotIndex != -1) {
+            url = browserUrl.substring(0, dotIndex);
+        } else {
+            return;
+        }
+
         try (BlockDatabase blockDatabase = new BlockDatabase(this)) {
             List<HashMap<String, String>> list = blockDatabase.readRecordsWeb(url);
             if (!list.isEmpty()) {
@@ -134,16 +126,7 @@ public class WebService extends AccessibilityService {
                                         Calendar.getInstance().get(Calendar.MINUTE) <= toMinutes) {
                                     System.gc();
                                     Runtime.getRuntime().runFinalization();
-
-                                    Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
-                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                    lockIntent.putExtra("name", url);
-                                    lockIntent.putExtra("packageName", browserApp);
-                                    lockIntent.putExtra("type", map.get("type"));
-                                    lockIntent.putExtra("text", map.get("text"));
-                                    startActivity(lockIntent);
+                                    drawOnTop(url, browserApp, map);
                                 } else {
                                     return;
                                 }
@@ -160,16 +143,7 @@ public class WebService extends AccessibilityService {
                                         Calendar.getInstance().get(Calendar.MINUTE) <= untilMins) {
                                     System.gc();
                                     Runtime.getRuntime().runFinalization();
-
-                                    Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
-                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                    lockIntent.putExtra("name", url);
-                                    lockIntent.putExtra("packageName", browserApp);
-                                    lockIntent.putExtra("type", map.get("type"));
-                                    lockIntent.putExtra("text", map.get("text"));
-                                    startActivity(lockIntent);
+                                    drawOnTop(url, browserApp, map);
                                 } else {
                                     blockDatabase.deleteRecordById(map.get("id"));
                                     return;
@@ -181,16 +155,7 @@ public class WebService extends AccessibilityService {
                             if (Objects.equals(map.get("launch"), "1")) {
                                 System.gc();
                                 Runtime.getRuntime().runFinalization();
-
-                                Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
-                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                lockIntent.putExtra("name", url);
-                                lockIntent.putExtra("packageName", browserApp);
-                                lockIntent.putExtra("type", map.get("type"));
-                                lockIntent.putExtra("text", map.get("text"));
-                                startActivity(lockIntent);
+                                drawOnTop(url, browserApp, map);
                             }
                         }
                     } else {
@@ -202,7 +167,16 @@ public class WebService extends AccessibilityService {
         }
     }
 
-    private void blockKey(String[] keys, String browserApp) {
+    private void blockKey(String browserUrl, String browserApp) {
+        Uri uri = Uri.parse(browserUrl);
+        String[] keys;
+
+        if (uri.getQueryParameter("q") != null) {
+            keys = Objects.requireNonNull(uri.getQueryParameter("q")).split("\\+");
+        } else {
+            return;
+        }
+
         try (BlockDatabase blockDatabase = new BlockDatabase(this)) {
             for (String key : keys) {
                 List<HashMap<String, String>> list = blockDatabase.readRecordsKey(key);
@@ -235,17 +209,8 @@ public class WebService extends AccessibilityService {
                                             Calendar.getInstance().get(Calendar.HOUR_OF_DAY) <= toHours &&
                                             Calendar.getInstance().get(Calendar.MINUTE) <= toMinutes) {
                                         System.gc();
-
                                         Runtime.getRuntime().runFinalization();
-                                        Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
-                                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                        lockIntent.putExtra("name", key);
-                                        lockIntent.putExtra("packageName", browserApp);
-                                        lockIntent.putExtra("type", map.get("type"));
-                                        lockIntent.putExtra("text", map.get("text"));
-                                        startActivity(lockIntent);
+                                        drawOnTop(key, browserApp, map);
                                     } else {
                                         return;
                                     }
@@ -262,16 +227,7 @@ public class WebService extends AccessibilityService {
                                             Calendar.getInstance().get(Calendar.MINUTE) <= untilMins) {
                                         System.gc();
                                         Runtime.getRuntime().runFinalization();
-
-                                        Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
-                                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                        lockIntent.putExtra("name", key);
-                                        lockIntent.putExtra("packageName", browserApp);
-                                        lockIntent.putExtra("type", map.get("type"));
-                                        lockIntent.putExtra("text", map.get("text"));
-                                        startActivity(lockIntent);
+                                        drawOnTop(key, browserApp, map);
                                     } else {
                                         blockDatabase.deleteRecordById(map.get("id"));
                                         return;
@@ -283,16 +239,7 @@ public class WebService extends AccessibilityService {
                                 if (Objects.equals(map.get("launch"), "1")) {
                                     System.gc();
                                     Runtime.getRuntime().runFinalization();
-
-                                    Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
-                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                    lockIntent.putExtra("name", key);
-                                    lockIntent.putExtra("packageName", browserApp);
-                                    lockIntent.putExtra("type", map.get("type"));
-                                    lockIntent.putExtra("text", map.get("text"));
-                                    startActivity(lockIntent);
+                                    drawOnTop(key, browserApp, map);
                                 }
                             }
                         } else {
@@ -303,6 +250,18 @@ public class WebService extends AccessibilityService {
             }
         } catch (Exception ignored) {
         }
+    }
+
+    private void drawOnTop(String key, String browserApp, HashMap<String, String> map) {
+        Intent lockIntent = new Intent(this, DrawOnTopLaunchActivity.class);
+        lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        lockIntent.putExtra("name", key);
+        lockIntent.putExtra("packageName", browserApp);
+        lockIntent.putExtra("type", map.get("type"));
+        lockIntent.putExtra("text", map.get("text"));
+        startActivity(lockIntent);
     }
 
     private String getDay(int day) {

@@ -77,7 +77,7 @@
                     android:layout_height="55dp"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/web_block_edt_theme"
-                    android:hint="Search/Add"
+                    android:hint="Search/Add Website"
                     android:inputType="text"
                     android:textAlignment="center"
                     android:textColor="@color/black"
@@ -94,13 +94,19 @@
 
             </FrameLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="Note: Please enter just the hostname of the website without its extension eg: 'youtube'." />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/blocked_website"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginHorizontal="15dp"
-                android:layout_marginVertical="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:choiceMode="multipleChoice"
                 android:divider="@color/white"

@@ -21,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginTop="15dp"
+        android:textColorHint="@android:color/darker_gray"
         android:background="@drawable/new_profile_edt_theme"
         android:gravity="center"
         android:hint="Add"

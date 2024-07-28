@@ -48,6 +48,7 @@
             android:id="@+id/add_profile"
             android:layout_width="match_parent"
             android:layout_height="55dp"
+            android:textColorHint="@android:color/darker_gray"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/new_profile_edt_theme"
             android:hint="Add/Search"
