@@ -214,7 +214,6 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="70dp"
                     android:text="@string/profile_note"
-                    android:textColor="@color/black"
                     android:textSize="18dp" />
 
             </LinearLayout>
