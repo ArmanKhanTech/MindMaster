@@ -173,6 +173,9 @@ public class WebService extends AccessibilityService {
 
         if (uri.getQueryParameter("q") != null) {
             keys = Objects.requireNonNull(uri.getQueryParameter("q")).split("\\+");
+            if (keys.length == 0) {
+                return;
+            }
         } else {
             return;
         }
