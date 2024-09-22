@@ -4,11 +4,11 @@ plugins {
 
 android {
     namespace 'com.mindmaster.passcodeview'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         minSdkVersion 29
-        targetSdkVersion 34
+        targetSdkVersion 35
 
         vectorDrawables.useSupportLibrary = true
     }
