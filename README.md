@@ -21,7 +21,7 @@
     <a href="https://github.com/ArmanKhanTech/MindMaster"><strong>Explore the docs »</strong></a>
     <br />
     <a href="https://github.com/ArmanKhanTech/MindMaster/issues">Report a Bug</a>
-    ·
+    · 
     <a href="https://github.com/ArmanKhanTech/MindMaster/issues">Request new Feature</a>
   </p>
 </div>
